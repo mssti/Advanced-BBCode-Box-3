@@ -644,7 +644,9 @@ function make_clickable($text, $server_url = false, $class = 'postlink')
 /**
 * Censoring
 */
-function censor_text($text)
+// MOD : ABBC3 (V1.0.7b) - START
+function censor_text( $text, $abbcode3 = true )	//	function censor_text($text)
+// MOD : ABBC3 (V1.0.7b) - END
 {
 	static $censors;
 	global $cache;
@@ -655,11 +657,14 @@ function censor_text($text)
 		$censors = $cache->obtain_word_list();
 	}
 
-	// MOD : ABBC3 (V1.0.7) - START
-	$abbcode3 = new abbcode3();
-	$abbcode3->abbcode3_init();
-	$text = $abbcode3->process_abbc3($text);
-	// MOD : ABBC3 (V1.0.7) - END
+	// MOD : ABBC3 (V1.0.7b) - START
+	if ( $abbcode3 )
+	{
+		$abbcode3 = new abbcode3();
+		$abbcode3->abbcode3_init();
+		$text = $abbcode3->process_abbc3($text);
+	}
+	// MOD : ABBC3 (V1.0.7b) - END
 
 	if (sizeof($censors))
 	{

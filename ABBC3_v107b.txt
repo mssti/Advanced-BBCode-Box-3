@@ -13,15 +13,17 @@
 ##		The MOD is very fast loading, and is a sleek addition to your phpBB bulletin board.
 ##		You must have javascript enabled to use this MOD.
 ##
-## MOD Version: 1.0.7
+## MOD Version: 1.0.7b
 ##
 ## Installation Level: Easy
-## Installation Time: ~15 Minutes
+## Installation Time: ~20 Minutes
 ##
 ## Files To Edit:
 ##	common.php
+##	posting.php
 ##	includes/functions.php
 ##	includes/functions_content.php
+##	includes/ucp/ucp_pm_compose.php
 ##
 ##	styles/prosilver/template/overall_header.html
 ##	styles/prosilver/template/posting_buttons.html
@@ -54,7 +56,7 @@
 ##	 and ask for upgrade the Advanced BBcode Box for phpbb2.x to phpbb3.0.0, 
 ##	 Both say that they will not do the job, and are agree that I do it, 
 ##	 so here I am ;)
-##	
+##
 ##	Phpbb3 posting page use javascript, basically to add tags to the textarea, 
 ##	 when you click on a button javascript insert the code into the post text.
 ##	 ABBC works in the same way, and add more javascript funtions to the wizards...
@@ -179,19 +181,15 @@
 ##	This MOD No need a database install/update.
 ##
 ##-------------------------------------------------------------------
-##	Translation
+##	Translation : See contrib/language folder
 ##	-----------
-##	See contrib/language folder
-##	en [English] updated
-##	es [Spanish] updated
-##	bg [Bulgarian] updated
-##	fr_x_strict [Francais] updated
-##	ge [German] NOT UPDATED YET !
-##	nl [Dutch] NOT UPDATED YET !
-##	pl [Polish] NOT UPDATED YET !
-##	pt_br [Português Brasil] NOT UPDATED YET !
-##	pt-pt [Português Português] NOT UPDATED YET !
-##	tr [Turkish] updated
+##	en [English]
+##	bg [Bulgarian]
+##	es [Spanish]
+##	fr_x_strict [Francais]
+##	he [Hebrew]
+##	nl [Dutch]
+##	tr [Turkish]
 ##
 ##-------------------------------------------------------------------
 ##	Official last version
@@ -203,9 +201,17 @@
 ##	Please visit : http://www.mssti.com/phpbb3/viewtopic.php?f=2&t=1
 ##
 #####################################################################
-## MOD History: see contrib/updates folder	
+## MOD History : see contrib/updates folder
 ##
-##	2008-02-20 - Version 1.0.7
+##	2008-02-21 - Version 1.0.7b
+##	- Fixed the problem when DEBUG is set to true. ( Thanks to muiketi )
+##	- Fixed the problem when Quoting or PM's a message. ( Thanks to Anabella! )
+##	- Fixed mouseover help for phpbb custom bbcodes, in subsilver2 ( Thanks SinDramas )
+##	- Fixed add-on upload.
+##	- Fixed others minor bugs.
+##	- Re-write, updated and added text to all documents ( add-on, how-to-add, ...) and languages files
+##
+##	2008-02-18 - Version 1.0.7
 ##	- New installation method
 ##	- Re-write all code, now ABBC3 is a class.
 ##	- Dinamic display page for posting.
@@ -332,9 +338,27 @@ common.php
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-// MOD : ABBC3 (V1.0.7) - START
+// MOD : ABBC3 (V1.0.7b) - START
 require($phpbb_root_path . 'includes/abbcode.' . $phpEx);
-// MOD : ABBC3 (V1.0.7) - END
+// MOD : ABBC3 (V1.0.7b) - END
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+posting.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	$message_parser->message = '[quote=&quot;' . $post_data['quote_username'] . '&quot;]' . censor_text(trim($message_parser->message), false) . "[/quote]\n";
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+// MOD : ABBC3 (V1.0.7b) - START
+//	$message_parser->message = '[quote=&quot;' . $post_data['quote_username'] . '&quot;]' . censor_text(trim($message_parser->message)) . "[/quote]\n";
+	$message_parser->message = '[quote=&quot;' . $post_data['quote_username'] . '&quot;]' . censor_text(trim($message_parser->message), false) . "[/quote]\n";
+// MOD : ABBC3 (V1.0.7b) - END
 
 #
 #-----[ OPEN ]-------------------------------------------------------
@@ -350,11 +374,11 @@ includes/functions.php
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-	// MOD : ABBC3 (V1.0.7) - START
+	// MOD : ABBC3 (V1.0.7b) - START
 	$abbcode3 = new abbcode3();
 	$abbcode3->abbcode3_init();
 	$abbcode3->display_abbc3();
-	// MOD : ABBC3 (V1.0.7) - END
+	// MOD : ABBC3 (V1.0.7b) - END
 
 #
 #-----[ OPEN ]-------------------------------------------------------
@@ -364,16 +388,49 @@ includes/functions_content.php
 #
 #-----[ FIND ]-------------------------------------------------------
 #
+function censor_text($text)
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+// MOD : ABBC3 (V1.0.7b) - START
+function censor_text( $text, $abbcode3 = true )	//	function censor_text($text)
+// MOD : ABBC3 (V1.0.7b) - END
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
 	if (sizeof($censors))
 #
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-	// MOD : ABBC3 (V1.0.7) - START
-	$abbcode3 = new abbcode3();
-	$abbcode3->abbcode3_init();
-	$text = $abbcode3->process_abbc3($text);
-	// MOD : ABBC3 (V1.0.7) - END
+	// MOD : ABBC3 (V1.0.7b) - START
+	if ( $abbcode3 )
+	{
+		$abbcode3 = new abbcode3();
+		$abbcode3->abbcode3_init();
+		$text = $abbcode3->process_abbc3($text);
+	}
+	// MOD : ABBC3 (V1.0.7b) - END
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/ucp/ucp_pm_compose.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+		$message_parser->message = $message_link . '[quote=&quot;' . $quote_username . '&quot;]' . censor_text(trim($message_parser->message), false) . "[/quote]\n";
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+	// MOD : ABBC3 (V1.0.7b) - START
+	//	$message_parser->message = $message_link . '[quote=&quot;' . $quote_username . '&quot;]' . censor_text(trim($message_parser->message)) . "[/quote]\n";
+		$message_parser->message = $message_link . '[quote=&quot;' . $quote_username . '&quot;]' . censor_text(trim($message_parser->message), false) . "[/quote]\n";
+	// MOD : ABBC3 (V1.0.7b) - END
 
 #
 #-----[ OPEN ]-------------------------------------------------------
@@ -391,7 +448,7 @@ styles/prosilver/template/overall_header.html
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
 
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
+<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 <script type="text/javascript" src="{T_IMAGESET_PATH}/bbcode_box/bbcode_box.js" charset="{S_CONTENT_ENCODING}"></script>
 <!-- IF S_ABBC3_LITEBOX -->
 <script type="text/javascript" src="{T_IMAGESET_PATH}/bbcode_box/lightbox/prototype.lite.js"></script>
@@ -410,7 +467,7 @@ styles/prosilver/template/overall_header.html
 @import "{T_IMAGESET_PATH}/bbcode_box/stylesheet.css";
 @import "{T_IMAGESET_PATH}/bbcode_box/lightbox/lightbox.css";
 </style>
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
+<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[ OPEN ]-------------------------------------------------------
@@ -427,11 +484,11 @@ styles/prosilver/template/posting_buttons.html
 #-----[ AFTER, ADD ]-------------------------------------------------
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find.
 #
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
+<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 <!-- IF S_ABBC3_MOD -->
 	<!-- INCLUDE posting_abbcodes_buttons.html -->
 <!-- ELSE -->
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
+<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[ FIND ]-------------------------------------------------------
@@ -443,9 +500,9 @@ styles/prosilver/template/posting_buttons.html
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
+<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 <!-- ENDIF -->
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
+<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[ OPEN ]-------------------------------------------------------
@@ -462,7 +519,7 @@ styles/subsilver2/template/overall_header.html
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
+<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 <script type="text/javascript" src="{T_IMAGESET_PATH}/bbcode_box/bbcode_box.js" charset="{S_CONTENT_ENCODING}"></script>
 <!-- IF S_ABBC3_LITEBOX -->
 <script type="text/javascript" src="{T_IMAGESET_PATH}/bbcode_box/lightbox/prototype.lite.js"></script>
@@ -481,7 +538,7 @@ styles/subsilver2/template/overall_header.html
 @import "{T_IMAGESET_PATH}/bbcode_box/stylesheet.css";
 @import "{T_IMAGESET_PATH}/bbcode_box/lightbox/lightbox.css";
 </style>
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
+<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[ OPEN ]-------------------------------------------------------
@@ -498,11 +555,11 @@ styles/subsilver2/template/posting_buttons.html
 #-----[ AFTER, ADD ]-------------------------------------------------
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find.
 #
-	<!-- // MOD : ABBC3 (V1.0.7) - START -->
+	<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 	<!-- IF S_ABBC3_MOD -->
 		<!-- INCLUDE posting_abbcodes_buttons.html -->
 	<!-- ELSE -->
-	<!-- // MOD : ABBC3 (V1.0.7) - END -->
+	<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[ FIND ]-------------------------------------------------------
@@ -515,9 +572,9 @@ styles/subsilver2/template/posting_buttons.html
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-	<!-- // MOD : ABBC3 (V1.0.7) - START -->
+	<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 	<!-- ENDIF -->
-	<!-- // MOD : ABBC3 (V1.0.7) - END -->
+	<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[ FIND ]-------------------------------------------------------
@@ -528,7 +585,7 @@ styles/subsilver2/template/posting_buttons.html
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
+<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 <!-- IF !S_ABBC3_MOD -->
 
 #
@@ -544,7 +601,7 @@ styles/subsilver2/template/posting_buttons.html
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find.
 #
 <!-- ENDIF -->
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
+<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[ OPEN ]-------------------------------------------------------
@@ -561,7 +618,7 @@ styles/subsilver2/template/posting_body.html
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-		<!-- // MOD : ABBC3 (V1.0.7) - START -->
+		<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 		<!-- IF S_ABBC3_MOD -->
 			<td valign="top" colspan="2"><textarea name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 99%;">{MESSAGE}</textarea></td>		
 		<!-- ELSE -->
@@ -578,7 +635,7 @@ styles/subsilver2/template/posting_body.html
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find.
 #
 		<!-- ENDIF -->
-		<!-- // MOD : ABBC3 (V1.0.7) - END -->
+		<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[ OPEN ]-------------------------------------------------------
@@ -595,7 +652,7 @@ styles/subsilver2/template/ucp_profile_signature.html
 #-----[ BEFORE, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
-		<!-- // MOD : ABBC3 (V1.0.7) - START -->
+		<!-- // MOD : ABBC3 (V1.0.7b) - START -->
 		<!-- IF S_ABBC3_MOD -->
 			<td colspan="2"><textarea class="post" name="signature" rows="10" cols="76" style="width: 99%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></td>
 		</tr>
@@ -617,7 +674,7 @@ styles/subsilver2/template/ucp_profile_signature.html
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find.
 #
 		<!-- ENDIF -->
-		<!-- // MOD : ABBC3 (V1.0.7) - END -->
+		<!-- // MOD : ABBC3 (V1.0.7b) - END -->
 
 #
 #-----[DIY]----------------------------------------------------------

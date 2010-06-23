@@ -3,12 +3,12 @@
 *
 * abbcode [Bulgarian]
 * @package language
-* @version $Id: abbcode.php, v 1.0.7 2008/02/20 18:05:07 leviatan21 Exp $
-* @English version $Id: $ phpBB 3.0.0 - 1.0.7
+* @version $Id: abbcode.php, v 1.0.7b 2008/02/21 02:05:07 leviatan21 Exp $
+* @English version $Id: $ phpBB 3.0.0 - 1.0.7b
 * @copyright leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @translator: alfa - http://www.boinc-bulgaria.net
-* 
+* @translator: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
 */
 
 /**
@@ -88,7 +88,6 @@ $lang = array_merge($lang, array(
 	'ABBC3_HELP_VIEW'			=> 'Нашият формат за показване',
 	'ABBC3_HELP_ABOUT'			=> 'Advanced BBCode Box 3 от <a href="http://www.mssti.com/phpbb3">mssti</a>',
 
-
 	// Dropdown titles options
 	'ABBC3_FONTTYPE_MOVER'		=> 'Вид шрифт',
 	'ABBC3_FONTTYPE_TIP'		=> ' [font=Comic Sans MS]текст[/font]',
@@ -105,7 +104,7 @@ $lang = array_merge($lang, array(
 	'ABBC3_FONTSIZE_VIEW'		=> '<span style="font-size: 150%; line-height: 116%;">Това е примерен текстt</span>',
 
 	'ABBC3_FONTHILI_MOVER'		=> 'Маркиран текст',
-	'ABBC3_FONTHILI_TIP'		=> ' [highlight=yellow]текст[/highlight] Бележка: можете да използвате html цветове color=#FF0000 или color=red',
+	'ABBC3_FONTHILI_TIP'		=> ' [highlight=yellow]текст[/highlight] Бележка: можете да използвате html цветове color=#FF0000 или color=red)',
 	'ABBC3_FONTHILI_VIEW'		=> '<span style="background-color: yellow;">Това е примерен текст</span>',
 
 	// Text to be applied to the helpline & mouseover & help page
@@ -274,17 +273,9 @@ $lang = array_merge($lang, array(
 	'ABBC3_HR_VIEW'				=> '<hr noshade color="#000000" size="1px">',
 
 	'ABBC3_CUT_MOVER'			=> 'Премахва избрания текст',
-	'ABBC3_CUT_TIP'				=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
 	'ABBC3_COPY_MOVER'			=> 'Копира избрания текст',
-	'ABBC3_COPY_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
 	'ABBC3_PASTE_MOVER'			=> 'Залепва избрания текст',
-	'ABBC3_PASTE_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
 	'ABBC3_PLAIN_MOVER'			=> 'Премахва BBкодовете от избрания текст',
-	'ABBC3_PLAIN_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
 	'ABBC3_PASTE_ERROR'			=> 'Моля, пъвро копирайте текст, после го залепете ',
 	'ABBC3_NOSELECT_ERROR'		=> 'Моля, първо изберете текст ',
 
@@ -351,10 +342,12 @@ $lang = array_merge($lang, array(
 
 	'ABBC3_TABLE_STYLE'			=> 'Въведете стил на таблица',
 	'ABBC3_TABLE_NOTE'			=> 'Пример: width:50%;border:1px solid #cccccc;',
+	
 	'ABBC3_ROW_NUMBER'			=> 'Въведете брой на редици',
 	'ABBC3_ROW_ERROR'			=> 'Не въведохте брой за редиците',
 	'ABBC3_ROW_STYLE'			=> 'Въведете стил за редиците',
 	'ABBC3_ROW_NOTE'			=> 'Пример: text-align:center;',
+	
 	'ABBC3_CELL_NUMBER'			=> 'Въведете брой на колонките',
 	'ABBC3_CELL_ERROR'			=> 'Не въведохте брой на колонките',
 	'ABBC3_CELL_STYLE'			=> 'Въведете стил на колонките',
@@ -376,18 +369,21 @@ $lang = array_merge($lang, array(
 	// MOD : add-on hide bbcode - END
 
 	// MOD : add-on Dailymotion bbcode - START
+	// [dm]Dailymotion ID[/dm] Code..
 	'ABBC3_DMOTION_MOVER'		=> 'Въведи видео от dailymotion', // от http://www.dailymotion.com/
 	'ABBC3_DMOTION_TIP'			=> ' [dm]Dailymotion ID[/dm]',
 	'ABBC3_DMOTION_VIEW'		=> '<object width="200" height="100"><param name="movie" value="http://www.dailymotion.com/swf/x3hm7o" /><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="never" /><embed src="http://www.dailymotion.com/swf/x3hm7o" type="application/x-shockwave-flash" width="200" height="100" allowFullScreen="true" allowScriptAccess="never"></embed></object>',
 	// MOD : add-on Dailymotion bbcode - END
 
 	// MOD : add-on Moderator bbcode - START
+	// [mod=name]text[/mod] Code..
 	'ABBC3_MODERATOR_MOVER'		=> 'Модераторско съобщение',
 	'ABBC3_MODERATOR_TIP'		=> ' [mod=name]текст[/mod]',
 	'ABBC3_MODERATOR_VIEW'		=> '<table id="ModTable" width="100%" cellspacing="5" cellpadding="0" border="0" align="center"><tr><td class="row1" rowspan="2" align="middle" vAlign="center" width="1%"><span class="exclamation" title="Модераторско предупреждение">&nbsp;!&nbsp;</span></td><td class="row2"><span class="genmed"><b>Име на модератор:</b></span></td></tr><tr><td>Това е примерен текст</td></tr></table>',
 	// MOD : add-on Moderator bbcode - END
 	
 	// MOD : add-on Veoh bbcode - START
+	// [veoh]URL video[/veoh] Code..
 	'ABBC3_VEOH_MOVER'			=> 'Въведи видео от Veoh',
 	'ABBC3_VEOH_TIP'			=> ' [veoh]Видео адрес[/veoh].',
 	'ABBC3_VEOH_TAG'			=> ' Veoh.',
@@ -396,6 +392,7 @@ $lang = array_merge($lang, array(
 	// MOD : add-on Veoh bbcode - END
 	
 	// MOD : add-on offtopic bbcode - START
+	// [offtopic]text[/offtopic] Code..
 	'ABBC3_OFFTOPIC'			=> 'Извън темата',
 	'ABBC3_OFFTOPIC_MOVER'		=> 'Въведете текст извън темата',
 	'ABBC3_OFFTOPIC_TIP'		=> ' [offtopic]текст[/offtopic]',
@@ -405,35 +402,43 @@ $lang = array_merge($lang, array(
 	// MOD : add-on Gamespot bbcode - START
 	// [gamespot] Gamespot video URL [gamespot] Code..
 	'ABBC3_GAMESPOT_MOVER'		=> 'Въведи видео от Gamespot',
-	'ABBC3_GAMESPOT_TIP'		=> ' [gamespot]Gamespot видео адрес [gamespot] Пример : http://www.gamespot.com/video/944074/6185798/tom-clancys-rainbow-six-vegas-2-official-trailer-3',
+	'ABBC3_GAMESPOT_TIP'		=> ' [gamespot]Gamespot видео адрес [gamespot]',
+	'ABBC3_GAMESPOT_NOTE'		=> ' Пример : http://www.gamespot.com/video/944074/6185798/tom-clancys-rainbow-six-vegas-2-official-trailer-3',
 	'ABBC3_GAMESPOT_VIEW'		=> '<embed id="mymovie" width="200" height="100" flashvars="paramsURI=http%3A%2F%2Fwww%2Egamespot%2Ecom%2Fpages%2Fvideo%5Fplayer%2Fproteus%5Fxml%2Ephp%3Fadseg%3D%26adgrp%3D%26sid%3D6185798%26pid%3D944074%26mb%3D%26onid%3D%26nc%3D1202626246593%26embedded%3D1%26showWatermark%3D0%26autoPlay%3D0" allowfullscreen="true" allowscriptaccess="never" quality="high" name="mymovie" src="http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/gs/proteus_embed.swf" type="application/x-shockwave-flash"/>',
 	// MOD : add-on Gamespot bbcode - END
 
-	// MOD : add-on Gamespot bbcode - START
+	// MOD : add-on Gametrailers bbcode - START
+	// [gametrailers] Gametrailers video URL [gametrailers] Code..
 	'ABBC3_GAMETRAILERS_MOVER'	=> 'Въведи видео от Gametrailers',
-	'ABBC3_GAMETRAILERS_TIP'	=> ' [gametrailers]Gametrailers видео адрес[/gametrailers] Пример : http://www.gametrailers.com/player/30461.html',
+	'ABBC3_GAMETRAILERS_TIP'	=> ' [gametrailers]Gametrailers видео адрес[/gametrailers]',
+	'ABBC3_GAMETRAILERS_NOTE'	=> ' Пример : http://www.gametrailers.com/player/30461.html',
 	'ABBC3_GAMETRAILERS_VIEW'	=> '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="gtembed" width="200" height="100"><param name="allowScriptAccess" value="never" /><param name="allowFullScreen" value="true" /><param name="movie" value="http://www.gametrailers.com/remote_wrap.php?mid=30461" /><param name="quality" value="high" /><embed src="http://www.gametrailers.com/remote_wrap.php?mid=30461" swLiveConnect="true" name="gtembed" align="middle" allowScriptAccess="never" allowFullScreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="200" height="100"></embed></object>',
-	// MOD : add-on Gamespot bbcode - END
+	// MOD : add-on Gametrailers bbcode - END
 
 	// MOD : add-on IGN video bbcode - START
+	// [ignvideo] ING video URL [ignvideo] Code..
 	'ABBC3_IGNVIDEO_MOVER'		=> 'Въведи видео от IGN',
-	'ABBC3_IGNVIDEO_TIP'		=> ' [ignvideo]IGN видео адрес[/ignvideo] Пример: object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv',
+	'ABBC3_IGNVIDEO_TIP'		=> ' [ignvideo]IGN видео адрес[/ignvideo]',
+	'ABBC3_IGNVIDEO_NOTE'		=> ' Пример: object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv',
 	'ABBC3_IGNVIDEO_VIEW'		=> 	'<embed src="http://videomedia.ign.com/ev/ev.swf" flashvars="object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv" type="application/x-shockwave-flash" width="200" height="100" ></embed>',
 	// MOD : add-on IGN video bbcode - END
 
-
 	// MOD : add-on liveleak bbcode - START
+	// [liveleak] Liveleak video URL [liveleak] Code..
 	'ABBC3_LIVELEAK_MOVER'		=> 'Въведи видео от Liveleak',
-	'ABBC3_LIVELEAK_TIP'		=> ' [liveleak]Liveleak видео адрес[/liveleak] Пример: http://www.liveleak.com/view?i=413_1202590393',
+	'ABBC3_LIVELEAK_TIP'		=> ' [liveleak]Liveleak видео адрес[/liveleak]',
+	'ABBC3_LIVELEAK_NOTE'		=> ' Пример: http://www.liveleak.com/view?i=413_1202590393',
 	'ABBC3_LIVELEAK_VIEW'		=> '<object type="application/x-shockwave-flash" width="200" height="100" wmode="transparent" data="http://www.liveleak.com/player.swf?autostart=false&token=i=413_1202590393"><param name="movie" value="http://www.liveleak.com/player.swf?autostart=false&token=$1" /><param name="wmode" value="transparent" /><param name="quality" value="high" /></object>',
 	// MOD : add-on liveleak bbcode - End
 
 	// MOD : add-on NFO bbcode - START
+	// [nfo]NFO text[/nfo] Code..
 	'ABBC3_NFO_MOVER'			=> 'НЛО текст (Вижда се по-добре на Internet Explorer)',
 	'ABBC3_NFO_TIP'				=> ' [nfo]НЛО текст[/nfo]',
 	'ABBC3_NFO_VIEW'			=> '<table cellspacing="0" cellpadding="0" border="0" ><tr><td><span class="genmed"><b>NFO:</b></span></td></tr><tr><td class="nfo">' . str_replace(" ", "&nbsp;", '    І ЫЫЫЫ ЫЫ±±°                                  °°°±±±±ІІІЫЫЫЫЫЫЫЫЫЫЫ  Ы   ЫЫ ЫЫЫ') . '</td></tr></table>',
 	// MOD : add-on NFO bbcode - End
 
+	// MOD : add-on glow bbcode - START
 	// [glow=color]Text[/glow] Code..
 	'ABBC3_GLOW_MOVER'			=> 'Текст с блясък (Само за Internet Explorer)',
 	'ABBC3_GLOW_TIP'			=> ' [glow=(color)]текст[/glow]',
@@ -441,49 +446,41 @@ $lang = array_merge($lang, array(
 	// MOD : add-on glow bbcode - END
 
 	// MOD : add-on shadow bbcode - START
+	// [shadow=(color)]text[/shadow] Code..
 	'ABBC3_SHADOW_MOVER'		=> 'Текст със сянка (Само за Internet Explorer)',
 	'ABBC3_SHADOW_TIP'			=> ' [shadow=(color)]текст[/shadow]',
 	'ABBC3_SHADOW_VIEW'			=> '<div style="filter:shadow(color=black,strength=4);color:blue;height:110%">Това е примерен текст</div>',
 	// MOD : add-on shadow bbcode - End
 
 	// MOD : add-on dropshadow bbcode - START
+	// [dropshadow=(color)]text[/dropshadow] Code..
 	'ABBC3_DROPSHADOW_MOVER'	=> 'Сянка (Само за Internet Explorer)',
 	'ABBC3_DROPSHADOW_TIP'		=> ' [dropshadow=(color)]текст[/dropshadow]',
 	'ABBC3_DROPSHADOW_VIEW'		=> '<div style="filter:dropshadow(color=#999999,strength=4);color:blue;height:110%">Това е примерен текст</div>',
 	// MOD : add-on dropshadow bbcode - End
 
 	// MOD : add-on Blur bbcode - START
+	// [blur=(color)]text[/blur] Code..
 	'ABBC3_BLUR_MOVER'			=> 'Blur текст (Само за Internet Explorer)',
 	'ABBC3_BLUR_TIP'			=> ' [blur=(color)]текст[/blur]',
 	'ABBC3_BLUR_VIEW'			=> '<div style="filter:Blur(strength=7);color:blue;height:110%">Това е примерен текст</div>',
 	// MOD : add-on Blur bbcode - End
 
 	// MOD : add-on Wave bbcode - START
+	// [wave=(color)]text[/wave] Code
 	'ABBC3_WAVE_MOVER'			=> 'Текст на вълнички (Само за Internet Explorer)',
 	'ABBC3_WAVE_TIP'			=> ' [wave=(color)]текст[/wave]',
 	'ABBC3_WAVE_VIEW'			=> '<div style="filter:Wave(strength=2);color:blue;height:110%">Това е примерен текст</div>',
 	// MOD : add-on Wave bbcode - End
 
 	// MOD : add-on Search bbcode - START
+	// [search(=(msn|yahoo|google))]text[/search] Code..
 	'ABBC3_SEARCH_MOVER'		=> 'Въведете дума за търсене',
 	'ABBC3_SEARCH_TIP'			=> ' [search(=(msn|yahoo|google))]текст[/search]',
-	'ABBC3_SEARCH_VIEW'			=> $lang['SEARCH_MINI'] . $config['sitename'] . ' :  <a href="search.php?keywords=Advanced BBcode box 3">"Advanced BBcode box 3" </a><br/<br/>' . $lang['SEARCH_MINI'] . 'msn :  <a href="http://search.live.com/results.aspx?q=Advanced BBcode box 3&mkt=tr-TR&lf=1" target="_blank">"Advanced BBcode box 3" </a><br/><br/>' .$lang['SEARCH_MINI'] . 'yahoo :  <a href="http://search.yahoo.com/search?p=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3" </a><br/><br/>' . $lang['SEARCH_MINI'] . 'google : <a href="http://www.google.com.tr/search?q=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3" </a>',
-	// MOD : add-on Search bbcode - End																																	 //[search(=(msn|yahoo|google))?\](.*?)\[\/search\]
+	'ABBC3_SEARCH_VIEW'			=> $lang['SEARCH_MINI'] . $config['sitename'] . ' :  <a href="search.php?keywords=Advanced BBcode box 3">"Advanced BBcode box 3" </a><br/><br/>' . $lang['SEARCH_MINI'] . 'msn :  <a href="http://search.live.com/results.aspx?q=Advanced BBcode box 3&mkt=tr-TR&lf=1" target="_blank">"Advanced BBcode box 3" </a><br/><br/>' .$lang['SEARCH_MINI'] . 'yahoo :  <a href="http://search.yahoo.com/search?p=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3" </a><br/><br/>' . $lang['SEARCH_MINI'] . 'google : <a href="http://www.google.com.tr/search?q=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3" </a>',
+	// MOD : add-on Search bbcode - End
 
-	// MOD : add-on Attach - START
-	'ABBC3_ATTACH_TITLE'			=> 'Advanced BBCode box 3 :: Страница за качване на файлове',
-	'ABBC3_ATTACH_MOVER'			=> 'Качи файл',
-	'ABBC3_ATTACH_LINK'				=> 'Това е адреса на каченият ви файл',
-	'ABBC3_ATTACH_UPLOADED'			=> 'Прикачено %s успешно!',
-	'ABBC3_ATTACH_NOT_UPLOADED'		=> 'Файла %s неможе да бъде качен.',
-//	'ABBC3_ATTACH_ALREADY'			=> 'Файла %s вече същестува, моля изберете друго име за файла.',
-	'ABBC3_ATTACH_ERROR'			=> 'Неможе да се качи файла на %s. Върнат код за грешка : %d',
-	'ABBC3_ATTACH_EXTENSION'		=> 'Позволени разширения',
-	'ABBC3_ATTACH_DISABLED'			=> 'Разширението на файла %s е забранено.',
-	'ABBC3_ATTACH_SIZE'				=> 'Размера на файла %d е прекалено голям. Максималния размер за качване е %d MB.',
-	'ABBC3_ATTACH_EMPTY'			=> 'Файла за качване е празен, Моля първо изберете файл',
-	// MOD : add-on Attach - END
-	
+
 ));
 
 ?>

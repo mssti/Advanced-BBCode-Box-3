@@ -3,12 +3,12 @@
 *
 * abbcode [French]
 * @package language
-* @version $Id: abbcode.php, v 1.0.7 2008/01/30 18:05:07 leviatan21 Exp $
-* @English version $Id: $ phpBB 3.0.0 - 1.0.7
+* @version $Id: abbcode.php, v 1.0.7b 2008/01/30 18:05:07 leviatan21 Exp $
+* @French version $Id: $ phpBB 3.0.0 - 1.0.7b
 * @copyright leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @translator: joebart72 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=297204
-*
+* @translator: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
 */
 
 /**
@@ -137,7 +137,8 @@ $lang = array_merge($lang, array(
 	'ABBC3_SUB_VIEW'			=> '<sub>Voici un exemple de texte</sub>',	
 	
 	'ABBC3_BOLD_MOVER'			=> 'Texte en gras',
-	'ABBC3_BOLD_HELP'			=> ' [b]Texte[/b]',
+	'ABBC3_BOLD_TIP'			=> ' [b]Texte[/b]',
+	'ABBC3_BOLD_VIEW'			=> '<strong>Voici un exemple de texte</strong>',
 	
 	'ABBC3_ITALIC_MOVER'		=> 'Texte en italique',
 	'ABBC3_ITALIC_TIP'			=> ' [i]Texte[/i]',
@@ -272,17 +273,9 @@ $lang = array_merge($lang, array(
 	'ABBC3_HR_VIEW'				=> '<hr noshade color="#000000" size="1px">',	
 	
 	'ABBC3_CUT_MOVER'			=> 'Supprimez le texte sélectionné',
-	'ABBC3_CUT_TIP'				=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
 	'ABBC3_COPY_MOVER'			=> 'Copiez le Texte sélectionné',
-	'ABBC3_COPY_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
 	'ABBC3_PASTE_MOVER'			=> 'Collez le Texte sélectionné',
-	'ABBC3_PASTE_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
 	'ABBC3_PLAIN_MOVER'			=> 'Supprimez les balises bbcodes du Texte sélectionné',
-	'ABBC3_PLAIN_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
 	'ABBC3_PASTE_ERROR'			=> 'Veuillez d’abord copier le Texte, puis le coller',
 	'ABBC3_NOSELECT_ERROR'		=> 'Veuillez d’abord sélectionner le Texte',	
 
@@ -349,10 +342,12 @@ $lang = array_merge($lang, array(
 
 	'ABBC3_TABLE_STYLE'			=> 'Entrez les paramètres du tableau',
 	'ABBC3_TABLE_NOTE'			=> 'Exemple: width:50%;border:1px solid #ccccc;',
+	
 	'ABBC3_ROW_NUMBER'			=> 'Entrez le nombre de lignes',
 	'ABBC3_ROW_ERROR'			=> 'Vous n’avez pas spécifié le nombre de lignes',
 	'ABBC3_ROW_STYLE'			=> 'Entrez les paramètres des lignes',
 	'ABBC3_ROW_NOTE'			=> 'Exemple: text-align:center;',
+	
 	'ABBC3_CELL_NUMBER'			=> 'Entrez le nombre de colonnes',
 	'ABBC3_CELL_ERROR'			=> 'Vous n’avez pas spécifié le nombre de colonnes',
 	'ABBC3_CELL_STYLE'			=> 'Entrez les paramètres des colonnes',
@@ -374,18 +369,21 @@ $lang = array_merge($lang, array(
 	// MOD : add-on hide bbcode - END
 
 	// MOD : add-on Dailymotion bbcode - START
+	// [dm]Dailymotion ID[/dm] Code..
 	'ABBC3_DMOTION_MOVER'		=> 'Insérez une vidéo de Dailymotion', // from http://www.dailymotion.com/
 	'ABBC3_DMOTION_TIP'			=> ' [dm]ID Dailymotion ID (après swf/(ID))[/dm]',
 	'ABBC3_DMOTION_VIEW'		=> '<object width="200" height="100"><param name="movie" value="http://www.dailymotion.com/swf/x3hm7o" /><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="never" /><embed src="http://www.dailymotion.com/swf/x3hm7o" type="application/x-shockwave-flash" width="200" height="100" allowFullScreen="true" allowScriptAccess="never"></embed></object>',
 	// MOD : add-on Dailymotion bbcode - END
 
 	// MOD : add-on Moderator bbcode - START
+	// [mod=name]text[/mod] Code..
 	'ABBC3_MODERATOR_MOVER'		=> 'Message Modérateur',
 	'ABBC3_MODERATOR_TIP'		=> ' [mod=name]Texte[/mod]',
 	'ABBC3_MODERATOR_VIEW'		=> '<table id="ModTable" width="100%" cellspacing="5" cellpadding="0" border="0" align="center"><tr><td class="row1" rowspan="2" align="middle" vAlign="center" width="1%"><span class="exclamation" title="Moderator warning">&nbsp;!&nbsp;</span></td><td class="row2"><span class="genmed"><b>Mod Name:</b></span></td></tr><tr><td>Voici un exemple de texte</td></tr></table>',
 	// MOD : add-on Moderator bbcode - END
 	
 	// MOD : add-on Veoh bbcode - START
+	// [veoh]URL video[/veoh] Code..
 	'ABBC3_VEOH_MOVER'			=> 'Insérez une vidéo de Veoh',
 	'ABBC3_VEOH_TIP'			=> ' [veoh]URL vidéo[/veoh].',
 	'ABBC3_VEOH_TAG'			=> ' Veoh.',
@@ -394,6 +392,7 @@ $lang = array_merge($lang, array(
 	// MOD : add-on Veoh bbcode - END
 	
 	// MOD : add-on offtopic bbcode - START
+	// [offtopic]text[/offtopic] Code..
 	'ABBC3_OFFTOPIC'			=> 'Off topic',
 	'ABBC3_OFFTOPIC_MOVER'		=> 'Insérez un texte hors-sujet',
 	'ABBC3_OFFTOPIC_TIP'		=> ' [offtopic]Texte[/offtopic]',
@@ -403,35 +402,43 @@ $lang = array_merge($lang, array(
 	// MOD : add-on Gamespot bbcode - START
 	// [gamespot] Gamespot video URL [gamespot] Code..
 	'ABBC3_GAMESPOT_MOVER'		=> 'Insérez une vidéo de Gamespot',
-	'ABBC3_GAMESPOT_TIP'		=> ' [gamespot]URL vidéo Gamespot[gamespot] Exemple : http://www.gamespot.com/video/944074/6185798/tom-clancys-rainbow-six-vegas-2-official-trailer-3',
+	'ABBC3_GAMESPOT_TIP'		=> ' [gamespot]URL vidéo Gamespot[gamespot]',
+	'ABBC3_GAMESPOT_NOTE'		=> ' Exemple : http://www.gamespot.com/video/944074/6185798/tom-clancys-rainbow-six-vegas-2-official-trailer-3',
 	'ABBC3_GAMESPOT_VIEW'		=> '<embed id="mymovie" width="200" height="100" flashvars="paramsURI=http%3A%2F%2Fwww%2Egamespot%2Ecom%2Fpages%2Fvideo%5Fplayer%2Fproteus%5Fxml%2Ephp%3Fadseg%3D%26adgrp%3D%26sid%3D6185798%26pid%3D944074%26mb%3D%26onid%3D%26nc%3D1202626246593%26embedded%3D1%26showWatermark%3D0%26autoPlay%3D0" allowfullscreen="true" allowscriptaccess="never" quality="high" name="mymovie" src="http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/gs/proteus_embed.swf" type="application/x-shockwave-flash"/>',
 	// MOD : add-on Gamespot bbcode - END
 
-	// MOD : add-on Gamespot bbcode - START
+	// MOD : add-on Gametrailers bbcode - START
+	// [gametrailers] Gametrailers video URL [gametrailers] Code..
 	'ABBC3_GAMETRAILERS_MOVER'	=> 'Insérez une vidéo de Gametrailers',
-	'ABBC3_GAMETRAILERS_TIP'	=> ' [gametrailers]URL vidéo Gametrailers[/gametrailers] Exemple : http://www.gametrailers.com/player/30461.html',
+	'ABBC3_GAMETRAILERS_TIP'	=> ' [gametrailers]URL vidéo Gametrailers[/gametrailers]',
+	'ABBC3_GAMETRAILERS_NOTE'	=> ' Exemple : http://www.gametrailers.com/player/30461.html',
 	'ABBC3_GAMETRAILERS_VIEW'	=> '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="gtembed" width="200" height="100"><param name="allowScriptAccess" value="never" /><param name="allowFullScreen" value="true" /><param name="movie" value="http://www.gametrailers.com/remote_wrap.php?mid=30461" /><param name="quality" value="high" /><embed src="http://www.gametrailers.com/remote_wrap.php?mid=30461" swLiveConnect="true" name="gtembed" align="middle" allowScriptAccess="never" allowFullScreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="200" height="100"></embed></object>',
-	// MOD : add-on Gamespot bbcode - END
+	// MOD : add-on Gametrailers bbcode - END
 
 	// MOD : add-on IGN video bbcode - START
+	// [ignvideo] ING video URL [ignvideo] Code..
 	'ABBC3_IGNVIDEO_MOVER'		=> 'Insérez une vidéo d’Ign',
-	'ABBC3_IGNVIDEO_TIP'		=> ' [ignvideo]URL vidéo ING[/ignvideo] Exemple : object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv',
-	'ABBC3_IGNVIDEO_VIEW'		=> 	'<embed src="http://videomedia.ign.com/ev/ev.swf" flashvars="object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv" type="application/x-shockwave-flash" width="200" height="100" ></embed>',
+	'ABBC3_IGNVIDEO_TIP'		=> ' [ignvideo]URL vidéo ING[/ignvideo]',
+	'ABBC3_IGNVIDEO_NOTE'		=> ' Exemple : object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv',
+	'ABBC3_IGNVIDEO_VIEW'		=> '<embed src="http://videomedia.ign.com/ev/ev.swf" flashvars="object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv" type="application/x-shockwave-flash" width="200" height="100" ></embed>',
 	// MOD : add-on IGN video bbcode - END
 
-
 	// MOD : add-on liveleak bbcode - START
+	// [liveleak] Liveleak video URL [liveleak] Code..
 	'ABBC3_LIVELEAK_MOVER'		=> 'Insérez une vidéo de Liveleak',
-	'ABBC3_LIVELEAK_TIP'		=> ' [liveleak]URL vidéo Liveleak[/liveleak] Exemple : http://www.liveleak.com/view?i=413_1202590393',
+	'ABBC3_LIVELEAK_TIP'		=> ' [liveleak]URL vidéo Liveleak[/liveleak]',
+	'ABBC3_LIVELEAK_NOTE'		=> ' Exemple : http://www.liveleak.com/view?i=413_1202590393',
 	'ABBC3_LIVELEAK_VIEW'		=> '<object type="application/x-shockwave-flash" width="200" height="100" wmode="transparent" data="http://www.liveleak.com/player.swf?autostart=false&token=i=413_1202590393"><param name="movie" value="http://www.liveleak.com/player.swf?autostart=false&token=$1" /><param name="wmode" value="transparent" /><param name="quality" value="high" /></object>',
 	// MOD : add-on liveleak bbcode - End
 
 	// MOD : add-on NFO bbcode - START
+	// [nfo]NFO text[/nfo] Code..
 	'ABBC3_NFO_MOVER'			=> 'Texte en NFO (Meilleur avec Internet Explorer)',
 	'ABBC3_NFO_TIP'				=> ' [nfo]Texte NFO[/nfo]',
 	'ABBC3_NFO_VIEW'			=> '<table cellspacing="0" cellpadding="0" border="0" ><tr><td><span class="genmed"><b>NFO:</b></span></td></tr><tr><td class="nfo">' . str_replace(" ", "&nbsp;", '    ² ÛÛÛÛ ÛÛ±±°                                  °°°±±±±²²²ÛÛÛÛÛÛÛÛÛÛÛ  Û   ÛÛ ÛÛÛ') . '</td></tr></table>',
 	// MOD : add-on NFO bbcode - End
 
+	// MOD : add-on glow bbcode - START
 	// [glow=color]Text[/glow] Code..
 	'ABBC3_GLOW_MOVER'			=> 'Texte avec Glow (Seulement avec Internet Explorer)',
 	'ABBC3_GLOW_TIP'			=> ' [glow=(color)]Texte[/glow]',
@@ -439,49 +446,41 @@ $lang = array_merge($lang, array(
 	// MOD : add-on glow bbcode - END
 
 	// MOD : add-on shadow bbcode - START
+	// [shadow=(color)]text[/shadow] Code..
 	'ABBC3_SHADOW_MOVER'		=> 'Texte avec Shadow (Seulement avec Internet Explorer)',
 	'ABBC3_SHADOW_TIP'			=> ' [shadow=(color)]Texte[/shadow]',
 	'ABBC3_SHADOW_VIEW'			=> '<div style="filter:shadow(color=black,strength=4);color:blue;height:110%">Voici un exemple de texte</div>',
 	// MOD : add-on shadow bbcode - End
 
 	// MOD : add-on dropshadow bbcode - START
+	// [dropshadow=(color)]text[/dropshadow] Code..
 	'ABBC3_DROPSHADOW_MOVER'	=> 'Texte avec Dropshadow (Seulement avec Internet Explorer)',
 	'ABBC3_DROPSHADOW_TIP'		=> ' [dropshadow=(color)]Texte[/dropshadow]',
 	'ABBC3_DROPSHADOW_VIEW'		=> '<div style="filter:dropshadow(color=#999999,strength=4);color:blue;height:110%">Voici un exemple de texte</div>',
 	// MOD : add-on dropshadow bbcode - End
 
 	// MOD : add-on Blur bbcode - START
+	// [blur=(color)]text[/blur] Code..
 	'ABBC3_BLUR_MOVER'			=> 'Texte avec Blur (Seulement avec Internet Explorer)',
 	'ABBC3_BLUR_TIP'			=> ' [blur=(color)]Texte[/blur]',
 	'ABBC3_BLUR_VIEW'			=> '<div style="filter:Blur(strength=7);color:blue;height:110%">Voici un exemple de texte</div>',
 	// MOD : add-on Blur bbcode - End
 
 	// MOD : add-on Wave bbcode - START
+	// [wave=(color)]text[/wave] Code
 	'ABBC3_WAVE_MOVER'			=> 'Texte en vague (Seulement avec Internet Explorer)',
 	'ABBC3_WAVE_TIP'			=> ' [wave=(color)]Texte[/wave]',
 	'ABBC3_WAVE_VIEW'			=> '<div style="filter:Wave(strength=2);color:blue;height:110%">Voici un exemple de texte</div>',
 	// MOD : add-on Wave bbcode - End
 
 	// MOD : add-on Search bbcode - START
+	// [search(=(msn|yahoo|google))]text[/search] Code..
 	'ABBC3_SEARCH_MOVER'		=> 'Insérez la recherche de mot',
 	'ABBC3_SEARCH_TIP'			=> ' [search(=(msn|yahoo|google))]Texte[/search]',
-	'ABBC3_SEARCH_VIEW'			=> $lang['SEARCH_MINI'] . $config['sitename'] . ' :  <a href="search.php?keywords=Advanced BBcode box 3">"Advanced BBcode Box 3" </a><br/<br/>' . $lang['SEARCH_MINI'] . 'msn :  <a href="http://search.live.com/results.aspx?q=Advanced BBcode box 3&mkt=tr-TR&lf=1" target="_blank">"Advanced BBcode Box 3" </a><br/><br/>' .$lang['SEARCH_MINI'] . 'yahoo :  <a href="http://search.yahoo.com/search?p=Advanced BBcode box 3" target="_blank">"Advanced BBcode Box 3" </a><br/><br/>' . $lang['SEARCH_MINI'] . 'google : <a href="http://www.google.com.tr/search?q=Advanced BBcode box 3" target="_blank">"Advanced BBcode Box 3" </a>',
-	// MOD : add-on Search bbcode - End																																	 //[search(=(msn|yahoo|google))?\](.*?)\[\/search\]
+	'ABBC3_SEARCH_VIEW'			=> $lang['SEARCH_MINI'] . ' ' . $config['sitename'] . ' : <a href="search.php?keywords=Advanced BBcode box 3">"Advanced BBcode Box 3"</a><br/><br/>' . $lang['SEARCH_MINI'] . ' msn :  <a href="http://search.live.com/results.aspx?q=Advanced BBcode box 3&mkt=tr-TR&lf=1" target="_blank">"Advanced BBcode Box 3"</a><br/><br/>' .$lang['SEARCH_MINI'] . ' yahoo :  <a href="http://search.yahoo.com/search?p=Advanced BBcode box 3" target="_blank">"Advanced BBcode Box 3"</a><br/><br/>' . $lang['SEARCH_MINI'] . ' google : <a href="http://www.google.com.tr/search?q=Advanced BBcode box 3" target="_blank">"Advanced BBcode Box 3"</a>',
+	// MOD : add-on Search bbcode - End
 
-	// MOD : add-on Attach - START
-	'ABBC3_ATTACH_TITLE'			=> 'Advanced BBCode box 3 :: Page d’upload de fichiers',
-	'ABBC3_ATTACH_MOVER'			=> 'Uploadez un fichier',
-	'ABBC3_ATTACH_LINK'				=> 'Il s’agit du lien de votre fichier uploadé',
-	'ABBC3_ATTACH_UPLOADED'			=> 'Attachement %s réussi !',
-	'ABBC3_ATTACH_NOT_UPLOADED'		=> 'L’attachement %s n’a pu être uploadé.',
-//	'ABBC3_ATTACH_ALREADY'			=> 'Attach %s already exist, please choose an alternative or rename your file and try again.',
-	'ABBC3_ATTACH_ERROR'			=> 'L’attachement n’a pu être uploadé vers to %s. Code d’erreur en retour : %d',
-	'ABBC3_ATTACH_EXTENSION'		=> 'Extensions valides',
-	'ABBC3_ATTACH_DISABLED'			=> 'L’extension d’attachement %s n’est pas autorisée.',
-	'ABBC3_ATTACH_SIZE'				=> 'La taille de l’attachement %d est trop grosse. La taille maximale autorisée est de  %d MB.',
-	'ABBC3_ATTACH_EMPTY'			=> 'Le fichier d’attachement est vide. Veuillez d’abord sélectionner un fichier',
-	// MOD : add-on Attach - END
-	
+
 ));
 
 ?>

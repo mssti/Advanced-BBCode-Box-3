@@ -1,0 +1,352 @@
+#####################################################################
+## MOD Title: ABBC3 - bbcode : Click counter 
+##
+## MOD Author: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb2/
+##
+## MOD Description: This mod adds a new BBCode for files hosted on rapidshare, 
+##			checkin if the link/file is available for download.
+##
+## MOD Version: 0.0.2
+##
+## Installation Level: Easy
+## Installation Time: ~5 Minutes
+##
+## Files To Edit:
+##	includes/constants.php
+##	includes/abbcode.php
+##	includes/functions_abbcode.php
+##	language/en/mods/abbcode.php
+##	styles/prosilver/template/posting_abbcodes_buttons.html
+##
+## Included Files:
+##	bbcode_box/images/click.gif
+##	bbcode_box/images/click0.gif
+##	bbcode_box/images/click1.gif
+##	bbcode_box/images/click2.gif
+##	bbcode_box/images/click3.gif
+##
+## License: http://opensource.org/licenses/gpl-license.php GNU General Public License v2 
+#####################################################################
+## For security purposes, please check: http://www.phpbb.com/mods/
+## for the latest version of this MOD. Although MODs are checked
+## before being allowed in the MODs Database there is no guarantee
+## that there are no security problems within the MOD. No support
+## will be given for MODs not found within the MODs Database which
+## can be found at http://www.phpbb.com/mods/
+#####################################################################
+## Author Notes:
+##	Thanks to 008008, this add-on is for you ;)
+##
+#####################################################################
+## MOD History:
+##
+##	2008-02-21 - Version 0.0.2
+##	- Update to ABBC3 v107b
+##
+##	2008-02-19 - Version 0.0.1
+##	- First realize to phpbb3.0.0 (Gold)
+##
+#####################################################################
+## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD
+#####################################################################
+
+#
+#-----[ COPY ]-------------------------------------------------------
+#
+copy bbcode_box/images/click.gif to styles/prosilver/imageset/bbcode_box/images/click.gif
+
+#
+#-----[ SQL ]--------------------------------------------------------
+#
+CREATE TABLE `phpbb_clicks` (
+  `id` mediumint(6) unsigned NOT NULL auto_increment,
+  `url` varchar(255) NOT NULL default '',
+  `clicks` decimal(6,0) unsigned NOT NULL default '0',
+  UNIQUE KEY `id` (`id`),
+  KEY `md5` (`url`)
+) TYPE=MyISAM ;
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/constants.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+// Additional tables
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find. 
+#
+// MOD : add-on Clicks Counter feature - START
+define('CLICKS_TABLE',				$table_prefix . 'clicks');
+// MOD : add-on Clicks Counter feature - END
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/abbcode.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+# NOTE : if this is not your first add-on skip this step.
+#
+			// Display icon division for tags ?
+			'ABBC3_DIVISION11'	=> array( 'id' => 52	,'display' => false	,'image' => 'spacer.gif'	,'found' => ""	,'regexp' => ''),
+
+#
+#-----[ IN-LINE FIND ]-----------------------------------------------
+# NOTE : if this is not your first add-on skip this step.
+#
+false
+
+#
+#-----[ IN-LINE REPLACE, WITH ]--------------------------------------
+#
+true
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			// Special custom BBcodes
+
+#
+#-----[ BEFORE, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find. 
+#
+			// MOD : add-on Clicks Counter feature - START
+			// [click]link[/click] code
+			'ABBC3_CLICKS'		=> array( 'id' => 53	,'display' => true	,'image' => 'click.gif'		,'found' => '#\[click(=(.*))?\](.*)\[/click\]#iUe' ,'regexp' => "\$this->clicks_pass('\$2', '\$3')"),
+			// MOD : add-on Clicks Counter feature - END
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+}
+// End of abbcode3 class
+
+#
+#-----[ BEFORE, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find. 
+#
+	// MOD : add-on Clicks Counter feature - START
+	/**
+	* Conte the number of clicks on a link or image
+	*
+	* @param string		$var1	post text after [click(=(.*))]
+	* @param string		$var2	post text between [click] &[/click]
+	* @return string	link or none
+	**/
+	function clicks_pass ( $var1, $var2 )
+	{
+		global $db, $user, $phpbb_root_path, $phpEx;
+		
+		$url = ( $var1 ) ? $var1 : $var2;
+		
+		if ( !$url || ( $var1 && !$var2 ) )
+		{
+			return '';
+		}
+		
+		$valid = false;
+		
+		$url = str_replace( ' ', '%20', $url );
+		
+		// Checking urls
+		if (preg_match('#^' . get_preg_expression('url') . '$#i', $url) ||
+			preg_match('#^' . get_preg_expression('www_url') . '$#i', $url) ||
+			preg_match('#^' . preg_quote(generate_board_url(), '#') . get_preg_expression('relative_url') . '$#i', $url))
+		{
+			$valid = true;
+			// if there is no scheme, then add http schema
+			if (!preg_match('#^[a-z][a-z\d+\-.]*:/{2}#i', $url))
+			{
+				$url = 'http://' . $url;
+			}
+			// Is this a link to somewhere inside this board? If so then remove the session id from the url
+			if ( strpos($url, generate_board_url()) !== false && strpos($url, 'sid=') !== false )
+			{
+				$url = preg_replace('/(&amp;|\?)sid=[0-9a-f]{32}&amp;/', '\1', $url);
+				$url = preg_replace('/(&amp;|\?)sid=[0-9a-f]{32}$/', '', $url);
+				$url = append_sid($url);
+			}			
+		}
+		
+		// Checking image urls
+		if ( preg_match("#\[img:(.*)\](.*)\[\/img:(.*)\]#si", $url) )
+		{
+			$valid = true;
+		}
+		
+		if ( $valid )
+		{
+			$data = array(
+				
+				'url' => preg_replace('#\[img:(.*)\](.*)\[\/img:(.*)\]#si', '\2', str_replace( array( '&#58;', '&#46;' ), array( ':', '.' ), addslashes( $url ) ) ),
+			);
+			
+			$sql = 'SELECT id, clicks FROM ' . CLICKS_TABLE . ' WHERE ' . $db->sql_build_array( 'SELECT', $data );
+			$result = $db->sql_query($sql);
+			
+			if( $row = $db->sql_fetchrow( $result ) )
+			{
+				$clicks_id = $row['id'];
+				$clicks_val= $row['clicks'];
+			}
+			else
+			{
+				$sql = 'INSERT INTO ' . CLICKS_TABLE . ' ' . $db->sql_build_array( 'INSERT', $data );
+				$db->sql_query($sql);
+				
+				$clicks_id = $db->sql_nextid();
+				$clicks_val= '0';
+			}
+			
+			$redirect = append_sid("{$phpbb_root_path}includes/functions_abbcode.$phpEx", "mode=click&amp;id=$clicks_id");	// Link to ABBC3 simple redirect page
+
+			return '<a href="' . $redirect . '" target="_blank" >' . ( ($var1) ? $var2 : $url ) . '</a> ' . sprintf( ( ( $clicks_val == 1 ) ? $user->lang['ABBC3_CLICKS_TIME'] : $user->lang['ABBC3_CLICKS_TIMES'] ), $clicks_val );
+		}
+
+		return '[click' . ( ($var1) ? '=' . $var1 : '' ) . ']' . $var2 . '[/click]';
+	}
+	// MOD : add-on Clicks Counter feature - END
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/functions_abbcode.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	default:
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+// MOD : add-on Clicks Counter feature - START
+	case 'click':
+		abbcode_click_file();
+		break;
+// MOD : add-on Clicks Counter feature - END
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+?>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+// MOD : add-on Clicks Counter feature - START
+/**
+* ABBC3 simple redirect page
+**/
+function abbcode_click_file()
+{
+	global $db;
+		
+	header( "Cache-Control: no-cache, must-revalidate" );
+	header( "Expires: Sat, 26 Jul 1997 05:00:00 GMT" );
+	
+	// Initial var setup
+	$id	= request_var('id', 0);
+	
+	$id = ( is_numeric($_GET['id'])) ? $_GET['id'] : '';
+	
+	if( !$id )
+	{
+		echo '<strong>ERROR:</strong> Please enter a VALID click ID in URL';
+		exit;
+	}
+	
+	$data_select = array(
+		'id' 	=> $id,
+	);
+	
+	$sql = 'SELECT url, clicks FROM '.CLICKS_TABLE.' WHERE ' . $db->sql_build_array('SELECT', $data_select);
+	$result = $db->sql_query($sql);
+	$row = $db->sql_fetchrow($result);
+	
+	$data_update = array(
+		'clicks' 	=> $row['clicks']+1,
+	);
+	
+	$sql = 'UPDATE '.CLICKS_TABLE.' SET ' . $db->sql_build_array('UPDATE', $data_update) . '
+		WHERE id = ' . $id;
+	$db->sql_query($sql);
+	
+	$row['url'] = ($row['url']) ? stripslashes($row['url']) : 'http://www.google.com/';
+	
+	header( "Status: 301 Moved Permanently", false, 301);
+	header( "Location: " . trim($row['url'] ) );
+	exit;
+}
+// MOD : add-on Clicks Counter feature - END
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to each language you have installed and you may translate it in the correct language
+#
+language/en/mods/abbcode.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+));
+
+?>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+	// MOD : add-on Clicks Counter bbcode - START
+	// [click] Link URL [/click] Code..
+	'ABBC3_CLICKS_MOVER'		=> 'Insert Clicks Counter',
+	'ABBC3_CLICKS_TIP'			=> ' [click]http://...[/click] or [click=http://...]Name Web[/click] or [click][img]http://...[/img][/click]',
+	'ABBC3_CLICKS_VIEW'			=> '<a href="./click.php?id=1" >http://www.phpbb.com</a> ( Clicked 1 time )<br />',
+	'ABBC3_CLICKS_TAG'			=> 'click',
+	'ABBC3_CLICKS_NOTE' 		=> 'Example: http://www.google.com ' . '<br/>' . 'http://www.google.com/intl/en_com/images/logo_plain.png' ,
+	'ABBC3_CLICKS_TIME'			=> '( Clicked %d time )',
+	'ABBC3_CLICKS_TIMES'		=> '( Clicked %d times )',
+	// MOD : add-on Clicks Counter bbcode - END
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
+#
+styles/prosilver/template/posting_abbcodes_buttons.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+		/** Wizard Custom bbcodes **/
+
+#
+#-----[ AFTER, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find. 
+#
+		/** MOD : add-on Clicks Counter feature - START **/
+		case "abbc3_clicks" :
+			var url_params = new Array()
+			url_params[0]=["{L_ABBC3_CLICKS_MOVER}"					, "click="					, "/click", "{L_ABBC3_CLICKS_NOTE}"]			;
+			url_params[1]=["{L_ABBC3_LINK}{L_ABBC3_CLICKS_TAG}"		, "http://"					, "{L_ABBC3_NOLINK}{L_ABBC3_CLICKS_TAG}"]		;
+			url_params[2]=["{L_ABBC3_DESC}{L_ABBC3_CLICKS_TAG}"		, "{L_ABBC3_NAME}"			, "{L_ABBC3_NODESC}{L_ABBC3_CLICKS_TAG}"]		;
+			showPopWin( bbcode, null, generalwizards(url_params), 600, 250, true );
+			break;
+		/** MOD : add-on Clicks Counter feature - END **/
+
+#
+#-----[DIY]----------------------------------------------------------
+#
+After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+#
+# EoM

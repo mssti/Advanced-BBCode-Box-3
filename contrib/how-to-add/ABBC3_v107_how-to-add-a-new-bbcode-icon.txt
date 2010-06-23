@@ -1,11 +1,11 @@
 #####################################################################
-## MOD Title: Advanced BBCode Box 3 ( aka ABBC3 )
+## MOD Title: ABBC3 - how-to-add
 ##
 ## MOD Author: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb2/
 ##
 ## MOD Description: This tutorial is for explain how to add a new icon & bbcode to Advanced BBcode box 3 ( aka ABBC3 )
 ##
-## MOD Version: 1.0.7
+## MOD Version: 1.0.7b
 ##
 ## Installation Level: Hard
 ##
@@ -23,13 +23,15 @@
 ##	In this tutorial I will explain how to add costom bbcodes
 ##	examples are from http://www.phpbb.com/community/viewtopic.php?f=46&t=579376
 ##
-##	Part 1 : easy way bbcode ( or phpbb3 way )
+##	Part 1 : Easy way bbcode ( or phpbb3 way )
 ##			CollegeHumor. Code from : http://www.phpbb.com/community/viewtopic.php?p=3362134#p3362134
-##	Part 2 : easy level bbode
+##	Part 2 : Easy level bbode
 ##			hide : this is already install
-##	Part 3 : medium level bbode
+##	Part 3 : Intermediate level bbode
 ##			CollegeHumor. Code from : http://www.phpbb.com/community/viewtopic.php?p=3362134#p3362134
-##	Part 4 : hard level bbcode
+##	Part 4 : Advanced level bbcode
+##			CollegeHumor. Code from : http://www.phpbb.com/community/viewtopic.php?p=3362134#p3362134
+##	Part 5 : Hard level bbcode
 ##			You can see an example in folder "ABBC3_v107/contrib/add-on/rapidshare/ABBC3_v107_Rapidshare_add-on.txt"
 ##
 #####################################################################
@@ -37,7 +39,7 @@
 #####################################################################
 
 #####################################################################
-## PART 1 : easy way bbcode ( or phpbb3 way )
+## PART 1 : Easy way bbcode ( or phpbb3 way )
 #####################################################################
 ##
 ## Files To Edit: 0
@@ -74,7 +76,7 @@ Ckeck the "Display on posting page"
 Click on submit button
 
 #####################################################################
-## PART 2 : easy level bbode
+## PART 2 : Easy level bbode
 #####################################################################
 ##
 ## Files To Edit:
@@ -99,17 +101,14 @@ includes/abbcode.php
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-		/**
-		* Custom bbcodes : Patterns and replacements for URL processing - Part 1 of 3
-		**/
-		$this->abbcode_custom_ary = array(
-
+				// Other custom BBcodes
+				
 #
 #-----[ AFTER, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find.
 #
 # USAGE : 'ABBC3_HIDE' 			= internal name. I use ABBC3_HIDE as example
-#		  'id' => 0				= (0)	: identifier or position to show the icon.
+#		  'id' => 0				= (0)	: identifier or position to show the icon. Please take care increment +1 last bbcode id.
 #		  'display' => true		= reue 	: if you want to display (and parse) this bbcode. Options: true/false
 #		  'image' => 'hide.gif' = hide.gif : is the image name for the icon, should have one uploaded into root/styles/STYLENAME/imageset/bbcode_box/images/
 #		  'open' => '[hide]'	= [hide] : is the first part of the bbcode tag.
@@ -117,16 +116,18 @@ includes/abbcode.php
 #		  'found' => ""			= "" : at this part of the install this option is empty.
 #		  'regexp' => ''		= '' : at this part of the install this option is empty.
 #
-			// MOD : add-on hide bbcode - START
-			// [hide]text[/hide] Code..
-			'ABBC3_HIDE'		=> array( 'id' => 0		,'display' => true	,'image' => 'hide.gif'		,'open' => '[hide]'			,'close' => '[/hide]'			,'found' => ""													,'regexp' => ''),
-			// MOD : add-on hide bbcode - END
+				// MOD : add-on hide bbcode - START
+				// [hide]text[/hide] Code..
+				'ABBC3_HIDE'		=> array( 'id' => 0		,'display' => true	,'image' => 'hide.gif'		,'open' => '[hide]'			,'close' => '[/hide]'			,'found' => ""													,'regexp' => ''),
+				// MOD : add-on hide bbcode - END
+
 
 #####################################################################
 ## Step: 2 / 2
 #####################################################################
 #
 #-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to each language you have installed and you may translate it in the correct language
 #
 language/en/mods/abbcode.php
 
@@ -144,6 +145,9 @@ language/en/mods/abbcode.php
 #		 'ABBC3_HIDE_TIP'       = is the text to show in the helpline, when the mouse is over the icon, this is the second part.
 #		 'ABBC3_HIDE_VIEW'		= is an example line to show on help page, under 'Advanced BBCode box 3 :: Custom BBCode Help Page' section.
 #
+# TIP:   If you want you can add:
+#		'ABBC3_HIDE_NOTE'		=> '', = Related notes about this bbcode.
+#
 	// MOD : add-on hide bbcode - START
 	// [hide]text[/hide] Code..
 	'ABBC3_HIDE_MOVER'			=> 'Hide message',
@@ -152,15 +156,15 @@ language/en/mods/abbcode.php
 	// MOD : add-on hide bbcode - END
 
 #####################################################################
-## PART 3 : medium level bbode
+## PART 3 : Intermediate level bbode
 #####################################################################
 ##
 ## Files To Edit:
 ##	includes/abbcode.php
 ##	language/en/mods/abbcode.php
-##	styles/prosilver/template/posting_abbcodes_buttons.html	
 ##
-## Included Files: 0
+## Included Files:
+##	bbcode_box/images/collegehumor.gif
 ##
 ## Author Notes:
 ##	Install a new bbcode, show an icon and parse.
@@ -178,17 +182,14 @@ includes/abbcode.php
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-		/**
-		* Custom bbcodes : Patterns and replacements for URL processing - Part 1 of 3
-		**/
-		$this->abbcode_custom_ary = array(
+				// Other custom BBcodes
 
 #
 #-----[ AFTER, ADD ]------------------------------------------------
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find.
 #
 # USAGE : 'ABBC3_COLLEGE' 				= internal name. I use ABBC3_COLLEGE as example
-#		  'id' => 0						= (0)   : identifier or position to show the icon.
+#		  'id' => 0						= (0)   : identifier or position to show the icon. Please take care increment +1 last bbcode id.
 #		  'display' => true				= treue : if you want to display (and parse) this bbcode. Options: true/false
 #		  'image' => 'college.gif' 		= college.gif : is the image name for the icon, should have one uploaded into root/styles/STYLENAME/imageset/bbcode_box/images/
 #		  'open' => '[collegehumor]'	= [collegehumor] : is the first part of the bbcode tag.
@@ -200,7 +201,7 @@ includes/abbcode.php
 #
 			// MOD : add-on collegehumor bbcode - START
 			// [collegehumor]collegehumor video URL[/collegehumor] Code..
-			'ABBC3_COLLEGE'		=> array( 'id' => 17	,'display' => true	,'image' => 'search.gif'	,'open' => '[collegehumor]'		,'close' => '[/collegehumor]'	,'found' => "#\[collegehumor\]http://www.collegehumor.com/video:(.*?)\[/collegehumor\]#si"	,'regexp' => '<object type="application/x-shockwave-flash" data="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" width="480" height="360" ><param name="allowfullscreen" value="true" /><param name="movie" quality="best" value="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" /></object>'),
+			'ABBC3_COLLEGE'		=> array( 'id' => 17	,'display' => true	,'image' => 'collegehumor.gif'	,'open' => '[collegehumor]'		,'close' => '[/collegehumor]'	,'found' => "#\[collegehumor\]http://www.collegehumor.com/video:(.*?)\[/collegehumor\]#si"	,'regexp' => '<object type="application/x-shockwave-flash" data="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" width="480" height="360" ><param name="allowfullscreen" value="true" /><param name="movie" quality="best" value="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" /></object>'),
 			// MOD : add-on collegehumor bbcode - END
 			
 #####################################################################
@@ -208,6 +209,7 @@ includes/abbcode.php
 #####################################################################
 #
 #-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to each language you have installed and you may translate it in the correct language
 #
 language/en/mods/abbcode.php
 
@@ -224,13 +226,129 @@ language/en/mods/abbcode.php
 #		 'ABBC3_COLLEGE_MOVER'	= is the text to show over the icon, when the mouse is over the icon and the first part of the helpline.
 #		 'ABBC3_COLLEGE_TIP'	= is the text to show in the helpline, when the mouse is over the icon, this is the second part.
 #		 'ABBC3_COLLEGE_VIEW'	= is an example line to show on help page, under 'Advanced BBCode box 3 :: Custom BBCode Help Page' section.
+#		 'ABBC3_COLLEGE_NOTE'   = is a text to add for help.
 #
 	// MOD : add-on collegehumor bbcode - START
 	// [collegehumor]collegehumor video URL[/collegehumor] Code..
 	'ABBC3_COLLEGE_MOVER'		=> 'Insert video from collegehumor',
-	'ABBC3_COLLEGE_TIP'			=> ' [collegehumor]collegehumor video URL[/collegehumor] Example : http://www.collegehumor.com/video:1802097',
+	'ABBC3_COLLEGE_TIP'			=> ' [collegehumor]collegehumor video URL[/collegehumor]',
+	'ABBC3_COLLEGE_NOTE' 		=> ' Example : http://www.collegehumor.com/video:1802097',
 	'ABBC3_COLLEGE_VIEW'		=> '<object type="application/x-shockwave-flash" data="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=1802097&fullscreen=1" width="200" height="100" ><param name="allowfullscreen" value="true" /><param name="movie" quality="best" value="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=1802097&fullscreen=1" /></object>',
 	// MOD : add-on collegehumor bbcode - END
+
+#####################################################################
+## PART 4 : Advanced level bbode
+#####################################################################
+##
+## Files To Edit:
+##	includes/abbcode.php
+##	language/en/mods/abbcode.php
+##	styles/prosilver/template/posting_abbcodes_buttons.html	
+##
+## Included Files:
+##	bbcode_box/images/collegehumor.gif
+##
+## Author Notes:
+##	Install a new bbcode, show an icon, parse and wizard.
+##	bbcode : collegehumor. Code from : http://www.phpbb.com/community/viewtopic.php?p=3362134#p3362134
+##
+#####################################################################
+#####################################################################
+## Step: 1 / 2
+#####################################################################
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/abbcode.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+				// Special custom BBcodes
+
+#
+#-----[ AFTER, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+# USAGE : 'ABBC3_COLLEGE' 				= internal name. I use ABBC3_COLLEGE as example
+#		  'id' => 0						= (0)   : identifier or position to show the icon. Please take care increment +1 last bbcode id.
+#		  'display' => true				= true : if you want to display (and parse) this bbcode. Options: true/false
+#		  'image' => 'college.gif' 		= college.gif : is the image name for the icon, should have one uploaded into root/styles/STYLENAME/imageset/bbcode_box/images/
+#		  'open' => '[collegehumor]'	= [collegehumor] : is the first part of the bbcode tag.
+#		  'close' => '[/collegehumor]'	= [/collegehumor] : is the las part of the bbcode tag.
+#		  'found' => "#\[collegehumor\]http://www.collegehumor.com/video:(.*?)\[/collegehumor\]#si"
+#										= "" : is the "BBCode usage", with some changes.
+#		  'regexp' => '<object type="application/x-shockwave-flash" data="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" width="480" height="360" ><param name="allowfullscreen" value="true" /><param name="movie" quality="best" value="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" /></object>'
+#										= '' : is the "HTML replacement", with some changes.
+#
+			// MOD : add-on collegehumor bbcode - START
+			// [collegehumor]collegehumor video URL[/collegehumor] Code..
+			'ABBC3_COLLEGE'		=> array( 'id' => 17	,'display' => true	,'image' => 'collegehumor.gif'	,'open' => '[collegehumor]'		,'close' => '[/collegehumor]'	,'found' => "#\[collegehumor\]http://www.collegehumor.com/video:(.*?)\[/collegehumor\]#si"	,'regexp' => '<object type="application/x-shockwave-flash" data="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" width="480" height="360" ><param name="allowfullscreen" value="true" /><param name="movie" quality="best" value="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" /></object>'),
+			// MOD : add-on collegehumor bbcode - END
+			
+#####################################################################
+## Step: 2 / 2
+#####################################################################
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to each language you have installed and you may translate it in the correct language
+#
+language/en/mods/abbcode.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	// Custom bbcodes
+
+#
+#-----[ AFTER, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+# USAGE: MUST start allways the internal name + _MOVER or _TIP or _VIEW. I use ABBC3_HIDE as example
+#		 'ABBC3_COLLEGE_MOVER'	= is the text to show over the icon, when the mouse is over the icon and the first part of the helpline.
+#		 'ABBC3_COLLEGE_TAG'	= is the name of the tag.
+#		 'ABBC3_COLLEGE_TIP'	= is the text to show in the helpline, when the mouse is over the icon, this is the second part.
+#		 'ABBC3_COLLEGE_VIEW'	= is an example line to show on help page, under 'Advanced BBCode box 3 :: Custom BBCode Help Page' section.
+#		 'ABBC3_COLLEGE_NOTE'   = is a text to add for help.
+#
+	// MOD : add-on collegehumor bbcode - START
+	// [collegehumor]collegehumor video URL[/collegehumor] Code..
+	'ABBC3_COLLEGE_MOVER'		=> 'Insert video from collegehumor',
+	'ABBC3_COLLEGE_TAG'			=> 'collegehumor',
+	'ABBC3_COLLEGE_TIP'			=> ' [collegehumor]collegehumor video URL[/collegehumor]',
+	'ABBC3_COLLEGE_NOTE' 		=> ' Example : http://www.collegehumor.com/video:1802097',
+	'ABBC3_COLLEGE_VIEW'		=> '<object type="application/x-shockwave-flash" data="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=1802097&fullscreen=1" width="200" height="100" ><param name="allowfullscreen" value="true" /><param name="movie" quality="best" value="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=1802097&fullscreen=1" /></object>',
+	// MOD : add-on collegehumor bbcode - END
+
+#
+#-----[DIY]----------------------------------------------------------
+#
+if you don't want to add a wizard to the posting page, skip this step.
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
+#
+styles/prosilver/template/posting_abbcodes_buttons.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+		/** Wizard Custom bbcodes **/
+
+#
+#-----[ AFTER, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find. 
+#
+		/** MOD : add-on collegehumor bbcode - START **/
+		case "abbc3_college" :
+			var url_params = new Array()
+			url_params[0]=["{L_ABBC3_COLLEGE_MOVER}"				, "collegehumor"			, "/collegehumor", "{L_ABBC3_COLLEGE_NOTE}"]	;
+			url_params[1]=["{L_ABBC3_LINK}{L_ABBC3_COLLEGE_TAG}"	, ""						, "{L_ABBC3_NOLINK}{L_ABBC3_COLLEGE_TAG}"]		;
+			url_params[2]=[""										, ""						, ""]											;
+			showPopWin( bbcode, null, generalwizards(url_params), 600, 220, true );
+			break;
+		/** MOD : add-on collegehumor bbcode - END **/
 
 #
 #-----[DIY]----------------------------------------------------------

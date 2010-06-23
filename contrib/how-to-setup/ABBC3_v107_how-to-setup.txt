@@ -1,11 +1,11 @@
 #####################################################################
-## MOD Title: Advanced BBCode Box 3 ( aka ABBC3 )
+## MOD Title: ABBC3 : How-to-setup
 ##
 ## MOD Author: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb2/
 ##
 ## MOD Description: How to set-up or personalize Advanced BBcode box 3 ( aka ABBC3 )
 ##
-## MOD Version: 1.0.7
+## MOD Version: 1.0.7b
 ##
 ## Installation Level: Easy
 ##
@@ -31,6 +31,7 @@
 ##	Part 7 : Hide a icon but still working the parse part.
 ##	Part 8 : Enable or disable a particular bbcode.
 ##	Part 9 : Change the way to align images.
+##	PART 10 : Add the old center feature
 ##
 #####################################################################
 ## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD
@@ -59,10 +60,12 @@ includes/abbcode.php
 #-----[ FIND ]-------------------------------------------------------
 #
 			'ABBC3_MOD'			=> true,	// Display ABBC3 ?
+
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
 			'ABBC3_MOD'			=> false,	// Display ABBC3 ?
+
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
 #
@@ -95,10 +98,12 @@ includes/abbcode.php
 #-----[ FIND ]-------------------------------------------------------
 #
 			'ABBC3_CUSTOM'		=> false,	// Display custom bbcodes icons ?
+
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
 			'ABBC3_CUSTOM'		=> true,	// Display custom bbcodes icons ?
+
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
 #
@@ -133,10 +138,12 @@ includes/abbcode.php
 #-----[ FIND ]-------------------------------------------------------
 #
 			'ABBC3_LITEBOX'		=> true,	// Display thumbnails with litebox ?
+
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
 			'ABBC3_LITEBOX'		=> false,	// Display thumbnails with litebox ?
+
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
 #
@@ -168,15 +175,18 @@ includes/abbcode.php
 #-----[ FIND ]-------------------------------------------------------
 #
 		$this->abbc3_thumb_width = 100 . 'px';	// Size of thumbnails image
+
 #
 #-----[ IN-LINE FIND ]------------------------------------------
 #
 100
+
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 # NOTE : use your own value. I use 400 as example.
 #
 400
+
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
 #
@@ -209,10 +219,12 @@ includes/abbcode.php
 #-----[ FIND ]-------------------------------------------------------
 #
 			'ABBC3_TAB'			=> true,	// Display icon division for tags ?
+
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
 			'ABBC3_TAB'			=> false,	// Display icon division for tags ?
+
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
 #
@@ -344,15 +356,18 @@ includes/abbcode.php
 # NOTE : I use the stage6 bbcode as example.
 #
 			'ABBC3_STAGE6'		=> array( 'id' => 41	,'display' => true	,'image' => 'stage6.gif'	,'found' => "#\[stage6 width=([0-9]?[0-9]?[0-9]) height=([0-9]?[0-9]?[0-9])\](.*?)\[/stage6\]#si" ,'regexp' => '<object  classid="clsid:67DABFBF-D0AB-41fa-9C46-CC0F21721616" codebase="http://download.divx.com/player/DivXBrowserPlugin.cab" width="$1" height="$2" ><param name="src" value="http://video.stage6.com/$3/.divx" /><param name="autoplay" value="false" /><param name="custommode" value="Stage6" /><param name="showpostplaybackad" value="false" /><embed type="video/divx" src="http://video.stage6.com/$3/.divx" pluginspage="http://go.divx.com/plugin/download/" showpostplaybackad="false" custommode="Stage6" autoplay="false" width="$1" height="$2" /></object><br />'),
+
 #
 #-----[ IN-LINE FIND ]------------------------------------------
 # NOTE : I use the stage6 bbcode as example.
 #
 true
+
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
 false
+
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
 #
@@ -385,17 +400,62 @@ includes/abbcode.php
 #
 		//	'ABBC3_IMG'			=> array( 'id' => 33	,'display' => true	,'image' => 'img.gif'		,'found' => "#\[img(=(left|center|right))?\](.*?)\[\/img\]#sie" ,'regexp' => "\$this->img_pass('\$2', '\$3')"),
 			'ABBC3_IMG'			=> array( 'id' => 33	,'display' => true	,'image' => 'img.gif'		,'found' => "#\[img(=(left|center|right))?\](.*?)\[\/img\]#si"  ,'regexp' => "<div align='$2'><img src='$3' /></div>"),
+
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
 			'ABBC3_IMG'			=> array( 'id' => 33	,'display' => true	,'image' => 'img.gif'		,'found' => "#\[img(=(left|center|right))?\](.*?)\[\/img\]#sie" ,'regexp' => "\$this->img_pass('\$2', '\$3')"),
 		//	'ABBC3_IMG'			=> array( 'id' => 33	,'display' => true	,'image' => 'img.gif'		,'found' => "#\[img(=(left|center|right))?\](.*?)\[\/img\]#si"  ,'regexp' => "<div align='$2'><img src='$3' /></div>"),
+
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
 #
 # EoM
 #####################################################################
 ## PART 9 : Change the way to align images - End
+#####################################################################
+
+#####################################################################
+## PART 10 : Add the old center feature - Start
+#####################################################################
+##
+## Files To Edit:
+##	includes/abbcode.php
+##
+## Author Notes:
+##	In some cases old post have the [center]XXX[/center] bbcode,
+##	if you want to have it working, simple do the next step.
+##
+#####################################################################
+## Step: 1 / 1
+#####################################################################
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/abbcode.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+				'ABBC3_CENTER2'		=> array( 'id' => 8		,'display' => false	,'image' => 'spacer.gif'	,'found' => "#\[center\](.*?)\[/center\]#si"		,'regexp' => "<div style='text-align:center'>$1</div>",),
+
+#
+#-----[ IN-LINE FIND ]------------------------------------------
+# NOTE : I use the stage6 bbcode as example.
+#
+false
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+true
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+#
+# EoM
+#####################################################################
+## PART 10 : Add the old center feature - End
 #####################################################################
 
 #

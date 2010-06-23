@@ -3300,7 +3300,7 @@ function page_header($page_title = '', $display_online_list = true)
 
 	// Which timezone?
 	$tz = ($user->data['user_id'] != ANONYMOUS) ? strval(doubleval($user->data['user_timezone'])) : strval(doubleval($config['board_timezone']));
-	
+
 	// MOD : ABBC3 (V1.0.7) - START
 	$abbcode3 = new abbcode3();
 	$abbcode3->abbcode3_init();

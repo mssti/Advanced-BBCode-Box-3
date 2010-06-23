@@ -3,12 +3,12 @@
 *
 * abbcode [Turkish]
 * @package language
-* @version $Id: abbcode.php, v 1.0.7 2008/02/20 18:05:07 leviatan21 Exp $
+* @version $Id: abbcode.php, v 1.0.7b 2008/02/20 18:05:07 leviatan21 Exp $
 * @Turkish version $Id: $ phpBB 3.0.0 - 1.0.7
 * @copyright leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @translator: muiketi - muiketi@gmail.com
-* 
+* @translator: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
 */
 
 /**
@@ -78,7 +78,7 @@ if (empty($lang) || !is_array($lang))
 ********************************************************************/
 
 $lang = array_merge($lang, array(
-	'BBCODE_STYLES_TIP'			=> 'Kullanım: Stiller kolayca seçili metinlere uygulanır.',
+	'BBCODE_STYLES_TIP'			=> 'Kullanım: Stiller kolayca seçili metinlere uygulanır',
 
 	// Help
 	'ABBC3_HELP_TITLE'			=> 'Advanced BBCode box 3 :: Yardım Sayfası',
@@ -88,7 +88,6 @@ $lang = array_merge($lang, array(
 	'ABBC3_HELP_VIEW'			=> 'Biz gösteriyoruz',
 	'ABBC3_HELP_ABOUT'			=> 'Advanced BBCode Box 3 <a href="http://www.mssti.com/phpbb3">mssti</a>',
 
-
 	// Dropdown titles options
 	'ABBC3_FONTTYPE_MOVER'		=> 'Yazı tipi',
 	'ABBC3_FONTTYPE_TIP'		=> ' [font=Comic Sans MS]metin[/font]',
@@ -97,15 +96,15 @@ $lang = array_merge($lang, array(
 	'ABBC3_FONT_GIANT'			=> 'Devasa',
 
 	'ABBC3_FONTCOLOR_MOVER'		=> 'Yazı rengi',
-	'ABBC3_FONTCOLOR_TIP'		=> ' [color=red]metin[/color] Not: Renk değerini color=#FF0000 veya color=red olarak belirtebilirsiniz.',
+	'ABBC3_FONTCOLOR_TIP'		=> ' [color=red]metin[/color] Not: Renk değerini color=#FF0000 veya (color=red olarak belirtebilirsiniz)',
 	'ABBC3_FONTCOLOR_VIEW'		=> '<span style="color:red">Bu basit bir metindir</span>',
 
 	'ABBC3_FONTSIZE_MOVER'		=> 'Yazı boyutu',
-	'ABBC3_FONTSIZE_TIP'		=> ' [size=150]text large[/size] Not: Değerler yüzde cinsinden alınacaktır.',
+	'ABBC3_FONTSIZE_TIP'		=> ' [size=150]text large[/size] Not: Değerler yüzde cinsinden alınacaktır',
 	'ABBC3_FONTSIZE_VIEW'		=> '<span style="font-size: 150%; line-height: 116%;">Bu basit bir metindir</span>',
 
 	'ABBC3_FONTHILI_MOVER'		=> 'Artalanı renklendirilmiş metin',
-	'ABBC3_FONTHILI_TIP'		=> ' [highlight=yellow]metin[/highlight] Not: Renk değerini color=#FF0000 veya color=red olarak belirtebilirsiniz.',
+	'ABBC3_FONTHILI_TIP'		=> ' [highlight=yellow]metin[/highlight] Not: Renk değerini color=#FF0000 veya (color=red olarak belirtebilirsiniz)',
 	'ABBC3_FONTHILI_VIEW'		=> '<span style="background-color: yellow;">Bu basit bir metindir</span>',
 
 	// Text to be applied to the helpline & mouseover & help page
@@ -262,30 +261,22 @@ $lang = array_merge($lang, array(
 	'ABBC3_YOUTUBE_VIEW'		=> '<object width="200" height="100"><param name="movie" value="http://www.youtube.com/v/TA4hm97m494" /><param name="wmode" value="transparent" /><embed src="http://www.youtube.com/v/TA4hm97m494" type="application/x-shockwave-flash" wmode="transparent" width="200" height="100"></embed></object>',
 
 	'ABBC3_LISTB_MOVER'			=> 'Sırasız liste',
-	'ABBC3_LISTB_TIP'			=> ' [list]metin[/list] Not: [*] kullanarak yeni liste öğesi oluşturabilirsiniz.',
+	'ABBC3_LISTB_TIP'			=> ' [list]metin[/list] Not: [*] kullanarak yeni liste öğesi oluşturabilirsiniz',
 	'ABBC3_LISTB_VIEW'			=> '<ul><li>Liste Öğesi 1</li><li>Liste Öğesi 2</li><li>Liste Öğesi 3</li></ul>',
 
 	'ABBC3_LISTO_MOVER'			=> 'Sıralı liste',
-	'ABBC3_LISTO_TIP'			=> ' [list=1|a]metin[/list] Not: [*] kullanarak yeni liste öğesi oluşturabilirsiniz.',
+	'ABBC3_LISTO_TIP'			=> ' [list=1|a]metin[/list] Not: [*] kullanarak yeni liste öğesi oluşturabilirsiniz',
 	'ABBC3_LISTO_VIEW'			=> '<ol style="list-style-type: lower-alpha"><li>Liste Öğesi 1</li><li>IListe Öğesi 2</li><li>Liste Öğesi 3</li></ol>',
 
 	'ABBC3_HR_MOVER'			=> 'Yatay çizgi',
-	'ABBC3_HR_TIP'				=> ' [hr] Not: Metni ayırmak için yatay bir çizgi oluşturur.',
+	'ABBC3_HR_TIP'				=> ' [hr] Not: Metni ayırmak için yatay bir çizgi oluşturur',
 	'ABBC3_HR_VIEW'				=> '<hr noshade color="#000000" size="1px">',
 
-	'ABBC3_CUT_MOVER'			=> 'Seçili metni sil.',
-	'ABBC3_CUT_TIP'				=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
-	'ABBC3_COPY_MOVER'			=> 'Seçili metni kopyala.',
-	'ABBC3_COPY_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
-	'ABBC3_PASTE_MOVER'			=> 'Kopyalanan metni yapıştır.',
-	'ABBC3_PASTE_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
-	'ABBC3_PLAIN_MOVER'			=> 'Seçili metindeki BBCodeları kaldır.',
-	'ABBC3_PLAIN_TIP'			=> '', // We don't need this. But "phpbb3 @define('DEBUG', true);" yes .
-	
-	'ABBC3_PASTE_ERROR'			=> 'Lütfen önce bir metin seçiniz daha sonra yapıştırınız.',
+	'ABBC3_CUT_MOVER'			=> 'Seçili metni sil',
+	'ABBC3_COPY_MOVER'			=> 'Seçili metni kopyala',
+	'ABBC3_PASTE_MOVER'			=> 'Kopyalanan metni yapıştır',
+	'ABBC3_PLAIN_MOVER'			=> 'Seçili metindeki BBCodeları kaldır',
+	'ABBC3_PASTE_ERROR'			=> 'Lütfen önce bir metin seçiniz daha sonra yapıştırınız',
 	'ABBC3_NOSELECT_ERROR'		=> 'Lütfen önce metni seçiniz ',
 
 	// Wizard texts
@@ -293,17 +284,17 @@ $lang = array_merge($lang, array(
 	'ABBC3_ERROR_TAG'			=> 'Etiket kullanımında beklenmeyen hata : ',
 
 	'ABBC3_ID'					=> 'Tanımlayıcı giriniz :',
-	'ABBC3_NOID'				=> 'Tanımlayıcıyı belirtmediniz.',
+	'ABBC3_NOID'				=> 'Tanımlayıcıyı belirtmediniz',
 	'ABBC3_LINK'				=> 'Linki giriniz ',
 	'ABBC3_DESC'				=> 'Açıklama giriniz ',
 	'ABBC3_NAME'				=> 'Açıklama',
 	'ABBC3_NOLINK'				=> 'Link belirtmediniz. ',
 	'ABBC3_NODESC'				=> 'Herhangi bir açıklama belirtmediniz. ',
 	'ABBC3_WIDTH'				=> 'Genişliği giriniz',
-	'ABBC3_WIDTH_NOTE'			=> 'Not: Yüzde cinsinden değer belirtebilirsiniz.',
+	'ABBC3_WIDTH_NOTE'			=> 'Not: Yüzde cinsinden değer belirtebilirsiniz',
 	'ABBC3_NOWIDTH'				=> 'Genişliği belirtmediniz',
 	'ABBC3_HEIGHT'				=> 'Yüksekliği giriniz',
-	'ABBC3_HEIGHT_NOTE'			=> 'Not: Yüzde cinsinden değer belirtebilirsiniz.',
+	'ABBC3_HEIGHT_NOTE'			=> 'Not: Yüzde cinsinden değer belirtebilirsiniz',
 	'ABBC3_NOHEIGHT'			=> 'Yüksekliği belirtmediniz',
 
 	'ABBC3_ED2K_TAG'			=> 'ed2k',
@@ -351,10 +342,12 @@ $lang = array_merge($lang, array(
 
 	'ABBC3_TABLE_STYLE'			=> 'Tablo stilini giriniz',
 	'ABBC3_TABLE_NOTE'			=> 'Örnek: width:50%;border:1px solid #cccccc;',
+	
 	'ABBC3_ROW_NUMBER'			=> 'Satır sayısı',
 	'ABBC3_ROW_ERROR'			=> 'Satır sayısı belirtmediniz',
 	'ABBC3_ROW_STYLE'			=> 'Satır stili',
 	'ABBC3_ROW_NOTE'			=> 'Örnek: text-align:center;',
+	
 	'ABBC3_CELL_NUMBER'			=> 'Hücre sayısı',
 	'ABBC3_CELL_ERROR'			=> 'Hücre sayısı belirtmediniz',
 	'ABBC3_CELL_STYLE'			=> 'Hücre stili',
@@ -376,26 +369,30 @@ $lang = array_merge($lang, array(
 	// MOD : add-on hide bbcode - END
 
 	// MOD : add-on Dailymotion bbcode - START
+	// [dm]Dailymotion ID[/dm] Code..
 	'ABBC3_DMOTION_MOVER'		=> 'Dailymotion sitesinden video ekle', // from http://www.dailymotion.com/
 	'ABBC3_DMOTION_TIP'			=> ' [dm]Dailymotion ID[/dm]',
 	'ABBC3_DMOTION_VIEW'		=> '<object width="200" height="100"><param name="movie" value="http://www.dailymotion.com/swf/x3hm7o" /><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="never" /><embed src="http://www.dailymotion.com/swf/x3hm7o" type="application/x-shockwave-flash" width="200" height="100" allowFullScreen="true" allowScriptAccess="never"></embed></object>',
 	// MOD : add-on Dailymotion bbcode - END
 
 	// MOD : add-on Moderator bbcode - START
+	// [mod=name]text[/mod] Code..
 	'ABBC3_MODERATOR_MOVER'		=> 'Yetkili mesajı',
 	'ABBC3_MODERATOR_TIP'		=> ' [mod=name]metin[/mod]',
 	'ABBC3_MODERATOR_VIEW'		=> '<table id="ModTable" width="100%" cellspacing="5" cellpadding="0" border="0" align="center"><tr><td class="row1" rowspan="2" align="middle" vAlign="center" width="1%"><span class="exclamation" title="Moderator warning">&nbsp;!&nbsp;</span></td><td class="row2"><span class="genmed"><b>Mod Name:</b></span></td></tr><tr><td>Bu basit bir metindir</td></tr></table>',
 	// MOD : add-on Moderator bbcode - END
 	
 	// MOD : add-on Veoh bbcode - START
+	// [veoh]URL video[/veoh] Code..
 	'ABBC3_VEOH_MOVER'			=> 'Veoh sitesinden video dosyası',
-	'ABBC3_VEOH_TIP'			=> ' [veoh]Video dosyasının adresi[/veoh].',
-	'ABBC3_VEOH_TAG'			=> ' Veoh.',
-	'ABBC3_VEOH_NOTE'			=> 'Örnek: http://www.veoh.com/videos/v1409404EqT5SJjM.',
+	'ABBC3_VEOH_TIP'			=> ' [veoh]Video dosyasının adresi[/veoh]',
+	'ABBC3_VEOH_TAG'			=> ' Veoh',
+	'ABBC3_VEOH_NOTE'			=> 'Örnek: http://www.veoh.com/videos/v1409404EqT5SJjM',
 	'ABBC3_VEOH_VIEW'			=> '<embed src="http://www.veoh.com/videodetails2.swf?permalinkId=v1409404EqT5SJjM&id=anonymous&player=videodetailsembedded&videoAutoPlay=0" allowFullScreen="true" width="200" height="100" bgcolor="#000000" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>',
 	// MOD : add-on Veoh bbcode - END
 	
 	// MOD : add-on offtopic bbcode - START
+	// [offtopic]text[/offtopic] Code..
 	'ABBC3_OFFTOPIC'			=> 'Konudışı',
 	'ABBC3_OFFTOPIC_MOVER'		=> 'Konudışı metnini giriniz',
 	'ABBC3_OFFTOPIC_TIP'		=> ' [offtopic]metin[/offtopic]',
@@ -405,85 +402,85 @@ $lang = array_merge($lang, array(
 	// MOD : add-on Gamespot bbcode - START
 	// [gamespot] Gamespot video URL [gamespot] Code..
 	'ABBC3_GAMESPOT_MOVER'		=> 'Gamespot sitesinden video ekle',
-	'ABBC3_GAMESPOT_TIP'		=> ' [gamespot]Video dosyasının adresi[gamespot] Örnek: http://www.gamespot.com/video/944074/6185798/tom-clancys-rainbow-six-vegas-2-official-trailer-3',
+	'ABBC3_GAMESPOT_TIP'		=> ' [gamespot]Video dosyasının adresi[gamespot]',
+	'ABBC3_GAMESPOT_NOTE'		=> ' Örnek: http://www.gamespot.com/video/944074/6185798/tom-clancys-rainbow-six-vegas-2-official-trailer-3',
 	'ABBC3_GAMESPOT_VIEW'		=> '<embed id="mymovie" width="200" height="100" flashvars="paramsURI=http%3A%2F%2Fwww%2Egamespot%2Ecom%2Fpages%2Fvideo%5Fplayer%2Fproteus%5Fxml%2Ephp%3Fadseg%3D%26adgrp%3D%26sid%3D6185798%26pid%3D944074%26mb%3D%26onid%3D%26nc%3D1202626246593%26embedded%3D1%26showWatermark%3D0%26autoPlay%3D0" allowfullscreen="true" allowscriptaccess="never" quality="high" name="mymovie" src="http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/gs/proteus_embed.swf" type="application/x-shockwave-flash"/>',
 	// MOD : add-on Gamespot bbcode - END
 
-	// MOD : add-on Gamespot bbcode - START
+	// MOD : add-on Gametrailers bbcode - START
+	// [gametrailers] Gametrailers video URL [gametrailers] Code..
 	'ABBC3_GAMETRAILERS_MOVER'	=> 'Gametrailers sitesinden video ekle',
-	'ABBC3_GAMETRAILERS_TIP'	=> ' [gametrailers]Video dosyasının adresi[/gametrailers] Example : http://www.gametrailers.com/player/30461.html',
+	'ABBC3_GAMETRAILERS_TIP'	=> ' [gametrailers]Video dosyasının adresi[/gametrailers]',
+	'ABBC3_GAMETRAILERS_NOTE'	=> ' Example : http://www.gametrailers.com/player/30461.html',
 	'ABBC3_GAMETRAILERS_VIEW'	=> '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="gtembed" width="200" height="100"><param name="allowScriptAccess" value="never" /><param name="allowFullScreen" value="true" /><param name="movie" value="http://www.gametrailers.com/remote_wrap.php?mid=30461" /><param name="quality" value="high" /><embed src="http://www.gametrailers.com/remote_wrap.php?mid=30461" swLiveConnect="true" name="gtembed" align="middle" allowScriptAccess="never" allowFullScreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="200" height="100"></embed></object>',
 	// MOD : add-on Gamespot bbcode - END
 
 	// MOD : add-on IGN video bbcode - START
+	// [ignvideo] ING video URL [ignvideo] Code..
 	'ABBC3_IGNVIDEO_MOVER'		=> 'Ign sitesinden video ekle',
-	'ABBC3_IGNVIDEO_TIP'		=> ' [ignvideo]ING video URL[/ignvideo] Örnek: object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv',
+	'ABBC3_IGNVIDEO_TIP'		=> ' [ignvideo]ING video URL[/ignvideo]',
+	'ABBC3_IGNVIDEO_NOTE'		=> ' Örnek: object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv',
 	'ABBC3_IGNVIDEO_VIEW'		=> 	'<embed src="http://videomedia.ign.com/ev/ev.swf" flashvars="object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv" type="application/x-shockwave-flash" width="200" height="100" ></embed>',
 	// MOD : add-on IGN video bbcode - END
 
-
 	// MOD : add-on liveleak bbcode - START
+	// [liveleak] Liveleak video URL [liveleak] Code..
 	'ABBC3_LIVELEAK_MOVER'		=> 'Liveleak sitesinden video ekle',
-	'ABBC3_LIVELEAK_TIP'		=> ' [liveleak]Video dosyasının adresi[/liveleak] Örnek: http://www.liveleak.com/view?i=413_1202590393',
+	'ABBC3_LIVELEAK_TIP'		=> ' [liveleak]Video dosyasının adresi[/liveleak]',
+	'ABBC3_LIVELEAK_NOTE'		=> ' Örnek: http://www.liveleak.com/view?i=413_1202590393',
 	'ABBC3_LIVELEAK_VIEW'		=> '<object type="application/x-shockwave-flash" width="200" height="100" wmode="transparent" data="http://www.liveleak.com/player.swf?autostart=false&token=i=413_1202590393"><param name="movie" value="http://www.liveleak.com/player.swf?autostart=false&token=$1" /><param name="wmode" value="transparent" /><param name="quality" value="high" /></object>',
 	// MOD : add-on liveleak bbcode - End
 
 	// MOD : add-on NFO bbcode - START
+	// [nfo]NFO text[/nfo] Code..
 	'ABBC3_NFO_MOVER'			=> 'NFO belgesi (Internet Exploler\'da daha iyi)',
 	'ABBC3_NFO_TIP'				=> ' [nfo]NFO belgesi[/nfo]',
 	'ABBC3_NFO_VIEW'			=> '<table cellspacing="0" cellpadding="0" border="0" ><tr><td><span class="genmed"><b>NFO:</b></span></td></tr><tr><td class="nfo">' . str_replace(" ", "&nbsp;", '    � ���� �۱��                                  ���������������������  �   �� ���') . '</td></tr></table>',
 	// MOD : add-on NFO bbcode - End
 
-	// [glow=color]metin[/glow] Code..
+	// MOD : add-on glow bbcode - START
+	// [glow=color]Text[/glow] Code..
 	'ABBC3_GLOW_MOVER'			=> 'Kızarık metin (Sadece Internet Exploler)',
 	'ABBC3_GLOW_TIP'			=> ' [glow=(color)]metin[/glow]',
 	'ABBC3_GLOW_VIEW'			=> '<div style="filter:Glow(color=red,strength=4);color:#ffffff;height:110%">Bu basit bir metindir</div>',
 	// MOD : add-on glow bbcode - END
 
 	// MOD : add-on shadow bbcode - START
+	// [shadow=(color)]text[/shadow] Code..
 	'ABBC3_SHADOW_MOVER'		=> 'Gölgeli metin (Sadece Internet Exploler)',
 	'ABBC3_SHADOW_TIP'			=> ' [shadow=(color)]metin[/shadow]',
 	'ABBC3_SHADOW_VIEW'			=> '<div style="filter:shadow(color=black,strength=4);color:blue;height:110%">Bu basit bir metindir</div>',
 	// MOD : add-on shadow bbcode - End
 
 	// MOD : add-on dropshadow bbcode - START
+	// [dropshadow=(color)]text[/dropshadow] Code..
 	'ABBC3_DROPSHADOW_MOVER'	=> 'Dropshadow metin (Sadece Internet Exploler)',
 	'ABBC3_DROPSHADOW_TIP'		=> ' [dropshadow=(color)]metin[/dropshadow]',
 	'ABBC3_DROPSHADOW_VIEW'		=> '<div style="filter:dropshadow(color=#999999,strength=4);color:blue;height:110%">Bu basit bir metindir</div>',
 	// MOD : add-on dropshadow bbcode - End
 
 	// MOD : add-on Blur bbcode - START
+	// [blur=(color)]text[/blur] Code..
 	'ABBC3_BLUR_MOVER'			=> 'Bulanık metin (Sadece Internet Exploler)',
 	'ABBC3_BLUR_TIP'			=> ' [blur=(color)]metin[/blur]',
 	'ABBC3_BLUR_VIEW'			=> '<div style="filter:Blur(strength=7);color:blue;height:110%">Bu basit bir metindir</div>',
 	// MOD : add-on Blur bbcode - End
 
 	// MOD : add-on Wave bbcode - START
+	// [wave=(color)]text[/wave] Code
 	'ABBC3_WAVE_MOVER'			=> 'Dalgalı metin (Sadece Internet Exploler)',
 	'ABBC3_WAVE_TIP'			=> ' [wave=(color)]metin[/wave]',
 	'ABBC3_WAVE_VIEW'			=> '<div style="filter:Wave(strength=2);color:blue;height:110%">Bu basit bir metindir</div>',
 	// MOD : add-on Wave bbcode - End
 
 	// MOD : add-on Search bbcode - START
+	// [search(=(msn|yahoo|google))]text[/search] Code..
 	'ABBC3_SEARCH_MOVER'		=> 'Aranacak kelimeyi giriniz',
 	'ABBC3_SEARCH_TIP'			=> ' [search(=(msn|yahoo|google))]metin[/search]',
-	'ABBC3_SEARCH_VIEW'			=> $lang['SEARCH_MINI'] . $config['sitename'] . ' :  <a href="search.php?keywords=Advanced BBcode box 3">"Advanced BBcode box 3" </a><br/<br/>' . $lang['SEARCH_MINI'] . 'msn :  <a href="http://search.live.com/results.aspx?q=Advanced BBcode box 3&mkt=tr-TR&lf=1" target="_blank">"Advanced BBcode box 3" </a><br/><br/>' .$lang['SEARCH_MINI'] . 'yahoo :  <a href="http://search.yahoo.com/search?p=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3" </a><br/><br/>' . $lang['SEARCH_MINI'] . 'google : <a href="http://www.google.com.tr/search?q=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3" </a>',
-	// MOD : add-on Search bbcode - End																																	 //[search(=(msn|yahoo|google))?\](.*?)\[\/search\]
+	'ABBC3_SEARCH_VIEW'			=> $lang['SEARCH_MINI'] . ' ' . $config['sitename'] . ' : <a href="search.php?keywords=Advanced BBcode box 3">"Advanced BBcode box 3"</a><br/><br/>' . $lang['SEARCH_MINI'] . ' msn :  <a href="http://search.live.com/results.aspx?q=Advanced BBcode box 3&mkt=tr-TR&lf=1" target="_blank">"Advanced BBcode box 3"</a><br/><br/>' .$lang['SEARCH_MINI'] . ' yahoo :  <a href="http://search.yahoo.com/search?p=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3"</a><br/><br/>' . $lang['SEARCH_MINI'] . ' google : <a href="http://www.google.com.tr/search?q=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3"</a>',
+	// MOD : add-on Search bbcode - End
 
-	// MOD : add-on Attach - START
-	'ABBC3_ATTACH_TITLE'			=> 'Advanced BBCode box 3 :: Dosya Yükleme Sayfası',
-	'ABBC3_ATTACH_MOVER'			=> 'Dosyayı Yükle',
-	'ABBC3_ATTACH_LINK'				=> 'Yükleme yaptığınız dosyanın URL adresi',
-	'ABBC3_ATTACH_UPLOADED'			=> '%s eklentisi başarıyla yüklendi!',
-	'ABBC3_ATTACH_NOT_UPLOADED'		=> '%s eklentisi yüklenemedi.',
-//	'ABBC3_ATTACH_ALREADY'			=> '%s eklentisi zaten mevcut. Lütfen yeniden isimlendirerek deneyiniz.',
-	'ABBC3_ATTACH_ERROR'			=> 'Eklenti %s\'\ye yüklnemedi. Hata kodu : %d',
-	'ABBC3_ATTACH_EXTENSION'		=> 'Uygun uzantılar',
-	'ABBC3_ATTACH_DISABLED'			=> 'Eklentiye ait %s uzantıya izin verilmemektedir.',
-	'ABBC3_ATTACH_SIZE'				=> 'Eklentiye ait %d boyut çokbüyük. İzin verilen eklenti boyutu %d MB.',
-	'ABBC3_ATTACH_EMPTY'			=> 'Eklenen dosya yok. Lütfen bir dosya seçiniz',
-	// MOD : add-on Attach - END
-	
+
 ));
 
 ?>
