@@ -21,59 +21,47 @@
 	font-size:10px;
 }
 
-#abbc3posttable textarea.inputbox {
+#abbc3posttable textarea.inputbox, 
+#abbc3wysiwig textarea.inputbox{
 	width: 100%;
 	height: 300px;
 }
-#abbc3posttable textarea:hover {
+#abbc3posttable textarea:hover, 
+#abbc3wysiwig textarea:hover {
 	border:0;
 }
-
-#abbcode_wizards {
-	font-size:1em;
-}
-#abbcode_wizards #preview {
-	text-align:center;
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	font-size: 2em;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: bold;
-}
-#abbcode_wizards select, #abbcode_wizards input, #abbcode_wizards label {
-	font-size:1em;
-}
-.abbc3_link {
-	float: right;
-	margin:8px 4px 0 0;
-	padding: 0;
-}
-#abbc3posttable {
+#abbc3posttable, 
+#abbc3wysiwig {
 	border: 1px solid #C0C0C0;
 	border-collapse: collapse;
 	vertical-align:top;
 }
-#abbc3posttable select {
+#abbc3posttable select, 
+#abbc3wysiwig select {
 	height:20px;
 	margin:3px 0;
 /*	font-size:0.8em;	*/
 }
-#abbc3posttable option {
+#abbc3posttable option, 
+#abbc3wysiwig option {
 	background-color:#eeeeee;
+	color:black;
 }
-#abbc3posttable option.selected {
+#abbc3posttable option.selected, 
+#abbc3wysiwig option.selected {
 	color:black;
 	font-weight:bold;
 	font-style:italic;
 }
-#abbc3posttable tr, #abbc3posttable td, #abbc3posttable div {
+#abbc3posttable tr, #abbc3posttable td, #abbc3posttable div, 
+#abbc3wysiwig tr, #abbc3wysiwig td, #abbc3wysiwig div {
 	height:26px;
 	margin:0;
 	padding:0 0 0 2px;
 	vertical-align:top;
 }
-#abbc3posttable .btnbbcode3, #abbc3posttable .option.genmed {
+#abbc3posttable .btnbbcode3, #abbc3posttable .option.genmed,
+#abbc3wysiwig .btnbbcode3, #abbc3wysiwig .option.genmed {
 	height:20px;
 	vertical-align:top;
 	margin:3px 0 4px 0;
@@ -82,10 +70,17 @@
 	background-color:transparent !important;
 	padding:1px;
 }
-#abbc3posttable .button2{
+#abbc3posttable .button2, 
+#abbc3wysiwig .button2 {
 	padding:0;
 	margin:0;
 }
+.abbc3_link {
+	float: right;
+	margin:8px 4px 0 0;
+	padding: 0;
+}
+
 .editor_Button:hover {
 	background: #FAFAFA url("images/bg/bg_button.gif");
 }
@@ -104,12 +99,30 @@
 /* DELETE ME 2
 /** MOD : add button over - END **/
 
-#abbc3posttable .dot {
+#abbc3posttable .dot, #abbc3wysiwig .dot {
 	margin:3px 0;
 	padding:0;
 	cursor:default;
 	background-color:transparent !important;
 }
+
+/* wizards */
+#abbcode_wizards {
+	font-size:1em;
+}
+#abbcode_wizards #preview {
+	text-align:center;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	font-size: 2em;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
+#abbcode_wizards select, #abbcode_wizards input, #abbcode_wizards label {
+	font-size:1em;
+}
+
 /** Place the testlink files in a scroll box **/
 dl.testlink {
 	margin: 0 1px;
@@ -182,9 +195,14 @@ table.ncode_imageresizer_warning td.td1 { padding: 2px; }
 
 /** Moderator bbcode - START **/
 #ModTable td.row1 { background-color: #ff6060; }
-#ModTable td.row2 { border-bottom:1px solid #000000; background: #FFFFFF;}
+#ModTable td.row2 { border-bottom:1px solid #000000; background: #FFFFFF; }
 #ModTable .exclamation { font-weight:bold; font-family:"Times New Roman", Verdana; font-size:45px; color:#ffffff; }
 #ModTable { background:#fafafa; border:1px solid #000000; font-family:Verdana, "Trebuchet MS", "Lucida Grande", Helvetica, Arial, sans-serif; font-size:0.85em; font-weight:normal; color:#000000; overflow:hidden; }
 /** Moderator bbcode - END **/
 
 .codetitle, .codecontent{overflow: auto;}
+
+.quotecontent, blockquote div { 
+	overflow: auto;
+	max-height: 200px;
+}

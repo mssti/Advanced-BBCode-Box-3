@@ -11,6 +11,7 @@
 /**
 * @ignore
 */
+
 define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
@@ -23,7 +24,6 @@ $user->setup();
 
 $mode           = request_var('mode', '');
 $abbcode_bbcode = request_var('abbc3', '');
-$atcaret_pos    = request_var('caret', '');
 $form_name	    = request_var('form_name', '');
 $text_name	    = request_var('text_name', '');
 
@@ -31,14 +31,13 @@ $text_name	    = request_var('text_name', '');
 switch ($mode)
 {
 	case 'wizards':
-		
 		switch ($abbcode_bbcode)
 		{
 			case 'abbc3_upload':
-				abbcode_upload_file( $atcaret_pos, $form_name, $text_name );
+				abbcode_upload_file( $form_name, $text_name );
 				break;
 			default:
-				abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name );
+				abbcode_wizards( $abbcode_bbcode, $form_name, $text_name );
 				break;
 		}
 
@@ -109,7 +108,7 @@ function abbcode_show_help()
 * 
 * @return bbcode tag with link
 */
-function abbcode_upload_file( $atcaret_pos, $form_name, $text_name )
+function abbcode_upload_file( $form_name, $text_name )
 {
 	global $template, $user, $phpbb_root_path, $config, $phpEx;
 
@@ -137,7 +136,6 @@ function abbcode_upload_file( $atcaret_pos, $form_name, $text_name )
 	
 	$template->assign_vars(array(
 		'S_UPLOAD'					=> true,
-		'ATCARET_POST'				=> $atcaret_pos,
 		'FORM_NAME'					=> $form_name,
 		'TEXT_NAME'					=> $text_name,
 
@@ -328,7 +326,7 @@ function abbcode_click_file()
 * 
 * @return bbcode tag with link
 */
-function abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name )
+function abbcode_wizards( $abbcode_bbcode, $form_name, $text_name )
 {
 	global $template, $config, $phpbb_root_path, $phpEx, $user, $user_cache, $poster_id, $mode;
 
@@ -360,9 +358,7 @@ function abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name 
 		}
 	}
 
-	$temparray  = @split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
-	$tag = $temparray[sizeof($temparray)-1]; //list( $garbage, $tag ) = @split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
-	
+	list( $garbage, $tag ) = split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
 	$need_description  = array( 'url', 'email', 'click' );
 	$need_width_height = array( 'web', 'flash', 'flv', 'video', 'quicktime', 'ram', 'bbvideo' );
 	
@@ -373,12 +369,11 @@ function abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name 
 		'S_WIZARD_GRAD'		=> ( $abbcode_bbcode == 'abbc3_grad' ) ? true  : false,
 		'S_BBVIDEO_OPTIONS'	=> ( $abbcode_bbcode == 'abbc3_bbvideo' ) ? $video_options : '',
 		
-		'ATCARET_POST'		=> $atcaret_pos,
 		'FORM_NAME'			=> $form_name,
 		'TEXT_NAME'			=> $text_name,
-		'BBCODE'			=> $abbcode_bbcode,
-		'BBNAME'			=> $abbcode_name,
-		'POST_AUTHOR'		=> $user_cache[$poster_id]['username'],
+//		'BBCODE'			=> $abbcode_bbcode,
+//		'BBNAME'			=> $abbcode_name,
+//		'POST_AUTHOR'		=> $user_cache[$poster_id]['username'],
 
 		'ABBC3_OPEN'		=> $tag,
 		'ABBC3_CLOSE'		=> '/' . $tag,
@@ -394,7 +389,8 @@ function abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name 
 	));
 
 	// Output page ...
-	page_header( $abbcode_bbcode );
+	page_header( &$user->lang[$abbcode_name . '_MOVER'] );
+	
 	$template->set_filenames(array(
 		'body' => 'posting_abbcode_wizards.html')
 	);
