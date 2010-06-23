@@ -7,50 +7,60 @@
 
 <table class="tablebg" width="100%" cellspacing="1">
 	<tr>
-		<th><span style="float: right;">{L_ABBC3_HELP_ABOUT}</span><br/>{L_ABBC3_HELP_TITLE}</th>
+		<th <!-- IF S_BBCODE_ROW_COUNT gt '1' -->colspan="2"<!-- ENDIF -->><span style="float: right;">{L_ABBC3_HELP_ABOUT}</span><h2>{L_ABBC3_HELP_TITLE}</h2></th>
+	</tr>
+	<tr>
+		<td class="row2" width="50%">
+		<!-- BEGIN bbc_row -->
+			<!-- IF bbc_row.ABBC3_HELP_WRITE -->
+		<!-- IF bbc_row.S_ROW_COUNT == S_BBCODE_ROW_COUNT -->
+		</td>
+		<td class="row2">
+		<!-- ENDIF -->
+				<span class="gen"><a href="#bbcode{bbc_row.S_ROW_COUNT}">{bbc_row.ABBC3_HELP_DESC}</a></span><br />
+			<!-- ENDIF -->
+		<!-- END bbc_row -->
+		</td>
+	</tr>
+	<tr>
+		<td class="cat" <!-- IF S_BBCODE_ROW_COUNT gt '1' -->colspan="2"<!-- ENDIF -->>&nbsp;</td>
 	</tr>
 </table>
 	
-<br clear="all" />
+<br style="clear: both;" />
 	
 <table class="tablebg" width="100%" cellspacing="1">
 	<!-- BEGIN bbc_row -->
 		<!-- IF bbc_row.ABBC3_HELP_WRITE -->
 			<tr> 
-				<td class="cat" align="center"><p class="gensmall" style="float:left;"><a href="#ABBC3Help">{L_BACK_TO_TOP}</a></p><h4>{L_ABBC3_HELP_DESC} : <strong>{bbc_row.ABBC3_HELP_DESC}</strong></h4></td>
+				<td class="cat" align="center"><p class="gensmall" style="float:left;"><a href="#ABBC3Help" id="bbcode{bbc_row.S_ROW_COUNT}">{L_BACK_TO_TOP}</a></p><h4>{L_ABBC3_HELP_DESC} : <strong>{bbc_row.ABBC3_HELP_DESC}</strong></h4></td>
 			</tr>
 			<tr> 
-				<td class="row2" valign="top">
+				<td class="<!-- IF bbc_row.S_ROW_COUNT is odd -->row1<!-- ELSE -->row2<!-- ENDIF -->" valign="top">
 					<div class="postbody"><b>&#187; {L_ABBC3_HELP_WRITE} :</b></div>
 					<div class="postbody">{bbc_row.ABBC3_HELP_WRITE}</div><!-- IF bbc_row.ABBC3_HELP_NOTE -->{bbc_row.ABBC3_HELP_NOTE}<!-- ENDIF -->
-				</td>
-			</tr>
-			<!-- IF bbc_row.ABBC3_HELP_EXAMPLE -->
-			<tr> 
-				<td class="row2" valign="top">
+					<br /><hr /><br />
+					<!-- IF bbc_row.ABBC3_HELP_EXAMPLE -->
 					<div class="postbody"><b>&#187; {L_ABBC3_EXAMPLE} :</b></div>
 					<div class="postbody">{bbc_row.ABBC3_HELP_EXAMPLE}</div>
-				</td>
-			</tr>
+					<br /><hr /><br />
 			<!-- ENDIF -->
 			<!-- IF bbc_row.ABBC3_HELP_VIEW -->
+					<div class="postbody"><b>&#187; {L_ABBC3_HELP_VIEW} :</b></div>
+					<div class="postbody">{bbc_row.ABBC3_HELP_VIEW}</div>
+			<!-- ENDIF -->
+				</td>
+			</tr>
 			<tr>
 				<td class="spacer" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
 			</tr>
-			<tr>
-				<td class="row1" valign="top">
-					<div class="postbody"><b>&#187; {L_ABBC3_HELP_VIEW} :</b></div>
-					<div class="postbody">{bbc_row.ABBC3_HELP_VIEW}</div>
-				</td>
-			</tr>
-			<!-- ENDIF -->
 		<!-- ENDIF -->
 	<!-- END bbc_row -->
 </table>
 
 </div>
 
-<div id="wrapfooter">
+<div class="wrapfooter">
 	{L_ABBC3_HELP_ABOUT}
 </div>
 <!-- // MOD : MSSTI ABBC3 (v1.0.11) - END -->

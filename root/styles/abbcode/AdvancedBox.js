@@ -1,13 +1,19 @@
 // <![CDATA[
-/** Opera doesn't know URL cursor **/
-if ( ! navigator.userAgent.match(/(^|\W)(Opera)\/(\d+)(\.\d+)?/) ) { document.write( '<style type="text/css" media="all"><!--' + "\n\r" + '.resized-div, .attach_me, .attach_parent, .hoverbox { cursor: url("styles/abbcode/zoomin.cur"), pointer; }'+ "\n\r" + '--></style>'); }
+/** @ignore 
+http://www.gtalbot.org/DHTMLSection/ListAllAttributesAndMethodsOfObjects.html
+**/
 
-/** AdvancedBox JS - Start
+/** Opera doesn't know URL cursor **/
+if ( ! navigator.userAgent.match(/(^|\W)(Opera)\/(\d+)(\.\d+)?/) ) { document.write( '<style type="text/css" media="all"><!--' + "\n\r" + '.resized, .resized-div, .attach_me, .attach_parent, .hoverbox { cursor: url("styles/abbcode/zoomin.cur"), pointer; }'+ "\n\r" + '--></style>'); }
+
+/**************************************************************************************************************************************************************************************************************************
+* AdvancedBox JS - Start
 * This work is open source
 * AdvancedBox for resized images 
 * Paked with : A JavaScript Compressor.  version 3.0 - http://dean.edwards.name/packer/
 **/
-
+if ( ImageResizerMode == 'AdvancedBox' )
+{
 var AdvancedBox = new function( )
 {
 	/** Global Variables **/
@@ -46,7 +52,7 @@ var AdvancedBox = new function( )
 	Start = function( url )
 	{
 		/** At first run, creates the element container **/
-		if ( !$id( 'AB-BackGround' ) ) { Create( ); }
+		if ( !$ID( 'AB-BackGround' ) ) { Create( ); }
 		/** Show the loading image **/
 		ElementShow( 'AB-BackGround' );
 		ElementShow( 'AB-LoadingLink' );
@@ -92,6 +98,14 @@ var AdvancedBox = new function( )
 		var objImageContainer = document.createElement( 'div' );
 			objImageContainer.setAttribute( 'id', 'AB-ImageContainer' );
 			objOuterImageContainer.appendChild(objImageContainer);
+		/** Create the image name container for images less than 300px **/
+		var objResizerSpan = document.createElement( 'span' );
+			objResizerSpan.setAttribute( 'id', 'AB-ImageName2' );
+			objResizerSpan.className = 'resized-txt';
+		/** Create the mane text **/
+		var	objResizerText = document.createTextNode( '' );
+			objResizerSpan.appendChild(objResizerText);
+			objOuterImageContainer.appendChild(objResizerSpan);		
 		/** Create the image here **/
 		var objLightboxImage = document.createElement( 'img' );
 			objLightboxImage.setAttribute( 'id', 'AB-Image' );
@@ -102,11 +116,11 @@ var AdvancedBox = new function( )
 		var objHoverNav = document.createElement( 'div' );
 			objHoverNav.setAttribute( 'id', 'AB-ToolBar' );
 			objOuterImageContainer.appendChild(objHoverNav);
-		/** Create the image name container **/
+		/** Create the image name container for images bigger than 300px **/
 		var objResizerSpan = document.createElement( 'span' );
-			objResizerSpan.setAttribute( 'id', 'AB-ImageName' );
+			objResizerSpan.setAttribute( 'id', 'AB-ImageName1' );
 			objResizerSpan.className = 'resized-txt';
-		/** Vreate the mane text **/
+		/** Create the mane text **/
 		var	objResizerText = document.createTextNode( '' );
 			objResizerSpan.appendChild(objResizerText);
 			objHoverNav.appendChild(objResizerSpan);		
@@ -157,6 +171,8 @@ var AdvancedBox = new function( )
 	/** Adjust sizes **/
 	Prepare = function( newObjImage, CurrentZoomLevel )
 	{
+		/** Hide all images **/
+		ImagesHidden();
 		ElementSetSrc( 'AB-Image', ImageResizerBlankImage );
 		/** Show the loading image **/
 		ElementShow( 'AB-LoadingLink' );
@@ -205,13 +221,13 @@ var AdvancedBox = new function( )
 		if ( ZoomLevel )
 		{
 			/** Maximize the image container, adding scroll bars if necessary **/
-			$id( 'AB-ImageContainer' ).style.overflow = 'auto';
+			$ID( 'AB-ImageContainer' ).style.overflow = 'auto';
 			/** Reset the scroll position **/
-			$id( 'AB-ImageContainer' ).scrollLeft = 0;
-			$id( 'AB-ImageContainer' ).scrollTop = 0;
+			$ID( 'AB-ImageContainer' ).scrollLeft = 0;
+			$ID( 'AB-ImageContainer' ).scrollTop = 0;
 			/** Swap Zoom In for Zoom Out **/
-			$id( 'AB-ZoomLink' ).alt = $id( 'AB-ZoomLink' ).title = ImageResizerZoomOutAlt;
-			$id( 'AB-ZoomLink' ).onclick = function() { Prepare( newObjImage, false ); return false; };
+			$ID( 'AB-ZoomLink' ).alt = $ID( 'AB-ZoomLink' ).title = ImageResizerZoomOutAlt;
+			$ID( 'AB-ZoomLink' ).onclick = function() { Prepare( newObjImage, false ); return false; };
 			/** Image size, zoom in 1:1 **/
 			var objImagedims = { W: newObjImage.width, H: newObjImage.height };
 		}
@@ -220,13 +236,15 @@ var AdvancedBox = new function( )
 			/** The image can be zoom ? **/
 			if ( newObjImage.width < MaxWidth && newObjImage.height < MaxHeight ) { ElementDisabled( 'AB-ZoomLink' ); } else { ElementEnabled( 'AB-ZoomLink' ); }
 			/** Restore image container **/
-			$id( 'AB-ImageContainer' ).style.overflow = '';
+			$ID( 'AB-ImageContainer' ).style.overflow = '';
 			/** Swap Zoom In for Zoom Out **/
-			$id( 'AB-ZoomLink' ).alt = $id( 'AB-ZoomLink' ).title = ImageResizerZoomInAlt.replace(/%1\$s/, newObjImage.width).replace(/%2\$s/, newObjImage.height);
-			$id( 'AB-ZoomLink' ).onclick = function() { Prepare( newObjImage, true ); return false; };
+			$ID( 'AB-ZoomLink' ).alt = $ID( 'AB-ZoomLink' ).title = ImageResizerZoomInAlt.replace(/%1\$s/, newObjImage.width).replace(/%2\$s/, newObjImage.height);
+			$ID( 'AB-ZoomLink' ).onclick = function() { Prepare( newObjImage, true ); return false; };
 			/** Image size **/
 			var objImagedims = scale_dims( newObjImage.width, newObjImage.height, MaxWidth, MaxHeight );
 		}
+		/** Makes visible this image **/
+		ElementVisible( 'AB-Image' );
 		/** Update the image screen **/
 		ElementSetSrc( 'AB-Image', newObjImage.src );
 		/** Resize the image **/
@@ -238,7 +256,14 @@ var AdvancedBox = new function( )
 		Slide_Show( );
 		/** Update the image name **/
 		var ThePictName = newObjImage.src.substring( newObjImage.src.lastIndexOf("\/") + 1);
-		$id( 'AB-ImageName' ).firstChild.nodeValue = ( newObjImage.src.toLowerCase().match(/(^|\s)jpeg|jpg|gif|bmp|png(\s|$id)/) ? unescape(newObjImage.src.substring( newObjImage.src.lastIndexOf("\/") + 1)) : '' );
+		if (objImagedims.W > 300 )
+		{
+			$ID( 'AB-ImageName1' ).firstChild.nodeValue = ( newObjImage.src.toLowerCase().match(/(^|\s)jpeg|jpg|gif|bmp|png|psd(\s|$ID)/) ? unescape(newObjImage.src.substring( newObjImage.src.lastIndexOf("\/") + 1)) : '' );
+		}
+		else
+		{
+			$ID( 'AB-ImageName2' ).firstChild.nodeValue = ( newObjImage.src.toLowerCase().match(/(^|\s)jpeg|jpg|gif|bmp|png|psd(\s|$ID)/) ? unescape(newObjImage.src.substring( newObjImage.src.lastIndexOf("\/") + 1)) : '' );
+		}
 		/** Update the image container width **/
 		ElementSetWidth( 'AB-ToolBar', ElementGetWidth( 'AB-OuterContainer' ) );
 		/** Show the toolbar **/
@@ -250,10 +275,12 @@ var AdvancedBox = new function( )
 	Slide_Show = function( PlayOnOff, PlayNumber )
 	{
 		/** Reset to default values **/
+		$ID( 'AB-ImageName1' ).firstChild.nodeValue = '';
+		$ID( 'AB-ImageName2' ).firstChild.nodeValue = '';
 		ElementDisabled( 'AB-PrevLink' );
 		ElementDisabled( 'AB-NextLink' );
 		/** Get the proper play/pause button **/
-		var BottomNavPlayLink = ( $id( 'AB-PlayLink' ) ? 'AB-PlayLink' :  'AB-PauseLink' );
+		var BottomNavPlayLink = ( $ID( 'AB-PlayLink' ) ? 'AB-PlayLink' :  'AB-PauseLink' );
 		/** Get some values from the the array **/
 		var search = contains( url_clean( newObjImage.src ), SlideShows );
 		/** Do the job **/
@@ -265,9 +292,9 @@ var AdvancedBox = new function( )
 			var prev = SlideShows[pos-1];
 			var next = SlideShows[pos+1];
 			/** IF this isn't the first picture, enable the "Previous button" **/
-			if ( pos-1 >= 0 ) { ElementEnabled( 'AB-PrevLink' ); $id( 'AB-PrevLink' ).onclick = function() { Start( prev ); return false; }; }
+			if ( pos-1 >= 0 ) { ElementEnabled( 'AB-PrevLink' ); $ID( 'AB-PrevLink' ).onclick = function() { Start( prev ); return false; }; }
 			/** IF this isn't the last picture, enable the "Next button" **/
-			if ( pos+1 < last ) { ElementEnabled( 'AB-NextLink' ); $id( 'AB-NextLink' ).onclick = function() { Start( next ); return false; }; }
+			if ( pos+1 < last ) { ElementEnabled( 'AB-NextLink' ); $ID( 'AB-NextLink' ).onclick = function() { Start( next ); return false; }; }
 			/** If there are only 1 picture, disable the play button **/
 			if ( last <= 1 ) { ElementDisabled( BottomNavPlayLink ); }
 			/** Update the text **/
@@ -280,9 +307,9 @@ var AdvancedBox = new function( )
 				/** Update the play/pause buton **/
 				if ( PlayOnOff == 'play' && PlayNumber < last )
 				{
-					$id( BottomNavPlayLink ).setAttribute( 'id', 'AB-PauseLink' );
-					$id( 'AB-PauseLink' ).onclick = function() { Slide_Show( 'pause' ); return false; };				
-					$id( 'AB-PauseLink' ).alt = $id( 'AB-PauseLink' ).title = ImageResizerPauseAlt;
+					$ID( BottomNavPlayLink ).setAttribute( 'id', 'AB-PauseLink' );
+					$ID( 'AB-PauseLink' ).onclick = function() { Slide_Show( 'pause' ); return false; };				
+					$ID( 'AB-PauseLink' ).alt = $ID( 'AB-PauseLink' ).title = ImageResizerPauseAlt;
 					/** Run the SlideShow **/
 					Start( PlayNext );
 					var SlideDuration = ( SlideShowDuration + ( animate ? animateInDuration : 0 ) ) * 1000;
@@ -290,9 +317,9 @@ var AdvancedBox = new function( )
 				}
 				else
 				{
-					$id( BottomNavPlayLink ).setAttribute( 'id', 'AB-PlayLink' );
-					$id( 'AB-PlayLink' ).onclick = function() { Slide_Show( 'play' ); return false; };
-					$id( 'AB-PlayLink' ).alt = $id( 'AB-PlayLink' ).title = ImageResizerPlayAlt;		
+					$ID( BottomNavPlayLink ).setAttribute( 'id', 'AB-PlayLink' );
+					$ID( 'AB-PlayLink' ).onclick = function() { Slide_Show( 'play' ); return false; };
+					$ID( 'AB-PlayLink' ).alt = $ID( 'AB-PlayLink' ).title = ImageResizerPlayAlt;		
 					/** Cancel Slideshow timer **/
 					window.clearTimeout( SlideWait );
 				}
@@ -312,6 +339,8 @@ var AdvancedBox = new function( )
 	/** Reset to default values **/
 	Close = function( e )
 	{
+		/** Restore images visibility **/
+		ImagesVisible()
 		/** Return the body scroll function **/
 		ScrollFreeze.off( );
 		/** Canel Resize event handlers **/
@@ -319,7 +348,7 @@ var AdvancedBox = new function( )
 		/** Cancel Slideshow timer **/
 		window.clearTimeout( SlideWait );
 		/** Reset the play/pause button **/
-		var BottomNavPlayLink = ( $id( 'AB-PlayLink' ) ? 'AB-PlayLink' : 'AB-PauseLink' ); $id( BottomNavPlayLink ).setAttribute( 'id', 'AB-PlayLink' );
+		var BottomNavPlayLink = ( $ID( 'AB-PlayLink' ) ? 'AB-PlayLink' : 'AB-PauseLink' ); $ID( BottomNavPlayLink ).setAttribute( 'id', 'AB-PlayLink' );
 		/** Show some tags **/
 		ElementBoxes( 'visible' );
 		/** Hide the image, background and buttons **/
@@ -330,23 +359,26 @@ var AdvancedBox = new function( )
 	},
 
 /** Common functions - Start **/
-	$id					= function(elementid)	{ return document.getElementById(elementid); },
-	ElementHide			= function(element)		{ $id(element).style.display = 'none'; },
-	ElementShow			= function(element)		{ $id(element).style.display = ''; },
-	ElementVisible		= function(element)		{ $id(element).style.visibility = 'visible'; },
-	ElementInVisible	= function(element)		{ $id(element).style.visibility = 'hidden'; },
-	ElementGetWidth		= function(element)		{ return $id(element).offsetWidth; },
-	ElementSetWidth		= function(element,w)	{ $id(element).style.width = w + 'px'; },
-	ElementGetHeight	= function(element)		{ return $id(element).offsetHeight; },
-	ElementSetHeight	= function(element,h)	{ $id(element).style.height = h + 'px'; },
-	ElementSetTop		= function(element,t)	{ $id(element).style.top = t + 'px'; },
-	ElementSetLeft		= function(element,l)	{ $id(element).style.left = l + 'px'; },
-	ElementSetSrc		= function(element,src) { $id(element).src = src; },
-	ElementOpacity		= function(element, o)	{ if (window.ActiveXObject) { $id(element).style.filter = 'alpha(opacity=' + o + ')'; } else { $id(element).style.opacity = $id(element).style.MozOpacity = $id(element).style.KhtmlOpacity = o/100; } },
-	ElementSetInnerHTML = function(element, c)	{ $id(element).innerHTML = c; },
+	$ID					= function(elementid)	{ return document.getElementById(elementid); },
+	ElementHide			= function(element)		{ $ID(element).style.display = 'none'; },
+	ElementShow			= function(element)		{ $ID(element).style.display = ''; },
+	ElementVisible		= function(element)		{ $ID(element).style.visibility = 'visible'; },
+	ElementInVisible	= function(element)		{ $ID(element).style.visibility = 'hidden'; },
+	ElementGetWidth		= function(element)		{ return $ID(element).offsetWidth; },
+	ElementSetWidth		= function(element,w)	{ $ID(element).style.width = w + 'px'; },
+	ElementGetHeight	= function(element)		{ return $ID(element).offsetHeight; },
+	ElementSetHeight	= function(element,h)	{ $ID(element).style.height = h + 'px'; },
+	ElementSetTop		= function(element,t)	{ $ID(element).style.top = t + 'px'; },
+	ElementSetLeft		= function(element,l)	{ $ID(element).style.left = l + 'px'; },
+	ElementSetSrc		= function(element,src) { $ID(element).src = src; },
+	ElementOpacity		= function(element, o)	{ if (window.ActiveXObject) { $ID(element).style.filter = 'alpha(opacity=' + o + ')'; } else { $ID(element).style.opacity = $ID(element).style.MozOpacity = $ID(element).style.KhtmlOpacity = o/100; } },
+	ElementSetInnerHTML = function(element, c)	{ $ID(element).innerHTML = c; },
 	ElementBoxes		= function(action)		{ if (action != 'visible' ) { action = 'hidden'; } if (IE) { for (var S = 0; S < document.forms.length; S++) { for (var R = 0; R < document.forms[S].length; R++) { if (document.forms[S].elements[R].options) { document.forms[S].elements[R].style.visibility = action; } } } } var theObjects = document.getElementsByTagName( 'object' ); for (var i = 0; i < theObjects.length; i++) { theObjects[i].style.visibility = action; }; },
-	ElementDisabled		= function(element)     { $id(element).className = ( $id(element).className ? $id(element).className+' ' : '') + 'disabled'; ElementOpacity( $id(element).id, ojbOpacity); $id(element).onclick = function() {};},
-	ElementEnabled		= function(element)     { $id(element).className = $id(element).className.replace(/disabled/g, ''); ElementOpacity( $id(element).id, 100); },
+	ElementDisabled		= function(element)     { $ID(element).className = ( $ID(element).className ? $ID(element).className+' ' : '') + 'disabled'; ElementOpacity( $ID(element).id, ojbOpacity); $ID(element).onclick = function() {};},
+	ElementEnabled		= function(element)     { $ID(element).className = $ID(element).className.replace(/disabled/g, ''); ElementOpacity( $ID(element).id, 100); },
+
+	ImagesHidden		= function()			{ var ilist = document.images; for(var l = 0; l < ilist.length; l++) { for (var i = 0; i < SlideShows.length; i++) { /* found the image */ if( url_clean(ilist[l].src) == url_clean(SlideShows[i]) ) { document.images[l].style.visibility = 'hidden' ; } } } },
+	ImagesVisible		= function()			{ var ilist = document.images; for(var l = 0; l < ilist.length; l++) { for (var i = 0; i < SlideShows.length; i++) { /* found the image */ if( url_clean(ilist[l].src) == url_clean(SlideShows[i]) ) { document.images[l].style.visibility = 'visible'; } } } },
 
 	/**
 	* Code From : http://www.huddletogether.com/forum/comments.php?DiscussionID=1798
@@ -356,7 +388,7 @@ var AdvancedBox = new function( )
 	/**
 	* Update the top position and resize both w & h even if is not set a previous value ;)
 	**/
-	BoxScale  = function( boxElement, boxNewWidth, boxNewHeight, callback ) { /** Resize it very sexy like? **/ if ( !animate ) { ElementSetWidth( boxElement, boxNewWidth ); ElementSetHeight( boxElement, boxNewHeight ); ElementSetTop( boxElement, ( ( ( ElementGetHeight( 'AB-Overlay' ) - ElementGetHeight( boxElement ) ) / 2 ) + ElementGetHeight( 'AB-ToolBar' ) ) ); } var boxObject = $id( boxElement ); var boxWidth = parseInt( parseFloat( 0 + boxObject.style.width ) ); var boxNewWidth = parseInt( parseFloat( 0 + boxNewWidth ) ); var boxHeight = parseInt( parseFloat( 0 + boxObject.style.height ) ); var boxNewHeight = parseInt( parseFloat( 0 + boxNewHeight ) ); /* if ( boxWidth === boxNewWidth && boxHeight === boxNewHeight) { // run me anyway, to prevent image flicker. } */ DoChangeW( boxObject, boxWidth, boxNewWidth, boxHeight, boxNewHeight, BoxScaleSteps, 100, 0.333, callback ); },
+	BoxScale  = function( boxElement, boxNewWidth, boxNewHeight, callback ) { /** Resize it very sexy like? **/ if ( !animate ) { ElementSetWidth( boxElement, boxNewWidth ); ElementSetHeight( boxElement, boxNewHeight ); ElementSetTop( boxElement, ( ( ( ElementGetHeight( 'AB-Overlay' ) - ElementGetHeight( boxElement ) ) / 2 ) + ElementGetHeight( 'AB-ToolBar' ) ) ); } var boxObject = $ID( boxElement ); var boxWidth = parseInt( parseFloat( 0 + boxObject.style.width ) ); var boxNewWidth = parseInt( parseFloat( 0 + boxNewWidth ) ); var boxHeight = parseInt( parseFloat( 0 + boxObject.style.height ) ); var boxNewHeight = parseInt( parseFloat( 0 + boxNewHeight ) ); /* if ( boxWidth === boxNewWidth && boxHeight === boxNewHeight) { // run me anyway, to prevent image flicker. } */ DoChangeW( boxObject, boxWidth, boxNewWidth, boxHeight, boxNewHeight, BoxScaleSteps, 100, 0.333, callback ); },
 	DoChangeW = function( elem, startWidth, endWidth, startHeight, endHeight, steps, intervals, powr, callback ) { /** The width **/ if (elem.widthChangeMemInt) { window.clearInterval(elem.widthChangeMemInt); } var actStep = 0; elem.widthChangeMemInt = window.setInterval( function() { elem.currentWidth = EaseInOut( startWidth, endWidth, steps, actStep, powr ); ElementSetWidth( elem.id, elem.currentWidth ); actStep++; if ( actStep > steps ) { window.clearInterval( elem.widthChangeMemInt ); DoChangeH( elem, startWidth, endWidth, startHeight, endHeight, steps, intervals, powr, callback ) } },intervals); },
 	DoChangeH = function( elem, startWidth, endWidth, startHeight, endHeight, steps, intervals, powr, callback ) { /** The height and the top **/ if (elem.widthChangeMemInt) { window.clearInterval(elem.widthChangeMemInt); } var actStep = 0; elem.widthChangeMemInt = window.setInterval( function() { elem.currentHeight = EaseInOut( startHeight, endHeight, steps, actStep, powr ); ElementSetHeight( elem.id, elem.currentHeight ); elem.currentTop = ( ( ( ElementGetHeight( 'AB-Overlay' ) - ElementGetHeight( elem.id ) ) / 2 ) + ElementGetHeight( 'AB-ToolBar' ) ); ElementSetTop( elem.id, elem.currentTop ); actStep++; if ( actStep > steps ) { window.clearInterval( elem.widthChangeMemInt ); if ( typeof callback == 'function' ) { callback( ); } } },intervals); },
 	EaseInOut = function( minValue, maxValue, totalSteps, actualStep, powr ) { var delta = parseInt(maxValue) - parseInt(minValue); var stepp = minValue+(Math.pow(((1 / totalSteps) * actualStep), powr) * delta); return Math.ceil(stepp); },
@@ -401,7 +433,16 @@ var AdvancedBox = new function( )
 	/**
 	* Returns array with x,y page scroll values. * Core code from - quirksmode.org
 	**/
-	GetPageScroll = function( ) { var yScroll; if ( self.pageYOffset ) { yScroll = self.pageYOffset; xScroll = self.pageXOffset; } else if ( document.documentElement && document.documentElement.scrollTop ){ /* Explorer 6 Strict */ yScroll = document.documentElement.scrollTop; xScroll = document.documentElement.scrollLeft; } else if ( document.body ) { /* all other Explorers */ yScroll = document.body.scrollTop; xScroll = document.body.scrollLeft; } return { YScroll: yScroll, XScroll: xScroll }; },
+	GetPageScroll = function( )
+	{
+		var yScroll;
+		if ( self.pageYOffset ) { yScroll = self.pageYOffset; xScroll = self.pageXOffset; }
+		/* Explorer 6 Strict */
+		else if ( document.documentElement && document.documentElement.scrollTop ){ yScroll = document.documentElement.scrollTop; xScroll = document.documentElement.scrollLeft; } 
+		/* all other Explorers */
+		else if ( document.body ) { yScroll = document.body.scrollTop; xScroll = document.body.scrollLeft; } 
+		return { YScroll: yScroll, XScroll: xScroll }; 
+	},
 
 /** Common functions - End **/
 	this.SlideShows = SlideShows;
@@ -421,7 +462,10 @@ ScrollFreeze = /*2843293230303620532E4368616C6D657273*/
 	getProp : function() { if( typeof window.pageYOffset != 'undefined' ) { this.Ydisp = window.pageYOffset; this.Xdisp = window.pageXOffset; } else if ( document.documentElement ) { this.Ydisp = document.documentElement.scrollTop; this.Xdisp = document.documentElement.scrollLeft; } else if ( document.body && typeof document.body.scrollTop != 'undefined' ) { this.Ydisp = document.body.scrollTop; this.Xdisp = document.body.scrollLeft; } else { this.propFlag = false; } return this.propFlag; },
 	setXY : function() { window.scrollTo( this.Xdisp, this.Ydisp ); }
 }
-/** AdvancedBox JS - End **/
+}
+/**
+* AdvancedBox JS - End 
+**************************************************************************************************************************************************************************************************************************/
 
 /**
 * Add a new value to an Array if isn't repeat
@@ -431,10 +475,15 @@ function ArrayPush( arr, val ) { val = url_clean( val ); /** have this array thi
 /**
 * To cover IE 5.0's lack of the push method
 **/
-if ( typeof Array.prototype.push ==' undefined' )
+if (typeof Array.prototype.push ==' undefined')
 {
 	Array.prototype.push = function(value) { this[this.length] = value; }
 }
+
+/**
+* Search in the gallery array
+**/
+function find_in_galleryset( arr, val ) { for (var row = 0; row < arr.length; ++row) { if (arr[row].url == val || arr[row].content == val) { return row + 1 } } return -1 }
 
 /**
 * Search in array
@@ -463,54 +512,130 @@ function url_clean( url )
 }
 
 /** Image Resizer JS - START **/
+/** http://codepunk.hardwar.org.uk/css2js.htm **/
+var ImageResizerMaxWidth, ImageResizerMaxHeight = 0;
 function ImageResizerOn( ObjImage )
 {
-	var ResizerId = Math.floor(Math.random()*(100));
+	var ResizerId = 'image_' + Math.floor(Math.random()*(100));
 	var ResizerW  = ObjImage.width;
 	var ResizerH  = ObjImage.height;
-	var ResizerP = 0;
+	var ResizerP  = 0;
 
-	ObjImage.width = ImageResizerMaxWidth;
-	if ( ObjImage.width < ResizerW && ResizerW > 0 && ObjImage.width > 0 )
+	/** Check the width **/
+	if ( ObjImage.width > ImageResizerMaxWidth && ImageResizerMaxWidth > 0 && ObjImage.width > 0 )
 	{
+		/** Adjust the image width **/
+		ObjImage.width  = ImageResizerMaxWidth;
+		/** Adjust the width of the image while preserving proportions **/
+		ObjImage.height = (ImageResizerMaxWidth / ResizerW) * ResizerH;
+		/** Calculate the re-size ratio **/
 		ResizerP = Math.ceil( parseInt( ObjImage.width / ResizerW * 100 ) );
 	}
 
-	var objResizerDiv				= document.createElement( 'div' );
-		objResizerDiv.setAttribute( 'id', ResizerId );
-		objResizerDiv.style.width	= ObjImage.width+'px';
-		objResizerDiv.className		= 'resized-div';
-		objResizerDiv.onclick		= function() {ImageResizeronclick( ObjImage, ResizerId ); return false; };
-	if (ObjImage.fileSize && ObjImage.fileSize > 0)
+	if ( ObjImage.height > ImageResizerMaxHeight && ImageResizerMaxHeight > 0 && ObjImage.height > 0 )
 	{
-		objResizerDiv.alt = objResizerDiv.title = ImageResizerWarningFilesize.replace( '%1$s', ResizerW).replace( '%2$s', ResizerH).replace( '%3$s', Math.round(ObjImage.fileSize / 1024));
+		/** Adjust the image height **/
+		ObjImage.height = ImageResizerMaxHeight;
+		/** Adjust the height of the image while preserving proportions **/
+		ObjImage.width  = (ImageResizerMaxHeight / ResizerH) * ResizerW;
+		/** Calculate the re-size ratio **/
+		ResizerP = Math.ceil( parseInt( ObjImage.height / ResizerH * 100 ) );
 	}
+
+	/**
+	* Use the image top bar for click or use the image instead ?
+	* Recomended true - Options  false | true
+	**/
+
+	/** Use the image for click on - START **/
+	if ( !ImageResizerUseBar )
+	{
+		if (ObjImage.fileSize && ObjImage.fileSize > 0)
+		{
+			ObjImage.alt = ObjImage.title = ImageResizerWarningFilesize.replace( '%1$s', ResizerW).replace( '%2$s', ResizerH).replace( '%3$s', Math.round(ObjImage.fileSize / 1024));
+		}
+		else
+		{
+			ObjImage.alt = ObjImage.title = ImageResizerWarningNoFilesize.replace( '%1$s', ResizerW).replace( '%2$s', ResizerH);
+		}
+		ObjImage.className		= ObjImage.className + ' resized';
+		ObjImage.onclick		= function() { ImageResizeronclick( ObjImage, ResizerId ); return false; };
+		if ( ImageResizerMode == 'HighslideBox'	)
+		{
+			if ( ObjImage.className == 'attach_parent' ) { ObjImage.onclick = function() { return hs.expand( ObjImage.parentNode, { src: ObjImage.parentNode.href } ) } } else { ObjImage.onclick = function() { return hs.expand(ObjImage, { src: ObjImage.src } ); }; }
+		};
+
+	}
+	/** Use the image for click on - End **/
 	else
+	/** Adding the image top bar for click on - START **/
 	{
-		objResizerDiv.alt = objResizerDiv.title = ImageResizerWarningNoFilesize.replace( '%1$s', ResizerW).replace( '%2$s', ResizerH);
+		var objResizerDiv				= document.createElement('div');
+			objResizerDiv.setAttribute('id', ResizerId );
+			objResizerDiv.className		= 'resized-div';
+			objResizerDiv.style.width	= ObjImage.width + 'px';
+		//	objResizerDiv.onclick		= function() { ImageResizeronclick( ObjImage, ResizerId ); return false; };
+
+		if ( ObjImage.parentNode.style.textAlign == 'right')
+		{
+			objResizerDiv.style.marginLeft  = 'auto';
+		}
+
+		if (ObjImage.fileSize && ObjImage.fileSize > 0)
+		{
+			objResizerDiv.alt = objResizerDiv.title = ImageResizerWarningFilesize.replace( '%1$s', ResizerW).replace( '%2$s', ResizerH).replace( '%3$s', Math.round(ObjImage.fileSize / 1024));
+		}
+		else
+		{
+			objResizerDiv.alt = objResizerDiv.title = ImageResizerWarningNoFilesize.replace( '%1$s', ResizerW).replace( '%2$s', ResizerH);
+		}
+		var	objResizerImg				= document.createElement('img');
+			objResizerImg.src			= ImageResizerWarningImage;
+			objResizerImg.width			= 16;
+			objResizerImg.height		= 16;
+			objResizerImg.alt			= '';
+			objResizerImg.border		= 0;
+
+		var objResizerSpan				= document.createElement('span');
+			objResizerSpan.className	= 'resized-txt';
+
+		var	objResizerText			= document.createTextNode('');
+		if ( ObjImage.width <= 250 )
+		{
+			objResizerText.data		= ImageResizerWarningSmall;
+		}
+		else
+		{
+			objResizerText.data		= ImageResizerWarningFullsize.replace( '%1$s', ResizerP).replace( '%2$s', ResizerW).replace( '%3$s', ResizerH);
+		}
+
+		objResizerDiv.appendChild(objResizerImg);
+		objResizerSpan.appendChild(objResizerText);
+		objResizerDiv.appendChild(objResizerSpan);
+		ObjImage.parentNode.insertBefore(objResizerDiv,ObjImage);
+		
+		objResizerDiv.onclick		= function() { ImageResizeronclick( ObjImage, ResizerId ); return false; };
+		if ( ImageResizerMode == 'HighslideBox'	)
+		{
+			if ( ObjImage.className == 'attach_parent' ) { ObjImage.onclick = function() { return hs.expand( ObjImage.parentNode, { src: ObjImage.parentNode.href } ) } } else { ObjImage.onclick = function() { return hs.expand(ObjImage, { src: ObjImage.src } ); }; }
+		};
+
 	}
+	/** Adding the image top bar for click on - END **/
 
-	var	objResizerImg				= document.createElement( 'img' );
-		objResizerImg.src			= ImageResizerWarningImage;
-		objResizerImg.width			= 16;
-		objResizerImg.height		= 16;
-		objResizerImg.alt			= '';
-		objResizerImg.border		= 0;
-		objResizerDiv.className		= 'resized-div';
-
-	var objResizerSpan				= document.createElement( 'span' );
-		objResizerSpan.className	= 'resized-txt';
-
-	var	objResizerText			= document.createTextNode( '' );
-		objResizerText.data		= ImageResizerWarningFullsize.replace( '%1$s', ResizerP).replace( '%2$s', ResizerW).replace( '%3$s', ResizerH);
-//		objResizerText.data		= 'Image resized to : ' + ResizerP + '% of its original size [ ' + ResizerW + ' x ' + ResizerH + ' ]';
-
-	objResizerDiv.appendChild(objResizerImg);
-	objResizerSpan.appendChild(objResizerText);
-	objResizerDiv.appendChild(objResizerSpan);
-	ObjImage.parentNode.insertBefore(objResizerDiv,ObjImage);
-
-	if ( ImageResizerMode == 'AdvancedBox' ) { ArrayPush( AdvancedBox.SlideShows , ObjImage.src ); }
+	/** AdvancedBox Gallery - Working **/
+	if ( ImageResizerMode == 'AdvancedBox'	) { ArrayPush( AdvancedBox.SlideShows , ObjImage.src ); }
+	/** HighslideBox Gallery - Working **/
+//	if ( ImageResizerMode == 'HighslideBox'	) { ObjImage.className = ObjImage.className + ' highslide'; }
+	/** LiteBox Gallery - Working **/
+	if ( ImageResizerMode == 'LiteBox'		) { myLightbox.imageArray.push([ObjImage.src, ObjImage.title]); }
+	/** GreyBox Gallery - Working **/
+	if ( ImageResizerMode == 'GreyBox'		) { ObjImage.setAttribute('rel', 'gb_imageset[gallery]'); if ( ObjImage.className == 'attach_parent' ) { gb_imageset.push({'caption': ObjImage.parentNode.src, 'url': ObjImage.parentNode.src}); } else { gb_imageset.push({'caption': ObjImage.src, 'url': ObjImage.src}); } }
+	/** Lightview Gallery - Not Working **/
+	if ( ImageResizerMode == 'Lightview'	) { ObjImage.setAttribute('rel', 'set[myset]'); }
+	/** Ibox Gallery - Working **/
+	if ( ImageResizerMode == 'Ibox'			) { ObjImage.setAttribute('rel', 'IBGallery'); if ( ObjImage.className == 'attach_parent' ) { ib_imageset.push({player:'img', content:ObjImage.parentNode.src, gallery:'IBGallery'}); } else { ib_imageset.push({player:'img', content:ObjImage.src, gallery:'IBGallery'}); } }
+	/** PopBox gallery - I have no gallery mode **/
 }
 
 function ImageResizeronclick( ObjImage, Id )
@@ -520,38 +645,79 @@ function ImageResizeronclick( ObjImage, Id )
 		case 'AdvancedBox' :
 			if ( ObjImage.className == 'attach_parent' ) { AdvancedBox.Start( ObjImage.parentNode.href ); } else { AdvancedBox.Start( ObjImage.src ); }
 			break;
-		default:
-		case 'newwindow':
-			if ( ObjImage.className == 'attach_parent' ) { window.open( ObjImage.parentNode.href, '_blank' ); } else { window.open( ObjImage.src, '_blank' ); }
+
+		case 'HighslideBox' :
+			if ( ObjImage.className == 'attach_parent' ) { return hs.expand( ObjImage.parentNode, { src: ObjImage.parentNode.href } ) } else { return hs.expand(ObjImage, { src: ObjImage.src } ); }
 			break;
-		case 'samewindow':
-			if ( ObjImage.className == 'attach_parent' ) { window.open( ObjImage.parentNode.href, '_self' ); } else { window.open( ObjImage.src, '_self' ); }
+
+		case 'LiteBox' :
+			if ( ObjImage.className == 'attach_parent' ) { myLightbox.start(ObjImage.parentNode); } else { myLightbox.start(ObjImage); }
 			break;
-		case 'enlarge':
-			var ParentId = document.getElementById(Id)
-			if ( ObjImage.className == 'attach_parent' ) { ImgOnLoad_scale( ParentId, ObjImage, ObjImage.parentNode.href, ObjImage.width, ObjImage.height ); } else { ImgOnLoad_scale( ParentId, ObjImage, ObjImage.src, ObjImage.width, ObjImage.height ); }
+
+		case 'GreyBox' :
+			if ( ObjImage.className == 'attach_parent' ) { var index = find_in_galleryset( gb_imageset, ObjImage.parentNode.href ); return GB_showImageSet(gb_imageset, (index) ? index : 1); } else { var index = find_in_galleryset( gb_imageset, ObjImage.src ); return GB_showImageSet(gb_imageset, (index) ? index : 1); }
+		//	if ( ObjImage.className == 'attach_parent' ) { return GB_showImage(ObjImage.parentNode.src,ObjImage.parentNode.src); } else { return GB_showImage(ObjImage.src,ObjImage.src); }
 			break;
+
+		case 'Lightview' :
+			if ( ObjImage.className == 'attach_parent' ) { Lightview.show({ href: ObjImage.parentNode.href, rel: 'image', options: { width: 800, height: 600 }}); } else { Lightview.show({ href: ObjImage.src, rel: 'image', options: { width: 800, height: 600 }}); }
+			break;
+
+		case 'Ibox' :
+			if ( ObjImage.className == 'attach_parent' ) { var index = find_in_galleryset( ib_imageset, ObjImage.parentNode.href ); Shadowbox.open( ib_imageset, { current:(index) ? index : 1, gallery:'IBGallery' ,continuous:true, autoplay:true }); } else { var index = find_in_galleryset( ib_imageset, ObjImage.src ); Shadowbox.open( ib_imageset, { current:(index) ? index : 1, gallery:'IBGallery' ,continuous:true, autoplay:true }); }
+		//	if ( ObjImage.className == 'attach_parent' ) { Shadowbox.open( { player:'img', content:ObjImage.parentNode.href} ); } else { Shadowbox.open( { player:'img', content:ObjImage.src } ); }
+			break;
+
+		case 'PopBox' :
+			if ( ObjImage.className == 'attach_parent' ) { PopEx(ObjImage, null,  null, 0, 0, 50, 'PopBoxImageLarge'); } else { PopEx(ObjImage, null,  null, 0, 0, 50, 'PopBoxImageLarge'); }
+			break;
+
 		case 'pop-up':
 			var popup_url = ( ObjImage.className == 'attach_parent' ) ? ObjImage.parentNode.href : ObjImage.src ;
 			var popup_width = ( ObjImage.width + 30 );
 			var popup_height = ( ObjImage.height + 30 );
 			popup( popup_url, popup_width, popup_height );
 			break;
+
+		case 'enlarge':
+			var ParentId = document.getElementById(Id);
+			if ( !ImageResizerUseBar )
+			{
+				if ( ObjImage.className == 'attach_parent' ) { ImgOnLoad_scale( ParentId, ObjImage, ObjImage.parentNode.href, ObjImage.width, ObjImage.height ); } else { ImgOnLoad_scale( ObjImage, ObjImage, ObjImage.src, ObjImage.width, ObjImage.height ); }
+			}else{
+				if ( ObjImage.className == 'attach_parent' ) { ImgOnLoad_scale( ParentId, ObjImage, ObjImage.parentNode.href, ObjImage.width, ObjImage.height ); } else { ImgOnLoad_scale( ParentId, ObjImage, ObjImage.src, ObjImage.width, ObjImage.height ); }
+			}
+			break;
+
+		case 'samewindow':
+			if ( ObjImage.className == 'attach_parent' ) { window.open( ObjImage.parentNode.href, '_self' ); } else { window.open( ObjImage.src, '_self' ); }
+			break;
+
+		default:
+		case 'newwindow':
+			if ( ObjImage.className == 'attach_parent' ) { window.open( ObjImage.parentNode.href, '_blank' ); } else { window.open( ObjImage.src, '_blank' ); }
+			break;
 	}
 	return false;
 };
 /** Image Resizer JS - END **/
 
+if ( ImageResizerMode == 'GreyBox'	) { var gb_imageset = new Array( ); }
+if ( ImageResizerMode == 'Ibox'		) { var ib_imageset = new Array( ); }
+
 /** Initialize the Resizer **/
 function ImgOnLoad()
 {
+	if ( ImageResizerMode == 'LiteBox'	) { myLightbox = new Lightbox(); }
+	if ( ImageResizerMode == 'Ibox'		) { Shadowbox.init({ skipSetup: true, players: ['img'] }); }	// skip the automatic setup
+
 	/**
 	* phpbb images in signatures
 	* class ="resize_me"
 	* Recomended true - Options  false | true
 	* This setting is currently mannaged in the ACP
 	**/
-	var exclude_signatures 			= ( ImageResizerSignature == '1' ) ? false : true;
+	var exclude_signatures  = ( ImageResizerSignature == 1 ) ? false : true;
 
 	/**
 	* ABBC3 thumbnail
@@ -575,25 +741,17 @@ function ImgOnLoad()
 	var exclude_images_attached		= false;
 
 /** Search images in signatures - Start **/
-	if ( exclude_signatures )
+	if ( exclude_signatures || (ImageResizerMaxWidth_sig > 0 || ImageResizerMaxHeight_sig > 0) )
 	{
-		var pro_sig_elm_ary = sub_sig_elm_ary = new Array();
-		var pro_sig_img_ary = sub_sig_img_ary = sig_images_ary = new Array();
-
-		/** Signatures in ProSilver styles **/
-		pro_sig_elm_ary = getElementsByClassName( 'signature', 'div' );
-		for (var e = 0, psea = pro_sig_elm_ary.length; e < psea; e++)
+		var sig_images_ary = new Array();
+		var sig_elm_ary=[].slice.call(getElementsByClassName( 'signature', 'div' )).concat([].slice.call(getElementsByClassName( 'postbody', 'span' ))); //.concat([].slice.call(getElementsByClassName( 'postbody', 'div' )));
+		for (var e = 0, sea = sig_elm_ary.length; e < sea; e++)
 		{
-			pro_sig_img_ary = getElementsByClassName( 'resize_me', 'img', document.getElementById( pro_sig_elm_ary[e].id ));
-			for (var i = 0, psia = pro_sig_img_ary.length; i < psia; i++) { sig_images_ary.push( pro_sig_img_ary[i].src); }
-		}
-
-		/** Signatures in Subsilver2 styles **/
-		sub_sig_elm_ary = getElementsByClassName( 'postbody', 'span' );
-		for (var e = 0, ssea = sub_sig_elm_ary.length; e < ssea; e++)
-		{
-			sub_sig_img_ary = getElementsByClassName( 'resize_me', 'img', document.getElementById( sub_sig_elm_ary[e].id ));
-			for (var i = 0, ssia = sub_sig_img_ary.length; i < ssia; i++) { sig_images_ary.push(sub_sig_img_ary[i].src); }
+			if ( sig_elm_ary[e].id )
+			{
+				var sig_img_ary = getElementsByClassName( 'resize_me', 'img', document.getElementById( sig_elm_ary[e].id ));
+				for (var i = 0, sia = sig_img_ary.length; i < sia; i++) { sig_images_ary.push( sig_img_ary[i].src); }
+			}
 		}
 		/** Now the array sig_images_ary contain all images in signatures **/
 	}
@@ -604,7 +762,10 @@ function ImgOnLoad()
 
 	/** Real images - Attached images - Attached thumbnail **/
 	post_images_ary = MyGetElementsByClassName( 'resize_me|attach_me|attach_parent' )
-	for (var i = 0, ipia = post_images_ary.length; i < ipia; i++) { posted_images_ary.push( post_images_ary[i] ); }
+	for (var i = 0, ipia = post_images_ary.length; i < ipia; i++)
+	{
+		posted_images_ary.push( post_images_ary[i] );
+	}
 	/** Now the array posted_images_ary contain all images in post **/
 /** Search all images inside posts - End **/
 
@@ -617,21 +778,30 @@ function ImgOnLoad()
 		var img = posted_images_ary[pia];
 
 		/** Skip to resize signatures **/
-		if ( exclude_signatures && sig_images_ary.length > 0 ) { if( contains( img.src, sig_images_ary )[0] ) { continue; } }
+		ImageResizerMaxWidth = ImageResizerMaxWidth_post; ImageResizerMaxHeight = ImageResizerMaxHeight_post;
+		if ( exclude_signatures && sig_images_ary.length > 0 )
+		{
+			if( contains( img.src, sig_images_ary )[0] ) { continue; } 
+		}
+		else if ( !exclude_signatures && sig_images_ary.length > 0 )
+		{
+			if( contains( img.src, sig_images_ary )[0] ) { ImageResizerMaxWidth = ImageResizerMaxWidth_sig; ImageResizerMaxHeight = ImageResizerMaxHeight_sig; }
+		}
 
 		/** Check if this image will be resized **/
 		if ( ( ImageResizerMaxWidth > 0 && img.width > ImageResizerMaxWidth ) || ( ImageResizerMaxHeight > 0 && img.height > ImageResizerMaxHeight ) )
 		{
 			ImageResizer = true;
-			if ( img.className == 'hoverbox resize_me' ) { ImageResizer = ( exclude_thumbnail_abbc3 ? false : true ); }
-			if ( img.className == 'attach_parent' ) { ImageResizer = ( exclude_thumbnail_attached ? false : true ); }
-			if ( img.className == 'attach_me' ) { ImageResizer = ( exclude_images_attached ? false : true ); }
+			if (img.className == 'hoverbox resize_me')	{ ImageResizer = (exclude_thumbnail_abbc3 ? false : true); }
+			if (img.className == 'attach_parent')		{ ImageResizer = (exclude_thumbnail_attached ? false : true); }
+			if (img.className == 'attach_me')			{ ImageResizer = (exclude_images_attached ? false : true); }
 		}
 		
-		switch ( img.className )
+		switch (img.className)
 		{
 			default:
-				break;
+			break;
+
 			/** ABBC3 thumbnail **/
 			case 'hoverbox resize_me':
 				switch (ImageResizerMode)
@@ -639,43 +809,87 @@ function ImgOnLoad()
 					case 'AdvancedBox':
 						img.onclick = function() { AdvancedBox.Start( this.src ); return false; }; ArrayPush( AdvancedBox.SlideShows, img.src );
 						break;
+					case 'HighslideBox':
+						img.className = img.className + ' highslide'; img.onclick = function() { return hs.expand(this, { src: this.src } ); }
+						break;
+					case 'LiteBox':
+						myLightbox.imageArray.push([img.src, img.title]); img.onclick = function () {myLightbox.start(this);}
+						break;
+					case 'GreyBox':
+						img.setAttribute('rel', 'gb_imageset[gallery]'); gb_imageset.push({'caption': img.src, 'url': img.src}); img.onclick = function () { var index = find_in_galleryset( gb_imageset, this.src ); return GB_showImageSet(gb_imageset, (index) ? index : 1); }
+					//	img.setAttribute('rel', 'gb_imageset[gallery]'); img.onclick = function () {GB_showImage(this.href,this.href); return false; } }
+						break;
+					case 'Lightview':
+						img.setAttribute('rel', 'set[myset]'); img.onclick = function () { Lightview.show({ href: this.src, rel: 'image', options: { width: 800, height: 600 }}); return false; }
+						break;
+					case 'Ibox':
+						img.setAttribute('rel', 'IBGallery'); ib_imageset.push({player:'img', content:img.src, gallery:'IBGallery'}); img.onclick = function () { var index = find_in_galleryset( ib_imageset, this.src ); Shadowbox.open( ib_imageset, { current:(index) ? index : 1, gallery:'IBGallery' ,continuous:true, autoplay:true }); return false; }
+					//	img.setAttribute('rel', 'gallery[myset]'); img.onclick = function () { Shadowbox.open( {player:'img', content:this.src } ); return false; }
+						break;
+					case 'PopBox':
+						img.onclick = function() { Pop( this, 50, 'PopBoxImageLarge' ); return false; };
+						break;
+					case 'pop-up':
+						img.onclick = function() { popup( this.src, this.width, this.height ); return false; }
+						break;									
 					case 'enlarge':
 						img.onclick = function() { ImgOnLoad_scale( this, this, this.src, this.width, this.height ); return false; }
-						break;
-					case 'newwindow':
-						img.onclick = function() { window.open(this.src, '_blank' ); return false; }
 						break;
 					case 'samewindow':
 						img.onclick = function() { window.open(this.src, '_self' ); return false; }
 						break;									
 					default:
-					case 'pop-up':
-						img.onclick = function() { popup( this.src, this.width, this.height ); return false; }
-						break;									
+					case 'newwindow':
+						img.onclick = function() { window.open(this.src, '_blank' ); return false; }
+						break;
 				}
 				break;
 			/** phpbb image attached **/
 			case 'attach_parent':
-				// Disable the attachment.html onclick="viewableArea(this);"
+				/** Disable the attachment.html onclick="viewableArea(this);" **/
 				img.parentNode.onclick = function() { return false; }
+
+				/** Clear the image url, mostly for IE, but also works better for other browsers **/
+				img.parentNode.href = url_clean(img.parentNode.href);
+
 				switch (ImageResizerMode)
 				{
 					case 'AdvancedBox':
-						if ( !ImageResizer ) { img.onclick = function() { AdvancedBox.Start( this.parentNode.href ); return false; }; ArrayPush( AdvancedBox.SlideShows, img.parentNode.href ); }
+						if (!ImageResizer) { img.onclick = function() { AdvancedBox.Start(this.parentNode.href); return false; }; ArrayPush(AdvancedBox.SlideShows, img.parentNode.href); }
 						break;
+					case 'HighslideBox':
+						if (!ImageResizer) { img.className = img.className + ' highslide'; img.parentNode.onclick = function() {return hs.expand(this)} }
+						break;
+					case 'LiteBox':
+						if (!ImageResizer) { myLightbox.imageArray.push([img.parentNode.href, img.title]); img.parentNode.onclick = function () { myLightbox.start(this); return false; } }
+						break;
+					case 'GreyBox':
+						if (!ImageResizer) { img.setAttribute('rel', 'gb_imageset[gallery]'); gb_imageset.push({'caption': img.src, 'url': img.parentNode.href}); img.parentNode.onclick = function () { var index = find_in_galleryset( gb_imageset, this.href ); return GB_showImageSet(gb_imageset, (index) ? index : 1); } }
+					//	if (!ImageResizer) { img.setAttribute('rel', 'gb_imageset[gallery]'); img.parentNode.onclick = function () {GB_showImage(this.href,this.href); return false; } }
+						break;
+					case 'Lightview':
+						if (!ImageResizer) { img.setAttribute('rel', 'set[myset]'); img.onclick = function () { Lightview.show({ href: this.parentNode.href, rel: 'image', options: { width: 800, height: 600 }}); return false; } }
+						break;
+					case 'Ibox':
+						if (!ImageResizer) { img.setAttribute('rel', 'IBGallery'); ib_imageset.push({player:'img', content:img.parentNode.href, gallery:'IBGallery'}); img.onclick = function () { var index = find_in_galleryset( ib_imageset, this.parentNode.href ); Shadowbox.open( ib_imageset, { current:(index) ? index : 1, gallery:'IBGallery' ,continuous:true, autoplay:true }); return false; } }
+					//	if (!ImageResizer) { img.setAttribute('rel', 'gallery[myset]'); img.onclick = function () {  Shadowbox.open( {player:'img', content:this.parentNode.href} ); return false; } }
+						break;
+					case 'PopBox':
+						if (!ImageResizer) { img.setAttribute('pbSrc', img.parentNode.href); img.onclick = function() { Pop(this, 50, 'PopBoxImageLarge'); return false; }; }
+						break;
+					case 'pop-up':
+						if (!ImageResizer) { img.onclick = function() { popup(this.parentNode.href, this.width, this.height); return false; } }
+						break;									
 					case 'enlarge':
-						if ( !ImageResizer ) { img.onclick = function() { ImgOnLoad_scale( this, this, this.parentNode.href, this.width, this.height ); return false; } }
-						break;
-					case 'newwindow':
-						if ( !ImageResizer ) { img.onclick = function() { window.open(this.parentNode.href, '_blank' ); return false; } }
+						if (!ImageResizer) { img.onclick = function() { ImgOnLoad_scale(this, this, this.parentNode.href, this.width, this.height); return false; } }
 						break;
 					case 'samewindow':
-						if ( !ImageResizer ) { img.onclick = function() { window.open(this.parentNode.href, '_self' ); return false; } }
+						if (!ImageResizer) { img.onclick = function() { window.open(this.parentNode.href, '_self'); return false; } }
 						break;									
 					default:
-					case 'pop-up':
-						if ( !ImageResizer ) { img.onclick = function() { popup( this.parentNode.href, this.width, this.height ); return false; } }
-						break;									
+					case 'newwindow':
+						if (!ImageResizer) { img.onclick = function() { window.open(this.parentNode.href, '_blank'); return false; } }
+						break;
 				}
 				break;
 			/** phpbb image attached **/
@@ -684,61 +898,95 @@ function ImgOnLoad()
 				switch (ImageResizerMode)
 				{
 					case 'AdvancedBox':
-						if ( !ImageResizer ) { img.onclick = function() { AdvancedBox.Start( this.src ); return false; }; ArrayPush( AdvancedBox.SlideShows, img.src ); }
+						if (!ImageResizer) { img.onclick = function() { AdvancedBox.Start(this.src); return false; }; ArrayPush(AdvancedBox.SlideShows, img.src); }
 						break;
+					case 'HighslideBox':
+						if (!ImageResizer) { img.className = img.className + ' highslide'; img.onclick = function () {return hs.expand(this, { src: this.src });} }
+						break;
+					case 'LiteBox':
+						if (!ImageResizer) { myLightbox.imageArray.push([img.src, img.title]); img.onclick = function () { myLightbox.start(this); return false; } }
+						break;
+					case 'GreyBox':
+						if (!ImageResizer) { img.setAttribute('rel', 'gb_imageset[gallery]'); gb_imageset.push({'caption': img.src, 'url': img.src}); img.onclick = function () { var index = find_in_galleryset( gb_imageset, this.src ); return GB_showImageSet(gb_imageset, (index) ? index : 1); } }
+					//	if (!ImageResizer) { img.setAttribute('rel', 'gb_imageset[]'); img.onclick = function () {GB_showImage(this.src,this.src);} }
+						break;
+					case 'Lightview':
+						if (!ImageResizer) { img.setAttribute('rel', 'set[myset]'); img.onclick = function () { Lightview.show({ href: this.src, rel: 'image', options: { width: 800, height: 600 }}); return false; } }
+						break;
+					case 'Ibox':
+						if (!ImageResizer) { img.setAttribute('rel', 'IBGallery'); ib_imageset.push({player:'img', content:img.src, gallery:'IBGallery'}); img.onclick = function () { var index = find_in_galleryset( ib_imageset, this.src ); Shadowbox.open( ib_imageset, { current:(index) ? index : 1, gallery:'IBGallery' ,continuous:true, autoplay:true }); return false; } }
+					//	if (!ImageResizer) { img.setAttribute('rel', 'gallery[myset]'); img.onclick = function () { Shadowbox.open( {player:'img', content:this.src} ); return false; } }
+						break;
+					case 'PopBox':
+						if (!ImageResizer) { img.setAttribute('pbSrc', img.src); img.onclick = function() { Pop(this, 50, 'PopBoxImageLarge'); return false; }; }
+						break;
+					case 'pop-up':
+						if (!ImageResizer) { ImgOnLoad_unScale(img, img, img.src); img.onclick = function() { popup(this.src, this.width, this.height); return false; } }
+						break;									
 					case 'enlarge':
-						if ( !ImageResizer ) { ImgOnLoad_unScale( img, img, img.src ); }
-						break;
-					case 'newwindow':
-						if ( !ImageResizer ) { ImgOnLoad_unScale( img, img, img.src ); img.onclick = function() { window.open(this.src, '_blank' ); return false; } }
+						if (!ImageResizer) { ImgOnLoad_unScale(img, img, img.src); }
 						break;
 					case 'samewindow':
-						if ( !ImageResizer ) { ImgOnLoad_unScale( img, img, img.src ); img.onclick = function() { window.open(this.src, '_self' ); return false; } }
+						if (!ImageResizer) { ImgOnLoad_unScale(img, img, img.src); img.onclick = function() { window.open(this.src, '_self'); return false; } }
 						break;
 					default:
-					case 'pop-up':
-						if ( !ImageResizer ) { ImgOnLoad_unScale( img, img, img.src ); img.onclick = function() { popup( this.src, this.width, this.height ); return false; } }
-						break;									
+					case 'newwindow':
+						if (!ImageResizer) { ImgOnLoad_unScale(img, img, img.src); img.onclick = function() { window.open(this.src, '_blank'); return false; } }
+						break;
 				}
 		}
 
-		if ( ImageResizer ) { ImageResizerOn(img); }
+		if ( ImageResizer ) {ImageResizerOn(img);}
 	}
 	/* MSIE if (typeof(window.detachEvent) != 'undefined' ) { window.detachEvent( 'onload', ImgOnLoad); } */ 
+
 	return true;
 }
 
-function ImgOnLoad_scale( obj, imgobj, imgsrc, imgwidth, imgheight )
+function ImgOnLoad_scale(obj, imgobj, imgsrc, imgwidth, imgheight)
 {
 	var new_img = new Image();
-	new_img.setAttribute( 'src', imgsrc);
-	new_img.onload = function() { obj.style.width = new_img.width+'px'; imgobj.setAttribute( 'width', new_img.width); imgobj.setAttribute( 'height', new_img.height); return false; }
-	obj.onclick = function() { ImgOnLoad_unScale( obj, imgobj, imgsrc, imgwidth, imgheight ); return false; }
+	new_img.setAttribute('src', imgsrc);
+//	new_img.onload = function() { obj.style.width = new_img.width+'px'; imgobj.setAttribute( 'width', new_img.width); imgobj.setAttribute( 'height', new_img.height); return false; }
+//	obj.onclick = function() { ImgOnLoad_unScale( obj, imgobj, imgsrc, imgwidth, imgheight ); return false; }
+	/** Let's do some extra checks **/
+	Wait_pass = 0;
+	var timer = window.setInterval( function()
+	{
+		/** Safety end the process if can't load the image afer 120 intents ( 1 Minutes ) **/
+		Wait_pass++; if (Wait_pass >= 120) { window.clearInterval(timer); return false; }
+		/** Seems that IE when create an image gives a default width to 28 **/
+		if (new_img.readyState == 'complete' || new_img.complete) 
+		{
+			window.clearInterval(timer);
+			obj.style.width  = new_img.width+'px';  imgobj.setAttribute( 'width', new_img.width); imgobj.setAttribute('height', new_img.height); 
+			obj.onclick = function() { ImgOnLoad_unScale(obj, imgobj, imgsrc, imgwidth, imgheight); return false; }
+		}
+	},10)
 }
 
-function ImgOnLoad_unScale( obj, imgobj, imgsrc, imgwidth, imgheight )
+function ImgOnLoad_unScale(obj, imgobj, imgsrc, imgwidth, imgheight)
 {
 	obj.style.width	= imgwidth+'px';
-	imgwidth  = ( imgwidth  > 0 ) ? imgwidth  : ImageResizerMaxWidth;
-	imgheight = ( imgheight > 0 ) ? imgheight : ImageResizerMaxHeight;
-	imgobj.setAttribute( 'width', imgwidth );
-	if ( imgheight > 0) { imgobj.setAttribute( 'height', imgheight ); } else { imgobj.setAttribute( 'height', imgwidth ); }
-	obj.onclick = function() { ImgOnLoad_scale( obj, imgobj, imgsrc, imgwidth, imgheight ); return false; }
+	imgwidth  = (imgwidth  > 0) ? imgwidth  : ImageResizerMaxWidth;
+	imgheight = (imgheight > 0 ) ? imgheight : ImageResizerMaxHeight;
+	imgobj.setAttribute('width', imgwidth);
+	if (imgheight > 0) { imgobj.setAttribute('height', imgheight); } else { imgobj.setAttribute('height', imgwidth); }
+	obj.onclick = function() { ImgOnLoad_scale(obj, imgobj, imgsrc, imgwidth, imgheight); return false; }
 }
 
 /** Install the safety net to catch any images that needs to be resized - START **/
 if (window.onload_functions) // prosilver
-{
-//	onload_functions.push('ImgOnLoad()');
+{//	onload_functions.push('ImgOnLoad()');
 	onload_functions[onload_functions.length] = "ImgOnLoad();";
 }
 else if (typeof(window.addEventListener) != "undefined") // DOM
 {
-	window.addEventListener( "load", ImgOnLoad, false);
+	window.addEventListener("load", ImgOnLoad, false);
 }
 else if (typeof(window.attachEvent) != "undefined") // MSIE
 {
-	window.attachEvent( "onload", ImgOnLoad);
+	window.attachEvent("onload", ImgOnLoad);
 }
 /** Install the safety net to catch any images that needs to be resized - END **/
 

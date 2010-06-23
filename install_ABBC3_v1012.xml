@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http
+://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.2.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+		
+		<title lang="en">Advanced BBCode Box 3 ( aka ABBC3 )</title>
+		
+		<description lang="en">ABBC3 MOD adds lots of useful BBCode features and makes the bbcode buttons look just like Microsoft Office.
+		It also improves the functions of phpBB's BBCode function.
+		It adds the bbcode exactly where the cursor is, inserts smilies where the cursor is, and adds more ways to customize posts. 
+		The MOD is very fast loading, and is a sleek addition to your phpBB bulletin board. You must have javascript enabled to use this MOD.</description>
+
+		<author-notes lang="en"><![CDATA[
+	I contacted "Disturbed One" the original developer of this mod and "freddie" the last developer of this mod, 
+	and ask for upgrade the Advanced BBcode Box for phpbb2.x to phpbb3.0.0, 
+	Both say that they will not do the job, and are agree that I do it, so here I am ;)
+	-------------------------------------------------------------------
+	phpBB3 posting page use javascript, basically to add tags to the textarea, 
+	when you click on a button javascript insert the code into the post text.
+	
+	ABBC3 works in the same way, and add more javascript funtions to the wizards...
+	Apart from that the only function that need extra javascript is the fade tag.
+	-------------------------------------------------------------------
+	Please do not remove the copyright notices and the link to www.mssti.com
+	If you refuse to this, will not get support from me.
+	-------------------------------------------------------------------
+	Once you finish the install, please take your time to read the the contrib folder content.
+	-------------------------------------------------------------------
+	This MOD works in pbpBB 3.0.5 only !
+	-------------------------------------------------------------------
+	Tested on Windows Browsers:
+		- Internet Explorer 7.0
+		- Mozilla Firefox 2.0 & 3.0
+		- Opera 9.60
+		- Safari 3.0
+		- Netscape 8.1
+		- Chrome 1.0
+	-------------------------------------------------------------------
+	List of all included :
+	Resizer : This corrects the error of the [img] bbcode, when someone publishes a picture that exceeds the width of your forum.
+		*   AdvancedBox JS is an JavaScript software used to display images in full size.
+		*	Also you can use ABBC3 with other's script : 
+		*		This modifications are totally optionals. Each script have his own support. I'm not responsible about it. I will not answer question/problem/bug or any kind of issues about them.
+		*			Highslide ( Requires that the site be NON-Commercial. If it's a commercial site you must pay Highslide for use of their JS library.)
+		*			Lite Box
+		*			Grey Box
+		*			Light view
+		*			Shadow Box with Ibox
+		*			Pop Box
+		*			Pop-up window
+		*			Enlarge
+		*			Same window
+		*			New window
+		* + ( Posting box Resizer : larger )
+		* - ( Posting box Resizer : shorter )
+
+	BBcodes : ( In default order and state )
+		* Font Type Dropdown
+		* Font Size Dropdown
+		* Text highlighted Dropdown
+		* Font Color Dropdown ( Disable by default )
+		---------------------
+		* Cut : Removes selected text
+		* Copy : Copy selected text
+		* Paste : Paste previously copied text
+		* Remove BBCode (Removes all BBCode tags from selected text)
+		---------------------
+		* Bullet list: Unordered List
+		* Ordered list
+		* List item
+		* Tabs
+		* Header line
+		* Bold
+		* Italic
+		* Underline
+		* Strike through
+		* Superscript : Sets the text as superscripts
+		* Subscript : Sets the text as subscripts
+		* Glow text ( Only Internet explorer ) ( Disable by default )
+		* Shadow text ( Only Internet explorer ) ( Disable by default )
+		* Dropshadow text ( Only Internet explorer ) ( Disable by default )
+		* Blur text ( Only Internet explorer ) ( Disable by default )
+		* Wave text ( Only Internet explorer ) ( Disable by default )
+		* Text Fade  ( Requires Javascript enabled )
+		* Text Gradient
+		---------------------
+		* Justify Align
+		* Right Align
+		* Center Align
+		* Left Align
+		* Preformat text
+		---------------------
+		* Tab : Creates a normal indent
+		* Message Box text direction Left to Light (Traditional)
+		* Message Box text direction right to Left (Arabic, etc)
+		* Marquee Up : Scrolling text upwards
+		* Marquee Down : Scrolling text down
+		* Marquee Left : Displacement text to the left
+		* Marquee Right : Displacement text to the right
+		* Code
+		* Quote
+		* Spoiler ( User must click on link to review text within tags ) ( Requires Javascript enabled )
+		* Hidden : Hide content to guest
+		* Moderator ( Use restricted to moderators and / or administrators )
+		* Off topic
+		* NFO text (Better on Internet explorer)
+		* Table row cell wizard
+		---------------------
+		* Simple upload files ( Use restricted to moderators and / or administrators ) ( Disable by default )
+		* Anchor
+		* Hyperlink Wizard
+		* Email Wizard
+		* Web : Insert site in the post included by iframe ( Disable by default )	( Note : it's use activex so its not safe for forums or other websites.. with this way hacker can get in site and hack them... )
+		* Ed2k link Wizard
+		* Image Wizard
+		* Thumbnail Wizard
+		* Imgshack Wizard
+		* Link checker ( Requires that you have CURL installed )
+		* Rapid share checker ( Disable by default ) ( Requires the PHP directive allow_url_fopen to be enabled. )
+		* Click counter ( Disable by default ) ( Need database update ! )
+		* Search tag : live.com, yahoo.com, google.com, altavista.com, wikipedia.org, lycos.com, or forum
+		---------------------
+		* Scrippet   
+		* BBvideo Wizard ( 64 video sites and 7 files types ) ( Some of then requires the PHP directive allow_url_fopen to be enabled and/or requires that you have CURL installed )
+		* Flash (swf) ( Disable by default )
+		* Flash (flv) ( Disable by default )
+		* Video ( Disable by default )
+		* Stream ( Disable by default )
+		* Quick time ( Disable by default )
+		* Real media ( Disable by default )
+		* Google video ( Disable by default )
+		* Youtube video ( Disable by default )
+		* Veoh video ( Disable by default )
+		* CollegeHumor video ( Disable by default )
+		* DailyMotion video ( Disable by default )
+		* Gamespot video ( Disable by default )
+		* GameTrailers video ( Disable by default )
+		* IGN video ( Disable by default )
+		* LiveLeak video ( Disable by default )
+		--------------------
+		* Custom BBcodes
+
+	-------------------------------------------------------------------
+	Need Translation ? : 
+		Please visit http://www.mssti.com/phpbb3/viewtopic.php?p=1498#p1498
+	-------------------------------------------------------------------
+
+	Need extra support ?
+	--------------------
+	You can contact me at http://www.mssti.com/phpbb3/
+	If you want to test this board, you can use a demo acount : Please visit : http://www.mssti.com/phpbb3/viewtopic.php?f=2&t=1]]></author-notes>
+		
+		<author-group>
+			<author>
+				<realname>Gabriel</realname>
+				<username>leviatan21</username>
+				<email>info@mssti.com</email>
+				<homepage>http://www.mssti.com/phpbb3/</homepage>
+				<contributions-group>
+					<contributions status="current" from="2008-01-10" position="Developer"/>
+				</contributions-group>
+			</author>
+		</author-group>
+		
+		<mod-version>1.0.12</mod-version>
+		
+		<installation>
+			<level>intermediate</level>
+			<time>900</time>
+			<target-version>3.0.5</target-version>
+		</installation>
+
+		<history>
+			<entry>
+				<date>2009-06-01</date>
+				<rev-version>1.0.12</rev-version>
+				<changelog lang="en">
+					<change> [Feature] Updated to phpbb version 3.0.5 </change>
+					<change> [Fix] some minor bugs reported by the phpbb MOD Team.</change> 
+					<change> [Feature] Install Compatible with AutoMOD </change>
+					<change> [Change] file name : abbcode_functions.php to abbcode_page.php </change>
+
+					<change> [Feature] Resizer : All resizer options are integrated trough the ACP </change>
+					<change> [Feature] Resizer : Now can choose if you want the resizer bar on resized images.</change>
+					<change> [Feature] Resizer : Individual settings for signature resizer </change>
+					<change> [Feature] Resizer : Slide show works on GreyBox JS, LiteBox JS, Shadowbox with Ibox</change>
+					<change> [Fix] Resizer : height settings and enhanced resize image</change>
+					<change> [Fix] and enhanced resize image </change>
+
+					<change> [Fix] Update process now preserve previous installation settings </change>
+					<change> [Fix] Correctly check BBcodes permissions </change>
+					<change> [Fix] Some strings in the help line (posting and wizzard pages) </change>
+					<change> [Fix] Upload files, property checked authorized extension </change>
+					<change> [Fix] Since split() has been deprecated in PHP 5.3.x, this function was changed to explode() </change>
+					<change> [Fix] "remember the text box size after preview", feature added in Version1.0.10, now the value is stored into a cookie, the post text area size, will be preserved for each user every time</change>
+					<change> [Feature] Bbcode list on help page </change>
+					<change> [New] bbcode Scrippets </change>
+					<change> [New] bbcode Anchor </change>
+					<change> [New] bbcode Tabs </change>
+					<change> [Feature] Disable bots to see [hidden] tag, optionally you can do the same for [rapidshare] and [testlink] tags</change>
+					<change> [Fix] Style changes on some bbcodes : bbvideo, spoiler </change>
+					<change> [Fix] BBcode : spoiler </change>
+					<change> [Fix] bbvideo bbcode for : clipfish </change>
+					<change> [Disabled] bbvideo bbcode for : gamevee.com ( The service is no available any more ) </change>
+					<change> [Feature] Added new Web video to bbvideo bbcode : (Music) lala.com, hdshare.tv, scribd.com, clipmoon.com, clipser.com, deviantart.com, gameprotv.com, kyte.tv, moddb.com, porkolt.com, revision3.com, rutube.ru, videogamer.com, tangle.com </change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-11-01</date>
+				<rev-version>1.0.11</rev-version>
+				<changelog lang="en">
+					<change> Updated to phpbb version 3.0.3 </change>
+					<change> Fixed and improved the resizer script .</change>
+					<change> Fixed bbodes group permissions .</change>
+					<change> Fixed the install script .</change>
+					<change> Fixed a button to add more divisions or line break in ACP .</change>
+					<change> Fixed severals issues reported by MOD Team .</change>
+					<change> Deleted html bbcode suggested by MOD Team .</change>
+					<change> Added a button to reorder bbcodes in ACP .</change>
+					<change> Added 3 search options for search bbcode .</change>
+					<change> Added 11 new Web video to bbvideo bbcode .</change>
+					<change> Added all patches from previous versions .</change>
+					<change> Small fixes and changes in some bbcode .</change>
+					<change> Safety Check for allow_url_fopen() in rapidshare bbcode .</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-09-22</date>
+				<rev-version>1.0.10</rev-version>
+				<changelog lang="en">
+					<change> Added "remember the text box size after preview".</change>
+					<change> Added new bbcode HTML to allow (x)html code in your post ( Disable and restricted for administrators by default ) </change>
+					<change> Added a button to add more divisions or line break in ACP.</change>
+					<change> Change wizard method.</change>
+					<change> Change install script, now you can install/update/delete ABBC3.</change>
+					<change> Change display resized images in full size</change>
+					<change> Small fix in some bbcode.</change>
+					<change> ABBC3 now works inside an Iframe.</change>
+					<change> Added the User ID to Uploaded files by ABBC3</change>
+					<change> Safety Check if CURL is present for "Link checker" ( testlink bbcode ).</change>
+					<change> Added all patches from previous versions</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-05-01</date>
+				<rev-version>1.0.9</rev-version>
+				<changelog lang="en">
+					<change> New installation method and updated for phpbb v3.0.1
+					Now phpbb3 takes care about parsing all bbcodes.
+					This improve speed and security.</change>
+					<change> Change ABBC3 files, folder and var names.</change>
+					<change> Added ABBC3 bbodes to phpbb3 custom bbcodes table :</change>
+					<change> Renew ACP module for customize and setting ABBC3.</change>
+					<change> Fixed insert bbcodes with wizards on IE ( Thanks phptr )</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-03-31</date>
+				<rev-version>1.0.8</rev-version>
+				<changelog lang="en">
+					<change>New installation method, Now ABBC3 is more effective, only loaded if necessary, improved speed and security.</change>
+					<change>Change ABBC3 files, folder and var names.</change>
+					<change>Added ACP module for customize and setting ABBC3. ( Special thanks to joebart72 )</change>
+					<change>Added new bbcode : tab ( Thanks calproye )</change>
+					<change>Added new bbcode testlink : This tag is used to check the validity of file host links (also called one-click hosts) ( Thanks pavabe ).</change>
+					<change>Added new bbcode list item [*]. ( Thanks CharlesT )</change>
+					<change>Added Posting box Resizer. ( Thanks to CrossoverX )</change>
+					<change>Added Image Resizer on post : This fix for bug of [img] bbcode when someone add
+					a huge image has width larger than the width of post content.
+					you have 4 options to display image in full size ( greybox, enlarge, same window, new window).</change>
+					<change>Added new bbcode BBvideo ( with width and height up to 999px ): now you have 1 bbcode for all (34) video sites :
+					1.uncutvideo.aol.com, 2.clipfish.(de|co), 3.collegehumor.com, 4.crackle.com, 5.dailymotion.com, 6.gamespot.com,	7.gametrailers.com, 8.gamevideos.com, 9.godtube.com, 10.ign.com, 
+					11.liveleak.com, 12.livevideo.com, 13.megavideo.com, 14.metacafe.com, 15.myspacetv.com, 16.vids.myspace.com, 17.myvideo.(de|be|nl), 18.photobucket.com, 19.sevenload.com, 20.spike.com, 
+					21.stage6.com, 22.starsclips.net, 23.tu.tv, 24.vbox7.com, 25.veoh.com, 26.videu.de, 27.vidiac.com, 28.vidilife.com, 29.vimeo.com, 30.video.google, 
+					31.video.yahoo, 32.vsocial.com, 33.wat.tv, 34.youtube.com
+					Also work with (7) files types:
+					35.Flash .swf, 36.Flash .flv, 37.Windows Media Video .wmv, 38.Moving Pictures Expert Group .mpg, 39.Quick Time .mp3, 40.Quick Time .qt, 41.Real Audio .ram</change>
+					<change>Join ABBC3 bbcodes and Ex custom bbcodes, and now they are all mixed together
+					by default bbcodes are grouped by type. But you can distribute to your liking.</change>
+					<change>Fixed MCP (Moderator Control Panel ) with ABBC3.</change>
+					<change>Change Litebox with Graybox used in wizards, thumbnails and image resizer. ( Thanks WillSWC )</change>
+					<change>Renew wizards, regarding with styles templates and phpbb3.</change>
+					<change>Check permissions status for tags : Links, BBCode, Images, Flash, Quote and Moderator. ( Thanks to muiketi )</change>
+					<change>New and renewed images. ( Thamks SinDramas )</change>
+					<change>Fixed align tag</change>
+					<change>Fixed others minor bugs. ( Thamks SinDramas )</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-02-21</date>
+				<rev-version>1.0.7b</rev-version>
+				<changelog lang="en">
+					<change>Fixed the problem when DEBUG is set to true. ( Thanks to muiketi )</change>
+					<change>Fixed the problem when Quoting or PM's a message. ( Thanks to Anabella! )</change>
+					<change>Fixed mouseover help for phpbb custom bbcodes, in subsilver2 ( Thanks SinDramas )</change>
+					<change>Fixed add-on upload.</change>
+					<change>Fixed others minor bugs.</change>
+					<change>Re-write, updated and added text to all documents ( add-on, how-to-add, ...) and languages files</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-02-18</date>
+				<rev-version>1.0.7</rev-version>
+				<changelog lang="en">
+					<change>New installation method</change>
+					<change>Re-write all code, now ABBC3 is a class.</change>
+					<change>Dinamic display page for posting.</change>
+					<change>Added help page ! ( Thanks muiketi )</change>
+					<change><![CDATA[Added font colour dropdown and remove phpbb3 color selector ( Suggested by riehn )>]]></change>
+					<change>Improve cosmetic issue.</change>
+					<change>Added severals background images. For set it, please read the contrib folder content.</change>
+					<change>Fixed PM's with ABBC3. ( Thanks mej284 )</change>
+					<change>Fixed insert bbcodes with wizards on IE ( Thanks phptr )</change>
+					<change>Fixed show custom bbcodes from a how-to-add in 'posting_abbcodes_buttons.html' files ( Thanks joebart72 )</change>
+					<change>Added image left|center|right ( Thanks BizimPencere ). For set it, please read the contrib folder content.</change>
+					<change>Fixed web, now you can use http://www. | https://www. | www.</change>
+					<change>Fixed Youtube link, now you can use with or without www, also work with international links.</change>
+					<change>Added severals pre installed custom bbcodes, all are disabled by default. For set it, please read the contrib folder content.
+					* icon for Simple Hide BBcode MOD by ycl6. ( not the full mod )
+					* Moderator ( Thanks pavabe )
+					* Offtopic ( Thanks tupeu )
+					* Dailymotion video ( Thanks joebart72 )
+					* Gamespot video ( Thanks naushadhassam )
+					* Gametrailers video ( Thanks naushadhassam )
+					* IGN video ( Thanks naushadhassam )
+					* Liveleak video ( Thanks [alfa] )
+					* Veoh video ( Thanks turkanime )
+					* NFO ( Thanks TigerCrow ) (better on Internet explorer)
+					* Glow text ( Thanks muiketi ) (Only Internet explorer)
+					* Shadow text ( Thanks muiketi ) (Only Internet explorer)
+					* Dropshadow text ( Thanks muiketi ) (Only Internet explorer)
+					* Blur text ( Thanks muiketi ) (Only Internet explorer)
+					* Wave text ( Thanks muiketi ) (Only Internet explorer)
+					* Search tag ( Thanks muiketi )
+					* Simple upload files ( Thanks naushadhassam )</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-02-03</date>
+				<rev-version>1.0.6b</rev-version>
+				<changelog lang="en">
+					<change>New installation method</change>
+					<change>Fixed PM's with ABBC3. ( Thanks mej284 )</change>
+					<change>Fixed show custom bbcodes from a how-to-add in 'posting_abbcodes_buttons.html' files ( Thanks joebart72 )</change>
+					<change>Added 2 pre installed custom bbcodes : Dailymotion and Moderator, both are disabled by default.</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-01-31</date>
+				<rev-version>1.0.6</rev-version>
+				<changelog lang="en">
+					<change>New installation method</change>
+					<change>New config, you can enable/disable each one tags, regardless. By default all are enables
+					please open includes/abbcode.php and look at $abbcode_config = array()</change>
+					<change>Fixed if text is selected and clik on a tag, the wizard is not displayed
+					and instead add the selected bbcode. ( excepted table bbcode )</change>
+					<change>Parsing abbcodes improved, now it's more fast</change>
+					<change>Fixed bug table parsing.</change>
+					<change><![CDATA[Added wizard examples, please open language/en/mods/abbcode.php
+					and look at all 'ABBCODE_?????_NOTE' => and add/change to your own examples ;)]]></change>
+					<change>Fixed wizards no description imput. ( Thanks pavabe )</change>
+					<change>Fixed wizard email ( Thanks pavabe )</change>
+					<change>Fixed style/subsilver2/posting_button.html ( Thanks mej284 )</change>
+					<change>Fixed video + Real Player + stream tags.</change>
+					<change>Added new typo thumbnail</change>
+					<change>Added new typo quick time</change>
+					<change>Fixed the copyright link ( Thanks joebart72 )</change>
+					<change>Fixed a misspell in language/en/mods/abbcode.php ( Thanks pavabe )</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-01-25</date>
+				<rev-version>1.0.5</rev-version>
+				<changelog lang="en">
+					<change>Fixed overall_header.html javascript call.</change>
+					<change>Fixed grad color bug for IE ( Thanks ThunderCrew )</change>
+					<change>Fixed bug install.txt file</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-01-18</date>
+				<rev-version>1.0.4</rev-version>
+				<changelog lang="en">
+					<change>Added security on laguages files.</change>
+					<change>Renewed wizards.</change>
+					<change>Added/renewed font styles.</change>
+					<change>Added imageshack upload.</change>
+					<change>Fixed video + Real Player + stream tags.</change>
+					<change>Fixed grad color. ( Thanks ThunderCrew )</change>
+					<change>Fixed table.</change>
+					<change>Improve cosmetic issue.</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-01-15</date>
+				<rev-version>1.0.3</rev-version>
+				<changelog lang="en">
+					<change>Fix in subsilver posting_abbcodes_buttons.html.</change>
+					<change>Added contrib/add-on folder with Quick reply info.</change>
+					<change>Fixed private message bugs. ( Thanks El_Vindicador )</change>
+					<change>Fixed others minor bugs.</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-01-14</date>
+				<rev-version>1.0.2</rev-version>
+				<changelog lang="en">
+					<change>Change folder placement ( Suggested by MrC ).</change>
+					<change>Added languaje file.</change>
+					<change>Changed highlight dropdown colors with phpbb colors.</change>
+					<change>Change the copyright link to image link.</change>
+					<change><![CDATA[Added Giant font size (you must go ACP -> General Tab -> Board configuration -> Post settings
+					look at "Maximum font size per post: Maximum font size allowed in a post. Set to 0 for unlimited font size." and change 200 value with 300)]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-01-11</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en">
+					<change>Added typo Pre.</change>
+					<change>Adder table wizard ( Suggested by ahmedgroup ).</change>
+					<change>Fixed Gradient.</change>
+					<change>Fixed added codes buttons from phpbb3 ACP.</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-01-10</date>
+				<rev-version>1.0.0</rev-version>
+				<changelog lang="en">
+					<change>Upgrade from phpbb2.x to phpbb3.0.0 (Gold)</change>
+				</changelog>
+			</entry>
+		</history>
+
+		<link-group>
+			<link type="template" href="contrib/subsilver2.xml" lang="en">Template : Changes for Subsilver2 based off style</link>
+
+			<link type="contrib" href="contrib/update_ABBC3_v1011_to_1012.xml" lang="en">Update : This file provides instructions for upgrading the MOD from version 1.0.11 to 1.0.12</link>
+			<link type="contrib" href="contrib/update_language_ABBC3_v1011_to_v1012.xml" lang="en">Update : This file describes the changes in language files from version 1.0.11 to 1.0.12</link>
+
+			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_with_Evil_Quick_Replyv101_1012.xml" lang="en">Add-on : This file provides instructions for use Evil Quick Reply v1.0.1 with ABBC3</link>
+			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_button_over_effect_1012.xml" lang="en">Add-on : This file provides instructions for how to change mouse over ABBC3 buttons</link>
+			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_ED2K_add-on_1012.xml" lang="en">Add-on : This file provides instructions for install 2 add-on for ed2k in your forum.</link>
+			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_how-to-add-a-new-bbcode-icon.xml" lang="en">How to add : This tutorial is for explain how to add a new icon and bbcode to ABBC3</link>
+		</link-group>
+	</header>
+	
+	<action-group>
+
+		<copy>
+			<file from="root/abbcode_page.php" to="abbcode_page.php" />
+			<file from="root/adm/style/*.*" to="adm/style/*.*" />
+			<file from="root/images/*.*" to="images/*.*" />
+			<file from="root/includes/*.*" to="includes/*.*" />
+			<file from="root/install_abbc3.php" to="install_abbc3.php" />
+			<file from="root/language/en/mods/*.*" to="language/en/mods/*.*" />
+			<file from="root/styles/abbcode/*.*" to="styles/abbcode/*.*" />
+			<file from="root/styles/prosilver/template/*.*" to="styles/prosilver/template/*.*" />
+		</copy>
+
+		<open src="adm/style/acp_users_signature.html">
+			<edit>
+				<find><![CDATA[		<div id="format-buttons">]]></find>
+				<action type="after-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (V1.0.12) - Start //-->
+		<!-- IF S_ABBC3_MOD -->
+			<!-- INCLUDE posting_abbcode_buttons.html -->
+		</div>
+		<!-- ELSE -->]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[		<dl>]]></find>
+				<action type="replace-with"><![CDATA[		<!-- ENDIF -->
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - End //-->
+
+		<dl>
+
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - Start //-->
+			<!-- IF not S_ABBC3_COLOR -->]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[<dd style="margin-left: 90px;"><textarea name="signature"]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[name="signature"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ id="signature"]]></inline-action>
+				</inline-edit>
+
+				<inline-edit>
+					<inline-find><![CDATA[</textarea></dd>]]></inline-find>
+					<inline-action type="after-add"><![CDATA[			<!-- ELSE -->
+			<dt style="width: 100%;"><textarea name="signature" id="signature" rows="10" cols="60" style="width: 100%; height: 300px;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></dt>
+			<!-- ENDIF -->
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - End //-->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+
+		<open src="adm/style/overall_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (V1.0.12) - Start //-->
+<!-- INCLUDE abbcode_header.html -->
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - End //-->]]></action>
+			</edit>
+		</open>
+
+		<open src="adm/style/simple_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (V1.0.12) - Start //-->
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - End //-->]]></action>
+			</edit>
+		</open>
+
+		<open src="includes/bbcode.php">
+			<edit>
+				<find><![CDATA[/**
+* BBCode class
+* @package phpBB3
+*/
+class bbcode]]></find>
+				<action type="replace-with"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+if (!class_exists('abbcode'))
+{
+	include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+}
+/**
+* BBCode class
+* @package phpBB3
+*/
+class bbcode extends abbcode
+// MOD : MSSTI ABBC3 (V1.0.12) - end]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[		$undid_bbcode_specialchars = false;]]></find>
+				<action type="before-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+
+		// Try to avoid duplicates anchor ID's inside quotes
+		if ( preg_match('#\[quote(?:=&quot;(.*?)&quot;)?:' . $this->bbcode_uid . '\](.*?)?\[anchor(=(.*?)([\s]?))?#is', $message) )
+		{
+			$message = preg_replace('#(\[quote(?:=&quot;(.*?)&quot;)?:' . $this->bbcode_uid . '\](.*?))?\[anchor((=|)(.*?)([\s]))?#is',"$1[anchor$5quoted$6$7", $message);
+		}
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[				else
+				{
+					trigger_error('The file ' . $this->template_filename . ' is missing.', E_USER_ERROR);
+				}
+			}
+]]></find>
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+			$this->template_filename2 = $phpbb_root_path . 'styles/' . $user->theme['template_path'] . '/template/abbcode.html';
+			
+			if (!@file_exists($this->template_filename2))
+			{
+				if (isset($user->theme['template_inherits_id']) && $user->theme['template_inherits_id'])
+				{
+					$this->template_filename2 = $phpbb_root_path . 'styles/' . $user->theme['template_inherit_path'] . '/template/abbcode.html';
+					if (!@file_exists($this->template_filename2))
+					{
+						trigger_error('The file ' . $this->template_filename2 . ' is missing.', E_USER_ERROR);
+					}
+				}
+				else
+				{
+					trigger_error('The file ' . $this->template_filename2 . ' is missing.', E_USER_ERROR);
+				}
+			}
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[			$sql = 'SELECT *
+				FROM ' . BBCODES_TABLE . '
+				WHERE ' . $db->sql_in_set('bbcode_id', $sql);]]></find>
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+			$sql .= ' AND bbcode_match <> "." ';
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[							'#\[url:$uid\]((.*?))\[/url:$uid\]#s'			=> $this->bbcode_tpl('url', $bbcode_id),]]></find>
+				<action type="before-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+							'#\[url:$uid\](ed2k://\|(file|server|serverlist|friend)(|\|[^\\/\|:<>\*\?\"]+?)\|(.*?)\|/?)\[/url:$uid\]#sie'		=> "\$this->ed2k_pass( \$bbcode_id, '\$1', '' )",
+							'#\[url=(ed2k://\|(file|server|serverlist|friend)(|\|[^\\/\|:<>\*\?\"]+?)\|(.*?)\|/?):$uid\](.*?)\[/url:$uid\]#sie'	=> "\$this->ed2k_pass( \$bbcode_id, '\$1', '\$5' )",
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[						// Replace {L_*} lang strings]]></find>
+				<action type="after-add"><![CDATA[
+// MOD : MSSTI ABBC3 (V1.0.12) - Start
+						$user->add_lang('mods/abbcode');
+// MOD : MSSTI ABBC3 (V1.0.12) - End
+]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '" />',]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[ />',]]></inline-find>
+					<inline-action type="before-add"><![CDATA[ class="resize_me"]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[			if (($tpl = file_get_contents($this->template_filename)) === false)
+			{
+				trigger_error('Could not load bbcode template', E_USER_ERROR);
+			}]]></find>
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+			if (($tpl2 = file_get_contents($this->template_filename2)) === false)
+			{
+				trigger_error('Could not load abbcode template', E_USER_ERROR);
+			}
+			else
+			{
+				$tpl .= $tpl2;
+			}
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+      	</open>
+
+		<open src="includes/constants.php">
+			<edit>
+				<find><![CDATA[// Additional tables]]></find>
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) Clicks Counter feature - Start
+define('CLICKS_TABLE',				$table_prefix . 'clicks');
+// MOD : MSSTI ABBC3 (V1.0.12) Clicks Counter feature - End]]></action>
+			</edit>
+		</open>
+
+		<open src="includes/functions.php">
+			<edit>
+				<find><![CDATA[	// The following assigns all _common_ variables that may be used at any point in a template.]]></find>
+				<action type="before-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+	// Safety check
+	if ($config['ABBC3_MOD'] = (isset($config['ABBC3_MOD']) ? $config['ABBC3_MOD'] : false))
+	{
+		if (!class_exists('abbcode'))
+		{
+			include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+		}
+		$abbcode = new abbcode();
+		$abbcode->abbcode_init();
+	}
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+		</open>
+
+		<open src="includes/functions_display.php">
+			<edit>
+				<find><![CDATA[function display_custom_bbcodes()]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[display_custom_bbcodes(]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ $abbc3 = true ]]></inline-action>
+				</inline-edit>
+			</edit>
+
+			<edit>
+				<find><![CDATA[	$num_predefined_bbcodes = 22;]]></find>
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+	global $config, $mode;
+
+	if ( $abbc3 && @$config['ABBC3_MOD'] )
+	{
+		if (!class_exists('abbcode'))
+		{
+			global $phpbb_root_path, $phpEx;
+			include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+		}
+		$abbcode = new abbcode();
+		$abbcode->abbcode_init();
+		$abbcode->abbcode_display( $mode );
+
+		$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_helpline
+			FROM ' . BBCODES_TABLE . '
+			WHERE display_on_posting = 1 AND abbcode = 0 AND bbcode_image = "" 
+			ORDER BY bbcode_tag';
+	}
+	else
+	{
+		$template->assign_vars(array('S_ABBC3_DISABLED' => true));]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[		WHERE display_on_posting = 1]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[display_on_posting = 1]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ AND abbcode = 0 ]]></inline-action>
+				</inline-edit>
+			</edit>
+
+			<edit>
+				<find><![CDATA[	$result = $db->sql_query($sql);]]></find>
+				<action type="before-add"><![CDATA[
+	}
+// MOD : MSSTI ABBC3 (V1.0.12) - End
+]]></action>
+
+			</edit>
+		</open>
+
+		<open src="includes/message_parser.php">
+			<edit>
+				<find><![CDATA[			$sql = 'SELECT *
+				FROM ' . BBCODES_TABLE;]]></find>
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+			$sql .= ' WHERE bbcode_match <> "." ';
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[				'bbcode_id'	=> (int) $row['bbcode_id'],]]></find>
+				<action type="before-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+				'bbcode_group'	=> $row['bbcode_group'],
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[		// Parse smilies]]></find>
+				<action type="before-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+		// Check ABBC3 groups permission
+		foreach ($this->bbcodes as $bbcode_name => $bbcode_data)
+		{
+			if (isset($bbcode_data['bbcode_group']) && $bbcode_data['bbcode_group'] && !$this->abbode_phpbb_auth($bbcode_data['bbcode_group']))
+			{
+				$this->bbcodes[$bbcode_name]['disabled'] = true;
+			}
+		}
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+		</open>
+
+		<open src="includes/acp/acp_bbcodes.php">
+			<edit>
+				<find><![CDATA[			case 'edit':
+				$sql = 'SELECT bbcode_match, bbcode_tpl, display_on_posting, bbcode_helpline
+					FROM ' . BBCODES_TABLE . '
+					WHERE bbcode_id = ' . $bbcode_id;]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[, bbcode_helpline]]></inline-find>
+					<inline-action type="after-add"><![CDATA[, abbcode ]]></inline-action>
+				</inline-edit>
+				<inline-edit>
+					<inline-find><![CDATA[$bbcode_id]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ . ' and abbcode = 0']]></inline-action>
+				</inline-edit>
+			</edit>
+
+			<edit>
+				<find><![CDATA[			case 'modify':
+				$sql = 'SELECT bbcode_id, bbcode_tag
+					FROM ' . BBCODES_TABLE . '
+					WHERE bbcode_id = ' . $bbcode_id;]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[, bbcode_tag]]></inline-find>
+					<inline-action type="after-add"><![CDATA[, abbcode ]]></inline-action>
+				</inline-edit>
+				<inline-edit>
+					<inline-find><![CDATA[$bbcode_id]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ . ' and abbcode = 0']]></inline-action>
+				</inline-edit>
+			</edit>
+
+			<edit>
+				<find><![CDATA[					$sql_ary['bbcode_id'] = (int) $bbcode_id;]]></find>
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+					$sql = 'SELECT MAX(bbcode_order) as max_bbcode_order
+						FROM ' . BBCODES_TABLE;
+					$result = $db->sql_query($sql);
+					$row = $db->sql_fetchrow($result);
+					$db->sql_freeresult($result);
+					$bbcode_order = $row['max_bbcode_order'] + 1;
+					$sql_ary['bbcode_order'] = (int) $bbcode_order;
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[			case 'delete':
+
+				$sql = 'SELECT bbcode_tag
+					FROM ' . BBCODES_TABLE . "
+					WHERE bbcode_id = $bbcode_id";]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[bbcode_tag]]></inline-find>
+					<inline-action type="after-add"><![CDATA[, abbcode ]]></inline-action>
+				</inline-edit>
+				<inline-edit>
+					<inline-find><![CDATA[$bbcode_id"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ . ' and abbcode = 0' ]]></inline-action>
+				</inline-edit>
+			</edit>
+
+			<edit>
+				<find><![CDATA[		$sql = 'SELECT *
+			FROM ' . BBCODES_TABLE . '
+			ORDER BY bbcode_tag';]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[ ORDER BY bbcode_tag';]]></inline-find>
+					<inline-action type="before-add"><![CDATA[			WHERE abbcode = 0 ]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+
+		<open src="includes/acp/acp_styles.php">
+			<edit>
+				<find><![CDATA[				if ($file[0] != '.' && strtoupper($file) != 'CVS' && !is_file($dir . '/' . $file) && !is_link($dir . '/' . $file))]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[ && !is_link($dir . '/' . $file)]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ && $file != 'abbcode']]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+
+		<open src="language/en/acp/common.php">
+			<edit>
+				<find><![CDATA[?>]]></find>
+				<action type="before-add"><![CDATA[// MOD : MSSTI ABBC3 (V1.0.12) - Start
+$lang = array_merge($lang, array(
+	'ACP_ABBCODES'				=> 'Advanced BBcodes Box 3',
+	'ACP_ABBC3_SETTINGS'		=> 'ABBC3 Settings',
+	'ACP_ABBC3_BBCODES'			=> 'ABBC3 BBCodes',
+	'LOG_CONFIG_ABBCODES'		=> '<strong>Altered ABBC3 settings</strong>',
+	'LOG_CONFIG_ABBCODES_ERROR'	=> '<strong>Error while save ABBC3 settings</strong>',
+	'LOG_CONFIG_ADD'			=> '<strong>Added board settings</strong><br />» %s',
+	'LOG_DATABASE_SCHEMA'		=> '<strong>Updating database schema</strong><br />» %s',
+	'LOG_DELETE_ABBCODES'		=> '<strong>Deleted MOD ABBC3 from database</strong>',
+));
+// MOD : MSSTI ABBC3 (V1.0.12) - End]]></action>
+				<comment lang="en">See contrib/language folder for availables transtations</comment>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/attachment.html">
+			<edit>
+				<find><![CDATA[{_file.L_DOWNLOAD_COUNT}" /></a></dt>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{_file.L_DOWNLOAD_COUNT}"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ class="attach_parent"]]></inline-action>
+				</inline-edit>
+				<comment lang="en">You will have to make this change to ALL themes you have installed, based off Prosilver. I use "Prosilver" as an example.
+				IMPORTANT !
+				
+				Before made any changes, makes sure your template is stored into "filesystem"
+				ACP -> STYLES -> STYLE COMPONENTS -> Templates : prosilver -> Details
+				
+				If you do not want to change from "Database" to "Filesystem", you must do next changes within your ACP :
+				ACP -> STYLES -> STYLE COMPONENTS -> Templates : prosilver -> Edit
+				</comment>
+			</edit>
+			<edit>
+				<find><![CDATA[onclick="viewableArea(this);" /></dt>]]></find>
+				<inline-edit>
+					<inline-find><![CDATA["viewableArea(this);"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ class="attach_me"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/bbcode.html">
+			<edit>
+				<find><![CDATA[<!-- BEGIN img --><img src="{URL}" alt="{L_IMAGE}" /><!-- END img -->]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[alt="{L_IMAGE}"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ class="resize_me"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/overall_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (V1.0.12) - Start //-->
+<!-- INCLUDE abbcode_header.html -->
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - End //-->]]></action>
+
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/simple_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (V1.0.12) - Start //-->
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - End //-->]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/posting_buttons.html">
+			<edit>
+				<find><![CDATA[<div id="format-buttons">]]></find>
+				<action type="after-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (V1.0.12) - Start //-->
+<!-- IF S_ABBC3_MOD and not S_ABBC3_DISABLED -->
+	<!-- INCLUDE posting_abbcode_buttons.html -->
+<!-- ELSE -->
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - End //-->]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[</div>
+<!-- ENDIF -->]]></find>
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (V1.0.12) - Start //-->
+<!-- ENDIF -->
+<!-- MOD : MSSTI ABBC3 (V1.0.12) - End //-->]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/theme/stylesheet.css">
+			<edit>
+				<find><![CDATA[@import url("colours.css");]]></find>
+				<action type="after-add"><![CDATA[/** MOD : MSSTI ABBC3 (V1.0.12) Quote block fix - Start **/
+blockquote { background-image: none; }
+blockquote div cite { margin-left: 0px; padding-left: 20px; background-image: url("{T_THEME_PATH}/images/quote.gif"); background-position: 0 3px; background-repeat: no-repeat; }
+blockquote.uncited { background-image: url("{T_THEME_PATH}/images/quote.gif"); background-position: 6px 8px; background-repeat: no-repeat; }
+/** MOD : MSSTI ABBC3 (V1.0.12) Quote block fix - End **/]]></action>
+				<comment lang="en">You can add it at the bottom of the file</comment>
+			</edit>
+		</open>
+
+		<diy-instructions lang="en"><![CDATA[IMPORTANT ! 
+
+#####################################################################
+Log on to Administration Control Panel
+
+#####################################################################
+A) Disable your board :
+
+	A.1) Navigate to General Tab -> Board settings 
+	A.2) look at "Disable board: This will make the board unavailable to users. 
+	You can also enter a short (255 character) message to display if you wish." 
+	A.3) Change to "yes"
+	A.4) Submit to save setting.
+
+#####################################################################
+B) Database update :
+
+	B.1) Once all the files have been modified and uploaded to your site,
+	you should point your browser at this location with the addition 
+	of /install_abbc3.php
+	For example if your domain name is www.mydomain.tld and you placed phpBB3 
+	in a directory /phpBB3 off your web root you would enter 
+	http://www.mydomain.tld/phpBB3/install_abbc3.php into your browser.
+	B.2) When you have done this you should see the phpBB3 ABBC3 Installation screen appear, follow the instructions.
+	If the installation was successful, you can now use your forum.
+	Congratulations, you have installed phpBB3 ABBC3 successfully. 
+	But there is still work ahead!
+	B.3) You should remove/rename the install file (root/install_abbc3.php) 
+	from your server.
+
+#####################################################################
+C) Refresh the templates :
+
+	C.1) Navigate to "Styles" Tab.
+	C.2) Under "Style components " click on "Templates".
+	C.3) Under "Actions" click on "Refresh".
+	C.4) in the next screen, click on "Yes" ( Repeat last 2 steps to each instaled style ).
+
+#####################################################################
+D) Purge the cache :
+
+	D.1) Navigate to General Tab
+	D.2) look at Purge the cache
+	D.3) Click on "Run Now" button at right
+	D.4) in the next screen, click on "Yes"
+
+#####################################################################
+E) Enable your board :
+
+	E.1) Navigate to General Tab -> Board settings 
+	E.2) look at "Disable board: This will make the board unavailable to users. 
+	You can also enter a short (255 character) message to display if you wish." 
+	E.3) Change to "NO"
+	E.4) Submit to save setting.
+
+#####################################################################
+F) Change the value that best suits your needs
+
+	F.1) Navigate to Posting Tab
+	F.2) At the left menu you will find a new category "Advanced BBcodes Box 3"
+	F.3) ABBC3 settings : Here you can determine the basic operation of ABBC3, 
+	enable or disable, and among other settings adjust the default values for the background.
+	F.4) ABBC3 BBCodes : From this page you can alter the order of tags on posting page or edit the icons,
+
+#####################################################################
+H) Enjoy it !.]]>
+		</diy-instructions>
+	</action-group>
+</mod>

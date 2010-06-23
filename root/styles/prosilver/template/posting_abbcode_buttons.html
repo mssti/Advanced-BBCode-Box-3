@@ -2,6 +2,7 @@
 <script type="text/javascript">
 // <![CDATA[
 
+var copy_paste = '';
 /**
 * Default values for width and height values for the wizard pop-up window
 **/
@@ -14,15 +15,15 @@ var popup_height = 400;
 var help_line2 = {
 
 <!-- BEGIN abbc3_help -->
-	'{abbc3_help.TAG_NAME}'	: "{abbc3_help.TAG_MOVER}" + " : {abbc3_help.TAG_TIP}" + " {abbc3_help.TAG_NOTE}" + ( ("{abbc3_help.TAG_EXAMPLE}") ? "\n{L_ABBC3_EXAMPLE} : {abbc3_help.TAG_EXAMPLE}" : "" ),
+	'{abbc3_help.TAG_NAME}'	: ("{abbc3_help.TAG_MOVER}" ? "{abbc3_help.TAG_MOVER}" : "") + (("{abbc3_help.TAG_TIP}" || "{abbc3_help.TAG_NOTE}") ? " :" : "" ) + (("{abbc3_help.TAG_TIP}") ? " {abbc3_help.TAG_TIP}" : "") + (("{abbc3_help.TAG_NOTE}") ? " {abbc3_help.TAG_NOTE}" : "") + (("{abbc3_help.TAG_EXAMPLE}") ? "\n{L_ABBC3_EXAMPLE} : {abbc3_help.TAG_EXAMPLE}" : "" ),
 <!-- END abbc3_help -->
 	
-	'abbc3_font'			: "{L_ABBC3_FONT_MOVER}" + "{L_ABBC3_FONT_TIP}" + '\n' + "{L_ABBC3_FONT_NOTE}",
-	'abbc3_size'			: "{L_ABBC3_SIZE_MOVER}" + "{L_ABBC3_SIZE_TIP}" + '\n' + "{L_ABBC3_SIZE_NOTE}",
-	'abbc3_highlight'		: "{L_ABBC3_HIGHLIGHT_MOVER}" + "{L_ABBC3_HIGHLIGHT_TIP}" + '\n' + "{L_ABBC3_HIGHLIGHT_NOTE}",
-	'abbc3_color'			: "{L_ABBC3_COLOR_MOVER}" + "{L_ABBC3_COLOR_TIP}" + '\n' + "{L_ABBC3_COLOR_NOTE}",
+	'abbc3_font'			: "{LA_ABBC3_FONT_MOVER}" + "{LA_ABBC3_FONT_TIP}" + '\n' + "{LA_ABBC3_FONT_NOTE}",
+	'abbc3_size'			: "{LA_ABBC3_SIZE_MOVER}" + "{LA_ABBC3_SIZE_TIP}" + '\n' + "{LA_ABBC3_SIZE_NOTE}",
+	'abbc3_highlight'		: "{LA_ABBC3_HIGHLIGHT_MOVER}" + "{LA_ABBC3_HIGHLIGHT_TIP}" + '\n' + "{LA_ABBC3_HIGHLIGHT_NOTE}",
+	'abbc3_color'			: "{LA_ABBC3_COLOR_MOVER}" + "{LA_ABBC3_COLOR_TIP}" + '\n' + "{LA_ABBC3_COLOR_NOTE}",
 
-	'abbc3_tip'				: "{L_BBCODE_STYLES_TIP}"
+	'abbc3_tip'				: "{LA_BBCODE_STYLES_TIP}"
 }
 
 /**
@@ -140,6 +141,9 @@ function bbstyle2( bbcode )
 		case "abbc3_html" :
 			bbfontstyle( "[html]", "[/html]" );
 			break;
+		case "abbc3_anchor" :
+			bbfontstyle( "[anchor= goto=]", "[/anchor]" );
+			break;
 		case "abbc3_code" :
 			bbfontstyle( "[code]", "[/code]" );
 			break;
@@ -158,6 +162,12 @@ function bbstyle2( bbcode )
 		case "abbc3_offtopic" :
 			bbfontstyle( "[offtopic]", "[/offtopic]" );
 			break;
+		case "abbc3_scrippet" :
+			bbfontstyle( "[scrippet]", "[/scrippet]" );
+			break;
+		case "abbc3_tabs" :
+			bbfontstyle( "[tabs][tabs: ]", "[/tabs]" );
+			break;
 		case "abbc3_listb" :
 			bbfontstyle( "[list][*]", "[/list]" );
 			break;
@@ -171,11 +181,12 @@ function bbstyle2( bbcode )
 			bbfontstyle( "[hr]", "" );
 			break;
 		case "abbc3_imgshack" :
-			popup( 'http://imageshack.us/', 800, 600 );
+			popup( 'http://imageshack.us/', popup_width, popup_height );
+		/*	popup( 'http://ipostimage.org/', popup_width, popup_height );	*/
+		/*	popup( 'http://www.imageposter.com/uploads/?mode=phpbb&forumurl=' + escape(document.location.href), '_imagehost', 'resizable=yes,width=500,height=400', popup_width, popup_height );	*/
 			break;
 
 /** Custom bbcodes - Start **/
-
 		case "abbc3_dm" :
 			bbfontstyle( "[dm]", "[/dm]" );
 			break;
@@ -215,9 +226,9 @@ function bbstyle2( bbcode )
 		case "abbc3_search" :
 			bbfontstyle( "[search]", "[/search]" );
 			break;
-			
+
 /** Custom bbcodes - End **/
-		
+
 /** This bbcodes needs wizard - Start **/
 		case "abbc3_url" :
 		case "abbc3_ed2k" :
@@ -256,13 +267,13 @@ function bbstyle2( bbcode )
 			{
 				if (theSelection == '' || typeof theSelection == 'undefined' || theSelection == null)
 				{
-					alert( "abbc3_grad : {L_ABBC3_GRAD_MIN_ERROR}" + theSelectionLength );
+					alert( "{LA_ABBC3_GRAD_MOVER} : {LA_ABBC3_GRAD_MIN_ERROR}" + theSelectionLength );
 					return;
 				}
 
 				if ( theSelectionLength > 120 )
 				{
-					alert("abbc3_grad : {L_ABBC3_GRAD_MAX_ERROR}" + theSelectionLength);
+					alert("{LA_ABBC3_GRAD_MOVER} : {LA_ABBC3_GRAD_MAX_ERROR}" + theSelectionLength);
 					return;
 				}
 			}
@@ -276,7 +287,7 @@ function bbstyle2( bbcode )
 								  || bbcode == 'abbc3_video'
 								  || bbcode == 'abbc3_quicktime'
 								  || bbcode == 'abbc3_ram'
-								  )	? ' {S_ABBC3_VIDEO_width},{S_ABBC3_VIDEO_height}' : ( bbcode == 'abbc3_web') ? ' 100%,100' : '';
+								  )	? " {S_ABBC3_VIDEO_WIDTH},{S_ABBC3_VIDEO_HEIGHT}" : ( bbcode == 'abbc3_web') ? ' 100%,100' : '';
 					
 					if ( bbcode == "abbc3_ed2k" )
 					{
@@ -297,7 +308,7 @@ function bbstyle2( bbcode )
 		case "abbc3_plain" :
 			if (theSelection == '' || typeof theSelection == 'undefined' || theSelection == null)
 			{
-				alert ( "{L_ABBC3_NOSELECT_ERROR}" );
+				alert ( "{LA_ABBC3_PLAIN_MOVER} : {LA_ABBC3_NOSELECT_ERROR}" );
 				return;
 			}
 			else
@@ -320,7 +331,7 @@ function bbstyle2( bbcode )
 		case "abbc3_cut" :
 			if (theSelection == '' || typeof theSelection == 'undefined' || theSelection == null)
 			{
-				alert ( "{L_ABBC3_NOSELECT_ERROR}" );
+				alert ( "{LA_ABBC3_CUT_MOVER} : {LA_ABBC3_NOSELECT_ERROR}" );
 				return;
 			}
 			else
@@ -340,7 +351,7 @@ function bbstyle2( bbcode )
 		case "abbc3_copy" :
 			if (theSelection == '' || typeof theSelection == 'undefined' || theSelection == null)
 			{
-				alert ( "{L_ABBC3_NOSELECT_ERROR}" );
+				alert ( "{LA_ABBC3_COPY_MOVER} : {LA_ABBC3_NOSELECT_ERROR}" );
 				return;
 			}
 			else
@@ -355,11 +366,11 @@ function bbstyle2( bbcode )
 			}
 			else
 			{
-				alert ( "{L_ABBC3_PASTE_ERROR}" );
+				alert ( "{LA_ABBC3_PASTE_ERROR}" );
 			}
 			break;
 
-/** Else should be a phpbb3 custom bbcode from ACP, so let´s phpbb3 take care of it **/
+/** Else should be a phpbb3 custom bbcode from ACP, so let's phpbb3 take care of it **/
 		default :
 			bbfontstyle( "["+bbcode+"]", "[/"+bbcode+"]" );
 			break;
@@ -407,10 +418,12 @@ function ABBCcolorPalette( bbcode )
 * Resize a textbox - START
 * Original function by Disturbed One (http://www.hvmdesign.com/)
 **/
-function textbox_resize( pix )
+function textbox_resize( pix, el )
 {
+	if ( typeof el == 'undefined' ) { var el = text_name;  };
+
 	var cookie		= document.forms[form_name].elements['{S_ABBC3_COOKIE_NAME}'];
-	var box			= document.forms[form_name].elements[text_name];
+	var box			= document.getElementById(el);
 	var new_height	= (parseInt(box.style.height) ? parseInt(box.style.height) : 300) + pix;
 
 	if ( parseInt(cookie.value) != 0 && (typeof pix != 'number' || parseInt(pix) == 0 ) )
@@ -451,8 +464,8 @@ else if (typeof(window.attachEvent) != "undefined") // MSIE
 		<tr align="{S_CONTENT_FLOW_BEGIN}">
 			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
 				<span class="abbc3_link">
-					<a href="{S_ABBC3_HELP_PAGE}"          rel="external" onclick="externalLinks(this);" title="{L_ABBC3_HELP_TITLE}" ><img src="{S_ABBC3_PATH}/images/help.gif" alt="{L_ABBC3_HELP_TITLE}" title="{L_ABBC3_HELP_TITLE}" /></a>
-					<a href="http://www.mssti.com/phpbb3/" rel="external" onclick="externalLinks(this);" title="{L_ABBC3_HELP_ALT}"   ><img src="{S_ABBC3_PATH}/images/info.gif" alt="{L_ABBC3_HELP_ALT}"   title="{L_ABBC3_HELP_ALT}"   /></a>
+					<a href="{S_ABBC3_HELP_PAGE}"          rel="external" onclick="window.open(this.href);return false;" title="{L_ABBC3_HELP_TITLE}" ><img src="{S_ABBC3_PATH}/images/help.gif" alt="{L_ABBC3_HELP_TITLE}" title="{L_ABBC3_HELP_TITLE}" /></a>
+					<a href="http://www.mssti.com/phpbb3/" rel="external" onclick="window.open(this.href);return false;" title="{L_ABBC3_HELP_ALT}"   ><img src="{S_ABBC3_PATH}/images/info.gif" alt="{L_ABBC3_HELP_ALT}"   title="{L_ABBC3_HELP_ALT}"   /></a>
 				</span>
 				<!-- IF S_ABBC3_TAB -->
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
@@ -516,9 +529,15 @@ else if (typeof(window.attachEvent) != "undefined") // MSIE
 					<option style="font-size:50%"	value="50">{L_FONT_TINY}</option>
 					<option style="font-size:85%"	value="85">{L_FONT_SMALL}</option>
 					<option style="font-size:100%"	value="100">{L_FONT_NORMAL}</option>
-					<option style="font-size:150%"	value="150">{L_FONT_LARGE}</option>
-					<option style="font-size:200%"	value="200">{L_FONT_HUGE}</option>
-					<option style="font-size:300%"	value="300">{L_ABBC3_FONT_GIANT}</option>
+					<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 150 -->
+						<option style="font-size:150%"	value="150">{L_FONT_LARGE}</option>
+						<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 200 -->
+							<option style="font-size:200%"	value="200">{L_FONT_HUGE}</option>
+							<!-- IF not MAX_FONT_SIZE or MAX_FONT_SIZE >= 300 -->
+								<option style="font-size:300%"	value="300">{L_ABBC3_FONT_GIANT}</option>
+							<!-- ENDIF -->
+						<!-- ENDIF -->
+					<!-- ENDIF -->
 				</select>
 				<!-- IF S_ABBC3_TAB -->
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
@@ -527,7 +546,7 @@ else if (typeof(window.attachEvent) != "undefined") // MSIE
 
 			<!-- IF S_ABBC3_HIGHLIGHT -->
 				<select id="abbc3_highlight" name="abbc3_highlight" onchange="bbfontstyle('[highlight=#' + this.form.abbc3_highlight.options[this.form.abbc3_highlight.selectedIndex].value + ']', '[/highlight]'); this.form.abbc3_highlight.selectedIndex = 0;" onmouseover="helpline2('abbc3_highlight')" onmouseout="helpline2()" title="{L_ABBC3_HIGHLIGHT_MOVER}">
-					<option selected="selected" >- {L_ABBC3_HIGHLIGHT_MOVER}- </option>
+					<option selected="selected" >- {L_ABBC3_HIGHLIGHT_MOVER} -</option>
 					<script type="text/javascript">
 					// <![CDATA[
 						ABBCcolorPalette('abbc3_highlight');
@@ -541,7 +560,7 @@ else if (typeof(window.attachEvent) != "undefined") // MSIE
 
 			<!-- IF S_ABBC3_COLOR -->
 				<select id="abbc3_color" name="abbc3_color" onchange="bbfontstyle('[color=#' + this.form.abbc3_color.options[this.form.abbc3_color.selectedIndex].value + ']', '[/color]'); this.form.abbc3_color.selectedIndex = 0;" onmouseover="helpline2('abbc3_color')" onmouseout="helpline2()" title="{L_ABBC3_COLOR_MOVER}">
-					<option selected="selected" >- {L_ABBC3_COLOR_MOVER}- </option>
+					<option selected="selected" >- {L_ABBC3_COLOR_MOVER} -</option>
 					<script type="text/javascript">
 					// <![CDATA[
 						ABBCcolorPalette('abbc3_color');
@@ -555,6 +574,7 @@ else if (typeof(window.attachEvent) != "undefined") // MSIE
 				<!-- IF S_ABBC3_TAB -->
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
+
 
 <!-- BEGIN abbc3_tags -->
 		<!-- IF abbc3_tags.S_ABBC3_BREAK -->
@@ -573,7 +593,7 @@ else if (typeof(window.attachEvent) != "undefined") // MSIE
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 			<!-- ENDIF -->
 		<!-- ELSE -->
-			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}" class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
 		<!-- ENDIF -->	
 <!-- END abbc3_tags -->
 
@@ -591,7 +611,7 @@ else if (typeof(window.attachEvent) != "undefined") // MSIE
 				<!-- ENDIF -->
 
 				<!-- BEGIN custom_tags -->
-				<input style="margin:8px 0 4px 0;" type="button" class="button2" name="addbbcode{custom_tags.BBCODE_ID}" value="{custom_tags.BBCODE_TAG}" onclick="bbstyle({custom_tags.BBCODE_ID})" title="{custom_tags.BBCODE_TIPLINE}"<!-- IF custom_tags.BBCODE_HELPLINE !== '' --> onmouseover="helpline('cb_{custom_tags.BBCODE_ID}')" onmouseout="helpline2()"<!-- ENDIF --> />
+				<input style="margin:6px 0 4px 0;" type="button" class="button2" name="addbbcode{custom_tags.BBCODE_ID}" value="{custom_tags.BBCODE_TAG}" onclick="bbstyle({custom_tags.BBCODE_ID})" title="{custom_tags.BBCODE_TIPLINE}"<!-- IF custom_tags.BBCODE_HELPLINE !== '' --> onmouseover="helpline('cb_{custom_tags.BBCODE_ID}')" onmouseout="helpline2()"<!-- ENDIF --> />
 				<!-- END custom_tags -->
 
 				<!-- IF S_ABBC3_TAB -->
@@ -608,4 +628,5 @@ else if (typeof(window.attachEvent) != "undefined") // MSIE
 		</tr>
 
 	</table>
+
 	{S_ABBC3_HIDDEN_FIELDS}

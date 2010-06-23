@@ -1,52 +1,58 @@
 <!-- INCLUDE overall_header.html -->
 <!-- // MOD : MSSTI ABBC3 (v1.0.11) - START -->
 
-	<div class="clear" id="ABBC3Help"></div>
-	
 	<span style="float: right;">{L_ABBC3_HELP_ABOUT}</span>
 	<h2>{L_ABBC3_HELP_TITLE}</h2>
 
+<div class="panel bg1" id="ABBC3Help">
+	<div class="inner"><span class="corners-top"><span></span></span>
+		<div class="column1">
+			<dl class="faq">
 <!-- BEGIN bbc_row -->
-
 	<!-- IF bbc_row.ABBC3_HELP_WRITE -->
-	
+		<!-- IF bbc_row.S_ROW_COUNT == S_BBCODE_ROW_COUNT -->
+			</dl>
+		</div>
+		<div class="column2">
+			<dl class="faq">
+		<!-- ENDIF -->
+				<dd><a href="#bbcode{bbc_row.S_ROW_COUNT}">{bbc_row.ABBC3_HELP_DESC}</a></dd>
+	<!-- ENDIF -->
+<!-- END bbc_row -->
+			</dl>
+		</div>
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+
+<!-- BEGIN bbc_row -->
+	<!-- IF bbc_row.ABBC3_HELP_WRITE -->
 	<div class="panel <!-- IF bbc_row.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
 		<div class="inner">
 			<span class="corners-top"><span></span></span>
-			<div class="content">
+			<div class="content" id="bbcode{bbc_row.S_ROW_COUNT}">
 				<h2>{L_ABBC3_HELP_DESC} : <strong>{bbc_row.ABBC3_HELP_DESC}</strong></h2>
 				<dl class="faq">
 					<dt><strong>{L_ABBC3_HELP_WRITE}:</strong></dt>
-					<dd>{bbc_row.ABBC3_HELP_WRITE}<!-- IF bbc_row.ABBC3_HELP_NOTE --><br/>{bbc_row.ABBC3_HELP_NOTE}<!-- ENDIF --></dd>
-				</dl>
-				<hr class="dashed" />
+					<dd>{bbc_row.ABBC3_HELP_WRITE}<!-- IF bbc_row.ABBC3_HELP_NOTE --><br/>{bbc_row.ABBC3_HELP_NOTE}<!-- ENDIF --><hr class="dashed" /></dd>
 				<!-- IF bbc_row.ABBC3_HELP_EXAMPLE -->
-				<dl class="faq">
-					<dt><strong>{L_ABBC3_EXAMPLE} :</strong></dt>
-					<dd>{bbc_row.ABBC3_HELP_EXAMPLE}</dd>
-				</dl>
-				<hr class="dashed" />
+					<dd><strong>{L_ABBC3_EXAMPLE} :</strong></dd>
+					<dd>{bbc_row.ABBC3_HELP_EXAMPLE}<hr class="dashed" /></dd>
 				<!-- ENDIF -->
 				<!-- IF bbc_row.ABBC3_HELP_VIEW -->
-				<dl class="faq">
-					<dt><strong>{L_ABBC3_HELP_VIEW} :</strong></dt>
-					<dd>{bbc_row.ABBC3_HELP_VIEW}</dd>
-				</dl>
-				<hr class="dashed" />
+					<dd><strong>{L_ABBC3_HELP_VIEW} :</strong></dd>
+					<dd>{bbc_row.ABBC3_HELP_VIEW}<hr class="dashed" /></dd>
 				<!-- ENDIF -->
-				<dl class="faq">
 					<dd><a href="#ABBC3Help" class="top2">{L_BACK_TO_TOP}</a></dd>
 				</dl>
 			</div>
 			<span class="corners-bottom"><span></span></span>
 		</div>
 	</div>
-	
 	<!-- ENDIF -->
-	
 <!-- END bbc_row -->
 
-<div id="page-footer">
+<div class="page-footer">
 	<div class="copyright">{L_ABBC3_HELP_ABOUT}</div>
 </div>
 

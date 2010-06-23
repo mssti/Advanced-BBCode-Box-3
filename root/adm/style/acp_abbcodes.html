@@ -13,38 +13,115 @@
 	
 	<script type="text/javascript" defer="defer">
 	// <![CDATA[
-		function update_image(newimage)
+	<!-- IF .options -->
+		onload = function()
 		{
-			document.getElementById('newimg').src = (newimage) ? "{ICON_BASEDIR}/images/bg/" + encodeURI(newimage) : 'images/no_image.png';
+			var form_name = 'acp_abbcodes';
+
+			// Check wich options can be used for the resizer method
+			if (!{ADVANCEDBOX_EXIST} || !{HIGHSLIDE_EXIST} || !{LITEBOX_EXIST} || !{GREYBOX_EXIST} || !{LIGHTVIEW_EXIST} || !{IBOX_EXIST} || !{POPBOX_EXIST})
+			{
+				var resizer_options = document.forms[form_name].elements['ABBC3_RESIZE_METHOD'];
+				if (resizer_options)
+				{
+					for (var elements = 0; elements < resizer_options.length; elements++)
+					{
+						var resizer_option = resizer_options[elements].value;
+						if (resizer_option == 'AdvancedBox' && !{ADVANCEDBOX_EXIST})
+						{
+							resizer_options[elements].disabled  = true;
+							resizer_options[elements].className = 'disabled';
+							resizer_options[elements].text 		= '({LA_DISABLED}) - ' + resizer_options[elements].text;
+						}
+						if (resizer_option == 'HighslideBox' && !{HIGHSLIDE_EXIST})
+						{
+							resizer_options[elements].disabled  = true;
+							resizer_options[elements].className = 'disabled';
+							resizer_options[elements].text 		= '({LA_DISABLED}) - ' + resizer_options[elements].text;
+						}
+						if (resizer_option == 'LiteBox' &&!{LITEBOX_EXIST})
+						{
+							resizer_options[elements].disabled  = true;
+							resizer_options[elements].className = 'disabled';
+							resizer_options[elements].text 		= '({LA_DISABLED}) - ' + resizer_options[elements].text;
+						}
+						if (resizer_option == 'GreyBox' &&!{GREYBOX_EXIST})
+						{
+							resizer_options[elements].disabled  = true;
+							resizer_options[elements].className = 'disabled';
+							resizer_options[elements].text 		= '({LA_DISABLED}) - ' + resizer_options[elements].text;
+						}
+						if (resizer_option == 'Lightview' &&!{LIGHTVIEW_EXIST})
+						{
+							resizer_options[elements].disabled  = true;
+							resizer_options[elements].className = 'disabled';
+							resizer_options[elements].text 		= '({LA_DISABLED}) - ' + resizer_options[elements].text;
+						}
+						if (resizer_option == 'Ibox' &&!{IBOX_EXIST})
+						{
+							resizer_options[elements].disabled  = true;
+							resizer_options[elements].className = 'disabled';
+							resizer_options[elements].text 		= '({LA_DISABLED}) - ' + resizer_options[elements].text;
+						}
+						if (resizer_option == 'PopBox' &&!{POPBOX_EXIST})
+						{
+							resizer_options[elements].disabled  = true;
+							resizer_options[elements].className = 'disabled';
+							resizer_options[elements].text 		= '({LA_DISABLED}) - ' + resizer_options[elements].text;
+						}
+					}
+				}
+			}
+			else
+			{
+				dE('resizer_error', -1);
+			}
+
+			if ({ADVANCEDBOX_EXIST}){ dE('error_AdvancedBox', -1); }
+			if ({HIGHSLIDE_EXIST})	{ dE('error_HighslideBox', -1); }
+			if ({LITEBOX_EXIST})	{ dE('error_LiteBox', -1); }
+			if ({GREYBOX_EXIST})	{ dE('error_GreyBox', -1); }
+			if ({LIGHTVIEW_EXIST})	{ dE('error_Lightview', -1); }
+			if ({IBOX_EXIST})		{ dE('error_Ibox', -1); }
+			if ({POPBOX_EXIST})		{ dE('error_PopBox', -1); }
+
+			var fieldset = document.getElementsByTagName('fieldset');
+			// Skip the first fieldset
+			for (var i = 1; i < fieldset.length; i++)
+			{
+				if (fieldset[i].id)
+				{
+					fieldset[i].style.cursor = 'pointer';
+					abbc_toggle(fieldset[i].id);
+				}
+			}
 		}
 
 		/**
 		* Funtion toggle an element visibility - START
 		**/
-		function abbc_toggle( id )
+		function abbc_toggle(id)
 		{
-			var handle = document.getElementById('toggle-dl'+id);
+			var handle = document.getElementById('toggle_dl_' + id);
 
 			if (document.getElementById(id))
 			{
 				var dl = document.getElementsByTagName('dl');
-				var l = dl.length;
-
-				for (var i = 0; i < l; i++)
+				for (var i = 0; i < dl.length; i++)
 				{
-					if ( dl[i].parentNode.id == id )
+					if (dl[i].parentNode.id == id)
 					{
 						if (dl[i].style.display == 'none')
 						{
 							dl[i].style.display = 'block';
-							handle.style.backgroundImage = 'url(images/toggle.gif)';
+							handle.style.backgroundImage = 'url("images/toggle.gif")';
 							handle.style.backgroundRepeat = 'no-repeat';
 							handle.style.backgroundPosition = 'top left';
 						}
 						else
 						{
 							dl[i].style.display = 'none';
-							handle.style.backgroundImage = 'url(images/toggle.gif)';
+							handle.style.backgroundImage = 'url("images/toggle.gif")';
 							handle.style.backgroundRepeat = 'no-repeat';
 							handle.style.backgroundPosition = 'top right';
 						}
@@ -52,56 +129,63 @@
 				}
 			}
 		}
-
-		onload = function()
+	<!-- ELSE -->
+		function update_image(newimage)
 		{
-			var fieldset = document.getElementsByTagName('fieldset');
-			var fl = fieldset.length;
-
-			// Skip the 1º fieldset
-			for (var i = 1; i < fl; i++)
-			{
-				if ( fieldset[i].id )
-				{
-					fieldset[i].style.cursor = 'pointer';
-					abbc_toggle( fieldset[i].id );
-				}
-			}
+			document.getElementById('newimg').src = (newimage) ? "{ICON_BASEDIR}/images/bg/" + encodeURI(newimage) : 'images/no_image.png';
 		}
+	<!-- ENDIF -->
+
 	// ]]>
 	
 	</script>
-	
+
 	<!-- IF S_ERROR -->
 	<div class="errorbox">
 		<h3>{L_WARNING}</h3>
 		<p>{ERROR_MSG}</p>
 	</div>
 	<!-- ENDIF -->
-	
+
 	<form id="acp_abbcodes" method="post" action="{U_ACTION}">
-	
+
 	<!-- BEGIN options -->
-	
+
 	<!-- IF options.S_LEGEND -->
-	
+
+		<!-- IF $SHOW_WARNING -->
+			<div id="resizer_error" class="errorbox" style="text-align:{S_CONTENT_FLOW_BEGIN};">
+				<h3 style="text-align: center;">{L_WARNING}</h3>
+				<div id="error_AdvancedBox" class="small"><hr />{L_NO_EXIST_EXPLAIN_ADVANCEDBOX}</div>
+				<div id="error_HighslideBox" class="small"><hr />{L_NO_EXIST_EXPLAIN_HIGHSLIDE}</div>
+				<div id="error_LiteBox" class="small"><hr />{L_NO_EXIST_EXPLAIN_LITEBOX}</div>
+				<div id="error_GreyBox" class="small"><hr />{L_NO_EXIST_EXPLAIN_GREYBOX}</div>
+				<div id="error_Lightview" class="small"><hr />{L_NO_EXIST_EXPLAIN_LIHTVIEW}</div>
+				<div id="error_Ibox" class="small"><hr />{L_NO_EXIST_EXPLAIN_IBOX}</div>
+				<div id="error_PopBox" class="small"><hr />{L_NO_EXIST_EXPLAIN_POPBOX}</div>
+			</div>
+			<!-- DEFINE $SHOW_WARNING = '0' -->
+		<!-- ENDIF -->
+
 		<!-- IF not options.S_FIRST_ROW -->
 		</fieldset>
 		<!-- ENDIF -->
-		<fieldset id="{options.LEGEND}" >
+		<fieldset id="fieldset_{options.S_ROW_COUNT}" >
 		<!-- IF options.S_FIRST_ROW -->
 			<legend>{options.LEGEND}</legend>
 		<!-- ELSE -->
-			<legend onclick="abbc_toggle('{options.LEGEND}'); return false;" style="vertical-align:top;">{options.LEGEND} &nbsp; <img src="./images/spacer.gif" border="0" width="18px" height="18px" id="toggle-dl{options.LEGEND}" title="{L_MENU_TOGGLE}" /></legend>
+			<legend onclick="abbc_toggle('fieldset_{options.S_ROW_COUNT}'); return false;" style="vertical-align:top;">{options.LEGEND} &nbsp; <img src="./images/spacer.gif" width="18px" height="18px" id="toggle_dl_fieldset_{options.S_ROW_COUNT}" alt="{L_MENU_TOGGLE}" /></legend>
 		<!-- ENDIF -->
-		
+
 	<!-- ELSE -->
 			<dl>
 				<dt><label for="{options.KEY}">{options.TITLE}:</label><!-- IF options.S_EXPLAIN --><br /><span>{options.TITLE_EXPLAIN}</span><!-- ENDIF --></dt>
 				<dd>{options.CONTENT}</dd>
 			</dl>
 	<!-- ENDIF -->
-	
+
+	<!-- IF options.S_ROW_COUNT eq 6 --><!-- DEFINE $SHOW_WARNING = '1' --><!-- ENDIF -->
+
 	<!-- END options -->
 	
 	<!-- IF S_AUTH -->
@@ -111,25 +195,13 @@
 	<!-- ENDIF -->
 	
 		</fieldset>
-		
 		<p class="submit-buttons">
 			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
 			<input class="button2" type="reset"  id="reset"  name="reset"  value="{L_RESET}" />
+			{S_FORM_TOKEN}
 		</p>
-		{S_FORM_TOKEN}
 
 	</form>
-
-	<!-- IF S_FOUNDER -->
-	<fieldset>
-		<form id="action_purge_cache_form" method="post" action="{U_ACTION}">
-			<dl>
-				<dt><label for="action_purge_cache">{L_PURGE_CACHE}</label><br /><span>{L_PURGE_CACHE_EXPLAIN}</span></dt>
-				<dd><input type="hidden" name="action" value="purge_cache" /><input class="button2" type="submit" id="action_purge_cache" name="action_purge_cache" value="{L_RUN}" /></dd>
-			</dl>
-		</form>
-  	</fieldset>
-  	<!-- ENDIF -->
 
 <!-- ELSEIF S_BBCODES -->
 
@@ -137,9 +209,49 @@
 	// <![CDATA[
 		function update_image(newimage)
 		{
-		//	alert ( currentimage )
 			document.getElementById('newimg').src = (newimage) ? "{ICON_BASEDIR}/images/" + encodeURI(newimage) : 'images/no_image.png';
 		}
+
+		/** 
+		* Implementing some kind of jump to y position in the current page
+		* Code based off
+		*	http://www.issuetrackerproduct.com/About/smoothscrolling.js
+		**/
+		onload = function()
+		{
+			var anchor = 'abbcode_id_{LAST_ID}';
+			var allLinks = document.getElementsByTagName('a');
+			var destinationLink = null;
+			for (var i=0;i<allLinks.length;i++)
+			{
+				var lnk = allLinks[i];
+				if (lnk.id && (lnk.id == anchor))
+				{
+					destinationLink = lnk;
+					break;
+				}
+			}
+			if (!destinationLink)
+			{
+				return true;
+			}
+			else
+			{
+				// Find the destination's position
+				var destx = destinationLink.offsetLeft;
+				var desty = destinationLink.offsetTop;
+				var thisNode = destinationLink;
+				while (thisNode.offsetParent && (thisNode.offsetParent != document.body))
+				{
+					thisNode = thisNode.offsetParent;
+					destx += thisNode.offsetLeft;
+					desty += thisNode.offsetTop;
+				}
+				window.scrollTo(0,desty-100);
+				return true;
+			}
+		}
+
 	// ]]>
 	
 	</script>
@@ -166,7 +278,7 @@
 
 	<form id="abbc3_bbcodes" method="post" action="{A_ACTION}">
 	<!-- ENDIF -->
-			<table cellspacing="1"">
+			<table cellspacing="1">
 				<thead>
 					<tr>
 						<!-- IF S_BBCODE_EDIT --> <!-- DEFINE $COLSPAN = 7 --> <!-- ELSE --> <!-- DEFINE $COLSPAN = 1 --> <!-- ENDIF -->
@@ -180,7 +292,7 @@
 					</tr>
 						<!-- IF S_BBCODE_EDIT -->
 					<tr class="row3">
-						<td>{L_ABBCODES_NAME}</td>
+						<td>{L_ABBCODES_TIP}</td>
 						<td>{L_ACP_POST_SETTINGS}</td>
 						<td>{L_ACP_MESSAGE_SETTINGS}</td>
 						<td>{L_ACP_SIGNATURE_SETTINGS}</td>
@@ -197,10 +309,8 @@
 				<!-- IF items.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
 					
 					<td>
-					<!-- IF items.IMG_SRC and not S_BBCODE_EDIT -->
-						<img src="{items.IMG_SRC}" id="newimg" title="{items.NAME}" alt="{items.NAME}" style="float:right;"/>
-					<!-- ENDIF -->
-					<!-- IF items.TAG_NAME --><b>[{items.TAG_NAME}]</b> &nbsp; <!-- ENDIF -->{items.TAG_EXPLAIN}
+					<!-- IF items.IMG_SRC and not S_BBCODE_EDIT --><img src="{items.IMG_SRC}" title="{items.NAME}" alt="{items.NAME}" style="float:right;"/><!-- ENDIF -->
+					<span><!-- IF items.TAG_NAME --><strong>{items.TAG_NAME}&nbsp;</strong><!-- ENDIF -->{items.TAG_EXPLAIN}</span>
 					<input type="hidden" name="id[{items.ID}]" value="{items.ID}" />
 					<input type="hidden" name="name[{items.ID}]" value="{items.NAME}" />
 					</td>
@@ -221,7 +331,7 @@
 						{items.S_NEW_IMG}
 					</td>
 					<td style="text-align:center;">
-						<img src="{items.IMG_SRC}" id="newimg" name="{items.NAME}" alt="" />
+						<img src="{items.IMG_SRC}" id="newimg" alt="{items.NAME}" />
 					<!-- ELSE -->
 						&nbsp;
 					</td>
@@ -237,7 +347,6 @@
 					<td colspan="{$COLSPAN}">
 						* {L_ABBCODES_GROUPS_EXPLAIN}
 					</td>
-				</tr>
 			<!-- ELSE -->
 					<td>{items.ON_POST}</td>
 					<td>{items.ON_PM}</td>
@@ -245,7 +354,7 @@
 					<td style="text-align: right; white-space: nowrap;">
 						<!-- IF items.S_FIRST_ROW or items.S_NOMOVE -->{ICON_MOVE_UP_DISABLED}<!-- ELSE --><a href="{items.U_MOVE_UP}">{ICON_MOVE_UP}</a><!-- ENDIF -->&nbsp;
 						<!-- IF items.S_LAST_ROW  or items.S_NOMOVE -->{ICON_MOVE_DOWN_DISABLED}<!-- ELSE --><a href="{items.U_MOVE_DOWN}">{ICON_MOVE_DOWN}</a><!-- ENDIF -->&nbsp;
-						<a href="{items.U_EDIT}">{ICON_EDIT}</a>
+						<a id="abbcode_id_{items.ID}" href="{items.U_EDIT}">{ICON_EDIT}</a>
 					</td>
 				<!-- ENDIF -->
 				</tr>
@@ -263,8 +372,8 @@
 			<input class="button2" type="submit" id="add_linebreak"  name="add_linebreak" value="{L_ABBCODES_ADD_BREAK}" />&nbsp;
 			<input class="button1" type="submit" id="resync_order"   name="resync_order"  value="{L_ABBCODES_SYNC}" onclick="this.form.action = '{U_SYNC}';"/>
 			<!-- ENDIF -->
+			{S_FORM_TOKEN}
 		</p>
-		{S_FORM_TOKEN}
 
 	</form>
 

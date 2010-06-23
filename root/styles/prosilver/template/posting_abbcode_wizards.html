@@ -246,12 +246,12 @@ function ColorCode( hexcode )
 	else
 	{
 		this.r = this.g = this.b = 0;
-		alert("Error: ColorCode constructor failed");
+		alert("{LA_GRAD_ERROR}");
 	}
 
 	if ( isNaN( this.r ) || isNaN( this.g ) || isNaN( this.b ) )
 	{
-		alert("Error: ColorCode constructor failed");
+		alert("{LA_GRAD_ERROR}");
 	}
 }
 
@@ -359,7 +359,7 @@ function win_accept( tag, atcaret_pos )
 
 		if ( FoundErrors != '' )
 		{
-			alert( "{L_ABBC3_ERROR}" + FoundErrors );
+			alert( "{LA_ABBC3_ERROR}" + FoundErrors );
 			return;
 		}
 
@@ -388,12 +388,6 @@ function win_accept( tag, atcaret_pos )
 
 		var tag_desc		= ( document.getElementById("promptbox2")	) ? document.getElementById("promptbox2").value			: '';
 		var tag_desc_error	= ( document.getElementById("errorbox2")	) ? document.getElementById("errorbox2").value			: '';
-/**
-		if ( !tag_desc && tag_desc_error )
-		{
-			FoundErrors += '\n' + tag_desc_error;
-		}
-**/
 		var tag_width		= ( document.getElementById("promptbox3")	) ? " " + document.getElementById("promptbox3").value	: '';
 		var tag_width_error	= ( document.getElementById("errorbox3")	) ? document.getElementById("errorbox3").value			: '';
 		if ( tag_width == " " && tag_width_error )
@@ -410,7 +404,7 @@ function win_accept( tag, atcaret_pos )
 
 		if ( FoundErrors != '' )
 		{
-			alert( "{L_ABBC3_ERROR}" + FoundErrors );
+			alert( "{LA_ABBC3_ERROR}" + FoundErrors );
 			return;
 		}
 

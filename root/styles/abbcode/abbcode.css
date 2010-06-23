@@ -17,6 +17,14 @@
 	border-style: none;
 	font-size: 10px;
 }
+.helpline:hover {
+	border-style: none;
+}
+
+hr.hrabbc3    { border: 0 none #cccccc; border-top: 1px solid  #cccccc; margin: 5px 0; clear: both; height: 1px; display: block; }
+hr.hrdashed   { border: 0 none #cccccc; border-top: 1px dashed #cccccc; margin: 5px 0; clear: both; height: 1px; display: block; }
+hr.hrdotted   { border: 0 none #cccccc; border-top: 1px dotted #cccccc; margin: 5px 0; clear: both; height: 1px; display: block; }
+/** IE7 Only **/ *:first-child+html hr    { margin: 0; }
 
 #abbc3posttable textarea.inputbox, 
 #abbc3wysiwig textarea.inputbox{
@@ -95,14 +103,15 @@
 /* DELETE ME 2
 /** MOD : add button over - END **/
 
-#abbc3posttable .dot, #abbc3wysiwig .dot {
+#abbc3posttable .dot, 
+#abbc3wysiwig .dot {
 	margin: 3px 0;
 	padding: 0;
 	cursor: default;
 	background-color: transparent !important;
 }
 
-/* wizards */
+/* wizards - Start */
 #abbcode_wizards {
 	font-size: 1em;
 }
@@ -118,14 +127,15 @@
 #abbcode_wizards select, #abbcode_wizards input, #abbcode_wizards label {
 	font-size: 1em;
 }
+/* wizards - End */
 
-/** Place the testlink files in a scroll box **/
+/** testlink Start **/
 dl.testlink {
 	margin: 0 1px;
 	padding: 5px;
 	height: auto;
 	width: 99%;
-	overflow: hidden;
+	overflow: hidden; /** Place the testlink files in a scroll box **/
 	display: block;
 	white-space: nowrap;
 	font: 0.9em Monaco, "Andale Mono","Courier New", Courier, mono;
@@ -138,43 +148,45 @@ dl.testlink {
 }
 .abbc3_good {
 	color: #2E8B57; 
-	font-size: 1em;;
+	font-size: 1em;
 }
+/** testlink Start **/
 
 /** Spoiler - START **/
 .spoilwrapper {
-	margin: 0 5px;
-	padding: 5px;
+	margin: 5px;
+	padding: 0;
 	color: #000000;
 	border: 1px solid #dbdbdb;
 	background-color: #ffffff;
-	font: 0.9em "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
+/*	font: 0.9em "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;	*/
 	line-height: 1.4em;
 }
 .spoiltitle {
-	padding: 0 0 5px 0;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #CCCCCC;
+	width: 100%;
 }
 .btnspoil {
-	color: #000;
-	background: #FAFAFA;
-	border: 1px solid #666666;
-	font-size: 1em;
-	width: auto !important;
-	padding: 1px 0;
-	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
-	cursor: pointer;
+	margin: 2px 5px;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: bold;
+	display: block;
 }
-input.btnspoil:hover {
-	border: 1px solid #BC2A4D;
-	background-color: #ECECEC;
-	color: #BC2A4D;
+.btnspoil a, .btnspoil a:hover {
+	text-decoration: none;
+}
+.spoilcontent {	
+	color: #000000;
 }
 /** Spoiler - END **/
 
 /** Img - START **/
 div.center { text-align: center; display: table; margin-left: auto; margin-right: auto; }
-div.left   { float:left; padding:0 10px; clear:both; }
-div.right  { float:right; padding:0 10px; clear:both; }
+div.left   { float: left; padding:0 10px; clear:both; }
+div.right  { float: right; padding:0 10px; clear:both; }
 /** Img - END **/
 
 /** NFO bbcode - START **/
@@ -182,16 +194,16 @@ div.right  { float:right; padding:0 10px; clear:both; }
 * html.nfo { line-height: 86%; letter-spacing: -2.9px; font-size: 10px; font-family: Terminal; }
 /** IE7 Only **/
 *:first-child+html .nfo { line-height: 86%; letter-spacing: -2.9px; font-size: 10px; font-family: Terminal; }
-.NFOTable .codetitle	{ font-weight: bold; }
+.nfotitle	{ font-weight: bold; }
 .nfo { color: #000000; font-weight: normal; line-height: 70%; letter-spacing: -2.5px; font-size: 9px; font-family: "Courier New"; background-color: #ffffff; }
 /** NFO bbcode - END **/
 
 /** ed2k bbcode - START **/
-.ed2k_div1  {margin: 5px 0 0 0; padding:5px 0; color:#ffffff; border:1px solid #dbdbdb; text-align:center; background-color:#999999; font-size:0.9em; font-weight:bold; }
-.ed2k_div2  {margin:         0; padding:    0; color:#000000; border:1px solid #dbdbdb; display:none     ; background-color:#E4F9DB; }
-.ed2k_table {margin:         0; padding:5px  ;                border-collapse:collapse; }
-.ed2k_col1  {               			          width:5%  ; border:1px solid #999999; text-align:center; }
-.ed2k_col2  {margin:         0; padding:0 5px;    width:95% ; border:1px solid #999999; text-align:left; }
+.ed2k_div1  { margin: 5px 0 0 0; padding:5px 0; color:#ffffff; border:1px solid #dbdbdb; text-align:center; background-color:#999999; font-size:0.9em; font-weight:bold; }
+.ed2k_div2  { margin:         0; padding:    0; color:#000000; border:1px solid #dbdbdb; display:none     ; background-color:#E4F9DB; }
+.ed2k_table { margin:         0; padding:5px  ;                border-collapse:collapse; }
+.ed2k_col1  {                	                   width:5%  ; border:1px solid #999999; text-align:center; }
+.ed2k_col2  { margin:         0; padding:0 5px;    width:95% ; border:1px solid #999999; text-align:left; }
 /** ed2k bbcode - END **/
 
 /** Moderator bbcode - START **/
@@ -207,17 +219,32 @@ div.right  { float:right; padding:0 10px; clear:both; }
 .OffTopicText	{ padding: 0.5em; }
 /** Offtopic bbcode - END **/
 
-.codetitle, .codecontent { overflow: auto; }
+/** Marquee bbcode - Start **/
+marquee {
+	background: #F7F7F7;
+	margin: 10px 5px;
+	border: 1px dotted #000000; 
+	font-size:0.9em; 
+	font-weight: normal;
+	display: -moz-inline-box; /* For FF<3 */
+	-moz-box-orient: vertical; /* For FF<3 */
+	display: inline-block; /* IE <8 needs this tripped back to display: inline; to make it work on block elements */
+}
+/** Marquee bbcode - End **/
+
+/** Code and quote - Start **/
+.codetitle, .codecontent      { overflow: auto; }
 .quotecontent, blockquote div { overflow: auto; max-height: 200px; }
+/** Code and quote - End **/
 
 /** thumbnails - START **/
-.hoverbox { cursor: /* url("zoomin.cur"), */ pointer ; background:#eee; color: inherit; border-color: #ddd #bbb #aaa #ccc; border-style: solid; border-width: 1px; margin: 3px; padding: 5px; }
+.hoverbox { cursor: pointer ; background:#eee; color: inherit; border-color: #ddd #bbb #aaa #ccc; border-style: solid; border-width: 1px; margin: 3px; padding: 5px; }
 /** thumbnails - END **/
 
 /** Image Resizer JS - START **/
-.resized-div { margin: 0; padding: 0; border: 0px; background-color: #000000; width: auto; height: 24px; -moz-border-radius-topleft: 7px; -moz-border-radius-topright: 7px; text-align: left; }
-.resized-txt { padding-bottom: 5px; /* padding: 6px 0 0 10px; */ color: #ffffff; font-size: 12px; font-weight: normal; text-decoration: none; font-family: "Trebuchet MS", Helvetica, Arial, sans-serif; vertical-align: middle; font-variant: normal; text-transform: none; line-height: 100%; }
-.resized-div img { background-color: transparent !important; border: 1px solid transparent !important; margin: 2px 5px 0 10px; }
+.resized-div           { margin: 0; padding: 0; border: 0px; background-color: #000000; /*width: auto;*/ height: 24px; -moz-border-radius: 7px 7px 0 0; text-align: left; }
+.resized-txt           { padding-bottom: 5px; /* padding: 6px 0 0 10px; */ color: #ffffff; font-size: 12px; font-weight: normal; text-decoration: none; font-family: "Trebuchet MS", Helvetica, Arial, sans-serif; vertical-align: middle; font-variant: normal; text-transform: none; line-height: 100%; text-align: left; }
+.resized-div img       { background-color: transparent !important; border: 1px solid transparent !important; margin: 2px 5px 0 10px; }
 .resized-div img:hover { border: 1px solid transparent !important; }
 /** Image Resizer JS - END **/
 
@@ -225,9 +252,10 @@ div.right  { float:right; padding:0 10px; clear:both; }
 #AB-BackGround        { position: absolute; top: 0; left: 0; z-index: 90; width: 100%; height: 100%; background-color: #000; }
 #AB-Overlay           { position: absolute; top: 0; left: 0; width: 100%; z-index: 100; text-align: center; line-height: 0; }
 #AB-ToolBar           { position: absolute; top: 0; left: 0; height: 20px; width: 100%; z-index: 10; }
-#AB-ImageName         { float: right; margin: 0; padding: 0 5px; width: auto; height: 18px; color: #f1f1f1; line-height: 150%; }
+#AB-ImageName1        { float: right; margin: 0; padding: 0 5px; width: auto; height: 18px; color: #f1f1f1; line-height: 150%; }
+#AB-ImageName2        { float: right; margin: 0; padding: 2px 0; width: auto; height: 18px; color: #f1f1f1; line-height: 150%; }
 #AB-OuterContainer    { position: relative; width: 250px; height: 250px; margin: auto auto; border: 4px solid white; background-color: white; }
-#AB-LoadingLink       { z-index: 1000; position: absolute; top: 52%; left: 48%; width: 20px; height: 20px; margin: 0; padding: 0; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
+#AB-LoadingLink       { z-index: 1000; position: absolute; top: 52%; left: 49%; width: 20px; height: 20px; margin: 0; padding: 0; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
 #AB-LoadingLink       { background: url("advancedbox_icon_loading.gif") top left no-repeat; }
 #AB-CloserLink, #AB-ZoomLink, #AB-PrevLink, #AB-NextLink, #AB-PlayLink, #AB-PauseLink { z-index: 104; margin: 0; padding: 0; width: 20px; height: 20px; float: left; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
 #AB-CloserLink        { background: url("advancedbox_icon_close.gif") top left no-repeat; }
@@ -242,9 +270,165 @@ div.right  { float:right; padding:0 10px; clear:both; }
 #AB-ToolBar a.disabled{ cursor: default; background-position: 100% 0; }
 /** AdvancedBox JS - END **/
 
-/* Hidden block */
-.hiddenbox { padding: 0 2px 2px 5px; background-color: #ffffff; border: 1px solid #d8d8d8; font-size: 1em; }
+/* Hidden block - Start */
+.hiddenbox         { padding: 0 2px 2px 5px; background-color: #ffffff; border: 1px solid #d8d8d8; font-size: 1em; }
 .unhidden, .hidden { border-bottom: 1px solid #cccccc; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block; }
-.unhidden { color: #339900; }
-.hidden { color: #990000; }
-.hiddentext { color: #ff0000; }
+.unhidden          { color: #339900; }
+.hidden            { color: #990000; }
+.hiddentext        { color: #ff0000; }
+/* Hidden block - End */
+
+/* Anchor - Start */
+a.anchor    { color: #ff0000; }
+span.anchor { border-bottom: 1px #000000 dashed ; }
+/* Anchor - End */
+
+/* bbvideo - Start */
+.bbvideo {
+/* if you want add you own style here */
+/* Example for text arround :
+	float : left;
+	padding-right : 10px;
+*/
+}
+.bbvideotitle {
+	padding: 5px;
+	background-color: #ffffff;
+	border: 1px solid #555555;
+	border-bottom: none;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: bold;
+	color: #555555;
+	clear : both;
+}
+.bbvideotitle img {
+	float: left ;
+	margin-right: 5px;
+}
+.bbvideocontent {
+	padding: 5px;
+	background-color: #000000;
+	border: 1px solid #555555;
+	text-align: center;
+}
+/* bbvideo - End */
+
+/* Scrippet.css - Start
+   Scrippet is a CSS template designed for including short sections of screenplay-formatted material in blog posts.
+   Originally developed by John August - johnaugust.com
+   Last modified 8/21/08
+*/
+#scrippet {
+	width: 400px;
+	color: #000000;
+	margin-bottom: 16px !important;
+	margin-left: 20px !important;
+	padding: 5px 14px 15px 14px;
+	margin-bottom: 16px;
+	margin-left: 40px;
+}
+#scrippet .scrippet-shadow {
+	border: none;
+	background: url("images/scrippet/shadowAlpha.png") no-repeat bottom right !important;
+	padding: 0 6px 6px 0 !important;
+}
+#scrippet .inner-shadow {
+	background-color: #fffffc;
+	border: 1px solid #aaa;
+	padding: 5px !important;
+}
+#scrippet p {
+	font:  .9em/1.3em Courier, "Courier New", monospace;
+	margin: 0;
+}
+#scrippet .sceneheader {
+	font-weight: bold;
+}
+#scrippet .sceneheader, 
+#scrippet .action, 
+#scrippet .character {
+	padding-top: 1.5ex;
+}
+#scrippet .action {
+	padding-right: 5%;
+}
+#scrippet .character {
+	margin-left: 40%;
+}
+#scrippet .dialogue {
+	margin-left: 15%;
+	padding-right: 15%;
+}
+#scrippet .parenthetical {
+	margin-left: 32%;
+	padding-right: 30%;
+}
+#scrippet .dialogue + .parenthetical {
+	padding-bottom: 0;
+}
+#scrippet .transition {
+	padding-top: 3ex;
+	margin-left: 65%;
+	padding-bottom: 1.5ex;
+}
+/* Scrippet.css - End */
+
+/* SimpleTabs: default style - Start
+   Code based off :
+		http://pirex.com.br/wordpress-plugins/post-tabs/
+		http://labs.komrade.gr/simpletabs/
+*/
+div.simpleTabs { padding: 10px; }
+div.simpleTabsContent.currentTab { display: block; }
+div.simpleTabsContent {
+	display: none;
+	border: 1px solid #cccccc;
+	margin-top: 0px !important; /* -1px; */
+	padding: 1em !important;
+	background-color: #ffffff;
+}
+div.simpleTabsContent .simpleTabsTitles {
+	display: none;
+}
+ul.simpleTabsNavigation {
+	margin: 5px 2px 3px 1.5em !important;
+	font-size: 1.0em;
+	list-style-type: none !important;
+	line-height: normal;
+	text-align: left;
+	display: block !important;
+	background: none;
+	color: #ff0000;
+}
+ul.simpleTabsNavigation li {
+	list-style: none;
+	display: inline !important;
+	font-weight: bold;
+	line-height: normal;
+	background: none;
+	padding: 0px;
+	margin: 0px;
+}
+ul.simpleTabsNavigation li:before {
+	content: none;
+}
+ul.simpleTabsNavigation li a {
+	padding: 0.2em 0.5em !important;
+	outline: none;
+	cursor: pointer;
+	text-decoration: none;
+	color: #777777;
+	border: 1px solid #cccccc;
+	background-image: url("images/bg/tab-inactive.png");
+}
+ul.simpleTabsNavigation li a:hover {
+	color: #666666;
+	background: #ffffff none !important;
+}
+ul.simpleTabsNavigation li a.current {
+	color: #000000 !important;
+	border-bottom: 1px solid #ffffff;
+	background: #ffffff url("images/bg/tab-active.png");
+}
+/** SimpleTabs: default style - End **/
