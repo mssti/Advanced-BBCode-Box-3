@@ -1,0 +1,47 @@
+<!-- INCLUDE simple_header.html -->
+	
+	<form id="abbc3_added_file" action="{ABBC3_ATTACH_PAGE}" method="post" enctype="multipart/form-data">
+		<table class="tablebg"width="100%" border="0" cellspacing="1" cellpadding="0">
+			<!-- IF ERROR -->
+			<tr>
+				<td class="gensmall" colspan="2" align="center"><span class="error">{ERROR}</span></td>
+			</tr>
+			<!-- ENDIF -->
+			<tr>
+				<th colspan="2">{L_ABBC3_ATTACH_MOVER}</th>
+			</tr>
+			<tr>
+				<td class="row1"><label for="fileupload">{L_FILENAME} :</label></td>
+				<td class="row1">
+						<input type="file"   name="fileupload"  id="fileupload" maxlength="{ABBC3_ATTACH_FILESIZE}" value="" class="inputbox autowidth" />
+						<input type="submit" name="add_file"    value="{L_ADD_FILE}" class="button2" onclick="upload = true;" />
+						<input type="submit" name="cancel_file" value="{L_CANCEL}"   class="button2" onclick="window.top.hidePopWin();" />
+						<input type='hidden' name='added_file'  id='added_file' value='{ADDED_FILE_NAME}'/>
+				</td>
+			</tr>
+			<tr>
+				<td class="row1"><label for="filecomment">{L_ABBC3_ATTACH_EXTENSION} :</label></td>
+				<td class="row1">{ABBC3_ATTACH_EXTENSION}</td>
+			</td>
+				
+			<!-- IF ADDED_FILE -->
+			<tr><td colspan="2" class="row1">&nbsp;</td></tr>
+			<tr>
+				<td colspan="2" class="row1" align="center">
+					<span class="error">
+						<label for="filecomment">{L_ABBC3_ATTACH_LINK} :</label>
+						<br/>
+						<input type='text' name='text'  id='text' class="gen" value="{OPEN_TAG}{ADDED_FILE_NAME}{CLOSE_TAG}" size="90" />
+					</span>
+				</td>
+			</tr>
+			<!-- ENDIF -->
+		</table>
+	</form>
+
+<div id="wrapfooter">
+	{L_ABBC3_HELP_ABOUT}
+</div>
+
+</body>
+</html>

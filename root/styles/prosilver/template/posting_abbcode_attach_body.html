@@ -1,0 +1,54 @@
+<!-- INCLUDE simple_header.html -->
+
+	<!-- IF ERROR -->
+		<p class="error">{ERROR}</p>
+	<!-- ENDIF -->
+	
+	<form id="abbc3_added_file" action="{ABBC3_ATTACH_PAGE}" method="post" enctype="multipart/form-data">
+		<div class="panel bg3" id="attach-panel">
+			<div class="inner"><span class="corners-top"><span></span></span>
+			
+			<h2>{L_ABBC3_ATTACH_MOVER}</h2>
+			
+			<fieldset class="fields2">
+				<dl>
+					<dt><label for="fileupload">{L_FILENAME} :</label></dt>
+					<dd>
+						<input type="file"   name="fileupload"  id="fileupload" maxlength="{ABBC3_ATTACH_FILESIZE}" value="" class="inputbox autowidth" />
+						<input type="submit" name="add_file"    value="{L_ADD_FILE}" class="button2" onclick="upload = true;" />
+						<input type="submit" name="cancel_file" value="{L_CANCEL}"   class="button2" onclick="window.top.hidePopWin();" />
+						<input type='hidden' name='added_file'  id='added_file' value='{ADDED_FILE_NAME}'/>
+					</dd>
+				</dl>
+				<dl>
+					<dt><label for="filecomment">{L_ABBC3_ATTACH_EXTENSION} :</label></dt>
+					<dd>{ABBC3_ATTACH_EXTENSION}</dd>
+				</dl>
+				
+				<!-- IF ADDED_FILE -->
+				<dl>&nbsp;</dl>
+				<dl>
+					<center>
+						<p class="error">
+							<label for="filecomment">{L_ABBC3_ATTACH_LINK} :</label>
+							<br/>
+							<input type='text' name='text'  id='text' class="gen" value="{OPEN_TAG}{ADDED_FILE_NAME}{CLOSE_TAG}" size="200" />
+						</p>
+					</center>
+				</dl>
+				<!-- ENDIF -->
+				
+			</fieldset>
+			
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+	</form>
+
+</div>
+	<div class="copyright">
+		{L_ABBC3_HELP_ABOUT}
+	</div>
+</div>
+
+</body>
+</html>
