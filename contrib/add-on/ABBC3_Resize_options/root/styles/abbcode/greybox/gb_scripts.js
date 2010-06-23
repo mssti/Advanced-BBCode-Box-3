@@ -218,6 +218,10 @@ return false;
 }
 AJS.AEV(window,"load",decoGreyboxLinks);
 GB_showImage=function(_1d,url,_1f){
+/** Fix by MSSTI for ABBC3 v1.0.11 - Start **/
+url = url_clean( url );
+_1d = '';
+/** Fix by MSSTI for ABBC3 v1.0.11 - End **/
 var _20={width:300,height:300,type:"image",fullscreen:false,center_win:true,caption:_1d,callback_fn:_1f};
 var win=new GB_Gallery(_20);
 return win.show(url);

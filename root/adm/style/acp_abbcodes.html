@@ -1,5 +1,5 @@
 <!-- INCLUDE overall_header.html -->
-<!-- // MOD : MSSTI ABBC3 (v1.0.10) - START -->
+<!-- // MOD : MSSTI ABBC3 (v1.0.11) - START -->
 
 <a name="maincontent"></a>
 
@@ -16,6 +16,57 @@
 		function update_image(newimage)
 		{
 			document.getElementById('newimg').src = (newimage) ? "{ICON_BASEDIR}/images/bg/" + encodeURI(newimage) : 'images/no_image.png';
+		}
+
+		/**
+		* Funtion toggle an element visibility - START
+		**/
+		function abbc_toggle( id )
+		{
+			var handle = document.getElementById('toggle-dl'+id);
+
+			if (document.getElementById(id))
+			{
+				var dl = document.getElementsByTagName('dl');
+				var l = dl.length;
+
+				for (var i = 0; i < l; i++)
+				{
+					if ( dl[i].parentNode.id == id )
+					{
+						if (dl[i].style.display == 'none')
+						{
+							dl[i].style.display = 'block';
+							handle.style.backgroundImage = 'url(images/toggle.gif)';
+							handle.style.backgroundRepeat = 'no-repeat';
+							handle.style.backgroundPosition = 'top left';
+						}
+						else
+						{
+							dl[i].style.display = 'none';
+							handle.style.backgroundImage = 'url(images/toggle.gif)';
+							handle.style.backgroundRepeat = 'no-repeat';
+							handle.style.backgroundPosition = 'top right';
+						}
+					}
+				}
+			}
+		}
+
+		onload = function()
+		{
+			var fieldset = document.getElementsByTagName('fieldset');
+			var fl = fieldset.length;
+
+			// Skip the 1º fieldset
+			for (var i = 1; i < fl; i++)
+			{
+				if ( fieldset[i].id )
+				{
+					fieldset[i].style.cursor = 'pointer';
+					abbc_toggle( fieldset[i].id );
+				}
+			}
 		}
 	// ]]>
 	
@@ -37,8 +88,13 @@
 		<!-- IF not options.S_FIRST_ROW -->
 		</fieldset>
 		<!-- ENDIF -->
-		<fieldset>
+		<fieldset id="{options.LEGEND}" >
+		<!-- IF options.S_FIRST_ROW -->
 			<legend>{options.LEGEND}</legend>
+		<!-- ELSE -->
+			<legend onclick="abbc_toggle('{options.LEGEND}'); return false;" style="vertical-align:top;">{options.LEGEND} &nbsp; <img src="./images/spacer.gif" border="0" width="18px" height="18px" id="toggle-dl{options.LEGEND}" title="{L_MENU_TOGGLE}" /></legend>
+		<!-- ENDIF -->
+		
 	<!-- ELSE -->
 			<dl>
 				<dt><label for="{options.KEY}">{options.TITLE}:</label><!-- IF options.S_EXPLAIN --><br /><span>{options.TITLE_EXPLAIN}</span><!-- ENDIF --></dt>
@@ -141,6 +197,9 @@
 				<!-- IF items.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
 					
 					<td>
+					<!-- IF items.IMG_SRC and not S_BBCODE_EDIT -->
+						<img src="{items.IMG_SRC}" id="newimg" title="{items.NAME}" alt="{items.NAME}" style="float:right;"/>
+					<!-- ENDIF -->
 					<!-- IF items.TAG_NAME --><b>[{items.TAG_NAME}]</b> &nbsp; <!-- ENDIF -->{items.TAG_EXPLAIN}
 					<input type="hidden" name="id[{items.ID}]" value="{items.ID}" />
 					<input type="hidden" name="name[{items.ID}]" value="{items.NAME}" />
@@ -158,7 +217,7 @@
 					</td>
 					
 					<td>
-					<!-- IF items.IMG_SRC -->
+					<!-- IF items.IMG_SRC and not items.S_NOMOVE -->
 						{items.S_NEW_IMG}
 					</td>
 					<td style="text-align:center;">
@@ -195,13 +254,14 @@
 			</tbody>
 		</table>
 		
-		<p class="submit-buttons">
+		<p class="submit-buttons" >
 			<!-- IF S_BBCODE_EDIT -->
 			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
 			<input class="button2" type="reset"  id="reset"  name="reset" value="{L_RESET}" />
 			<!-- ELSE -->
-			<input class="button1" type="submit" id="add_division"   name="add_division"  value="{L_ABBCODES_ADD_DIVISION}" />&nbsp;
-			<input class="button2" type="submit" id="add_linebreak"  name="add_linebreak" value="{L_ABBCODES_ADD_BREAK}" />
+			<input class="button2" type="submit" id="add_division"   name="add_division"  value="{L_ABBCODES_ADD_DIVISION}" />&nbsp;
+			<input class="button2" type="submit" id="add_linebreak"  name="add_linebreak" value="{L_ABBCODES_ADD_BREAK}" />&nbsp;
+			<input class="button1" type="submit" id="resync_order"   name="resync_order"  value="{L_ABBCODES_SYNC}" onclick="this.form.action = '{U_SYNC}';"/>
 			<!-- ENDIF -->
 		</p>
 		{S_FORM_TOKEN}
@@ -210,5 +270,5 @@
 
 <!-- ENDIF -->
 
-<!-- // MOD : MSSTI ABBC3 (v1.0.10) - END -->
+<!-- // MOD : MSSTI ABBC3 (v1.0.11) - END -->
 <!-- INCLUDE overall_footer.html -->

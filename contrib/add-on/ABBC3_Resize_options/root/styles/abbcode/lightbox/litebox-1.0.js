@@ -24,6 +24,11 @@
 var resizeSpeed = 6;	// controls the speed of the image resizing (1=slowest and 10=fastest)
 var borderSize = 10;	//if you adjust the padding in the CSS, you will need to update this variable
 
+/** Fix by MSSTI for ABBC3 v1.0.11 - Start **/
+var lb_max_width = 600; //if you wish to constrain the width (set to 99999 for unlimited size)
+var lb_max_height = 400; //if you wish to constring the height (set to 99999 for unlimited size)
+/** Fix by MSSTI for ABBC3 v1.0.11 - End **/
+
 // -----------------------------------------------------------------------------------
 
 //
@@ -45,42 +50,42 @@ resizeDuration = (11 - resizeSpeed) * 100;
 Object.extend(Element, {
 	hide: function() {
 		for (var i = 0; i < arguments.length; i++) {
-			var element = $(arguments[i]);
+			var element = $id(arguments[i]);
 			element.style.display = 'none';
 		}
 	},
 	show: function() {
 		for (var i = 0; i < arguments.length; i++) {
-			var element = $(arguments[i]);
+			var element = $id(arguments[i]);
 			element.style.display = '';
 		}
 	},
 	getWidth: function(element) {
-	   	element = $(element);
+	   	element = $id(element);
 	   	return element.offsetWidth; 
 	},
 	setWidth: function(element,w) {
-	   	element = $(element);
+	   	element = $id(element);
 		element.style.width = w +"px";
 	},
 	getHeight: function(element) {
-		element = $(element);
+		element = $id(element);
 		return element.offsetHeight;
 	},
 	setHeight: function(element,h) {
-   		element = $(element);
+   		element = $id(element);
 		element.style.height = h +"px";
 	},
 	setTop: function(element,t) {
-	   	element = $(element);
+	   	element = $id(element);
 		element.style.top = t +"px";
 	},
 	setSrc: function(element,src) {
-		element = $(element);
+		element = $id(element);
 		element.src = src; 
 	},
 	setInnerHTML: function(element,content) {
-		element = $(element);
+		element = $id(element);
 		element.innerHTML = content;
 	}
 });
@@ -232,6 +237,10 @@ Lightbox.prototype = {
 		
 		navEffect = new fx.Opacity('hoverNav', { duration: 100 });
 		navEffect.hide();
+/** Fix by MSSTI for ABBC3 v1.0.11 - Start **/		
+		lb_max_width = getPageSize()[2]-50; // = new Array(pageWidth,pageHeight,windowWidth,windowHeight) 
+		lb_max_height = getPageSize()[3]-90; // = new Array(pageWidth,pageHeight,windowWidth,windowHeight) 
+/** Fix by MSSTI for ABBC3 v1.0.11 - End **/
 	},
 	
 	//
@@ -257,19 +266,27 @@ Lightbox.prototype = {
 			// add single image to imageArray
 			if ( imageLink.getAttribute('src') )
 			{
+/** Fix by MSSTI for ABBC3 v1.0.11 - Start **/
+				imageLink.src = url_clean( imageLink.src );
+/** Fix by MSSTI for ABBC3 v1.0.11 - End **/
 				imageArray.push(new Array(imageLink.getAttribute('src'), imageLink.getAttribute('title')));
 			}
 			else
 			{
+/** Fix by MSSTI for ABBC3 v1.0.11 - Start **/
+				imageLink.href = url_clean( imageLink.href );
+/** Fix by MSSTI for ABBC3 v1.0.11 - End **/
 				imageArray.push(new Array(imageLink.getAttribute('href'), imageLink.getAttribute('title')));
 			}
 		} else {
 		// if image is part of a set..
-
 			// loop through anchors, find other images in set, and add them to imageArray
 			for (var i=0; i<anchors.length; i++){
 				var anchor = anchors[i];
 				if (anchor.getAttribute('href') && (anchor.getAttribute('rel') == imageLink.getAttribute('rel'))){
+/** Fix by MSSTI for ABBC3 v1.0.11 - Start **/
+					anchor.href = url_clean( anchor.href );
+/** Fix by MSSTI for ABBC3 v1.0.11 - End **/
 					imageArray.push(new Array(anchor.getAttribute('href'), anchor.getAttribute('title')));
 				}
 			}
@@ -308,7 +325,14 @@ Lightbox.prototype = {
 		// once image is preloaded, resize image container
 		imgPreloader.onload=function(){
 			Element.setSrc('lightboxImage', imageArray[activeImage][0]);
-			myLightbox.resizeImageContainer(imgPreloader.width, imgPreloader.height);
+			
+/** Fix by MSSTI for ABBC3 v1.0.11 - Start **/
+			var dims = lb_scale_dims(imgPreloader.width, imgPreloader.height, lb_max_width, lb_max_height);
+			Element.setWidth('lightboxImage', dims[0]);
+			Element.setHeight('lightboxImage', dims[1]);
+			myLightbox.resizeImageContainer(dims[0], dims[1]);
+		//	myLightbox.resizeImageContainer(imgPreloader.width, imgPreloader.height);
+/** Fix by MSSTI for ABBC3 v1.0.11 - End **/
 		}
 		imgPreloader.src = imageArray[activeImage][0];
 	},
@@ -606,3 +630,24 @@ function pause(numberMillis) {
 // ---------------------------------------------------
 
 function initLightbox() { myLightbox = new Lightbox(); }
+
+/** Fix by MSSTI for ABBC3 v1.0.11 - Start
+* Code From : http://www.huddletogether.com/forum/comments.php?DiscussionID=1798
+**/
+function lb_scale_dims(orig_w, orig_h, max_w, max_h)
+{
+	var scale = lb_scale_rate(orig_w, orig_h, max_w, max_h);
+	var new_w = Math.round(scale*orig_w); new_h = Math.round(scale*orig_h);
+	if (new_w < 1) { new_w = 1; } if (new_h < 1) { new_h = 1; }
+	return Array(new_w, new_h);
+}
+
+function lb_scale_rate(orig_w, orig_h, max_w, max_h)
+{
+	var scale1 = 0; var scale2 = 0;
+	if (orig_w > max_w) { scale1 = (orig_w - max_w) / orig_w; }
+	if (orig_h > max_h) { scale2 = (orig_h - max_h) / orig_h; }
+	var scale = (scale1>scale2)?scale1:scale2;
+	return (1-scale);
+}
+/** Fix by MSSTI for ABBC3 v1.0.11 - End **/

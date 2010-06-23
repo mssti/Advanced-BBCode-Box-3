@@ -1,7 +1,7 @@
 <?php
 /**
 * @package: phpBB3 :: Advanced BBCode box 3
-* @version: $Id: abbcode.php, v 1.0.10 2008/08/01 01:08:08 leviatan21 Exp $
+* @version: $Id: abbcode.php, v 1.0.11 2008/10/11 11:10:08 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
@@ -10,17 +10,23 @@
 
 /**
 * @ignore
-* @todo submit on phpbb3 moddb ?
+* 
 * Base article :
-*	http://www.phpbb.com/community/viewtopic.php?f=46&t=579376
-* 	http://www.phpbb.com/kb/article/adding-custom-bbcodes-in-phpbb3/
-*	http://www.phpbb.com/community/viewtopic.php?p=5009915#p5009915
+*	Custom BBCodes
+* 		http://www.phpbb.com/community/viewtopic.php?f=46&t=579376
+* 	Adding Custom BBCodes in phpBB3
+* 		http://www.phpbb.com/kb/article/adding-custom-bbcodes-in-phpbb3/
+* 	When pushing BBCode button, text remains selected (solved)
+* 		http://www.phpbb.com/community/viewtopic.php?f=72&t=1190795
+*	[BETA] BBCode Retain Selection 0.1.0
+* 		http://www.startrekguide.com/community/viewtopic.php?f=82&t=2587
 * 
 * If you are using phpBB2, you can find compatible BBCode MODs in the BBCode section of the MOD database.
 * 	http://www.phpbb.com/mods/db/index.php?i=browse&mode=group:category&sub=bbcode
 * 
 * Need New Ions ? :
 *	http://www.famfamfam.com/lab/icons/silk/ 
+* 
 **/
 
 if (!defined('IN_PHPBB'))
@@ -30,8 +36,8 @@ if (!defined('IN_PHPBB'))
 
 /**
 * Advanced BBCode Box 3 class
-*
 * @package phpBB3
+* @version 1.0.11
 **/
 class abbcode
 {
@@ -44,48 +50,51 @@ class abbcode
 	{
 		global $phpbb_admin_path, $phpbb_root_path, $phpEx, $template, $config, $user ;
 
-		$user->add_lang('mods/abbcode');
+/* ABBC3 can be disabed in-line - Start */
+		$enable = request_var('abbc3', 1);
+		if ( !$enable ) { $config['ABBC3_MOD'] = false; return false; }
+/* ABBC3 can be disabed in-line - End */
+
+		$user->add_lang( 'mods/abbcode' );
 
 		//$abbc3_root_path = ( $phpbb_admin_path ) ? $phpbb_admin_path : $phpbb_root_path ;
-		$this->abbc3_unique_id = substr(base_convert(unique_id(), 16, 36), 0, 8);
+		$this->abbc3_unique_id = substr( base_convert( unique_id(), 16, 36 ), 0, 8 );
 
 		$this->abbcode_config = array(
 			// Display ABBC3 ?
-			'ABBC3_PATH'			=> $phpbb_root_path . $config['ABBC3_PATH'],
-			'ABBC3_MOD'				=> $config['ABBC3_MOD'],
-			// Display thumbnails with greybox ?
-			'ABBC3_ADVANCEDBOX'		=> ( $config['ABBC3_RESIZE_METHOD'] == 'AdvancedBox' ? true : false ),
-			// Display icon division for tags ?
-			'ABBC3_TAB'				=> $config['ABBC3_TAB'],
+			'ABBC3_PATH'			=> $phpbb_root_path . ( ( isset($config['ABBC3_MOD']) ) ? $config['ABBC3_PATH'] : 'styles/abbcode' ),
+			// Where the files are stored
+			'ABBC3_MOD'				=> ( isset($config['ABBC3_MOD']) ) ? $config['ABBC3_MOD'] : 1,
+
 			// Resize larger images ?
-			'ABBC3_RESIZE'			=> ( $config['ABBC3_RESIZE_METHOD'] != 'none' ? true : false ),
+			'ABBC3_RESIZE'			=> ( isset($config['ABBC3_RESIZE_METHOD']) ) ? ( $config['ABBC3_RESIZE_METHOD'] != 'none' ? true : false ) : 1,
+			// 'AdvancedBox' 'pop-up' 'enlarge' 'samewindow' 'newwindow' 'none'
+			'ABBC3_RESIZE_METHOD'	=> ( isset($config['ABBC3_RESIZE_METHOD']) ) ? $config['ABBC3_RESIZE_METHOD'] : 'AdvancedBox',
+			// Resize larger images in signatures ?
+			'ABBC3_RESIZE_SIGNATURE'=> ( isset($config['ABBC3_RESIZE_SIGNATURE']) ) ? $config['ABBC3_RESIZE_SIGNATURE'] : 0,
 			// Resize if images is bigger than...
-			'ABBC3_MAX_IMG_WIDTH'	=> $config['ABBC3_MAX_IMG_WIDTH'],
-			'ABBC3_MAX_IMG_HEIGHT'	=> $config['ABBC3_MAX_IMG_HEIGHT'],
-			'ABBC3_MAX_THUM_WIDTH'	=> $config['ABBC3_MAX_THUM_WIDTH'] . 'px',
-			'PHPBB_MAX_THUM_WIDTH'	=> $config['img_max_thumb_width'] . 'px',
-			// 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-			'ABBC3_RESIZE_METHOD'	=> $config['ABBC3_RESIZE_METHOD'],
-			 // Resize posting textarea ?
-			'ABBC3_BOXRESIZE'		=> $config['ABBC3_BOXRESIZE'],
-			// Width for posted video ?
-			'ABBC3_VIDEO_width'		=> $config['ABBC3_VIDEO_width'],
-			// Height for posted video ?
-			'ABBC3_VIDEO_height'	=> $config['ABBC3_VIDEO_height'],
-			// Set-up max file size change this to your liking, Set to 0 for unlimited
-			'ABBC3_UPLOAD_MAX_SIZE'	=> $config['ABBC3_UPLOAD_MAX_SIZE'],
-			// Add, change or delete this to your liking. Example add : ,'zip'
-			'ABBC3_UPLOAD_EXTENSION'=> $config['ABBC3_UPLOAD_EXTENSION'],
+			'ABBC3_MAX_IMG_WIDTH'	=> ( isset($config['ABBC3_MAX_IMG_WIDTH']) ) ? $config['ABBC3_MAX_IMG_WIDTH'] : $config['img_max_width'],
+			'ABBC3_MAX_IMG_HEIGHT'	=> ( isset($config['ABBC3_MAX_IMG_HEIGHT']) ) ? $config['ABBC3_MAX_IMG_HEIGHT'] : 0,
+
+			// Bakground image
+			'ABBC3_BG'				=> ( isset($config['ABBC3_BG']) ) ? $config['ABBC3_BG'] : 'bg_abbc3.gif',
+			// Display icon division for tags ?
+			'ABBC3_TAB'				=> ( isset($config['ABBC3_TAB']) ) ? $config['ABBC3_TAB'] : 1,
+			// Resize posting textarea ?
+			'ABBC3_BOXRESIZE'		=> ( isset($config['ABBC3_BOXRESIZE']) ) ? $config['ABBC3_BOXRESIZE'] : 1,
 			// Usename posting 
 			'POST_AUTHOR'			=> @$user->data['username'],
+			// Width for posted video ?
+			'ABBC3_VIDEO_width'		=> ( isset($config['ABBC3_VIDEO_height']) ) ? $config['ABBC3_VIDEO_width'] : 425,
+			// Height for posted video ?
+			'ABBC3_VIDEO_height'	=> ( isset($config['ABBC3_VIDEO_height']) ) ? $config['ABBC3_VIDEO_height'] : 350,
+
 			// Link to ABBC3 help page
-			'ABBC3_HELP_PAGE'		=> addslashes(append_sid("{$phpbb_root_path}includes/functions_abbcode.$phpEx", 'mode=help')),
+			'ABBC3_HELP_PAGE'		=> addslashes(append_sid("{$phpbb_root_path}abbcode_functions.$phpEx", 'mode=help')),
 			// Link to ABBC3 upload page
-			'ABBC3_UPLOAD_PAGE'		=> addslashes(append_sid("{$phpbb_root_path}includes/functions_abbcode.$phpEx", 'mode=upload')),
+			'ABBC3_UPLOAD_PAGE'		=> addslashes(append_sid("{$phpbb_root_path}abbcode_functions.$phpEx", 'mode=upload')),
 			// Link to ABBC3 wizards page
-			'ABBC3_WIZARD_PAGE'		=> addslashes(append_sid("{$phpbb_root_path}includes/functions_abbcode.$phpEx", "mode=wizards")),
-			// Bakground image, or leave it blank for fit to your style, Ex : 'ABCC3_BG'				=> '',
-			'ABBC3_BG'				=> $config['ABBC3_BG'],
+			'ABBC3_WIZARD_PAGE'		=> addslashes(append_sid("{$phpbb_root_path}abbcode_functions.$phpEx", "mode=wizards")),
 		);
 
 		/** Display options **/
@@ -100,11 +109,11 @@ class abbcode
 	/**
 	* Display posting page
 	*
-	* @param unknown_type $what
+	* @param string $mode
 	**/
 	function abbcode_display( $mode )
 	{
-		global $config, $db, $template, $user;
+		global $config, $db, $template, $user ;
 
 		$user->add_lang('mods/abbcode');
 
@@ -114,8 +123,8 @@ class abbcode
 		// Posting page mode = post, edit, quote, reply
 		// else should be PM
 		$display = ( $mode == 'signature' || $mode == 'sig') ? 'display_on_sig' : ( ( $mode == 'post' || $mode == 'edit' || $mode == 'quote' || $mode == 'reply' ) ? 'display_on_posting' : 'display_on_pm' );
-
-		$need_permissions  = array( 'ABBC3_QUOTE', 'ABBC3_URL', 'ABBC3_IMG', 'ABBC3_THUMBNAIL', 'ABBC3_FLASH', 'ABBC3_FLV' );
+		/* HTML was deprecated sine v1.0.11 */
+		$need_permissions  = array( 'ABBC3_QUOTE', /*'ABBC3_URL',*/ 'ABBC3_IMG', 'ABBC3_THUMBNAIL', 'ABBC3_FLASH', 'ABBC3_FLV' );
 
 		$bbcode_num = 0;
 
@@ -144,9 +153,13 @@ class abbcode
 			}
 
 			// Check ABBC3 groups permission
-			if ( $row['bbcode_group'] != 0 && !in_array( $user->data['group_id'], split(',', $row['bbcode_group'])) )
+			if ( $row['bbcode_group'] != 0 )
 			{
-				continue;
+				$abbode_auth = $this->abbode_phpbb_auth( $row['bbcode_group'] );
+				if ( !$abbode_auth )
+				{
+					continue;
+				}
 			}
 
 			// Haven't image ? Should be a dropdown...
@@ -167,19 +180,31 @@ class abbcode
 			{
 				switch ($abbcode_name)
 				{
-					// Is a breack line ?
-					case ( substr($abbcode_name,0,11)=='ABBC3_BREAK' ) :
+					// Is a Line break ?
+					case ( substr($abbcode_name,0,11) == 'ABBC3_BREAK' ) :
 						$template->assign_block_vars('abbc3_tags', array(
-							'S_ABBC3_BREAK'      => true,
+							'S_ABBC3_BREAK'		=> true,
+							'TAG_NAME'			=> strtolower($abbcode_name),
 						));
 						break;
-					// Is a division line ?
-					case ( substr($abbcode_name,0,14)=='ABBC3_DIVISION' ) :
+
+					// Is a Division line ? -> abbc3_division(n)
+					case ( substr($abbcode_name,0,14) == 'ABBC3_DIVISION' ) :
 						$template->assign_block_vars('abbc3_tags', array(
-							'S_ABBC3_DIVISION'   => true,
+							'S_ABBC3_DIVISION'	=> true,
+							'TAG_NAME'			=> strtolower($abbcode_name),
 						));
 						break;
+
 					default:
+						$template->assign_block_vars('abbc3_help', array(
+							'TAG_SRC'		=> $abbcode_image,
+							'TAG_NAME'		=> strtolower($abbcode_name),
+							'TAG_MOVER'		=> ( @$user->lang[$abbcode_name . '_MOVER'] ) ? $user->lang[$abbcode_name . '_MOVER']	: $abbcode_name,
+							'TAG_TIP'		=> ( $abbcode ) ? @$user->lang[$abbcode_name . '_TIP'] : $row['bbcode_helpline'],
+							'TAG_NOTE'		=> @$user->lang[$abbcode_name . '_NOTE'],
+							'TAG_EXAMPLE'	=> @$user->lang[$abbcode_name . '_EXAMPLE'],
+						));
 						$template->assign_block_vars('abbc3_tags', array(
 							'TAG_SRC'		=> $abbcode_image,
 							'TAG_NAME'		=> strtolower($abbcode_name),
@@ -193,7 +218,7 @@ class abbcode
 		}
 		$db->sql_freeresult($result);
 
-		// Hidden fields & Cookie
+		// Hidden fields & Pseudo-Cookie
 		$this->abbc3_cookie_name	= $config['cookie_name'] . '_abbc';
 		$this->abbc3_cookie_value	= request_var($this->abbc3_cookie_name, 0, false);
 
@@ -202,11 +227,47 @@ class abbcode
 		);
 
 		$template->assign_vars(array(		
-			// Hidden fields & Cookie
 			'S_ABBC3_COOKIE_NAME'	=> $this->abbc3_cookie_name,
 			'S_ABBC3_COOKIE_VALUE'	=> $this->abbc3_cookie_value,
 			'S_ABBC3_HIDDEN_FIELDS'	=> build_hidden_fields($s_hidden_fields),
 		));
+	}
+
+	/**
+	* Check some bbcodes permissions status
+	* @param array		$bbcode_groups
+	* @return boolean	true / false
+	* @version 1.0.11
+	**/
+	function abbode_phpbb_auth( $bbcode_groups )
+	{
+		global $user, $db ;
+		
+		$user->data['agroup_id'] = array();
+		$sql = 'SELECT * 
+				FROM ' . USER_GROUP_TABLE . ' 
+				WHERE user_id = ' . $user->data['user_id'] . '
+				AND user_pending = 0 ';
+		$result = $db->sql_query($sql);
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$user->data['agroup_id'][] = $row['group_id'];
+		}
+		$db->sql_freeresult($result);
+
+		$bbcode_group = array();
+		$bbcode_group = split(',', $bbcode_groups);
+
+		$return_value = false;
+		foreach ( $user->data['agroup_id'] as $agroup_data => $agroup_id )
+		{
+			if ( in_array( $agroup_id, $bbcode_group ) )
+			{
+				$return_value = true;
+			}
+		}
+		return $return_value;
 	}
 
 	/**
@@ -233,9 +294,10 @@ class abbcode
 				'URL'		=> ($config['allow_post_links']) ? true : false ,
 				'FLASH'		=> ($bbcode_status && $auth->acl_get('f_flash', $forum_id) && $config['allow_post_flash']) ? true : false ,
 				'QUOTE'		=> ($auth->acl_get('f_reply', $forum_id)) ? true : false ,
-				'MOD'		=> ($auth->acl_get('a_', $forum_id) || $auth->acl_get('m_', $forum_id) ) ? true : false ,
-				'UPLOAD'	=> ($auth->acl_get('a_', $forum_id) || $auth->acl_get('m_', $forum_id) ) ? true : false ,
-				'HTML'		=> ($auth->acl_get('a_', $forum_id) ) ? true : false ,
+				'MOD'		=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
+				'UPLOAD'	=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
+				/* HTML was deprecated sine v1.0.11 */
+			//	'HTML'		=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
 			);
 		}
 		elseif ( $mode == 'signature' || $mode == 'sig')
@@ -247,9 +309,10 @@ class abbcode
 				'URL'		=> ($bbcode_status && $config['allow_sig_links']) ? true : false ,
 				'FLASH'		=> ($bbcode_status && $config['allow_sig_flash']) ? true : false ,
 				'QUOTE'		=> $bbcode_status,
-				'MOD'		=> ( ( $auth->acl_get('a_') || $auth->acl_get('m_') ) ? true : false ),
-				'UPLOAD'	=> ( ( $auth->acl_get('a_') || $auth->acl_get('m_') ) ? true : false ),
-				'HTML'		=> ($auth->acl_get('a_', $forum_id) ) ? true : false ,
+				'MOD'		=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
+				'UPLOAD'	=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
+				/* HTML was deprecated sine v1.0.11 */
+			//	'HTML'		=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
 			);
 		}
 		else
@@ -261,9 +324,10 @@ class abbcode
 				'URL'		=> ($config['allow_post_links']) ? true : false ,
 				'FLASH'		=> ($config['auth_flash_pm'] && $auth->acl_get('u_pm_flash')) ? true : false ,
 				'QUOTE'		=> $bbcode_status,
-				'MOD'		=> ( ( $auth->acl_get('a_') || $auth->acl_get('m_') ) ? true : false ),
-				'UPLOAD'	=> ( ( $auth->acl_get('a_') || $auth->acl_get('m_') ) ? true : false ),
-				'HTML'		=> ($auth->acl_get('a_', $forum_id) ) ? true : false ,
+				'MOD'		=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
+				'UPLOAD'	=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
+				/* HTML was deprecated sine v1.0.11 */
+			//	'HTML'		=> ( $auth->acl_get('a_') || $auth->acl_get('m_') || $auth->acl_getf_global('m_') ) ? true : false ,
 			);
 		}
 
@@ -285,9 +349,32 @@ class abbcode
 	* @param string		$stx	table style
 	* @param string		$in 	post text between [table] & [/table]
 	* @return string	table
+	* @version 1.0.11
 	**/
 	function table_pass( $stx, $in )
 	{
+		global $user;
+
+		// Check for unsafe html & css attributes only inside the style string
+		$unsafe = array();
+
+		$unsafe = $this->safehtml( $stx );
+
+		$matches = preg_match_all('#\[(tr|td)=(.*?)\]#', $in, $match);
+		for ($i = 0; $i < $matches; $i++)
+		{
+			if (empty($match[2][$i]))
+			{
+				continue;
+			}
+			$unsafe = array_merge( $unsafe, $this->safehtml( $match[2][$i] ) );
+		}
+		
+		if ( sizeof($unsafe) )
+		{
+			return  '[table=' . $stx . ']' . $in . '[/table] <p class="error">' . sprintf($user->lang['ABBC3_UNAUTHORISED'] , implode('<br />', $unsafe)) . '</p>';
+		}
+
 		$stx = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($stx));
 		$in	 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($in)) ;
 
@@ -310,6 +397,43 @@ class abbcode
 	}
 
 	/**
+	* Code based of : SafeHTML Parser.
+	* http://pixel-apes.com/safehtml
+	* Updated by MSSTI
+	* @version 1.0.11
+	**/
+	function safehtml( $string )
+	{
+		// Sometimes users can write tags like m\o\z\-\b\i\n\d\i\n\g, this fix it
+		$string = strtolower( str_replace(array("\\", '&#40;', '&#41;', '&amp;'), array("", '(', ')', '&'), $string) );
+
+		////
+		// You can change this option to your liking, can delete or disable. 
+		// eg : if you want to disale url use /*"url",*/ 
+		////
+		
+		// dangerous protocols
+		$protocols = array("url", "javascript", "vbscript", "about", "wysiwyg", "data", "view-source", "ms-its", "mhtml", "shell", "lynxexec", "lynxcgi", "hcp", "ms-help", "help", "disk", "vnd.ms.radio", "opera", "res", "resource", "chrome", "mocha", "livescript", );
+
+		// dangerous CSS keywords
+		$css = array("absolute", "fixed", "expression", "moz-binding", "content", "behavior", "include-source", "(", ")", "?", "&");
+
+		$search = array_merge( $protocols, $css );
+
+		$error = array();
+		foreach ( $search as $value )
+		{
+			$tmp_pos = strpos( $string, $value );
+			if ( $tmp_pos !== false )
+			{
+				$error[] = $value;
+				continue;
+			}
+		}
+		return $error;
+	}
+
+	/**
 	* Parsing the e-links  - Second pass.
 	* 
 	* Inspired in :	MOD Title: eD2k links processing with availability statistics
@@ -319,6 +443,7 @@ class abbcode
 	* @param string		$var1		ed2k url
 	* @param string		$var2		ed2k name
 	* @return bbcode template replacement
+	* @version 1.0.11
 	* 
 	* Enlaces eD2k básicos					: ed2k://|file|>nombre del archivo<|>tamaño del archivo<|>hash del archivo<|/
 	* Enlaces eD2k con conjunto de hashes	: ed2k://|file|>nombre del archivo<|>tamaño del archivo<|>hash del archivo<|p=>conjunto de hashes<|/
@@ -334,8 +459,10 @@ class abbcode
 
 		$var1 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($var1));
 		$var2 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($var2));
-
 		$link = str_replace(array(' ', '%20'), array('',''), ( ($var1) ? $var1 : $var2 ));
+
+		$ed2k_icon = $phpbb_root_path . ( ( isset($config['ABBC3_MOD']) ) ? $config['ABBC3_PATH'] : 'styles/abbcode' ) . '/images/emule.gif';
+		$ed2k_stat = $phpbb_root_path . ( ( isset($config['ABBC3_MOD']) ) ? $config['ABBC3_PATH'] : 'styles/abbcode' ) . '/images/stats.gif';
 
 		$matches = preg_match_all("#(^|(?<=[^\w\"']))(ed2k://\|(file|server|friend)\|([^\\/\|:<>\*\?\"]+?)\|(\d+?)\|([a-f0-9]{32})\|(.*?)/?)(?![\"'])(?=([,\.]*?[\s<\[])|[,\.]*?$)#i", $link, $match);
 
@@ -343,17 +470,10 @@ class abbcode
 		{
 			foreach ( $match[0] as $i => $m )
 			{
-				$ed2k_icon	= $phpbb_root_path . $config['ABBC3_PATH'] . '/images/emule.gif';
-				$ed2k_stat	= $phpbb_root_path . $config['ABBC3_PATH'] . '/images/stats.gif';
-
-				$ed2k_link	= htmlspecialchars( @$match[2][$i] );
+				$ed2k_link	= @$match[2][$i];
 				$ed2k_type	= @$match[3][$i];
 				$ed2k_size	= @$match[5][$i];
 				$ed2k_hash	= @$match[6][$i];
-
-				$ed2k_icon	= '<img src="' . $ed2k_icon . '" border="0" title="" style="vertical-align: text-bottom;" />';
-				$ed2k_stat	= '<img src="' . $ed2k_stat . '" border="0" title="" style="vertical-align: text-bottom;" />';
-				$ed2k_stat	= '<a href="http://tothbenedek.hu/ed2kstats/ed2k?hash=' . $ed2k_hash . '" target="_blank">' . $ed2k_stat . '</a>';
 
 				$max_len	= 100;
 				$ed2k_name	= ( !$var2 ) ? @$match[4][$i] : $var2;
@@ -362,24 +482,24 @@ class abbcode
 				{
 					$ed2k_name	= (strlen($ed2k_name) > $max_len) ? substr($ed2k_name, 0, $max_len - 19) . '...' . substr($ed2k_name, -16) : $ed2k_name;
 				}
-				return $ed2k_icon . '&nbsp;' . '<a href="' . $ed2k_link . '" class="postlink">' . $ed2k_name . '</a>&nbsp;[' . humanize_size_abbc3($ed2k_size) . ']&nbsp;' . $ed2k_stat;
+				return str_replace( array('{ED2K_ICON}', '{ED2K_URL}', '{ED2K_NAME}', '{ED2K_SIZE}', '{ED2K_HASH}', '{ED2K_STAT}'), array($ed2k_icon, $ed2k_link, $ed2k_name, humanize_size_abbc3($ed2k_size), $ed2k_hash, $ed2k_stat), $this->bbcode_tpl('ed2k_file') );
 			}
 		}
 		else
 		{
 			if( preg_match("#(^|(?<=[^\w\"']))(ed2k://\|server\|([\d\.]+?)\|(\d+?)\|/?)#i", $link) )
 			{
-				return preg_replace("#(^|(?<=[^\w\"']))(ed2k://\|server\|([\d\.]+?)\|(\d+?)\|/?)#i", 'ed2k server: <a href="$2" class="postLink">$3:$4</a>', $link);
+				return preg_replace("#(^|(?<=[^\w\"']))(ed2k://\|server\|([\d\.]+?)\|(\d+?)\|/?)#i", $user->lang['ABBC3_ED2K_SERVER'] . ': <a href="$2" class="postLink">$3:$4</a>', $link);
 			}
 			// ed2k://|serverlist|url
 			elseif( preg_match("#(^|(?<=[^\w\"']))(ed2k://\|serverlist\|". get_preg_expression('url') ."\|/?)#i", $link) )
 			{
-				return preg_replace("#(^|(?<=[^\w\"']))(ed2k://\|serverlist\|". get_preg_expression('url') ."\|/?)#i", 'ed2k serverlist: <a href="$2" class="postLink">$2</a>', $link);
+				return preg_replace("#(^|(?<=[^\w\"']))(ed2k://\|serverlist\|". get_preg_expression('url') ."\|/?)#i", $user->lang['ABBC3_ED2K_SERVERLIST'] . ': <a href="$2" class="postLink">$2</a>', $link);
 			}
 			// ed2k://|friend|name|clientIP|clientPort
 			elseif( preg_match("#(^|(?<=[^\w\"']))(ed2k://\|friend\|([^\\/\|:<>\*\?\"]+?)\|([\d\.]+?)\|(\d+?)\|/?)#i", $link) )
 			{
-				return preg_replace("#(^|(?<=[^\w\"']))(ed2k://\|friend\|([^\\/\|:<>\*\?\"]+?)\|([\d\.]+?)\|(\d+?)\|/?)#i", 'ed2k friend: <a href="$2" class="postLink">$3</a>', $link);
+				return preg_replace("#(^|(?<=[^\w\"']))(ed2k://\|friend\|([^\\/\|:<>\*\?\"]+?)\|([\d\.]+?)\|(\d+?)\|/?)#i", $user->lang['ABBC3_ED2K_FRIEND'] . ': <a href="$2" class="postLink">$3</a>', $link);
 			}
 			else
 			{
@@ -396,10 +516,11 @@ class abbcode
 	* @param string		$in		post text between [search] & [/search]
 	* @param string		$search (msn|yahoo|google)
 	* @return string	link
+	* @version 1.0.11
 	**/
 	function search_pass( $stx, $in , $search)
 	{
-		global $user, $config;
+		global $user;
 		
 		$search = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($search));
 		$in	 	= str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($in)) ;
@@ -407,19 +528,33 @@ class abbcode
 		switch ( $in )
 		{
 			case 'msn' :
-				$echo = '<a href="http://search.live.com/results.aspx?q=' . str_replace(' ', '+',$search) . '" target="_blank">';
+			case 'msnlive':
+				$search_link = 'http://search.live.com/results.aspx?q=' . str_replace(' ', '+',$search);
 				break;
 			case 'yahoo' :
-				$echo = '<a href="http://search.yahoo.com/search?p=' . str_replace(' ', '+',$search) . '" target="_blank">';
+				$search_link = 'http://search.yahoo.com/search?p=' . str_replace(' ', '+',$search);
 				break;
 			case 'google' :
-				$echo = '<a href="http://www.google.com.tr/search?q=' . str_replace(' ', '+',$search) . '" target="_blank">';
+				$search_link = 'http://www.google.com/search?q=' . str_replace(' ', '+',$search);
+				break;
+			case 'altavista':
+				$search_link = 'http://www.altavista.com/web/results?itag=ody&q=' . str_replace(' ', '+',$search);
+				break;
+			case 'wikipedia':
+				// by default the search is in English language, but you can customize it,
+				// simply replace    ->en<-     with your language prefix for wikipedia :)
+				$search_link = 'http://en.wikipedia.org/wiki/Spezial:Search?search=' . $search;
+				break;
+			case 'lycos':
+				$search_link = 'http://search.lycos.com/?query=' . str_replace(' ', '+',$search);
 				break;
 			default :
-				$echo = '<a href="search.php?keywords=' . $search . '">'; $in = $config['sitename'];
+				global $config, $phpEx;
+				$search_link = 'search.' . $phpEx . '?keywords=' . $search;
+				$in = $config['sitename'];
 				break;
 		}
-		return ucfirst($in) . ' ' . strtolower($user->lang['SEARCH_MINI']) . ' : ' . $echo  . $search . '</a>';
+		return str_replace(array('{SEARCH_SITE}','{SEARCH_TEXT}', '{URL}' ,'{SEARCH_STRING}'), array(ucfirst($in), strtolower($user->lang['SEARCH_MINI']), $search_link, $search), $this->bbcode_tpl('search'));
 	}
 
 	/**
@@ -428,28 +563,29 @@ class abbcode
 	* @param string		$stx	align (right|center|left)
 	* @param string		$in		URL = post text between [thumbnail=(right|center|left)] & [/thumbnail]
 	* @return string	image
+	* @version 1.0.11
 	**/
 	function thumb_pass( $stx, $in )
 	{
-		global $user, $config ;
+		global $config ;
 
 		$stx = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($stx));
 		$in	 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($in)) ;
+		$w	 = ( isset($config['ABBC3_MAX_THUM_WIDTH']) ) ? $config['ABBC3_MAX_THUM_WIDTH'] : $config['img_max_thumb_width'];
 
 		/** If you don't like the way to align the image you can use following return **/
-	//	return '<div class="' . $stx . '"><img src="' . $in . '" alt="' . $user->lang['IMAGE'] . '" width="' . $config['ABBC3_MAX_THUM_WIDTH'] . '" class="hoverbox" /></div>';
+	//	return str_replace(array('{ALIGN_TYPE}', '{URL}' ,'{WIDTH}'), array($stx, $in, $w), $this->bbcode_tpl('thumb_aligned'));
 
-		switch ( $stx )
+		switch ( strtolower($stx) )
 		{
 			case 'left':
 			case 'right':
-				return '<div style="text-align:' . $stx . '"><img src="' . $in . '" alt="' . $user->lang['IMAGE'] . '" width="' . $config['ABBC3_MAX_THUM_WIDTH'] . '" class="hoverbox" /></div>';
-				break;
 			case 'center':
-				return '<center><img src="' . $in . '" alt="' . $user->lang['IMAGE'] . '" width="' . $config['ABBC3_MAX_THUM_WIDTH'] . '" class="hoverbox" /></center>';
+				return str_replace(array('{ALIGN_TYPE}', '{URL}' ,'{WIDTH}'), array($stx, $in, $w), $this->bbcode_tpl('thumb_aligned'));
 				break;
+
 			default:
-			return '<img src="' . $in . '" alt="' . $user->lang['IMAGE'] . '" width="' . $config['ABBC3_MAX_THUM_WIDTH'] . '" class="hoverbox" />';
+				return str_replace(array('{URL}' ,'{WIDTH}'), array($in, $w), $this->bbcode_tpl('thumb'));
 				break;
 		}
 	}
@@ -460,29 +596,93 @@ class abbcode
 	* @param string		$stx	align (right|center|left)
 	* @param string		$in		post text between [img=(right|center|left)] & [/img]
 	* @return string	image
-	* $this->img_pass( '$2','$3')
+	* @version 1.0.11
 	**/
 	function img_pass( $stx, $in )
 	{
-		global $user, $config;
-
 		$stx = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($stx));
 		$in	 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($in)) ;
 
-		return '<div align="' . $stx . '" ><img src="' . $in . '" alt="' . $user->lang['IMAGE'] . '" /></div>';	
-		/** If you don't like the way to align the image you can use following return **/
-		switch ( $stx )
+		/** If you don't like the way to align the image you can comment the following line **/
+		return str_replace(array('{ALIGN_TYPE}', '{URL}'), array($stx, $in), $this->bbcode_tpl('img_aligned'));
+
+		switch ( strtolower($stx) )
 		{
-			case 'right':
-				return '<img src="' . $in . '" alt="' . $user->lang['IMAGE'] . '" style="float:right;padding:10px;" /></span>';
-				break;
-			case 'center':
-				return '<center><img src="' . $in . '" alt="' . $user->lang['IMAGE'] . '" align="middle" style="padding:10px;" /></center>';
-				break;
 			case 'left':
-			default:
-				return '<img src="' . $in . '" alt="' . $user->lang['IMAGE'] . '" style="float:left;padding:10px;" />';
+			case 'right':
+				return str_replace(array('{ALIGN_TYPE}', '{URL}'), array($stx, $in), $this->bbcode_tpl('img_float'));
 				break;
+
+			default:
+			case 'center':
+				return str_replace(array('{ALIGN_TYPE}', '{URL}'), array($stx, $in), $this->bbcode_tpl('img_aligned'));
+				break;
+		}
+	}
+
+	/**
+	* Parsing the Moderator tag - Second pass.
+	*
+	* @param string		$stx	have user name param?
+	* @param string		$in		post text between [mod] & [/mod]
+	* @return string	table with message data
+	* @version 1.0.11
+	**/
+	function moderator_pass( $stx, $in )
+	{
+		$stx = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($stx));
+		$in	 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($in)) ;
+
+		return str_replace(array('{MOD_USER}', '{MOD_TEXT}'), array($stx, $in), $this->bbcode_tpl('moderator'));
+	}
+
+	/**
+	* Parsing the offtopic tag - Second pass.
+	*
+	* @param string		$in		post text between [offtopic] & [/offtopic]
+	* @return string	table with message data
+	* @version 1.0.11
+	**/
+	function offtopic_pass( $in )
+	{
+		$in	 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($in)) ;
+
+		return str_replace('{OFFTOPIC_TEXT}', $in, $this->bbcode_tpl('offtopic'));
+	}
+
+	/**
+	* Parsing the spoiler tag - Second pass.
+	*
+	* @param string		$in		post text between [spoil] & [/spoil]
+	* @return string	table with message data
+	* @version 1.0.11
+	**/
+	function spoil_pass( $in )
+	{
+		global $user;
+
+		$in	 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($in)) ;
+		$abbc3_unique_id = substr(base_convert(unique_id(), 16, 36), 0, 8);
+
+		return str_replace(array('{SPOILER_SHOW}', '{SPOILER_HIDE}', '{SPOILER_ID1}', '{SPOILER_ID2}', '{SPOILER_TEXT}'), array( "'" . $user->lang['SPOILER_SHOW'] . "'", "'" . $user->lang['SPOILER_HIDE'] . "'", "'" . $abbc3_unique_id . "1'", "'" . $abbc3_unique_id . "2'", $in), $this->bbcode_tpl('spoiler'));
+	}
+
+	/**
+	* Parsing the hidden tag - Second pass.
+	*/
+	function hidden_pass( $in )
+	{
+		global $user;
+
+		$in	 = str_replace(array("\r\n", '\"', '\'', '(', ')'), array("\n", '"', '&#39;', '&#40;', '&#41;'), trim($in)) ;
+
+		if ( $user->data['user_id'] != ANONYMOUS )
+		{
+			return str_replace(array('{HIDDEN_OFF}', '{UNHIDDEN_TEXT}'), array( $user->lang['HIDDEN_OFF'], $in ), $this->bbcode_tpl('unhidden'));
+		}
+		else
+		{
+			return str_replace(array('{HIDDEN_ON}', '{HIDDEN_TEXT}'), array( $user->lang['HIDDEN_ON'], $user->lang['HIDDEN_EXPLAIN'] ), $this->bbcode_tpl('hidden'));
 		}
 	}
 
@@ -491,23 +691,34 @@ class abbcode
 	*
 	* @param string		$in		post text between [nfo] & [/nfo]
 	* @return string	table with nfo data
+	* @version 1.0.11
 	**/
 	function nfo_pass( $in )
 	{
-		$in = htmlentities($in, ENT_NOQUOTES, 'UTF-8');
+		global $user;
 
-		return '<table cellspacing="0" cellpadding="0" border="0" ><tr><td><span class="genmed"><b>NFO:</b></span></td></tr><tr><td class="nfo">' . str_replace(" ", "&nbsp;", $in) . '</td></tr></table>';
+		$in = htmlentities($in, ENT_NOQUOTES, 'UTF-8');
+		
+		return str_replace(array('{NFO_TITLE}', '{NFO_TEXT}'), array($user->lang['ABBC3_NFO_TITLE'], str_replace(" ", "&nbsp;", $in)), $this->bbcode_tpl('nfo'));
 	}
-	
+
 	/**
-	* Parsing the NFO text - Second pass.
+	* Parsing the (x)HTML - Second pass.
 	*
-	* @param string		$in		post text between [nfo] & [/nfo]
-	* @return string	table with nfo data
-	**/
+	* @param string		$in		post text between [html] & [/html]
+	* @return string	(x)HTML data
+	*
+	* THIS FUNTION IS DEPRECATED SINCE VERSION 1.0.11 ! suggested by MOD Team 
+	**/	
 	function html_pass( $in )
 	{
-		return htmlspecialchars_decode( $in );
+		return;
+		$in = trim($in);
+		$str_from = array('&lt;', '&gt;', '&#91;', '&#93;', '&#46;', '&#58;', '&#058;', '<br />', '<br/>' );
+		$str_to   = array('<'   , '>'   , '['    , ']'    , '.'    , ':'    , ':'     , "\n"    , "\n"    );
+		$in = str_replace($str_from, $str_to, $in);
+		$in = htmlspecialchars_decode($in);
+		return $in ;
 	}
 
 	/**
@@ -515,10 +726,17 @@ class abbcode
 	*
 	* @param string		$in 	post text between [testlink] &[/testlink]
 	* @return string	link with text ok/wrong
+	* @version 1.0.11
 	**/
 	function testlink_pass( $in )
 	{
-		global $user, $config ;
+		global $user, $config, $phpbb_root_path ;
+
+		// If you want to hide links to visitors, uncomment this lines
+	//	if ($user->data['user_id'] == ANONYMOUS)
+	//	{
+	//		return '<dl class="codebox codecontent" style="display:inline; padding: 0px;"><dd style="display:inline;color:#ff0000">'. $user->lang['LOGIN_EXPLAIN_VIEW'] . '</dd></dl>';
+	//	}
 
 		// Safety Check if CURL is present
 		if ( ! function_exists ( 'curl_init') )
@@ -529,10 +747,14 @@ class abbcode
 		else
 		{
 			$in	= trim($in);
-			$linktest_good	 = $user->lang['ABBC3_TESTLINK_GOOD'];
-			$linktest_wrong	 = $user->lang['ABBC3_TESTLINK_WRONG'];
+			$path = $phpbb_root_path . ( ( isset($config['ABBC3_MOD']) ) ? $config['ABBC3_PATH'] : 'styles/abbcode' );
 
-			$linktest = new linktest();
+			$linktest_msg_wrong	= '<span class="abbc3_wrong">' . $user->lang['ABBC3_TESTLINK_WRONG'] . '</span> ';
+			$linktest_pic_wrong	= '<img src="' . $path . '/images/error.gif" class="postimage" type="image" name="abbcode_linktest" alt="' . $user->lang['ABBC3_TESTLINK_WRONG'] . '" title="' . $user->lang['ABBC3_TESTLINK_WRONG'] . '" />&nbsp;';
+			$linktest_msg_good	= '<span class="abbc3_good">' . $user->lang['ABBC3_TESTLINK_GOOD'] . '</span> ';
+			$linktest_pic_good	= '<img src="' . $path . '/images/ok.gif"    class="postimage" type="image" name="abbcode_linktest" alt="' . $user->lang['ABBC3_TESTLINK_GOOD'] .'" title="' . $user->lang['ABBC3_TESTLINK_GOOD'] . '" />&nbsp;';
+
+			$linktest		 = new linktest();
 			$linktest_links	 = explode( "\n", $in );
 			$linktest_result = array();
 			$linktest_echo	 = '';
@@ -543,22 +765,30 @@ class abbcode
 			{
 				if (trim($linktest_value) !== '')
 				{
-					// undo make_clickable_callback();
-					$linktest_value		= trim(str_replace('\"', '',preg_replace('#<!-- m --><a class=(.*?) href=(.*?)>(.*?)</a><!-- m -->#si','$2',$linktest_value)));
+					// undo make_clickable_callback(); and Remove Comments from post content
+					$linktest_value		= trim(str_replace('\"', '',preg_replace('#<!-- ([lmwe]) --><a class=(.*?) href=(.*?)>(.*?)</a><!-- ([lmwe]) -->#si','$3',$linktest_value)));
+				//  After made changes in : http://www.phpbb.com/kb/article/links-opening-new-windows/
+				//	$linktest_value		= trim(str_replace('\"', '',preg_replace('#<!-- ([lmwe]) --><a class=(.*?) href=(.*?) onclick=(.*?)>(.*?)</a><!-- ([lmwe]) -->#si','$3', trim($linktest_value) )));
+
+					// if there is no scheme, then add http schema
+					if (!preg_match('#^[a-z0-9]+://#i', $linktest_value))
+					{
+						$linktest_value = 'http://' . $linktest_value;
+					}
 					$linktest_return	= $linktest->test($linktest_value);
 
 					if (!$linktest_return)
 					{
-						$linktest_msg	= "<font color='red' size='4' >$linktest_wrong</font>";
-						$linktest_pic	= "<img src='" . $config['ABBC3_PATH'] . "/images/error.gif' class='postimage' type='image' name='abbcode_linktest' alt='$linktest_wrong' title='$linktest_wrong' />&nbsp;";
+						$linktest_msg	= $linktest_msg_wrong;
+						$linktest_pic	= $linktest_pic_wrong;
 					}
 					else
 					{
-						$linktest_msg	= "<font color='green' size='4' >$linktest_good</font>";
-						$linktest_pic	= "<img src='" . $config['ABBC3_PATH'] . "/images/ok.gif'    class='postimage' type='image' name='abbcode_linktest' alt='$linktest_good'  title='$linktest_good'  />&nbsp;";
+						$linktest_msg	= $linktest_msg_good;
+						$linktest_pic	= $linktest_pic_good;
 					}
 
-					$linktest_value		= "<a href='$linktest_value' onclick='window.open(this.href);return false;' title='' alt='' rel='external' >$linktest_value</a>";
+					$linktest_value		= '<a href="' .$linktest_value . '" onclick="window.open(this.href);return false;" title="" alt="" rel="external" >' . $linktest_value . '</a>';
 					$linktest_result[]	= array('link' => $linktest_value, 'pic' => $linktest_pic, 'msg' => $linktest_msg);
 				}
 			}
@@ -583,21 +813,35 @@ class abbcode
 	*
 	* @param string		$in 	post text between [rapidshare] &[/rapidshare]
 	* @return string	link with text ok/wrong
+	* @version 1.0.11
 	**/
 	function rapidshare_pass( $in )
 	{
 		global $user, $config, $phpbb_root_path;
 
+		// If you want to hide links to visitors, uncomment this lines
+	//	if ($user->data['user_id'] != ANONYMOUS)
+	//	{
+	//		return '<dl class="codebox codecontent" style="display:inline; padding: 0px;"><dd style="display:inline;color:#ff0000">'. $user->lang['LOGIN_EXPLAIN_VIEW'] . '</dd></dl>';
+	//	}
+
+		if ( ini_get('allow_url_fopen') != 1)
+		{
+			return $user->lang['ABBC3_FOPEN_ERROR'] ;
+		}
+
 		$in = trim($in);
+		$path = $phpbb_root_path . ( ( isset($config['ABBC3_MOD']) ) ? $config['ABBC3_PATH'] : 'styles/abbcode' );
 
 		$rapidshare_links	 = explode( "\n", $in );
 		if ( sizeof($rapidshare_links) > 1 )
 		{
-			return "[rapidshare]" . str_replace('\"', '',preg_replace('#<!-- m --><a class=(.*?) href=(.*?)>(.*?)</a><!-- m -->#si','$2',$in)) . "[/rapidshare]";
+			// undo make_clickable_callback(); and Remove Comments from post content
+			return "[rapidshare]" . str_replace('\"', '',preg_replace('#<!-- ([lmwe]) --><a class=(.*?) href=(.*?)>(.*?)</a><!-- ([lmwe]) -->#si','$2',$in)) . "[/rapidshare]";
 		}
 
-		$rapidshare_msg = '<font color="red" size="3" >' . $user->lang['ABBC3_RAPIDSHARE_WRONG'] . '</font>';
-		$rapidshare_pic = '<img src="' . $config['ABBC3_PATH'] . '/images/error.gif" class="postimage" type="image" name="abbc_rapidshare" alt="' . $user->lang['ABBC3_RAPIDSHARE_WRONG'] . '" title="' . $user->lang['ABBC3_RAPIDSHARE_WRONG'] . '" />';
+		$rapidshare_msg = '<span class="abbc3_wrong">' . $user->lang['ABBC3_RAPIDSHARE_WRONG'] . '</span> ';
+		$rapidshare_pic = '<img src="' . $path . '/images/error.gif" class="postimage" type="image" name="abbc_rapidshare" alt="' . $user->lang['ABBC3_RAPIDSHARE_WRONG'] . '" title="' . $user->lang['ABBC3_RAPIDSHARE_WRONG'] . '" />';
 
 		$rs_checkfiles = fopen ( "http://rapidshare.com/cgi-bin/checkfiles.cgi?urls=" . $in, "r" );	
 		while ( !feof ( $rs_checkfiles ) )
@@ -605,8 +849,8 @@ class abbcode
 			$buffer = fgets ( $rs_checkfiles, 4096 );
 			if ( eregi( 'File is on server number', $buffer ) )
 			{
-				$rapidshare_msg = '<font color="green" size="3" >' . $user->lang['ABBC3_RAPIDSHARE_GOOD'] . '</font>';
-				$rapidshare_pic = '<img src="' . $config['ABBC3_PATH'] . '/images/ok.gif" class="postimage" type="image" name="abbc_rapidshare" alt="' . $user->lang['ABBC3_RAPIDSHARE_GOOD'] . '" title="' . $user->lang['ABBC3_RAPIDSHARE_GOOD'] .'" />';
+				$rapidshare_msg = '<span class="abbc3_good">' . $user->lang['ABBC3_RAPIDSHARE_GOOD'] . '</span> ';
+				$rapidshare_pic = '<img src="' . $path . '/images/ok.gif" class="postimage" type="image" name="abbc_rapidshare" alt="' . $user->lang['ABBC3_RAPIDSHARE_GOOD'] . '" title="' . $user->lang['ABBC3_RAPIDSHARE_GOOD'] .'" />';
 				break;
 			}
 		}
@@ -623,6 +867,7 @@ class abbcode
 	* @param string		$var1	post text after [click(=(.*))]
 	* @param string		$var2	post text between [click] &[/click]
 	* @return string	link or none
+	* @version 1.0.11
 	**/
 	function click_pass( $var1, $var2 )
 	{
@@ -693,7 +938,7 @@ class abbcode
 
 			$user->add_lang('mods/abbcode');
 			// Link to ABBC3 simple redirect page
-			$redirect = append_sid("{$phpbb_root_path}includes/functions_abbcode.$phpEx", "mode=click&amp;id=$clicks_id");
+			$redirect = append_sid("{$phpbb_root_path}abbcode_functions.$phpEx", "mode=click&amp;id=$clicks_id");
 			return '<a href="' . $redirect . '" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;" >' . ( ($var1) ? $var2 : $url ) . '</a> ' . sprintf( ( ( $clicks_val == 1 ) ? $user->lang['ABBC3_CLICK_TIME'] : $user->lang['ABBC3_CLICK_TIMES'] ), $clicks_val );
 		}
 		return '[click' . ( ($var1) ? '=' . $var1 : '' ) . ']' . $var2 . '[/click]';
@@ -701,52 +946,78 @@ class abbcode
 
 	/**
 	* Initialize Video array
+	* @version 1.0.11
 	**/
 	function video_init()
 	{
-		/** Patterns and replacements for ABBC3_BBVIDEO bbcode processing **/
+		/** Patterns and replacements for BBVIDEO bbcode processing **/
+		// moddb.com
 		$this->abbcode_video_ary = array(
-			'uncutvideo.aol.com'=> array ( 'display' => true	,'image' => 'aol.gif'			,'example' => "http://uncutvideo.aol.com/categories/News/month/007c338a423704ba813dadd72fb75408?index=0"										,'found' => "#http://uncutvideo.aol.com/([^[]*\/([0-9A-Za-z-_]*)?)?([^[]*)?#si"							,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="wmode" value="opaque" /><param name="movie" value="http://uncutvideo.aol.com/v7.0017/en-US/uc_videoplayer.swf" /><param name="FlashVars" value="aID=1$2&site=http://uncutvideo.aol.com/"/><embed src="http://uncutvideo.aol.com/v7.0017/en-US/uc_videoplayer.swf" wmode="opaque" FlashVars="aID=1$2&site=http://uncutvideo.aol.com/" width="{WIDTH}" height="{HEIGHT}" type="application/x-shockwave-flash"></embed></object>' ),
+			'aol.com'			=> array ( 'display' => true	,'image' => 'aol.gif'			,'example' => "http://uncutvideo.aol.com/categories/News/month/007c338a423704ba813dadd72fb75408?index=0"										,'found' => "#http://uncutvideo.aol.com/([^[]*\/([0-9A-Za-z-_]*)?)?([^[]*)?#si"							,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="wmode" value="opaque" /><param name="movie" value="http://uncutvideo.aol.com/v7.0017/en-US/uc_videoplayer.swf" /><param name="FlashVars" value="aID=1$2&site=http://uncutvideo.aol.com/"/><embed src="http://uncutvideo.aol.com/v7.0017/en-US/uc_videoplayer.swf" wmode="opaque" FlashVars="aID=1$2&site=http://uncutvideo.aol.com/" width="{WIDTH}" height="{HEIGHT}" type="application/x-shockwave-flash"></embed></object>' ),
+			'comedycentral.com'	=> array ( 'display' => true	,'image' => 'comedycentral.gif'	,'example' => "http://www.comedycentral.com/videos/index.jhtml?videoId=185763&title=weekly-evil-six-reasons-alaska"								,'found' =>	"#http://www.comedycentral.com/videos/index.jhtml\?videoId=([0-9]+)([^[]*\w=([^[]*)?)?#si"	,'regexp' => '<embed FlashVars="videoId=$1" src="http://www.comedycentral-q.mtvi.com/sitewide/video_player/view/default/swf.jhtml" quality="high" bgcolor="#cccccc" width="332" height="316" name="comedy_central_player" align="middle" allowScriptAccess="always" allownetworking="external" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>'),
 			'clipfish.(de|co)'	=> array ( 'display' => true	,'image' => 'clipfish.gif'		,'example' => "http://www.clipfish.de/player.php?videoid=NTU2Mzd8MTk5NTM1Nw=="																	,'found' => "#http://www.clipfish.(.*?)/player.php\?videoid=([^[]*)?#si"								,'regexp' => '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="{WIDTH}" height="{HEIGHT}" id="player" align="middle"><param name="allowScriptAccess" value="always" /><param name="movie" value="http://www.clipfish.$1/videoplayer.swf?as=0&videoid=$2==&r=1&c=0067B3" /><param name="quality" value="high" /><param name="bgcolor" value="#0067B3" /><param name="allowFullScreen" value="true" /><embed src="http://www.clipfish.$1/videoplayer.swf?as=0&videoid=$2==&r=1&c=0067B3" quality="high" bgcolor="#0067B3" width="{WIDTH}" height="{HEIGHT}" name="player" align="middle" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed></object>' ),
 			'collegehumor.com'	=> array ( 'display' => true	,'image' => 'collegehumor.gif'	,'example' => "http://www.collegehumor.com/video:1802097"																						,'found' => "#http://www.collegehumor.com/video:([0-9]+)#si"											,'regexp' => '<object type="application/x-shockwave-flash" data="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" width="{WIDTH}" height="{HEIGHT}" ><param name="allowfullscreen" value="true" /><param name="movie" quality="best" value="http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id=$1&fullscreen=1" /></object>' ),
 			'crackle.com'		=> array ( 'display' => true	,'image' => 'crackle.gif'		,'example' => "http://crackle.com/c/High_Wire/Fall_Out_Boy_Songs/2185986"																		,'found' => "#http://crackle.com/([A-Za-z-_/]+)?([0-9]+)?([^[]*)?#is"									,'regexp' => '<embed src="http://crackle.com/flash/ReferrerRedirect.ashx" quality="high" bgcolor="#869ca7" width="{WIDTH}" height="{HEIGHT}" name="mtgPlayer" align="middle" play="false" loop="false" allowFullScreen="true" flashvars="mu=0&ap=0&ml=o%3D12%26fi%3D%26fpl%3D2839&id=$2" quality="high" allowScriptAccess="never" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer"/>' ),
 			'dailymotion.com'	=> array ( 'display' => true	,'image' => 'dailymotion.gif'	,'example' => "http://www.dailymotion.com/video/x4ez1x_alberto-contra-el-heliocentrismo_sport"													,'found' => "#http://www.dailymotion.com/video/([0-9A-Za-z]+)([0-9A-Za-z-_]+)?#si"						,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://www.dailymotion.com/swf/$1&v3=1&related=1"/><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><embed src="http://www.dailymotion.com/swf/$1&v3=1&related=1" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" allowFullScreen="true" allowScriptAccess="always"></embed></object>' ),
+			'filefront.com'		=> array ( 'display' => true	,'image' => 'filefront.gif'		,'example' => "http://files.filefront.com/Hiryu4betawmv/;11918599;/fileinfo.html"																,'found' => "#http://files.filefront.com/(.*?)/;(.*?);/fileinfo.html#sie"								,'regexp' => "\$this->external_video( '\$0', 'embed' )" ),
+			'g4tv.com'			=> array ( 'display' => true	,'image' => 'g4tv.gif'			,'example' => "http://www.g4tv.com/xplay/videos/29265/Infamous_All_Access.html"																	,'found' => "#http://www.g4tv.com/(.*?)/(.*?)/(.*?)/([^[]*)?#si"										,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}" id="VideoPlayer$3"><param name="movie" value="http://www.g4tv.com/lv3/$3" /><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><embed src="http://www.g4tv.com/lv3/$3" type="application/x-shockwave-flash" name="VideoPlayer" width="{WIDTH}" height="{HEIGHT}" allowScriptAccess="always" allowFullScreen="true" /></object>'),
+			'gamepro.com'		=> array ( 'display' => true	,'image' => 'gamepro.gif'		,'example' => "http://www.gamepro.com/video/trailers/132252/punchout-debut-trailer/"															,'found' => "#http://www.gamepro.com/video/trailers/(.*?)/([^[]*)?#is"									,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}" ><param name="movie" value="http://www.gamepro.com/bin/vid-bin/octPlayer.swf?vId=$1&p=e&ae=d"></param><param name="allowFullScreen" value="false"></param><embed src="http://www.gamepro.com/bin/vid-bin/octPlayer.swf?vId=$1&p=e&ae=d" type="application/x-shockwave-flash" allowfullscreen="false" width="{WIDTH}" height="{HEIGHT}" ></embed></object>' ),
 			'gamespot.com'		=> array ( 'display' => true	,'image' => 'gamespot.gif'		,'example' => "http://www.gamespot.com/video/928334/6185856/lost-odyssey-official-trailer-8"													,'found' => "#http://www.gamespot.com/video/([0-9]+)?/([0-9]+)?(/[^/]+)?#si"							,'regexp' => '<embed id="mymovie" width="{WIDTH}" height="{HEIGHT}" flashvars="paramsURI=http%3A%2F%2Fwww%2Egamespot%2Ecom%2Fpages%2Fvideo%5Fplayer%2Fproteus%5Fxml%2Ephp%3Fadseg%3D%26adgrp%3D%26sid%3D$2%26pid%3D$1%26mb%3D%26onid%3D%26nc%3D1202626246593%26embedded%3D1%26showWatermark%3D0%26autoPlay%3D0" allowfullscreen="true" allowscriptaccess="never" quality="high" name="mymovie" src="http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/gs/proteus_embed.swf" type="application/x-shockwave-flash"/>' ),
-			'gametrailers.com'	=> array ( 'display' => true	,'image' => 'gametrailers.gif'	,'example' => "http://www.gametrailers.com/player/30461.html"																					,'found' => "#http://www.gametrailers.com/player/([0-9]+).html#si"										,'regexp' => '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="gtembed" width="{WIDTH}" height="{HEIGHT}"><param name="allowScriptAccess" value="sameDomain" /><param name="allowFullScreen" value="true" /><param name="movie" value="http://www.gametrailers.com/remote_wrap.php?mid=$1" /><param name="quality" value="high" /><embed src="http://www.gametrailers.com/remote_wrap.php?mid=$1" swLiveConnect="true" name="gtembed" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}"></embed></object>' ),
-			'gamevideos(.*?).com'	=> array ( 'display' => true	,'image' => 'gamevideos.gif'	,'example' => "http://www.gamevideos.com/video/id/17766"																						,'found' => "#http://(.*?)gamevideos(.*?).com/video/id/([^[]*)?#si"										,'regexp' => '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="{WIDTH}" height="{HEIGHT}" id="gamevideos6" align="middle"><param name="quality" value="high" /><param name="play" value="true" /><param name="loop" value="true" /><param name="scale" value="showall" /><param name="wmode" value="window" /><param name="devicefont" value="false" /><param name="bgcolor" value="#000000" /><param name="menu" value="true" /><param name="allowScriptAccess" value="sameDomain" /><param name="allowFullScreen" value="true" /><param name="salign" value="" /><param name="movie" value="http://www.gamevideos.com/swf/gamevideos11.swf?embedded=1&amp;fullscreen=1&amp;autoplay=0&amp;src=http://$1gamevideos$2.com/video/videoListXML%3Fid%3D$3%26ordinal%3D%26adPlay%3Dfalse" /><param name="quality" value="high" /><param name="bgcolor" value="#000000" /><embed src="http://www.gamevideos.com/swf/gamevideos11.swf?embedded=1&amp;fullscreen=1&amp;autoplay=0&amp;src=http://$1gamevideos$2.com/video/videoListXML%3Fid%3D$3%26ordinal%3D%26adPlay%3Dfalse" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" play="true" loop="true" scale="showall" wmode="window" devicefont="false" id="gamevideos6" bgcolor="#000000" name="gamevideos6" menu="true" allowscriptaccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" align="middle" height="{HEIGHT}" width="{WIDTH}" /></object>' ),
+			'gametrailers.com'	=> array ( 'display' => true	,'image' => 'gametrailers.gif'	,'example' => "http://www.gametrailers.com/player/30461.html"																					,'found' => "#http://www.gametrailers.com/player/([0-9]+).html#si"										,'regexp' => '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="gtembed$1" width="{WIDTH}" height="{HEIGHT}"><param name="allowScriptAccess" value="sameDomain" /><param name="allowFullScreen" value="true" /><param name="movie" value="http://www.gametrailers.com/remote_wrap.php?mid=$1"  /><param name="quality" value="high" /><embed src="http://www.gametrailers.com/remote_wrap.php?mid=$1"  swLiveConnect="true" name="gtembed" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}"></embed></object>' ),
+			'gametrailers.co'	=> array ( 'display' => true	,'image' => 'gametrailers.gif'	,'example' => "http://www.gametrailers.com/player/usermovies/268358.html"																		,'found' => "#http://www.gametrailers.com/player/usermovies/([0-9]+).html#si"							,'regexp' => '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="gtembed$1" width="{WIDTH}" height="{HEIGHT}"><param name="allowScriptAccess" value="sameDomain" /><param name="allowFullScreen" value="true" /><param name="movie" value="http://www.gametrailers.com/remote_wrap.php?umid=$1" /><param name="quality" value="high" /><embed src="http://www.gametrailers.com/remote_wrap.php?umid=$1" swLiveConnect="true" name="gtembed" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}"></embed></object>' ),
+			'gamevee.com'		=> array ( 'display' => true	,'image' => 'gamevee.gif'		,'example' => "http://www.gamevee.com/viewVideo/_HALO3/XBox_360/what_is_going_on/1225806"														,'found' => "#http://www.gamevee.com/(.*?)/(.*?)/(.*?)/(.*?)/([^[]*)?#si"								,'regexp' => '<object type="application/x-shockwave-flash" data="http://www.gamevee.com/public/gameveeplayer.swf?video_id=$5&embed=on&vidview=on" width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://www.gamevee.com/public/gameveeplayer.swf?video_id=$5&embed=on&vidview=on" /><param name="allowfullscreen" value="true"/><param name="bgcolor" value="#FFFFFF"/></object>' ),
+			'gamevideos(.*?).com'	=> array ( 'display' => true	,'image' => 'gamevideos.gif'	,'example' => "http://www.gamevideos.com/video/id/17766"																					,'found' => "#http://(.*?)gamevideos(.*?).com/video/id/([^[]*)?#si"										,'regexp' => '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="{WIDTH}" height="{HEIGHT}" id="gamevideos6" align="middle"><param name="quality" value="high" /><param name="play" value="true" /><param name="loop" value="true" /><param name="scale" value="showall" /><param name="wmode" value="window" /><param name="devicefont" value="false" /><param name="bgcolor" value="#000000" /><param name="menu" value="true" /><param name="allowScriptAccess" value="sameDomain" /><param name="allowFullScreen" value="true" /><param name="salign" value="" /><param name="movie" value="http://www.gamevideos.com/swf/gamevideos11.swf?embedded=1&amp;fullscreen=1&amp;autoplay=0&amp;src=http://$1gamevideos$2.com/video/videoListXML%3Fid%3D$3%26ordinal%3D%26adPlay%3Dfalse" /><param name="quality" value="high" /><param name="bgcolor" value="#000000" /><embed src="http://www.gamevideos.com/swf/gamevideos11.swf?embedded=1&amp;fullscreen=1&amp;autoplay=0&amp;src=http://$1gamevideos$2.com/video/videoListXML%3Fid%3D$3%26ordinal%3D%26adPlay%3Dfalse" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" play="true" loop="true" scale="showall" wmode="window" devicefont="false" id="gamevideos6" bgcolor="#000000" name="gamevideos6" menu="true" allowscriptaccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" align="middle" height="{HEIGHT}" width="{WIDTH}" /></object>' ),
 			'godtube.com'		=> array ( 'display' => true	,'image' => 'godtube.gif'		,'example' => "http://www.godtube.com/view_video.php?viewkey=25ec0b736884cda85a16"																,'found' => "#http://www.godtube.com/view_video.php\?viewkey=([^[]*)?#si"								,'regexp' => '<embed src="http://godtube.com/flvplayer.swf" FlashVars="viewkey=$1" wmode="transparent" quality="high" width="{WIDTH}" height="{HEIGHT}" name="godtube" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" /></embed>' ),
+			'gotgame.com'		=> array ( 'display' => true	,'image' => 'gotgame.gif'		,'example' => "http://video.gotgame.com/index.php/video/view/4516"																				,'found' => "#http://video.gotgame.com/index.php/video/view/([^[]*)?#si"								,'regexp' => '<embed src="http://video.gotgame.com/public/flash/flash_gordon.swf?vid=$1" width="{WIDTH}" height="{HEIGHT}" allowscriptaccess="always" allowfullscreen="true"/>'),
 			'ign.com'			=> array ( 'display' => true	,'image' => 'ign.gif'			,'example' => "object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv"			,'found' => "#object_ID=([0-9]+)?([^/]+[^[]*)?#si"														,'regexp' => '<embed src="http://videomedia.ign.com/ev/ev.swf" flashvars="object_ID=$1$2 type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" ></embed>' ),
+			'imeem.com'			=> array ( 'display' => true	,'image' => 'imeem.gif'			,'example' => "http://www.imeem.com/yurakazi/music/JBj7qeCH/globus_preliator/"																	,'found' => "#http://www.imeem.com/([^[]*)?#sie"														,'regexp' => "\$this->external_video( '\$0', 'object' )" ),
 			'liveleak.com'		=> array ( 'display' => true	,'image' => 'liveleak.gif'		,'example' => "http://www.liveleak.com/view?i=2ac_1203907789&p=1"																				,'found' => "#http://www.liveleak.com/view\?i=([0-9A-Za-z-_]+)?(\&[^/]+)?#si"							,'regexp' => '<object type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" wmode="transparent" data="http://www.liveleak.com/player.swf?autostart=false&token=$1"><param name="movie" value="http://www.liveleak.com/player.swf?autostart=false&token=$1" /><param name="wmode" value="transparent" /><param name="quality" value="high" /></object>' ),
 			'livevideo.com'		=> array ( 'display' => true	,'image' => 'livevideo.gif'		,'example' => "http://www.livevideo.com/video/UKUFO/D930AEB5460D4707B2F6DC0CD8D3C258/haiti-and-the-dominican-republ.aspx"						,'found' => "#http://www.livevideo.com/video/([^[]*)/([^[]*)/([^[]*)#is"								,'regexp' => '<embed src="http://www.livevideo.com/flvplayer/embed/$2&autoStart=0" type="application/x-shockwave-flash" quality="high" width="{WIDTH}" height="{HEIGHT}" wmode="transparent"></embed>' ),
+			'machinima.com'		=> array ( 'display' => true	,'image' => 'machinima.gif'		,'example' => "http://www.machinima.com:80/film/view&id=281"																					,'found' => "#http://www.machinima.com(:80)?/film/view&amp;id=([^[]*)?#si"								,'regexp' => '<embed src="http://www.machinima.com$1/_flash_media_player/mediaplayer.swf" width="{WIDTH}" height="{HEIGHT}" flashvars="&file=http://www.machinima.com$1/p/$2&height={HEIGHT}&width={WIDTH}" />' ),
 			'megavideo.com'		=> array ( 'display' => true	,'image' => 'megavideo.gif'		,'example' => "http://www.megavideo.com/?v=0Q8S7E29"																							,'found' => "#http://www.megavideo.com/\?v=([^[]*)#ise"													,'regexp' => "\$this->external_video( '\$0', 'object' )" ),
 			'metacafe.com'		=> array ( 'display' => true	,'image' => 'metacafe.gif'		,'example' => "http://www.metacafe.com/watch/966360/merry_christmas_with_crazy_frog/"															,'found' => "#http://www.metacafe.com/watch/([0-9]+)?((/[^/]+)/?)?#si"									,'regexp' => '<embed src="http://www.metacafe.com/fplayer/$1/.swf" width="{WIDTH}" height="{HEIGHT}" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"></embed>' ),
 			'myspacetv.com'		=> array ( 'display' => true	,'image' => 'myspacetv.gif'		,'example' => "http://myspacetv.com/index.cfm?fuseaction=vids.individual&videoid=25769593"														,'found' => "#http://myspacetv.com/index.cfm([^[]*)?videoid=([^[]*)?#si"								,'regexp' => '<embed src="http://lads.myspace.com/videos/vplayer.swf" flashvars="m=$2&v=2&type=video" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}"></embed>' ),
 			'vids.myspace.com'	=> array ( 'display' => true	,'image' => 'vidsmyspace.gif'	,'example' => "http://vids.myspace.com/index.cfm?fuseaction=vids.individual&VideoID=28799328"													,'found' => "#http://vids.myspace.com/index.cfm([^[]*)?videoid=([^[]*)?#si"								,'regexp' => '<embed src="http://lads.myspace.com/videos/vplayer.swf" flashvars="m=$2&v=2&type=video" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}"></embed>' ),
 			'myvideo.(de|be|nl)'=> array ( 'display' => true	,'image' => 'myvideo.gif'		,'example' => "http://www.myvideo.de/watch/2668372"																								,'found' => "#http://www.myvideo.(.*?)/(.*?)/([^[]*)?#si"												,'regexp' => '<object style="width:{WIDTH}px;height:{HEIGHT}px;" type="application/x-shockwave-flash" data="http://www.myvideo.$1/movie/$3"> <param name="movie" value="http://www.myvideo.$1/movie/$3" /><param name="AllowFullscreen" value="true" /></object>' ),
 			'photobucket.com'	=> array ( 'display' => true	,'image' => 'photobucket.gif'	,'example' => "http://s0006.photobucket.com/albums/0006/pbhomepage/video2/?action=view&current=dedc9ad8.flv"									,'found' => "#http://(.*?).photobucket.com/albums/(.*?)([^[]+)?\?([^[]*\w=([^[]*)?)?#si"				,'regexp' => '<embed width="{WIDTH}" height="{HEIGHT}" type="application/x-shockwave-flash" wmode="transparent" src="http://i$2.photobucket.com/player.swf?file=http://vid$2.photobucket.com/albums/$2$3$5&amp;sr=1">' ),
+			'revver.com'		=> array ( 'display' => true	,'image' => 'revver.gif'		,'example' => "http://revver.com/video/1217076/shouting-news-palin-vs-pitbull/"																	,'found' => "#http://revver.com/video/(.*?)/([^[]*)?#is"												,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}" data="http://flash.revver.com/player/1.0/player.swf?mediaId=$1" type="application/x-shockwave-flash" id="revvervideoa1$1"><param name="Movie" value="http://flash.revver.com/player/1.0/player.swf?mediaId=$1"></param><param name="FlashVars" value="allowFullScreen=true"></param><param name="AllowFullScreen" value="true"></param><param name="AllowScriptAccess" value="always"></param><embed type="application/x-shockwave-flash" src="http://flash.revver.com/player/1.0/player.swf?mediaId=$1" pluginspage="http://www.macromedia.com/go/getflashplayer" allowScriptAccess="always" flashvars="allowFullScreen=true" allowfullscreen="true" width="{WIDTH}" height="{HEIGHT}" ></embed></object>' ),
+			'sapo.pt'			=> array ( 'display' => true	,'image' => 'sapo.gif'			,'example' => "http://videos.sapo.pt/LguPabwSWikK0wzBmU1o"																						,'found' => "#http://(.*?)sapo.pt/(\?v\=)?([^[]*)?#is"													,'regexp' => '<embed src="http://rd3.videos.sapo.pt/play?file=http://rd3.videos.sapo.pt/$3/mov/1" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}"></embed>' ),
+			'scribd.com'		=> array ( 'display' => true	,'image' => 'scribd.gif'		,'example' => "http://www.scribd.com/docinfo/2568988?access_key=key-8j0yfc1gkwpjwdwkhde"														,'found' => "#http://www.scribd.com/docinfo/(.*?)\?access_key=([^[]*)?#is"								,'regexp' => '<object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" id="doc_899296978639571$1" name="doc_899296978639571$1" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" align="middle" width="{WIDTH}" height="{HEIGHT}" ><param name="movie" value="http://documents.scribd.com/ScribdViewer.swf?document_id=$1&access_key=$2&page=&version=1&auto_size=false&viewMode="><param name="quality" value="high"><param name="play" value="true"><param name="loop" value="true"><param name="scale" value="showall"><param name="wmode" value="opaque"><param name="devicefont" value="false"><param name="bgcolor" value="#ffffff"><param name="menu" value="true"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="salign" value=""><embed src="http://documents.scribd.com/ScribdViewer.swf?document_id=$1&access_key=$2&page=&version=1&auto_size=false&viewMode=" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" play="true" loop="true" scale="showall" wmode="opaque" devicefont="false" bgcolor="#ffffff" name="doc_899296978639571$1_object" menu="true" allowfullscreen="true" allowscriptaccess="always" salign="" type="application/x-shockwave-flash" align="middle" width="{WIDTH}" height="{HEIGHT}" ></embed></object>' ),
 			'sevenload.com'		=> array ( 'display' => true	,'image' => 'sevenload.gif'		,'example' => "http://en.sevenload.com/videos/Cf6wyZr/Zoom"																						,'found' => "#http://(.*?).sevenload.com/(.*?)/([0-9A-Za-z-_]+)?([^[]*)?#is"							,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="FlashVars" value="apiHost=api.sevenload.com"/><param name="AllowScriptAccess" value="always"/><param name="movie" value="http://en.sevenload.com/pl/$3/425x350/swf" /><embed src="http://en.sevenload.com/pl/$3/425x350/swf" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" allowfullscreen="true" AllowScriptAccess="always" FlashVars="apiHost=api.sevenload.com"></embed></object>' ),
+			'slideshare.net'	=> array ( 'display' => true	,'image' => 'slideshare.gif'	,'example' => "http://www.slideshare.net/mickpork/dream-castles-art-presentation"																,'found' => "#http://www.slideshare.net/(.*?)/([^[]*)?#sie"												,'regexp' => "\$this->external_video( '\$0', 'embed' )" ),
 			'spike.com'			=> array ( 'display' => true	,'image' => 'spike.gif'			,'example' => "http://www.spike.com/video/2946505"																								,'found' => "#http://www.spike.com/video/([0-9]+)[^[]*#si"												,'regexp' => '<embed width="{WIDTH}" height="{HEIGHT}" src="http://www.spike.com/efp" quality="high" bgcolor="000000" name="efp" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="flvbaseclip=$1&"></embed>' ),
-			'stage6.com'		=> array ( 'display' => true	,'image' => 'stage6.gif'		,'example' => "http://www.stage6.com/user/TheNelAware/video/2217443/Indiana-Jones-4-Trailer.."													,'found' => "#http://www.stage6.com/user/TheNelAware/video/([0-9]+)/([0-9]+)?(/[^/]+)?#si"				,'regexp' => '<object codebase="http://go.divx.com/plugin/DivXBrowserPlugin.cab" height="{HEIGHT}" width="{WIDTH}" classid="clsid:67DABFBF-D0AB-41fa-9C46-CC0F21721616"><param name="autoplay" value="false"/><param name="src" value="http://video.stage6.com/$1/.divx" /><param name="custommode" value="Stage6" /><param name="showpostplaybackad" value="false" /><embed type="video/divx" src="http://video.stage6.com/$1/.divx" pluginspage="http://go.divx.com/plugin/download/" showpostplaybackad="false" custommode="Stage6" autoplay="false" height="{HEIGHT}" width="{WIDTH}" /></object>' ),
+// Not availabe no more
+//			'stage6.com'		=> array ( 'display' => true	,'image' => 'stage6.gif'		,'example' => "http://www.stage6.com/user/TheNelAware/video/2217443/Indiana-Jones-4-Trailer.."													,'found' => "#http://www.stage6.com/user/TheNelAware/video/([0-9]+)/([0-9]+)?(/[^/]+)?#si"				,'regexp' => '<object codebase="http://go.divx.com/plugin/DivXBrowserPlugin.cab" height="{HEIGHT}" width="{WIDTH}" classid="clsid:67DABFBF-D0AB-41fa-9C46-CC0F21721616"><param name="autoplay" value="false"/><param name="src" value="http://video.stage6.com/$1/.divx" /><param name="custommode" value="Stage6" /><param name="showpostplaybackad" value="false" /><embed type="video/divx" src="http://video.stage6.com/$1/.divx" pluginspage="http://go.divx.com/plugin/download/" showpostplaybackad="false" custommode="Stage6" autoplay="false" height="{HEIGHT}" width="{WIDTH}" /></object>' ),
 			'starsclips.net'	=> array ( 'display' => true	,'image' => 'starsclips.gif'	,'example' => "http://www.starsclips.net/videos.aspx/video~incredible_aerobatic_fly_formation/Incredible_aerobatic_fly_formation"				,'found' => "#http://www.starsclips.net/videos.aspx/video~([0-9A-Za-z-_]+)(/[0-9A-Za-z-_]+)?(/[^/]+)?#si",'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://www.starsclips.net/emb.aspx/video~$1"></param><param name="wmode" value="transparent"></param><embed src="http://www.starsclips.net/emb.aspx/video~$1" type="application/x-shockwave-flash" wmode="transparent" width="{WIDTH}" height="{HEIGHT}"></embed></object>' ),
+			'streetfire.net'	=> array ( 'display' => true	,'image' => 'streetfire.gif'	,'example' => "http://videos.streetfire.net/video/Top-Gear-Lorry-truck-12_196610.htm"															,'found' => "#http://videos.streetfire.net/video/([^[]*)?#sie"											,'regexp' => "\$this->external_video( '\$0', 'object' )" ),
+			'tinypic.com'		=> array ( 'display' => true	,'image' => 'tinypic.gif'		,'example' => "http://tinypic.com/player.php?v=t8pyjo&s=4"																						,'found' => "#http://((.*?)?)tinypic.com/player.php\?v=([^[]*)#is"										,'regexp' => '<embed width="{WIDTH}" height="{HEIGHT}" type="application/x-shockwave-flash" src="http://v4.tinypic.com/player.swf?file=$3"></embed>' ),
 			'tu.tv'				=> array ( 'display' => true	,'image' => 'tutv.gif'			,'example' => "http://tu.tv/videos/el-gato-boxeador"																							,'found' => "#http://((.*?)?)tu.tv/videos/([^[]*)?#sie"													,'regexp' => "\$this->external_video( '\$0', 'object' )" ),
 			'vbox7.com'			=> array ( 'display' => true	,'image' => 'vbox7.gif'			,'example' => "http://www.vbox7.com/play:93ab2ba5"																								,'found' => "#http://www.vbox7.com/play:([^[]+)?#si"													,'regexp' => '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://i47.vbox7.com/player/ext.swf?vid=$1"><param name="quality" value="high"><embed src="http://i47.vbox7.com/player/ext.swf?vid=$1" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}"></embed></object>' ),
 			'veoh.com'			=> array ( 'display' => true	,'image' => 'veoh.gif'			,'example' => "http://www.veoh.com/videos/v1409404EqT5SJjM"																						,'found' => "#http://(.*?).veoh.com/videos/([0-9A-Za-z-_]+)#si" 										,'regexp' => '<embed src="http://$1.veoh.com/videodetails2.swf?permalinkId=$2&id=anonymous&player=videodetailsembedded&videoAutoPlay=0" allowFullScreen="true" width="{WIDTH}" height="{HEIGHT}" bgcolor="#000000" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>' ),
+// Not available yet
+//			'videogamer.com'	=> array ( 'display' => true	,'image' => 'videogamer.gif'	,'example' => "http://www.videogamer.com/videos/dead_space_developer_diary_zero_gravity.html"													,'found' => "#http://www.videogamer.com/videos/([^[]*).html\?([^[]*)?#si"								,'regexp' => '<br/>0=($0)<br/>1=($1)<br/>2=($2)<br/>3=($3)'),
 			'videu.de'			=> array ( 'display' => true	,'image' => 'videu.gif'			,'example' => "http://www.videu.de/video/38"																									,'found' => "#http://www.videu.de/video/([^[]*)?#si"													,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://www.videu.de/flv/player2.swf?iid=$1"></param><param name="wmode" value="transparent"></param><embed src="http://www.videu.de/flv/player2.swf?iid=$1" type="application/x-shockwave-flash" wmode="transparent" width="{WIDTH}" height="{HEIGHT}"></embed></object>' ),
 			'vidiac.com'		=> array ( 'display' => true	,'image' => 'vidiac.gif'		,'example' => "http://www.vidiac.com/video/d9ec881e-8a1c-41a7-8e4a-919180b0f538.htm"															,'found' => "#http://www.vidiac.com/video/([^[]*).htm#si"												,'regexp' => '<embed src="http://www.vidiac.com/vidiac.swf" FlashVars="video=$1" quality="high" bgcolor="#ffffff" width="{WIDTH}" height="{HEIGHT}" name="ePlayer" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>' ),
 			'vidilife.com'		=> array ( 'display' => true	,'image' => 'vidilife.gif'		,'example' => "http://www.vidiLife.com/video_play_1136791_Really_Bad_Driver_Drives_Off_Parking_Garage.htm"										,'found' => "#http://www.vidiLife.com/([^[]*)?#sie"														,'regexp' => "\$this->external_video( '\$0', 'embed' )" ),
-			'vimeo.com'			=> array ( 'display' => true	,'image' => 'vimeo.gif'			,'example' => "http://vimeo.com/725441"																											,'found' => "#http://vimeo.com/([^[]*)?#si"																,'regexp' => '<object type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" data="http://www.vimeo.com/moogaloop.swf?clip_id=$1&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color="><param name="quality" value="best" /><param name="allowfullscreen" value="true" /><param name="scale" value="showAll" /><param name="movie" value="http://www.vimeo.com/moogaloop.swf?clip_id=$1&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=" /></object>' ),
+// Fix for work with or without www.
+//			'vimeo.com'			=> array ( 'display' => true	,'image' => 'vimeo.gif'			,'example' => "http://vimeo.com/725441"																											,'found' => "#http://vimeo.com/([^[]*)?#si"																,'regexp' => '<object type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" data="http://www.vimeo.com/moogaloop.swf?clip_id=$1&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color="><param name="quality" value="best" /><param name="allowfullscreen" value="true" /><param name="scale" value="showAll" /><param name="movie" value="http://www.vimeo.com/moogaloop.swf?clip_id=$1&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=" /></object>' ),
+			'vimeo.com'			=> array ( 'display' => true	,'image' => 'vimeo.gif'			,'example' => "http://vimeo.com/725441"																											,'found' => "#http://((.*?)?)vimeo.com/([^[]*)?#si"														,'regexp' => '<object type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" data="http://www.vimeo.com/moogaloop.swf?clip_id=$3&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color="><param name="quality" value="best" /><param name="allowfullscreen" value="true" /><param name="scale" value="showAll" /><param name="movie" value="http://www.vimeo.com/moogaloop.swf?clip_id=$3&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=" /></object>' ),
 			'video.google'		=> array ( 'display' => true	,'image' => 'googlevid.gif'		,'example' => "http://video.google.com/videoplay?docid=-8351924403384451128"																	,'found' => "#http://video.google.(.*?)/(videoplay|googleplayer.swf)\?docid=([0-9A-Za-z-_]+)#si"		,'regexp' => '<object classid="clsid:D27CDB6E-AE6D-11CF-96B8-444553540000" codebase="http://active.macromedia.com/flash2/cabs/swflash.cab#version=5,0,0,0" width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://video.google.$1/googleplayer.swf?docid=$3" /><param name="play" value="false" /><param name="loop" value="false" /><param name="quality" value="high" /><param name="allowScriptAccess" value="never" /><param name="allowNetworking" value="internal" /><embed src="http://video.google.$1/googleplayer.swf?docid=$3" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" width="{WIDTH}" height="{HEIGHT}" play="false" loop="false" quality="high" allowscriptaccess="never" allownetworking="internal"></embed></object>' ),
 			'video.yahoo'		=> array ( 'display' => true	,'image' => 'yahoovid.gif'		,'example' => "http://video.yahoo.com/watch/2057334/6491459?v=2057334"																			,'found' => "#http://video.yahoo.com/watch/([0-9]+)/([0-9]+)[^[]*#si"									,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://d.yimg.com/static.video.yahoo.com/yep/YV_YEP.swf?ver=2.0.44" /><param name="allowFullScreen" value="true" /><param name="flashVars" value="id=$2&vid=$2&lang=en-US&intl=us&thumbUrl=http://us.i1.yimg.com/us.yimg.com/i/us/sch/cn/video04/$1_rnd618da3dd_19.jpg" /><embed src="http://d.yimg.com/static.video.yahoo.com/yep/YV_YEP.swf?ver=2.0.44" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" allowFullScreen="true" flashVars="id=$2&vid=$1&lang=en-US&intl=us&thumbUrl=http://us.i1.yimg.com/us.yimg.com/i/us/sch/cn/video04/$1_rnd618da3dd_19.jpg" ></embed></object>' ),
 			'vsocial.com'		=> array ( 'display' => true	,'image' => 'vsocial.gif'		,'example' => "http://www.vsocial.com/video/?d=2893"																							,'found' => "#http://www.vsocial.com/video/\?d=([^[]*)#is"												,'regexp' => '<embed allowScriptAccess="always" id="flash_player" name="flash_player" width="{WIDTH}" height="{HEIGHT}" src="http://static.vsocial.com/flash/upsl3.0.2/ups3.0.2.swf?d=$2&a=1&s=false&url=http://www.vsocial.com/xml/upsl/vsocial/template.php"></embed>' ),
 			'wat.tv'			=> array ( 'display' => true	,'image' => 'wattv.gif'			,'example' => "http://www.wat.tv/playlist/564333"																								,'found' => "#http://(.*?).wat.tv/playlist/([^[]*)?#is"													,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://www.wat.tv/images/v2.5/flash/loaderexport.swf?revision=2.5.108&mediaID=$2&baseUrl=www.wat.tv&referer=www.wat.tv&request=/playlist/$2" /><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><embed src="http://www.wat.tv/images/v2.5/flash/loaderexport.swf?revision=2.5.108&mediaID=$2&baseUrl=www.wat.tv&referer=www.wat.tv&request=/playlist/$2" type="application/x-shockwave-flash" width="{WIDTH}" height="{HEIGHT}" allowScriptAccess="always" allowFullScreen="true"></embed></object>' ),
-			'youtube.com'		=> array ( 'display' => true	,'image' => 'youtube.gif'		,'example' => "http://mx.youtube.com/watch?v=TA4hm97m494&rel=1"																					,'found' => "#http://((.*?)?)youtube.com/(|watch\?)v(/|=)([0-9A-Za-z-_]+)?([^[]*)?#is"					,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://$2youtube.com/v/$5" /><param name="wmode" value="transparent"/><embed src="http://$2youtube.com/v/$5" type="application/x-shockwave-flash" wmode="transparent" width="{WIDTH}" height="{HEIGHT}"></embed></object>' ),
+			'wegame.com'		=> array ( 'display' => true	,'image' => 'wegame.gif'		,'example' => "http://www.wegame.com/watch/jRi_Clan_Rolling_in_Action/"																			,'found' => "#http://www.wegame.com/watch/(.*?)/([^[]*)?#is"											,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}" ><param name="movie" value="http://www.wegame.com/static/flash/player2.swf?tag=$1"></param><param name="wmode" value="transparent"></param><embed src="http://www.wegame.com/static/flash/player2.swf?tag=$1" type="application/x-shockwave-flash" wmode="transparent" width="{WIDTH}" height="{HEIGHT}" ></embed></object>' ),
+			'youtube.com'		=> array ( 'display' => true	,'image' => 'youtube.gif'		,'example' => "http://www.youtube.com/watch?v=PDGxfsf-xwQ"																						,'found' => "#http://((.*?)?)youtube.com/(|watch\?)v(/|=)([0-9A-Za-z-_]+)?([^[]*)?#is"					,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="http://$2youtube.com/v/$5" /><param name="wmode" value="transparent"/><embed src="http://$2youtube.com/v/$5" type="application/x-shockwave-flash" wmode="transparent" width="{WIDTH}" height="{HEIGHT}"></embed></object>' ),
+			'xfire.com'			=> array ( 'display' => true	,'image' => 'xfire.gif'			,'example' => "http://www.xfire.com/video/1d96b/"																								,'found' => "#http://www.xfire.com/video/(.*?)/#si"														,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}" ><param name="movie" value="http://media.xfire.com/swf/vplayer?bn=$1"></param></param><embed src="http://media.xfire.com/swf/vplayer.swf" quality="high" flashvars="videoid=$1" type="application/x-shockwave-flash" wmode="transparent" width="{WIDTH}" height="{HEIGHT}" ></embed></object>' ), // http://www.smart-gaming.co.uk/viewtopic.php?f=1&t=1752
 
 			'swf'				=> array ( 'display' => true	,'image' => 'flash.gif'			,'example' => "http://www.adobe.com/support/flash/ts/documents/test_version/version.swf"														,'found' => "#([^[]+)?.swf#si"																			,'regexp' => '<object classid="clsid:D27CDB6E-AE6D-11CF-96B8-444553540000" codebase="http://active.macromedia.com/flash2/cabs/swflash.cab#version=5,0,0,0" width="{WIDTH}" height="{HEIGHT}"><param name="movie" value="$0" /><param name="play" value="true" /><param name="loop" value="true" /><param name="quality" value="high" /><param name="allowScriptAccess" value="never" /><param name="allowNetworking" value="internal" /><embed src="$0" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" width="{WIDTH}" height="{HEIGHT}" play="true" loop="true" quality="high" allowscriptaccess="never" allownetworking="internal"></embed></object>'),
-			'flv'				=> array ( 'display' => true	,'image' => 'flashflv.gif'		,'example' => "http://www.channel-ai.com/video/eyn/demo1.flv"																					,'found' => "#([^[]+)?.flv#si"																			,'regexp' => '<embed src="./images/flvplayer.swf" width="{WIDTH}" height="{HEIGHT}" bgcolor="#FFFFFF" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="file=$0&autostart=false" />'),
+			'flv'				=> array ( 'display' => true	,'image' => 'flashflv.gif'		,'example' => "http://www.channel-ai.com/video/eyn/demo1.flv"																					,'found' => "#([^[]+)?.flv#si"																			,'regexp' => '<embed src="./images/flvplayer.swf" width="{WIDTH}" height="{HEIGHT}" bgcolor="#FFFFFF" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" allowfullscreen="true" flashvars="file=$0&autostart=false" />'),
 			'(wmv|mpg)'			=> array ( 'display' => true	,'image' => 'video.gif'			,'example' => "http://www.sarahsnotecards.com/catalunyalive/fishstore.wmv"																		,'found' => "#([^[]+)?.(wmv|mpg)#si"																	,'regexp' => '<object width="{WIDTH}" height="{HEIGHT}" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="wmstream_' . $this->abbc3_unique_id . '"><param name="url" value="$0" /><param name="showcontrols" value="1" /><param name="showdisplay" value="0" /><param name="showstatusbar" value="0" /><param name="autosize" value="1" /><param name="autostart" value="false" /><param name="visible" value="1" /><param name="animationstart" value="0" /><param name="loop" value="0" /><param name="src" value="$0" /><!--[if !IE]>--><object width="{WIDTH}" height="{HEIGHT}" type="video/x-ms-wmv" data="$0"><param name="src" value="$0" /><param name="controller" value="1" /><param name="showcontrols" value="1" /><param name="showdisplay" value="0" /><param name="showstatusbar" value="0" /><param name="autosize" value="false" /><param name="autostart" value="0" /><param name="visible" value="1" /><param name="animationstart" value="0" /><param name="loop" value="0" /></object><!--<![endif]--></object>'),
 			'(mp3|qt)'			=> array ( 'display' => true	,'image' => 'quicktime.gif'		,'example' => "http://www.nature.com/neuro/journal/v3/n3/extref/Li_control.mov.qt | http://www.carnivalmidways.com/images/Music/thisisatest.mp3",'found' => "#([^[]+)?.(mp3|qt)#si"																		,'regexp' => '<object id="qtstream_' . $this->abbc3_unique_id . '" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab#version=6,0,2,0" width="{WIDTH}" height="{HEIGHT}"><param name="src" value="$0" /><param name="controller" value="true" /><param name="autoplay" value="false" /><param name="type" value="video/quicktime" /><embed name="qtstream_' . $this->abbc3_unique_id . '" src="$0" pluginspage="http://www.apple.com/quicktime/download/" enablejavascript="true" controller="true" width="{WIDTH}" height="{HEIGHT}" type="video/quicktime" autoplay="false"></embed></object>'),
 			'ram'				=> array ( 'display' => true	,'image' => 'ram.gif'			,'example' => "http://www.bbc.co.uk/scotland/radioscotland/media/radioscotland.ram"																,'found' => "#([^[]+)?.ram#si"																			,'regexp' => '<object id="rmstream_' . $this->abbc3_unique_id . '" classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" width="{WIDTH}" height="{HEIGHT}"><param name="src" value="$0" /><param name="autostart" value="false" /><param name="controls" value="ImageWindow" /><param name="console" value="ctrls_' . $this->abbc3_unique_id . '" /><param name="prefetch" value="false" /><embed name="rmstream_' . $this->abbc3_unique_id . '" type="audio/x-pn-realaudio-plugin" src="$0" width="{WIDTH}" height="{HEIGHT}" autostart="false" controls="ImageWindow" console="ctrls_' . $this->abbc3_unique_id . '" prefetch="false"></embed></object><br /><object id="ctrls_' . $this->abbc3_unique_id . '" classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" width="{WIDTH}" height="36"><param name="controls" value="ControlPanel" /><param name="console" value="ctrls_' . $this->abbc3_unique_id . '" /><embed name="ctrls_' . $this->abbc3_unique_id . '" type="audio/x-pn-realaudio-plugin" width="{WIDTH}" height="36" controls="ControlPanel" console="ctrls_' . $this->abbc3_unique_id . '"></embed></object>'),
 		);
+//		asort ($this->abbcode_video_ary);
+//		reset ($this->abbcode_video_ary);
 	}
 
 	/**
@@ -756,6 +1027,7 @@ class abbcode
 	* @param string		$w		value for video width
 	* @param string		$h		value for video Height
 	* @return embed video
+	* @version 1.0.11
 	**/
 	function BBvideo_pass( $in, $w, $h )
 	{
@@ -763,8 +1035,9 @@ class abbcode
 
 		$this->video_init( );
 
-		$w = ( intval( $w ) ) ? $w : $config['ABBC3_VIDEO_width'] ;
-		$h = ( intval( $h ) ) ? $h : $config['ABBC3_VIDEO_height'] ;
+		$w = ( intval($w) ) ? $w : ( ( isset($config['ABBC3_VIDEO_height']) ) ? $config['ABBC3_VIDEO_width'] : 425 ) ;
+		$h = ( intval($h) ) ? $h : ( ( isset($config['ABBC3_VIDEO_height']) ) ? $config['ABBC3_VIDEO_height'] : 350 ) ;
+		$path = $phpbb_root_path . ( ( isset($config['ABBC3_MOD']) ) ? $config['ABBC3_PATH'] : 'styles/abbcode' );
 
 		foreach ( $this->abbcode_video_ary as $video_name => $video_data )
 		{
@@ -779,11 +1052,11 @@ class abbcode
 						if ( preg_match( '#\.#si', $video_name ) )
 						{
 							preg_match('@^(?:http://)?([^/]+)@i',$in, $video_name);
-							$img = '<img src="' . $config['ABBC3_PATH'] . '/images/' . $video_data['image'] .'" class="postimage" type="image" alt="' . $video_name . '" title="' . $video_name . '" /> <strong>' . $user->lang['ABBC3_BBVIDEO_VIDEO'] .' : <a href="' . $in . '" target="_blank" >' . $video_name[1] . '</a></strong>';
+							$img = '<img src="' . $path . '/images/' . $video_data['image'] .'" class="postimage" type="image" alt="' . $video_name[1] . '" title="' . $video_name[1] . '" /> <strong>' . $user->lang['ABBC3_BBVIDEO_VIDEO'] .' : <a href="' . $in . '" target="_blank" >' . $video_name[1] . '</a></strong>';
 						}
 						else
 						{
-							$img = '<img src="' . $config['ABBC3_PATH']  . '/images/' . $video_data['image'] .'" class="postimage" type="image" alt="' . $video_name . '" title="' . $video_name . '" /> <strong>' . $user->lang['ABBC3_BBVIDEO_FILE'] .' : </strong>' . $video_name;
+							$img = '<img src="' . $path  . '/images/' . $video_data['image'] .'" class="postimage" type="image" alt="' . $video_name . '" title="' . $video_name . '" /> <strong>' . $user->lang['ABBC3_BBVIDEO_FILE'] .' : </strong>' . $video_name;
 						}
 
 						$video_data['regexp'] = str_replace( array ('{WIDTH}','{HEIGHT}') , array ($w, $h) , $video_data['regexp'] );
@@ -850,20 +1123,16 @@ class abbcode
 	* @param string		$text		post text
 	* @param int		$post_id	post id
 	* @return string	display table with ed2k links features
+	* @version 1.0.11
 	**/
-	function make_addalled2k_link_abbc3($text, $post_id)
+	function make_addalled2k_link_abbc3($text)
 	{
-		global $user;
-		$user->add_lang('mods/abbcode');
-
 		$abbc3_unique_id = substr(base_convert(unique_id(), 16, 36), 0, 8);
 
-		// padding
-		$ret = ' ' . $text;
-		$t_ed2k_raw = array();
+		$t_ed2k_raw = $t_ed2k_reallinks = array();
 
 		// dig through the message for all ed2k links! split up by "ed2k:"
-		$t_ed2k_raw = explode("ed2k:", $text);
+		$t_ed2k_raw = explode('href="ed2k:', $text);
 		$t_ed2kinsert1 = '';
 		$t_ed2kinsert2 = '';
 		$t_ed2kinsert3 = '';
@@ -900,27 +1169,8 @@ class abbcode
 					}
 				}
 			}
-
-			// Now lets see if we have 2 or more links, only then, we do our little trick, because otherwise, it would be wasted for one link alone!
-			if ( count( $t_ed2k_reallinks ) > 1 )
-			{
-				$t_ed2kinsert1 = '<br /><hr noshade color="#000000" size="1px"><div class="ed2k_div1"><a href="javascript:toggle_ed2k(\'' . $abbc3_unique_id . '\');">' . $user->lang['ABBC3_ED2K_TAG'] . '</a></div> <div id="posttable' . $abbc3_unique_id . '" class="ed2k_div2" ><table border="0" cellspacing="0" cellpadding="0" class="ed2k_table">';
-
-				$i = 0;
-				foreach( $t_ed2k_reallinks as $t_ed2klink )
-				{
-					$t_ed2k_parts = explode( "|", $t_ed2klink );
-					$t_ed2kinsert2 .= '<tr><td class="ed2k_col1" ><input type="checkbox" name="lnk" value="' . $t_ed2klink . '"></td><td class="ed2k_col2" >' . $t_ed2k_parts[2] . '</td></tr>';
-					$i++;
-				}
-
-				$t_ed2kinsert3 = '<tr><td colspan="2" class="ed2k_col1"><input type="button" value="' . @$user->lang['SELECT_ALL_CODE'] . '" class="button2" onclick=checkAll(\'lnk\')>&nbsp;&nbsp;<input type="button" value="' . @$user->lang['ABBC3_ED2K_ADD'] . '" class="button2" onclick=download(\'lnk\',0,1)></td></tr></table></div>';
-			}
-			unset($t_ed2k_reallinks);
 		}
-
-		// remove padding
-		return( substr( $ret . $t_ed2kinsert1 . $t_ed2kinsert2 . $t_ed2kinsert3, 1) );
+		return $t_ed2k_reallinks;
 	}
 
 	function humanize_size_abbc3 ($size, $rounder = 0)
@@ -1109,7 +1359,13 @@ class linktest
 				$this->filters = null;
 			}
 		}
-		
+
+		// Delete the language folder from megaupload
+		if ( $hostname == 'www.megaupload.com' && preg_match("#/(.*?)/#i", $this->url) != 0 )
+		{
+			$this->url = preg_replace('#(.*?)megaupload.com/(.*?)/(.*?)#si', '$1megaupload.com/$3', $this->url);
+		}
+
 		/** dynamic function call **/
 		$result = $this->$host();
 		

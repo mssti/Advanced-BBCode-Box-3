@@ -1,0 +1,21 @@
+
+<!-- BEGIN thumb --><img src="{URL}" alt="{L_IMAGE}" width="{WIDTH}px" class="hoverbox resize_me" /><!-- END thumb -->
+<!-- BEGIN thumb_aligned --><div style="text-align:{ALIGN_TYPE}"><img src="{URL}" alt="{L_IMAGE}" width="{WIDTH}px" class="hoverbox resize_me" /></div><!-- END thumb_aligned -->
+
+<!-- BEGIN img_aligned --><div align="{ALIGN_TYPE}"><img src="{URL}" alt="{L_IMAGE}" class="resize_me" /></div><!-- END img_aligned -->
+<!-- BEGIN img_float --><img src="{URL}" alt="{L_IMAGE}" class="resize_me" style="float:{ALIGN_TYPE};padding:10px;" /><!-- END img_float -->
+
+<!-- BEGIN nfo --><dl class="codebox"><dt>{NFO_TITLE} : </dt><dd class="nfo">{NFO_TEXT}</dd></dl><!-- END nfo -->
+
+<!-- BEGIN search -->{SEARCH_SITE} {SEARCH_TEXT} : <a href="{URL}" onclick="window.open(this.href);return false;" >{SEARCH_STRING}</a><!-- END search -->
+
+<!-- BEGIN ed2k_file --><img src="{ED2K_ICON}" border="0" title="" style="vertical-align: text-bottom;" />&nbsp;<a href="{ED2K_URL}" class="postlink">{ED2K_NAME}</a>&nbsp;[{ED2K_SIZE}]&nbsp;<a href="http://tothbenedek.hu/ed2kstats/ed2k?hash={ED2K_HASH}" onclick="window.open(this.href);return false;"><img src="{ED2K_STAT}" border="0" title="" style="vertical-align: text-bottom;" /></a><!-- END ed2k_file -->
+
+<!-- BEGIN moderator --><table class="ModTable" width="100%" cellspacing="5" cellpadding="0" border="0"><tr><td class="exclamation" rowspan="2">&nbsp;!&nbsp;</td><td class="rowuser">{MOD_USER} {L_WROTE}:</td></tr><tr><td class="rowtext">{MOD_TEXT}</td></tr></table><!-- END moderator -->
+
+<!-- BEGIN offtopic --><dl class="OffTopic"><dt class="OffTopicTitle">{L_OFFTOPIC} :</dt><dd class="OffTopicText">{OFFTOPIC_TEXT}</dd></dl><!-- END offtopic -->
+
+<!-- BEGIN spoiler --><div class="spoilwrapper"><div class="spoiltitle"><input id={SPOILER_ID1} class="btnspoil button2" type="button" value="{L_SPOILER_SHOW}" onClick="javascript:abbc3_spoiler( {SPOILER_ID1}, {SPOILER_ID2}, {SPOILER_HIDE}, {SPOILER_SHOW} )"></div><div class="spoilcontent"><div id={SPOILER_ID2} style="display: none;">{SPOILER_TEXT}</div></div></div><!-- END spoiler -->
+
+<!-- BEGIN unhidden --><dl class="hiddenbox"><dt class="unhidden">{HIDDEN_OFF}</dt><dd>{UNHIDDEN_TEXT}</dd></dl><!-- END unhidden -->
+<!-- BEGIN hidden --><dl class="hiddenbox"><dt class="hidden">{HIDDEN_ON}</dt><dd class="hiddentext">{HIDDEN_TEXT}</dd></dl><!-- END hidden -->

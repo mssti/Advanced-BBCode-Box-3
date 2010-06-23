@@ -1,7 +1,7 @@
 <?php
 /**
 * @package: phpBB3 :: Advanced BBCode box 3 -> acp -> info
-* @version: $Id: acp_abbcode.php, v 1.0.10 2008/08/01 01:08:08 leviatan21 Exp $
+* @version: $Id: acp_abbcode.php, v 1.0.11 2008/10/11 11:10:08 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
@@ -18,7 +18,7 @@ class acp_abbcodes_info
 		return array(
 			'filename'	=> 'acp_abbcodes',
 			'title'		=> 'ACP_ABBCODES',
-			'version'	=> '1.0.10',
+			'version'	=> '1.0.11',
 			'modes'		=> array(
 				'settings'	=> array('title' => 'ACP_ABBC3_SETTINGS', 'auth' => 'acl_a_styles', 'cat' => array('ACP_ABBCODES')),
 				'bbcodes'	=> array('title' => 'ACP_ABBC3_BBCODES' , 'auth' => 'acl_a_bbcode', 'cat' => array('ACP_ABBCODES')),
@@ -34,5 +34,4 @@ class acp_abbcodes_info
 	{
 	}
 }
-
 ?>

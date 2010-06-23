@@ -33,7 +33,8 @@ var __method = this;
 	}
 }
 
-function $() {
+if ( typeof $id != 'function' ){
+function $id() {
 	if (arguments.length == 1) return get$(arguments[0]);
 	var elements = [];
 	$c(arguments).each(function(el){
@@ -46,17 +47,18 @@ function $() {
 		return el;
 	}
 }
+}
 
 if (!window.Element) var Element = new Object();
 
 Object.extend(Element, {
 	remove: function(element) {
-		element = $(element);
+		element = $id(element);
 		element.parentNode.removeChild(element);
 	},
 
 	hasClassName: function(element, className) {
-		element = $(element);
+		element = $id(element);
 		if (!element) return;
 		var hasClass = false;
 		element.className.split(' ').each(function(cn){
@@ -66,13 +68,13 @@ Object.extend(Element, {
 	},
 
 	addClassName: function(element, className) {
-		element = $(element);
+		element = $id(element);
 		Element.removeClassName(element, className);
 		element.className += ' ' + className;
 	},
   
 	removeClassName: function(element, className) {
-		element = $(element);
+		element = $id(element);
 		if (!element) return;
 		var newClassName = '';
 		element.className.split(' ').each(function(cn, i){
@@ -85,14 +87,14 @@ Object.extend(Element, {
 	},
 
 	cleanWhitespace: function(element) {
-		element = $(element);
+		element = $id(element);
 		$c(element.childNodes).each(function(node){
 			if (node.nodeType == 3 && !/\S/.test(node.nodeValue)) Element.remove(node);
 		});
 	},
 
 	find: function(element, what) {
-		element = $(element)[what];
+		element = $id(element)[what];
 		while (element.nodeType != 1) element = element[what];
 		return element;
 	}
@@ -109,6 +111,7 @@ var Position = {
 		return [valueL, valueT];
 	}
 };
+/** Disabled by MSSTI for ABBC3 v1.0.11
 
 document.getElementsByClassName = function(className) {
 	var children = document.getElementsByTagName('*') || document.all;
@@ -118,7 +121,7 @@ document.getElementsByClassName = function(className) {
 	});  
 	return elements;
 }
-
+**/
 //useful array functions
 Array.prototype.iterate = function(func){
 	for(var i=0;i<this.length;i++) func(this[i], i);

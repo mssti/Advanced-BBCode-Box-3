@@ -1,714 +1,412 @@
 // <![CDATA[
+/** Opera doesn't know URL cursor **/
+if ( ! navigator.userAgent.match(/(^|\W)(Opera)\/(\d+)(\.\d+)?/) ) { document.write( '<style type="text/css" media="all"><!--' + "\n\r" + '.resized-div, .attach_me, .attach_parent, .hoverbox { cursor: url("styles/abbcode/zoomin.cur"), pointer; }'+ "\n\r" + '--></style>'); }
 
 /** AdvancedBox JS - Start
 * This work is open source
-* AdvancedBox for resized images based on "Reimg Image Resizer (+ lightbox)" from http://www.taletn.com/ - http://www.phpbb.com/community/viewtopic.php?f=70&t=907805
+* AdvancedBox for resized images 
 * Paked with : A JavaScript Compressor.  version 3.0 - http://dean.edwards.name/packer/
-* http://yaisb.blogspot.com/2006/10/defeating-dean-edwards-javascript.html
-* eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('t 2A=1d y(){t j=22;t k,J,X,17,F,H,v,8,x,K=1s;t l,U=0;t m,18=0;t n=10;t o=0;t p,1e=C=1s;t q,19,1a,D,1t=1s;t r=1d 1u();t s=1d 1u();23=y(){t a=I.1F.1G.1H(/(^|\\W)(24)\\s+(\\d+)(\\.\\d+)?/);9(!a){a=I.1F.1G.1H(/(^|\\W)(25|26|27)\\/(\\d+)(\\.\\d+)?/);9(!a){a=I.1F.1G.1H(/(^|\\W)(28)\\/[\\d.]+\\s+\\(.*?2B:(\\d+)(\\.\\d+)?.*?\\)/)}}9(!a||a.1n<5){V}t b=2C(a[3]+a[4]);a=a[2];9(a=="24"){C=b}E 9(a=="25"){t c=b}E 9(a=="26"){t d=b}E 9(a=="27"){t e=b}E 9(a=="28"){t f=b}p=(C&&C<=7.0)?29:13;1e=(C>=7.0||c>3.0)?29:13},1f=y(a,b,c,d){9(!J){2a()}J.6.B="";X.6.B="";a=1v(a);K=1d 2D();K.L(\'14\',a);b=K.z;c=K.A;1w=I.1I("1J();",1);V 13},1v=y(a){a=2E(a.2F().1o(/\\s/g,\' \'));9(a.1p(\'2G\')!=-1){t b=a.1K(0,a.1p(\'?\'));t c=a.1K(a.1p(\'O\'));t d=c.1K(c.1p(\'O\'),c.1p(\'&\'));a=b+\'?\'+(d?d:c)}V a},1J=y(){o++;9(o==2H){1x(1w);1g()}9(!K.2I=="2b"||!K.2b){9(K.z>1y){1q(K.14,K.z,K.A,n)}E{1w=I.1I("1J();",2J)}}E{1x(1w);1q(K.14,K.z,K.A,n)}},2a=y(){t a=1L();t b=1M();1z=u.2c("G").2K(0);J=u.P("2d");J.1A="2L";J.6.B="Y";J.6.2M=\'2N(2e:\'+j+\')\';J.6.2O=J.6.2P=J.6.2e=(j/1y);J.6.z="1y%";J.6.A=b[2]+"w";X=u.P("a");X.L(\'O\',\'2Q\');X.15=X.16=2f;X.Q=1g;v=u.P("1N");v.6.B="Y";v.6.2g=(p?\'2h\':\'2R\');H=u.P("1N");H.L(\'O\',\'2S\');H.6.2g=(1e?\'2T\':\'2h\');17=u.P("a");17.L(\'O\',\'2U\');17.15=17.16=2f;17.Q=1g;F=u.P("a");F.L(\'O\',\'2V\');F.Q=1O;D=u.P("a");D.L(\'O\',\'1P\');D.15=D.16=2i;D.Q=y(){1h(\'1B\');V 13};q=u.P("a");q.L(\'O\',\'2W\');19=u.P("1N");19.L(\'O\',\'2X\');1a=u.P("a");1a.L(\'O\',\'2Y\');8=u.P("2d");x=u.P("2Z");x.1A=8.1A=v.1A="31";x.32=x.33=2j;x.Q=1g;1z.T(J);1z.T(X);H.T(17);H.T(F);H.T(q);H.T(1a);H.T(19);H.T(D);v.T(H);8.T(x);v.T(8);1z.T(v)},2k=y(){t a=1L();t b=1M();l=b[3]-20;l=(1e)?(l+20):l;l=(C&&C<7.0)?l+10:l;U=b[4]+20;U=(1e)?(U-22):U;U=(C&&C<7.0)?U-30:U;v.6.Z=(!p?0:a[1])+"w";v.6.M=(!p?0:a[2])+"w"},1q=y(a,b,c,d){I.2l=2m;2k();1Q(\'2n\');2o.34();8.6.2p="";x.L(\'14\',a);x.6.z=8.6.z=(m=b)+"w";x.6.A=8.6.A=(18=c)+"w";v.6.B="";v.6.z=v.6.A=8.6.Z=8.6.M="";t e=0;9(v.N>l&&b){e=b;b-=v.N-l+1;c=1b.1R(c*b/e);x.6.z=8.6.z=b+"w";x.6.A=8.6.A=c+"w"}9(v.1i>U&&c){e=c;c-=v.1i-U;b=1b.1R(b*c/e);x.6.z=8.6.z=b+"w";x.6.A=8.6.A=c+"w";9(v.N>l&&b){e=b;b-=v.N-l;c=1b.1R(c*b/e);x.6.z=8.6.z=b+"w";x.6.A=8.6.A=c+"w"}}9(e){F.15=F.16=35.1o(/%1\\$s/,m).1o(/%2\\$s/,18);F.Q=1O;F.6.B=""}E{F.15=F.16=2q;F.Q=1S;F.6.B="Y"}v.6.z=l+"w";v.6.A=U+"w";8.6.Z=1b.1C((v.N-8.N)/2-8.1j)+"w";8.6.M=1b.1C((v.1i-8.1i)/2-8.36)+"w";8.6.M=(C&&C<7.0)?(11(8.6.M)+20)+"w":8.6.M;H.6.Z=(11(8.1j))+"w";H.6.M=(11(8.6.M)+(C&&C<7.0?-20:10))+"w";1h();n=d;9(n>=1y){1T()}},1h=y(a,b){q.6.B="Y";19.6.B="Y";1a.6.B="Y";D.6.B="Y";t c=x.14;t d=37(c,r);t e=d[0];t f=d[1];t g=r.1n;9(e){t h=r[f-1];t i=r[f+1];9(f-1>=0){q.6.B="";q.Q=y(){1f(h);V 13}}19.6.B="";19.38=39.1o(/%1\\$s/,f+1).1o(/%2\\$s/,g);9(f+1<g){1a.6.B="";1a.Q=y(){1f(i);V 13}}9(g>1){D.6.B=""}9(a&&2r(a)!="3a"){9(!b&&f+1==g){b=1;1U=r[0]}E{b=f+1;1U=i}9(a==\'1B\'&&b<g){D.L(\'O\',\'3b\');D.15=D.16=3c;D.Q=y(){1h(\'3d\');V 13};1f(1U);1t=I.1I("1h(\'1B\', \'"+b+"\');",(3e))}E{D.L(\'O\',\'1P\');D.15=D.16=2i;D.Q=y(){1h(\'1B\');V 13};1x(1t)}}}},2j=y(e){X.6.B="Y"},1g=y(e){1Q(\'2s\');2o.3f();I.2l=1s;1x(1t);D.L(\'O\',\'1P\');x.L(\'14\',3g);J.6.B=v.6.B=X.6.B="Y"},2m=y(e){t a=x.14;1g();1q(a,m,18,n)},1S=y(e){1q(x.14,m,18,10)},1O=y(e){1T()},1T=y(){9(11(x.6.z)>=m&&11(x.6.A)>=18){V}x.6.z=m+"w";x.6.A=18+"w";8.6.2p="2t";9(!p){8.6.M=8.6.Z=v.6.A=0;8.6.z="2t"}E{t a=8.N-8.1r;8.6.M=8.6.Z=v.6.A=0;8.6.z=(l-2*8.1j-a)+"w";9(v.N>l){8.6.z=(l-(v.N-l))+"w"}}8.6.Z=1b.1C((v.N-8.N)/2-8.1j)+"w";8.6.M=11(8.6.M)+((C&&C<7.0)?30:0)+"w";9(8.1r>m){8.6.z=m+"w";8.6.z=(m+(m-8.1r))+"w";8.6.Z=1b.1C((v.N-8.N)/2-8.1j)+"w"}8.6.A=11(8.6.A)+(1e?+3h:0)+"w";9(8.1k){8.1k=0}9(8.1l){8.1l=0}F.15=F.16=2q;F.Q=1S;H.6.Z=(11(8.1j))+"w";H.6.M=(11(8.6.M)+(C&&C<7.0?-20:10))+"w"},1M=y(){t a,1m;9(I.1D&&I.2u){a=u.G.2v;1m=I.1D+I.2u}E 9(u.G.2w>u.G.1i){a=u.G.2v;1m=u.G.2w}E{a=u.G.N;1m=u.G.1i}t b,1c;9(1V.1D){b=1V.3i;1c=1V.1D}E 9(u.12&&u.12.1W){b=u.12.1r;1c=u.12.1W}E 9(u.G){b=u.G.1r;1c=u.G.1W}9(1m<1c){1X=1c}E{1X=1m}9(a<b){1Y=b}E{1Y=a}V 1d 1u(\'\',1Y,1X,b,1c)},1L=y(){t a=0;t b=0;9(2r(I.2x)==\'3j\'){b=I.2x;a=I.3k}E 9(u.G&&(u.G.1k||u.G.1l)){b=u.G.1l;a=u.G.1k}E 9(u.12&&(u.12.1k||u.12.1l)){b=u.12.1l;a=u.12.1k}V 1d 1u(\'\',a,b)},1Q=y(a){9(C){9(a!=\'2s\'){a=\'2n\'}1Z(t S=0;S<u.1E.1n;S++){1Z(t R=0;R<u.1E[S].1n;R++){9(u.1E[S].2y[R].3l){u.1E[S].2y[R].6.2z=a}}}}t b=u.2c("3m");1Z(t i=0;i<b.1n;i++){b[i].6.2z=a}};23();21.3n=r;21.1f=1f;21.1v=1v};',62,210,'||||||style||objImageContainer|if||||||||||||||||||||var|document|objContainer|px|objImage|function|width|height|display|msie|objPlay|else|objZoom|body|objToolbar|window|objOverlay|newObjImage|setAttribute|top|offsetWidth|id|createElement|onclick|||appendChild|MaxHeight|return||objLoading|none|left||parseInt|documentElement|false|src|alt|title|objCloser|RealImgHeight|objText|objNext|Math|windowHeight|new|NewStyle|Show|Close|Slide_Show|offsetHeight|offsetLeft|scrollLeft|scrollTop|yScroll|length|replace|indexOf|ShowImage|clientWidth|null|SlideWait|Array|Clear_url|imgWait|clearTimeout|100|objBigBody|className|play|floor|innerHeight|forms|navigator|userAgent|match|setTimeout|waitFor|substring|getScrollXY|getPageSize|span|ZoomInClick|PlayLink|ToggleVisibility|round|ZoomOutClick|ZoomIt|PlayNext|self|clientHeight|pageHeight|pageWidth|for||this|60|DetectBrowser|MSIE|Firefox|Opera|Safari|Mozilla|true|Initialize|complete|getElementsByTagName|div|opacity|ImageResizerCloseAlt|position|absolute|ImageResizerPlayAlt|loading_hide|Calculate|onresize|Resize|hidden|ScrollFreeze|overflow|ImageResizerZoomOutAlt|typeof|visible|auto|scrollMaxY|scrollWidth|scrollHeight|pageYOffset|elements|visibility|AdvancedBox|rv|parseFloat|Image|decodeURIComponent|toString|download|250|readyState|500|item|AdvancedBoxBackGround|filter|alpha|KHTMLOpacity|MozOpacity|LoadingLink|fixed|hoverNav|relative|CloserLink|ZoomLink|PrevLink|nOnText|NextLink|img||AdvancedBoxImage|onload|onerror|on|ImageResizerZoomInAlt|offsetTop|contains|innerHTML|ImageResizerNumberOf|undefined|PauseLink|ImageResizerPauseAlt|pause|5000|off|ImageResizerBlankImage|55|innerWidth|number|pageXOffset|options|object|SlideShows'.split('|'),0,{}))
 **/
 
-var AdvancedBox = new function()
+var AdvancedBox = new function( )
 {
-	/** Set opacity on background element **/
-	var ojbOpacity = 60;
 	/** Global Variables **/
-	var objBody, objOverlay, objLoading, objCloser, objZoom, objToolbar, objContainer, objImageContainer, objImage, newObjImage = null;
+
+	/** The browser **/
+	var IE = ( window.navigator.userAgent.match(/(^|\W)(MSIE)\s+(\d+)(\.\d+)?/) ) ? true : false;
+	/** Use sexy looks ? **/
+	var animate = true; // Options : true | false
+	var elemfade;
+	/** For display the image (opacity effect) ( Integer value from 1 to 100 )**/
+	var animateInDuration = 6;
+	var animateOutDuration = 6;
+	/** For enlarge or shrink the lightbox delay ( Integer value from 1 to 100 ) **/
+	var BoxScaleSteps = 10;
+	/** Set opacity on background element ( Integer value from 1 to 100 ) **/
+	var ojbOpacity = 60;
+	/** The size of "air" up to page **/
+	var borderSize = 20;
+	/** If you adjust the padding in the CSS, you will need to update this variable **/
+	var padding = 4;
+	/** Save the "image object" for global access **/
+	var newObjImage = null;
 	/** Dimensions of the box **/
 	var MaxWidth, MaxHeight = 0;
-	/** Dimensions of the current displayed image **/
-	var RealImgWidth, RealImgHeight	= 0;
-	/** Zoom level **/
-	var zoomLevel = 10;
+	/** Zoom level ( true | false ) **/
+	var ZoomLevel = false ;
 	/** Loading **/
 	var Wait_pass = 0;
-	/** The browser **/
-	var OldStyle, NewStyle = msie = null;
-	/** SlideShow **/
-	var objPrev, objText, objNext, objPlay, SlideWait = null;
-	var SlideShows = new Array();
-	var objSlide = new Array();
+	/** Slide Show **/
+	var SlideWait = 0;
+	/** The number of seconds to wait ( if animation is enabled, the animateXXDuration value will be added **/
+	var SlideShowDuration = 5;
+	var SlideShows = new Array( );
 
-	/**
-	* This browser detection is based on code from Martinic <http://www.martinic.com/>
-	**/
-	DetectBrowser = function()
+	/** Initialize all **/
+	Start = function( url )
 	{
-		var browser = window.navigator.userAgent.match(/(^|\W)(MSIE)\s+(\d+)(\.\d+)?/);
-
-		if (!browser)
-		{
-			browser = window.navigator.userAgent.match(/(^|\W)(Firefox|Opera|Safari)\/(\d+)(\.\d+)?/);
-			if (!browser)
-			{
-				browser = window.navigator.userAgent.match(/(^|\W)(Mozilla)\/[\d.]+\s+\(.*?rv:(\d+)(\.\d+)?.*?\)/);
-			}
-		}
-		if (!browser || browser.length < 5)
-		{
-			return;
-		}
-		var version = parseFloat(browser[3]+browser[4]);
-		browser = browser[2];
-
-		if (browser == "MSIE")
-		{
-			msie = version;
-		}
-		else if (browser == "Firefox")
-		{
-			var firefox = version;
-		}
-		else if (browser == "Opera")
-		{
-			var opera = version;
-		}
-		else if (browser == "Safari")
-		{
-			var safari = version;
-		}
-		else if (browser == "Mozilla")
-		{
-			var mozilla = version;
-		}
-
-		/** IE6=T : IE7=T : FF2=F : FF3=F : O=F **/
-		OldStyle = ( msie && msie <= 7.0 ) ? true : false;
-		/** IE6=F : IE7=T : FF2=F : FF3=F : O=F **/
-		NewStyle = ( msie >= 7.0 || firefox > 3.0) ? true : false;
-
-	},
-
-	Show = function(url, width, height, zoomlvl)
-	{
-		if ( !objOverlay )
-		{
-			Initialize();
-		}
-		/** Show the background overlay **/
-		objOverlay.style.display = "";
-
+		/** At first run, creates the element container **/
+		if ( !$id( 'AB-BackGround' ) ) { Create( ); }
 		/** Show the loading image **/
-		objLoading.style.display = "";
-
-		/** Clear the image url **/
-		url = Clear_url( url );
-
-		/** Try to get the real image dimensions **/
-		newObjImage	= new Image();
-		newObjImage.setAttribute('src', url);
-		width		= newObjImage.width;
-		height		= newObjImage.height;
-
+		ElementShow( 'AB-BackGround' );
+		ElementShow( 'AB-LoadingLink' );
+		/** Create a new image with a Clear the image url **/
+		ZoomLevel = false;
+		newObjImage = new Image( );
+		newObjImage.src = url_clean( url );
 		/** Let's do some extra checks **/
-		imgWait = window.setTimeout( "waitFor();", 1 );
-
+		Wait_pass = 0;
+		var timer = window.setInterval( function( )
+		{
+			/** Safety end the process if can't load the image afer 120 intents ( 1 Minutes ) **/
+			Wait_pass++; if ( Wait_pass == 120 ) { window.clearInterval( timer ); Close( ); }
+			/** Seems that IE when create an image gives a default width to 28 **/
+			if ( !newObjImage.readyState == 'complete' || !newObjImage.complete ) { if ( newObjImage.width > 100) { window.clearInterval( timer ); Prepare( newObjImage, ZoomLevel ); } } else { window.clearInterval( timer ); Prepare( newObjImage, ZoomLevel ); }
+		},10)
 		return false;
 	},
 
-	/** Clear the image url **/
-	Clear_url = function( url )
+	/** Creates the elements container and appends it to the main document ( The background, image and close button ). **/
+	Create = function( )
 	{
-		url = decodeURIComponent( url.toString().replace(/\s/g, ' ') );
+		/** Preload the navbar buttons **/
+		var preload_image_array = new Array( "advancedbox_blank.gif", "advancedbox_icon_close.gif", "advancedbox_icon_zoom.gif", "advancedbox_icon_next.gif", "advancedbox_icon_prev.gif", "advancedbox_icon_play.gif", "advancedbox_icon_pause.gif", "advancedbox_icon_loading.gif" );
+		var preload_image_object = new Image(); for( i = 0, pi = preload_image_array.length; i < pi; i++ ) { preload_image_object.src = "./styles/abbcode/" + preload_image_array[i]; }
 
-		/** If this an attached image ? if yes, need more work to clear the image url **/
-		if ( url.indexOf('download') != -1 )
-		{
-			/** Will get the real url to the download script, ex : http://www.mssti.com/phpbb3/download/file.php **/
-			var valor   = url.substring( 0, url.indexOf('?') );
-			/** Will get an string starting from the id, ex : id=65&mode=view or only id=65 **/
-			var valorId1= url.substring( url.indexOf('id') );
-			/** Will get only the id value, ex : id=65 or null if have no extra params **/
-			var valorId2 = valorId1.substring( valorId1.indexOf('id'), valorId1.indexOf('&') );
-			/** Recreate the image url, ex : http://www.mssti.com/phpbb3/download/file.php?id=65 **/
-			url = valor + '?' + ( valorId2 ? valorId2 : valorId1 );
-		}
-		return url;
-	},
-
-	waitFor = function( )
-	{
-		/** Safety end the process if can't load the image afer 250 intents ( 2.0833333333333335 Minutes ) **/
-		Wait_pass++;
-		if ( Wait_pass == 250 )
-		{
-			clearTimeout(imgWait);
-			Close();
-		}
-
-		if ( !newObjImage.readyState == "complete" || !newObjImage.complete )
-		{
-			/** Seems that IE when create an image gives a default width to 28 **/
-			if ( newObjImage.width > 100)
-			{
-				ShowImage( newObjImage.src, newObjImage.width, newObjImage.height, zoomLevel );
-			}
-			else
-			{
-				imgWait = window.setTimeout( "waitFor();", 500 );
-			}
-		}
-		else
-		{
-			clearTimeout(imgWait);
-			ShowImage( newObjImage.src, newObjImage.width, newObjImage.height, zoomLevel );
-		}
-	},
-
-	/** Create the background, image and close button elements. **/
-	Initialize = function()
-	{
-		/** Determine the current scroll position within the document **/
-		var arrayScroll = getScrollXY();
-
-		/** Determine the dimensions of the entire document **/
-		var arraySize = getPageSize();
-
-		objBigBody = document.getElementsByTagName("body").item(0);
-
+		var objBody = document.getElementsByTagName( 'body' ).item(0);
 		/** Create the background element (div) **/
-		objOverlay = document.createElement("div");
-		objOverlay.className = "AdvancedBoxBackGround";
-		objOverlay.style.display = "none";
-		objOverlay.style.filter = 'alpha(opacity:'+ojbOpacity+')';
-		objOverlay.style.KHTMLOpacity = objOverlay.style.MozOpacity = objOverlay.style.opacity = (ojbOpacity/100);
-		/** The background gets the document's dimensions, so a shadow can be cast over the entire document **/
-		objOverlay.style.width	= "100%";
-		objOverlay.style.height	= arraySize[2]+"px";
-
-		/** Create the Loading button **/
-		objLoading = document.createElement("a");
-		objLoading.setAttribute('id','LoadingLink');
-		objLoading.alt = objLoading.title = ImageResizerCloseAlt;
-		objLoading.onclick = Close;
-
-		/** Create the big image container **/
-		objContainer = document.createElement("span");
-		objContainer.style.display = "none";
-		/** Use old style CSS positioning (absolute instead of fixed) for IE <7 **/
-		objContainer.style.position = ( OldStyle ? 'absolute' : 'fixed' );
-//		objContainer.onclick = Close;
-
-		/** Create the toolbar **/
-		objToolbar = document.createElement("span");
-		objToolbar.setAttribute('id','hoverNav');
-		/** Use old style CSS positioning (absolute instead of relative) for IE <7 **/
-		objToolbar.style.position = ( NewStyle ? 'relative' : 'absolute' );
-
-		/** Create the Close button **/
-		objCloser = document.createElement("a");
-		objCloser.setAttribute('id','CloserLink');
-		objCloser.alt = objCloser.title = ImageResizerCloseAlt;
-		objCloser.onclick = Close;
-
-		/** Create the Zoom button **/
-		objZoom = document.createElement("a");
-		objZoom.setAttribute('id','ZoomLink');
-		objZoom.onclick = ZoomInClick;
-
-		/** Create the Play button **/
-		objPlay = document.createElement("a");
-		objPlay.setAttribute('id','PlayLink');
-		objPlay.alt = objPlay.title = ImageResizerPlayAlt;
-		objPlay.onclick = function() { Slide_Show( 'play' ); return false; };
-
-		/** Create the Prev button **/
-		objPrev = document.createElement("a");
-		objPrev.setAttribute('id','PrevLink');
-
-		/** Create the text n of n picture **/
-		objText = document.createElement( "span" );
-		objText.setAttribute('id','nOnText');
-
-		/** Create the Next button **/
-		objNext = document.createElement("a");
-		objNext.setAttribute('id','NextLink');
-
+		var objOverlay = document.createElement( 'div' );
+			objOverlay.setAttribute( 'id', 'AB-BackGround' );
+			if ( IE ) { objOverlay.style.filter = 'alpha(opacity:'+ojbOpacity+')'; } else { objOverlay.style.KHTMLOpacity = objOverlay.style.MozOpacity = objOverlay.style.opacity = (ojbOpacity/100); }
+			objBody.appendChild(objOverlay);
+		/** Create a big container **/
+		var objLightbox = document.createElement( 'div' );
+			objLightbox.setAttribute( 'id', 'AB-Overlay' );
+			objLightbox.style.display = 'none';
+			objBody.appendChild(objLightbox);
+		/** Create a big image container **/
+		var objOuterImageContainer = document.createElement( 'div' );
+			objOuterImageContainer.setAttribute( 'id', 'AB-OuterContainer' );
+			objLightbox.appendChild(objOuterImageContainer);
 		/** Create the image container **/
-		objImageContainer = document.createElement("div");
-
+		var objImageContainer = document.createElement( 'div' );
+			objImageContainer.setAttribute( 'id', 'AB-ImageContainer' );
+			objOuterImageContainer.appendChild(objImageContainer);
 		/** Create the image here **/
-		objImage = document.createElement("img");
-		objImage.className = objImageContainer.className = objContainer.className = "AdvancedBoxImage";
-		/** Hide the loading image **/
-		objImage.onload = objImage.onerror = loading_hide;
-		objImage.onclick = Close;
+		var objLightboxImage = document.createElement( 'img' );
+			objLightboxImage.setAttribute( 'id', 'AB-Image' );
+			objLightboxImage.setAttribute( 'src', ImageResizerBlankImage);
+			objLightboxImage.onclick = function() { Close(); return false; }
+			objImageContainer.appendChild(objLightboxImage);
+		/** Create the toolbar **/
+		var objHoverNav = document.createElement( 'div' );
+			objHoverNav.setAttribute( 'id', 'AB-ToolBar' );
+			objOuterImageContainer.appendChild(objHoverNav);
+		/** Create the image name container **/
+		var objResizerSpan = document.createElement( 'span' );
+			objResizerSpan.setAttribute( 'id', 'AB-ImageName' );
+			objResizerSpan.className = 'resized-txt';
+		/** Vreate the mane text **/
+		var	objResizerText = document.createTextNode( '' );
+			objResizerSpan.appendChild(objResizerText);
+			objHoverNav.appendChild(objResizerSpan);		
+		/** Create the Close button **/
+		var objBottomNavCloseLink = document.createElement( 'a' );
+			objBottomNavCloseLink.setAttribute( 'id', 'AB-CloserLink' );
+			objBottomNavCloseLink.alt = objBottomNavCloseLink.title = ImageResizerCloseAlt;
+			objBottomNavCloseLink.onclick = function() { Close(); return false; }
+			objHoverNav.appendChild(objBottomNavCloseLink);
+		/** Create the Zoom button **/
+		var objBottomNavZoomLink = document.createElement( 'a' );
+			objBottomNavZoomLink.setAttribute( 'id', 'AB-ZoomLink' );
+			objBottomNavZoomLink.onclick = function() { Prepare( newObjImage, true ); return false; };
+			objHoverNav.appendChild(objBottomNavZoomLink);
+		/** Create the Prev button **/
+		var objBottomNavPrevLink = document.createElement( 'a' );
+			objBottomNavPrevLink.setAttribute( 'id', 'AB-PrevLink' );
+			objBottomNavPrevLink.alt = objBottomNavPrevLink.title = ImageResizerPrevtAlt;
+			objHoverNav.appendChild(objBottomNavPrevLink);
+		/** Create the Next button **/
+		var objBottomNavNextLink = document.createElement( 'a' );
+			objBottomNavNextLink.setAttribute( 'id', 'AB-NextLink' );
+			objBottomNavNextLink.alt = objBottomNavNextLink.title = ImageResizerNextAlt;
+			objHoverNav.appendChild(objBottomNavNextLink);
+		/** Create the text n of n picture **/
+		var objNumberDisplay = document.createElement( 'span' );
+			objNumberDisplay.setAttribute( 'id', 'AB-nOnText' );
+			objHoverNav.appendChild(objNumberDisplay);
+		/** Create the Play button **/
+		var objBottomNavPlayLink = document.createElement( 'a' );
+			objBottomNavPlayLink = document.createElement( 'a' );
+			objBottomNavPlayLink.setAttribute( 'id', 'AB-PlayLink' );
+			objBottomNavPlayLink.alt = objBottomNavPlayLink.title = ImageResizerPlayAlt;
+			objBottomNavPlayLink.onclick = function() { Slide_Show( 'play' ); return false; };
+			objHoverNav.appendChild(objBottomNavPlayLink);
+		/** Create the Loading button **/
+		var objloadingLink = document.createElement( 'a' );
+			objloadingLink.setAttribute( 'id', 'AB-LoadingLink' );
+			objloadingLink.alt = objloadingLink.title = ImageResizerCloseAlt;
+			objloadingLink.onclick = function() { Close(); return false; }
+			objLightbox.appendChild(objloadingLink);
 
-		/** Place the background in the document **/
-		objBigBody.appendChild(objOverlay);
-		/** Place the Loading button in the background **/
-		objBigBody.appendChild(objLoading);
-		/** Place the Close button in the toolbar **/
-		objToolbar.appendChild(objCloser);
-		/** Place the Zoom button in the toolbar **/
-		objToolbar.appendChild(objZoom);
-		/** Place the PrevLink button in the toolbar **/
-		objToolbar.appendChild(objPrev);
-		/** Place the Next button in the toolbar **/
-		objToolbar.appendChild(objNext);
-		/** Place the text n of n in the toolbar **/
-		objToolbar.appendChild(objText);
-		/** Place the PlayLink button in the toolbar **/
-		objToolbar.appendChild(objPlay);
-		/** Place the toolbar in the big container **/
-		objContainer.appendChild(objToolbar);
-		/** Place the image in the image container **/
-		objImageContainer.appendChild(objImage);
-		/** Place the image container in the big container **/
-		objContainer.appendChild(objImageContainer);
-		/** Place the the big container in the document element **/
-		objBigBody.appendChild(objContainer);
+		/** Set a default size for the big image container, for the first run **/
+		ElementSetWidth( 'AB-OuterContainer', 250 );
+		ElementSetHeight( 'AB-OuterContainer', 250 );
 	},
 
-	Calculate = function ()
+	/** Adjust sizes **/
+	Prepare = function( newObjImage, CurrentZoomLevel )
 	{
-		/** Determine the current scroll position within the document **/
-		var arrayScroll = getScrollXY();
-
-		/** Determine the dimensions of the entire document **/
-		var arraySize = getPageSize();
-
-		/** Determine the visible dimensions of the browser window (the "viewport") **/
-		MaxWidth	= arraySize[3]-20;
-		/** Adjust the max width for old browsers **/
-		MaxWidth	= (NewStyle) ? (MaxWidth+20) : MaxWidth ;
-		MaxWidth	= ( msie && msie < 7.0 ) ? MaxWidth+10 : MaxWidth ;
-
-		MaxHeight	= arraySize[4]+20;/** Adjust the max height - toolbar bar height **/
-		/** Adjust the max height for old browsers **/
-		MaxHeight	= (NewStyle) ? (MaxHeight-60) : MaxHeight ;
-		MaxHeight	= ( msie && msie < 7.0 ) ? MaxHeight-30 : MaxHeight ;
-
-		/** The image span will get (but not just now) the dimensions of the visible window, so it will exactly fit in the viewport **/
-
-		/** Position the image span at the current scroll position **/
-		objContainer.style.left	= (!OldStyle ? 0 : arrayScroll[1] )+"px";
-		objContainer.style.top	= (!OldStyle ? 0 : arrayScroll[2] )+"px";
-	},
-
-	/** Show an image using a pseudo light box effect **/
-	ShowImage = function(url, width, height, zoomlvl)
-	{
+		ElementSetSrc( 'AB-Image', ImageResizerBlankImage );
+		/** Show the loading image **/
+		ElementShow( 'AB-LoadingLink' );
+		/** Hide the toolbar **/
+		ElementInVisible( 'AB-ToolBar' );
 		/** Resize event handlers **/
 		window.onresize = Resize;
-
-		Calculate();
-
-		/** hide some tags **/
-		ToggleVisibility( 'hidden' );
-		
 		/** Stop the body scroll function **/
-		ScrollFreeze.on();
+		ScrollFreeze.on( );
+		/** Hide some tags **/
+		ElementBoxes( 'hidden' );
+		/** Show the background overlay **/
+		ElementShow( 'AB-BackGround' );
+		/** Show the big container, whitout this here, all will be a mess ;) **/
+		ElementShow( 'AB-Overlay' );
+		/** Determine the dimensions of the entire document & current scroll position within the document **/
+		var PageSize   = GetPageSizes( );
+		var PageScroll = GetPageScroll( )
+		/** Determine the visible dimensions of the browser window "the viewport" **/
+		MaxWidth = Math.floor( PageSize.WWidth - ( borderSize*2 ) );
+		MaxHeight = Math.floor( PageSize.WHeight - ( ( borderSize*2 ) + ElementGetHeight( 'AB-ToolBar' ) ) );
+		/** Place the button bar **/
+		ElementSetTop( 'AB-ToolBar', ( ( ElementGetHeight( 'AB-ToolBar' ) + padding ) *-1 ) );
+		ElementSetLeft( 'AB-ToolBar', ( padding*-1 ) );
+		/** The background gets the document's dimensions, so a shadow can be cast over the entire document **/
+		ElementSetHeight( 'AB-BackGround' , PageSize.PHeight );
+		/** Place the big container **/
+		ElementSetTop( 'AB-Overlay', ( PageScroll.YScroll + ( borderSize/2 ) ) );
+		ElementSetHeight( 'AB-Overlay', ( PageSize.WHeight - ( borderSize*2 ) ) );
+		/** Display the image very sexy like? **/
+		FxFade( 'AB-Image', 100, 0, animateInDuration );
+		/** Zoom in to real dimensions? **/
+		ZoomLevel = CurrentZoomLevel;
+		if ( !ZoomLevel ) { var objOuterImageContainerdims = scale_dims( newObjImage.width, newObjImage.height, MaxWidth, MaxHeight ); } else { var objOuterImageContainerdims = { W: ( ( newObjImage.width  > MaxWidth  ) ? ( ElementGetWidth( 'AB-Overlay' ) - borderSize ) : newObjImage.width ), H: ( ( newObjImage.height > MaxHeight ) ? ( ElementGetHeight( 'AB-Overlay' ) - padding ) : newObjImage.height ) }; }
+		/** Update the big container **/
+		ElementSetHeight( 'AB-ImageContainer', objOuterImageContainerdims.H );
+		/** Place the big image container in the middle of the page **/
+		ElementSetTop( 'AB-OuterContainer', ( ( ( ElementGetHeight( 'AB-Overlay' ) - ElementGetHeight( 'AB-OuterContainer' ) ) / 2 ) + ElementGetHeight( 'AB-ToolBar' ) ) );
+		/** Resize the outerImageContainer **/
+		BoxScale( 'AB-OuterContainer', objOuterImageContainerdims.W, objOuterImageContainerdims.H, UpdateImage );
+	},
 
-		objImageContainer.style.overflow = "";
-		objImage.setAttribute('src', url);
-
-		objImage.style.width = objImageContainer.style.width = (RealImgWidth = width)+"px";
-		objImage.style.height = objImageContainer.style.height = (RealImgHeight = height)+"px";
-
-		/** Show the image, zoom and close buttons included **/
-		objContainer.style.display = "";
-
-		/** Optionally resize the image **/
-		objContainer.style.width = objContainer.style.height = objImageContainer.style.left = objImageContainer.style.top = "";
-		var org = 0;
-		if (objContainer.offsetWidth > MaxWidth && width)
+	UpdateImage = function( )
+	{
+		/** Resize the image? **/
+		if ( ZoomLevel )
 		{
-			org = width;
-			/** Opera fix: "+1" or image appears left instead of centered **/
-			width -= objContainer.offsetWidth-MaxWidth+1;
-			height = Math.round(height*width/org);
-			objImage.style.width = objImageContainer.style.width = width+"px";
-			objImage.style.height = objImageContainer.style.height = height+"px";
-		}
-
-		if (objContainer.offsetHeight > MaxHeight && height)
-		{
-			org = height;
-			height -= objContainer.offsetHeight-MaxHeight;
-			width = Math.round(width*height/org);
-			objImage.style.width = objImageContainer.style.width = width+"px";
-			objImage.style.height = objImageContainer.style.height = height+"px";
-			if (objContainer.offsetWidth > MaxWidth && width)
-			{
-				org = width;
-				width -= objContainer.offsetWidth-MaxWidth;
-				height = Math.round(height*width/org);
-				objImage.style.width = objImageContainer.style.width = width+"px";
-				objImage.style.height = objImageContainer.style.height = height+"px";
-			}
-		}
-
-		/** Swap Zoom In for Zoom Out **/
-		if (org)
-		{
-			objZoom.alt = objZoom.title = ImageResizerZoomInAlt.replace(/%1\$s/, RealImgWidth).replace(/%2\$s/, RealImgHeight);
-			objZoom.onclick = ZoomInClick;
-			objZoom.style.display = "";
+			/** Maximize the image container, adding scroll bars if necessary **/
+			$id( 'AB-ImageContainer' ).style.overflow = 'auto';
+			/** Reset the scroll position **/
+			$id( 'AB-ImageContainer' ).scrollLeft = 0;
+			$id( 'AB-ImageContainer' ).scrollTop = 0;
+			/** Swap Zoom In for Zoom Out **/
+			$id( 'AB-ZoomLink' ).alt = $id( 'AB-ZoomLink' ).title = ImageResizerZoomOutAlt;
+			$id( 'AB-ZoomLink' ).onclick = function() { Prepare( newObjImage, false ); return false; };
+			/** Image size, zoom in 1:1 **/
+			var objImagedims = { W: newObjImage.width, H: newObjImage.height };
 		}
 		else
 		{
-			objZoom.alt = objZoom.title = ImageResizerZoomOutAlt;
-			objZoom.onclick = ZoomOutClick;
-			objZoom.style.display = "none";
+			/** The image can be zoom ? **/
+			if ( newObjImage.width < MaxWidth && newObjImage.height < MaxHeight ) { ElementDisabled( 'AB-ZoomLink' ); } else { ElementEnabled( 'AB-ZoomLink' ); }
+			/** Restore image container **/
+			$id( 'AB-ImageContainer' ).style.overflow = '';
+			/** Swap Zoom In for Zoom Out **/
+			$id( 'AB-ZoomLink' ).alt = $id( 'AB-ZoomLink' ).title = ImageResizerZoomInAlt.replace(/%1\$s/, newObjImage.width).replace(/%2\$s/, newObjImage.height);
+			$id( 'AB-ZoomLink' ).onclick = function() { Prepare( newObjImage, true ); return false; };
+			/** Image size **/
+			var objImagedims = scale_dims( newObjImage.width, newObjImage.height, MaxWidth, MaxHeight );
 		}
-
-		/** As promised in Calculate(): The image span gets the dimensions of the visible window, so it will exactly fit in the viewport **/
-		objContainer.style.width = MaxWidth+"px";
-		objContainer.style.height = MaxHeight+"px";
-
-		/** Center the box **/
-		objImageContainer.style.left = Math.floor((objContainer.offsetWidth-objImageContainer.offsetWidth)/2-objImageContainer.offsetLeft)+"px";
-		objImageContainer.style.top = Math.floor((objContainer.offsetHeight-objImageContainer.offsetHeight)/2-objImageContainer.offsetTop)+"px";
-		objImageContainer.style.top = ( msie && msie < 7.0 ) ? (parseInt(objImageContainer.style.top )+20)+"px" : objImageContainer.style.top ;
-
-		/** Position the Zoom bar **/
-		objToolbar.style.left	= (parseInt(objImageContainer.offsetLeft)   )+"px";
-		objToolbar.style.top	= (parseInt(objImageContainer.style.top ) + ( msie && msie < 7.0 ? -20 : 10) )+"px";
-
+		/** Update the image screen **/
+		ElementSetSrc( 'AB-Image', newObjImage.src );
+		/** Resize the image **/
+		ElementSetWidth( 'AB-Image',  objImagedims.W );
+		ElementSetHeight( 'AB-Image', objImagedims.H );
+		/** Display the image very sexy like? **/
+		FxFade( 'AB-Image', 0, 100, animateOutDuration);
 		/** Update SlideShow **/
 		Slide_Show( );
-
-		/** Optionally zoom in 1:1 **/
-		zoomLevel = zoomlvl;
-		if (zoomLevel >= 100)
-		{
-			ZoomIt();
-		}
+		/** Update the image name **/
+		var ThePictName = newObjImage.src.substring( newObjImage.src.lastIndexOf("\/") + 1);
+		$id( 'AB-ImageName' ).firstChild.nodeValue = ( newObjImage.src.toLowerCase().match(/(^|\s)jpeg|jpg|gif|bmp|png(\s|$id)/) ? unescape(newObjImage.src.substring( newObjImage.src.lastIndexOf("\/") + 1)) : '' );
+		/** Update the image container width **/
+		ElementSetWidth( 'AB-ToolBar', ElementGetWidth( 'AB-OuterContainer' ) );
+		/** Show the toolbar **/
+		ElementVisible( 'AB-ToolBar' );
+		/** Hide the loading image **/
+		ElementHide( 'AB-LoadingLink' );
 	},
 
 	Slide_Show = function( PlayOnOff, PlayNumber )
 	{
 		/** Reset to default values **/
-		objPrev.style.display = "none";
-		objText.style.display = "none";
-		objNext.style.display = "none";
-		objPlay.style.display = "none";
-
-		/** Get the actual picture **/
-		var curr	= objImage.src;
-
-		/** Get current pos in the array **/
-		var search	= contains(curr, SlideShows);
-		var found	= search[0];
-		var pos		= search[1];
-		var last	= SlideShows.length;
-
-		if ( found )
+		ElementDisabled( 'AB-PrevLink' );
+		ElementDisabled( 'AB-NextLink' );
+		/** Get the proper play/pause button **/
+		var BottomNavPlayLink = ( $id( 'AB-PlayLink' ) ? 'AB-PlayLink' :  'AB-PauseLink' );
+		/** Get some values from the the array **/
+		var search = contains( url_clean( newObjImage.src ), SlideShows );
+		/** Do the job **/
+		if ( search[0] )
 		{
+			/** Get current position of the actual picture, in the array **/
+			var pos	 = search[1];
+			var last = SlideShows.length;
 			var prev = SlideShows[pos-1];
 			var next = SlideShows[pos+1];
-
-			if ( pos-1 >= 0 )
+			/** IF this isn't the first picture, enable the "Previous button" **/
+			if ( pos-1 >= 0 ) { ElementEnabled( 'AB-PrevLink' ); $id( 'AB-PrevLink' ).onclick = function() { Start( prev ); return false; }; }
+			/** IF this isn't the last picture, enable the "Next button" **/
+			if ( pos+1 < last ) { ElementEnabled( 'AB-NextLink' ); $id( 'AB-NextLink' ).onclick = function() { Start( next ); return false; }; }
+			/** If there are only 1 picture, disable the play button **/
+			if ( last <= 1 ) { ElementDisabled( BottomNavPlayLink ); }
+			/** Update the text **/
+			ElementSetInnerHTML( 'AB-nOnText', ImageResizerNumberOf.replace(/%1\$s/, pos+1 ).replace(/%2\$s/, last));
+			/** Run the SlideShow? **/
+			if ( PlayOnOff && typeof(PlayOnOff) != 'undefined' )
 			{
-				objPrev.style.display = "";
-				objPrev.onclick = function() { Show( prev ); return false; };
-			}
-
-			objText.style.display = "";
-			objText.innerHTML = ImageResizerNumberOf.replace(/%1\$s/, pos+1 ).replace(/%2\$s/, last);
-
-			if ( pos+1 < last )
-			{
-				objNext.style.display = "";
-				objNext.onclick = function() { Show( next ); return false; };
-			}
-
-			/** Run the SlideShow **/
-			if ( last > 1 )
-			{
-				objPlay.style.display = "";				
-			}
-
-			if (PlayOnOff && typeof(PlayOnOff) != "undefined")
-			{
-
 				/** Calling from last pict, so start from first : else : start from next pict :) **/
-				if ( !PlayNumber && pos+1 == last )
-				{
-					PlayNumber	= 1;
-					PlayNext	= SlideShows[0];
-				}
-				else
-				{
-					PlayNumber	= pos+1;
-					PlayNext	= next;
-				}
-				
+				if ( !PlayNumber && pos+1 == last ) { PlayNumber = 1; PlayNext = SlideShows[0]; } else { PlayNumber = pos+1; PlayNext = next; }
+				/** Update the play/pause buton **/
 				if ( PlayOnOff == 'play' && PlayNumber < last )
 				{
-					objPlay.setAttribute('id','PauseLink');
-					objPlay.alt = objPlay.title = ImageResizerPauseAlt;
-					objPlay.onclick = function() { Slide_Show( 'pause' ); return false; };				
-					Show( PlayNext );
-					SlideWait = window.setTimeout( "Slide_Show('play', '"+PlayNumber+"');", (5000) );
+					$id( BottomNavPlayLink ).setAttribute( 'id', 'AB-PauseLink' );
+					$id( 'AB-PauseLink' ).onclick = function() { Slide_Show( 'pause' ); return false; };				
+					$id( 'AB-PauseLink' ).alt = $id( 'AB-PauseLink' ).title = ImageResizerPauseAlt;
+					/** Run the SlideShow **/
+					Start( PlayNext );
+					var SlideDuration = ( SlideShowDuration + ( animate ? animateInDuration : 0 ) ) * 1000;
+					SlideWait = window.setTimeout( function() { Slide_Show( 'play', PlayNumber ); }, SlideDuration );
 				}
 				else
 				{
-					objPlay.setAttribute('id','PlayLink');
-					objPlay.alt = objPlay.title = ImageResizerPlayAlt;		
-					objPlay.onclick = function() { Slide_Show( 'play' ); return false; };
-					clearTimeout(SlideWait);
+					$id( BottomNavPlayLink ).setAttribute( 'id', 'AB-PlayLink' );
+					$id( 'AB-PlayLink' ).onclick = function() { Slide_Show( 'play' ); return false; };
+					$id( 'AB-PlayLink' ).alt = $id( 'AB-PlayLink' ).title = ImageResizerPlayAlt;		
+					/** Cancel Slideshow timer **/
+					window.clearTimeout( SlideWait );
 				}
 			}
 		}
-
-	},
-
-	// Hide the loading when it has fully loaded.
-	loading_hide = function(e)
-	{
-		/** Hide the loading image **/
-		objLoading.style.display = "none";
-	},
-
-	/** Reset to default values **/
-	Close = function(e)
-	{
-		/** Show some tags **/
-		ToggleVisibility( 'visible' );
-
-		/** Return the body scroll function **/
-		ScrollFreeze.off();
-
-		/** Canel Resize event handlers **/
-		window.onresize=null;
-
-		/** Cancel Slideshow **/
-		clearTimeout(SlideWait);
-		objPlay.setAttribute('id','PlayLink');
-
-		/** Hide the image, background and buttons **/
-		objImage.setAttribute('src', ImageResizerBlankImage);
-		objOverlay.style.display = objContainer.style.display = objLoading.style.display = "none";
 	},
 
 	/** If the browser window is resized, recalculate dimensions and positions **/
-	Resize = function(e)
+	Resize = function( e )
 	{
-		var CurrImageSrc = objImage.src;
-		Close();
-		ShowImage( CurrImageSrc, RealImgWidth, RealImgHeight, zoomLevel );
+		Close( );
+		ElementShow( 'AB-Overlay' );
+		ElementShow( 'AB-BackGround' );
+		Prepare( newObjImage, ZoomLevel );
 	},
 
-	ZoomOutClick = function(e)
+	/** Reset to default values **/
+	Close = function( e )
 	{
-		ShowImage( objImage.src, RealImgWidth, RealImgHeight, 10 );
-/*
-		if (e && typeof(e.stopPropagation) != "undefined")
-		{
-			e.stopPropagation();
-		}
-		else if (window.event)
-		{
-			window.event.cancelBubble = true;
-		}
-*/	},
-
-	ZoomInClick = function(e)
-	{
-		ZoomIt();
-/*
-		if (e && typeof(e.stopPropagation) != "undefined")
-		{
-			e.stopPropagation();
-		}
-		else if (window.event)
-		{
-			window.event.cancelBubble = true;
-		}
-*/	},
-
-	/** Zoom in to real dimensions, adding scroll bars if necessary **/
-	ZoomIt = function()
-	{
-		/** Zoom in 1:1 **/
-		if (parseInt(objImage.style.width) >= RealImgWidth && parseInt(objImage.style.height) >= RealImgHeight)
-		{
-			return;
-		}
-
-		objImage.style.width = RealImgWidth+"px";
-		objImage.style.height = RealImgHeight+"px";
-
-		objImageContainer.style.overflow = "auto";
-
-		/** Maximize the image container **/
-		if (!OldStyle)
-		{
-			 objImageContainer.style.top = objImageContainer.style.left= objContainer.style.height = 0;
-			objImageContainer.style.width = "auto";
-		}
-		else
-		{
-			var border = objImageContainer.offsetWidth-objImageContainer.clientWidth;
-
-			 objImageContainer.style.top = objImageContainer.style.left = objContainer.style.height = 0;
-			objImageContainer.style.width = (MaxWidth-2*objImageContainer.offsetLeft-border)+"px";
-			if (objContainer.offsetWidth > MaxWidth)
-			{
-				objImageContainer.style.width = (MaxWidth-(objContainer.offsetWidth-MaxWidth))+"px";
-			}
-		}
-
-		/** Center the box **/
-		objImageContainer.style.left = Math.floor((objContainer.offsetWidth-objImageContainer.offsetWidth)/2-objImageContainer.offsetLeft)+"px";
-		objImageContainer.style.top = parseInt(objImageContainer.style.top )+(( msie && msie < 7.0 ) ? 30 : 0)+"px";
-
-		/** If the image is smaller than the maximized image container, then shrink the width of the image container **/
-		if (objImageContainer.clientWidth > RealImgWidth)
-		{
-			objImageContainer.style.width = RealImgWidth+"px";
-			objImageContainer.style.width = (RealImgWidth+(RealImgWidth-objImageContainer.clientWidth))+"px";
-			objImageContainer.style.left = Math.floor((objContainer.offsetWidth-objImageContainer.offsetWidth)/2-objImageContainer.offsetLeft)+"px";
-		}
-		objImageContainer.style.height = parseInt( objImageContainer.style.height )+( NewStyle ? +55 : 0 )+"px";
-
-		/** Reset the scroll position **/
-		if (objImageContainer.scrollLeft)
-		{
-			objImageContainer.scrollLeft = 0;
-		}
-		if (objImageContainer.scrollTop)
-		{
-			objImageContainer.scrollTop = 0;
-		}
-
-		/** Swap Zoom In for Zoom Out **/
-		objZoom.alt = objZoom.title = ImageResizerZoomOutAlt;
-		objZoom.onclick = ZoomOutClick;
-
-		/** Position the toolbar **/
-		objToolbar.style.left = (parseInt(objImageContainer.offsetLeft))+"px";
-		objToolbar.style.top  = (parseInt(objImageContainer.style.top ) + ( msie && msie < 7.0 ? -20 : 10) )+"px";
+		/** Return the body scroll function **/
+		ScrollFreeze.off( );
+		/** Canel Resize event handlers **/
+		window.onresize = null;
+		/** Cancel Slideshow timer **/
+		window.clearTimeout( SlideWait );
+		/** Reset the play/pause button **/
+		var BottomNavPlayLink = ( $id( 'AB-PlayLink' ) ? 'AB-PlayLink' : 'AB-PauseLink' ); $id( BottomNavPlayLink ).setAttribute( 'id', 'AB-PlayLink' );
+		/** Show some tags **/
+		ElementBoxes( 'visible' );
+		/** Hide the image, background and buttons **/
+		ElementSetSrc( 'AB-ImageContainer', ImageResizerBlankImage );
+		ElementHide( 'AB-LoadingLink' );
+		ElementHide( 'AB-Overlay' );
+		ElementHide( 'AB-BackGround' );
 	},
+
+/** Common functions - Start **/
+	$id					= function(elementid)	{ return document.getElementById(elementid); },
+	ElementHide			= function(element)		{ $id(element).style.display = 'none'; },
+	ElementShow			= function(element)		{ $id(element).style.display = ''; },
+	ElementVisible		= function(element)		{ $id(element).style.visibility = 'visible'; },
+	ElementInVisible	= function(element)		{ $id(element).style.visibility = 'hidden'; },
+	ElementGetWidth		= function(element)		{ return $id(element).offsetWidth; },
+	ElementSetWidth		= function(element,w)	{ $id(element).style.width = w + 'px'; },
+	ElementGetHeight	= function(element)		{ return $id(element).offsetHeight; },
+	ElementSetHeight	= function(element,h)	{ $id(element).style.height = h + 'px'; },
+	ElementSetTop		= function(element,t)	{ $id(element).style.top = t + 'px'; },
+	ElementSetLeft		= function(element,l)	{ $id(element).style.left = l + 'px'; },
+	ElementSetSrc		= function(element,src) { $id(element).src = src; },
+	ElementOpacity		= function(element, o)	{ if (window.ActiveXObject) { $id(element).style.filter = 'alpha(opacity=' + o + ')'; } else { $id(element).style.opacity = $id(element).style.MozOpacity = $id(element).style.KhtmlOpacity = o/100; } },
+	ElementSetInnerHTML = function(element, c)	{ $id(element).innerHTML = c; },
+	ElementBoxes		= function(action)		{ if (action != 'visible' ) { action = 'hidden'; } if (IE) { for (var S = 0; S < document.forms.length; S++) { for (var R = 0; R < document.forms[S].length; R++) { if (document.forms[S].elements[R].options) { document.forms[S].elements[R].style.visibility = action; } } } } var theObjects = document.getElementsByTagName( 'object' ); for (var i = 0; i < theObjects.length; i++) { theObjects[i].style.visibility = action; }; },
+	ElementDisabled		= function(element)     { $id(element).className = ( $id(element).className ? $id(element).className+' ' : '') + 'disabled'; ElementOpacity( $id(element).id, ojbOpacity); $id(element).onclick = function() {};},
+	ElementEnabled		= function(element)     { $id(element).className = $id(element).className.replace(/disabled/g, ''); ElementOpacity( $id(element).id, 100); },
 
 	/**
-	* Returns array with page width, height and window width, height
-	* Code from - quirksmode.org
+	* Code From : http://www.huddletogether.com/forum/comments.php?DiscussionID=1798
 	**/
-	getPageSize = function()
+	scale_dims = function( orig_w, orig_h, max_w, max_h ) { var scale = scale_rate( orig_w, orig_h, max_w, max_h ); var new_w = Math.round( scale*orig_w ); new_h = Math.round( scale*orig_h ); if ( new_w < 1 ) { new_w = 1; } if ( new_h < 1 ) { new_h = 1; } return { W:new_w, H: new_h }; },
+	scale_rate = function( orig_w, orig_h, max_w, max_h ) { var scale1 = 0; var scale2 = 0; if ( orig_w > max_w ) { scale1 = ( orig_w - max_w ) / orig_w; } if ( orig_h > max_h ) { scale2 = ( orig_h - max_h ) / orig_h; } var scale = ( scale1 > scale2 ) ? scale1 : scale2; return ( 1-scale ); },
+	/**
+	* Update the top position and resize both w & h even if is not set a previous value ;)
+	**/
+	BoxScale  = function( boxElement, boxNewWidth, boxNewHeight, callback ) { /** Resize it very sexy like? **/ if ( !animate ) { ElementSetWidth( boxElement, boxNewWidth ); ElementSetHeight( boxElement, boxNewHeight ); ElementSetTop( boxElement, ( ( ( ElementGetHeight( 'AB-Overlay' ) - ElementGetHeight( boxElement ) ) / 2 ) + ElementGetHeight( 'AB-ToolBar' ) ) ); } var boxObject = $id( boxElement ); var boxWidth = parseInt( parseFloat( 0 + boxObject.style.width ) ); var boxNewWidth = parseInt( parseFloat( 0 + boxNewWidth ) ); var boxHeight = parseInt( parseFloat( 0 + boxObject.style.height ) ); var boxNewHeight = parseInt( parseFloat( 0 + boxNewHeight ) ); /* if ( boxWidth === boxNewWidth && boxHeight === boxNewHeight) { // run me anyway, to prevent image flicker. } */ DoChangeW( boxObject, boxWidth, boxNewWidth, boxHeight, boxNewHeight, BoxScaleSteps, 100, 0.333, callback ); },
+	DoChangeW = function( elem, startWidth, endWidth, startHeight, endHeight, steps, intervals, powr, callback ) { /** The width **/ if (elem.widthChangeMemInt) { window.clearInterval(elem.widthChangeMemInt); } var actStep = 0; elem.widthChangeMemInt = window.setInterval( function() { elem.currentWidth = EaseInOut( startWidth, endWidth, steps, actStep, powr ); ElementSetWidth( elem.id, elem.currentWidth ); actStep++; if ( actStep > steps ) { window.clearInterval( elem.widthChangeMemInt ); DoChangeH( elem, startWidth, endWidth, startHeight, endHeight, steps, intervals, powr, callback ) } },intervals); },
+	DoChangeH = function( elem, startWidth, endWidth, startHeight, endHeight, steps, intervals, powr, callback ) { /** The height and the top **/ if (elem.widthChangeMemInt) { window.clearInterval(elem.widthChangeMemInt); } var actStep = 0; elem.widthChangeMemInt = window.setInterval( function() { elem.currentHeight = EaseInOut( startHeight, endHeight, steps, actStep, powr ); ElementSetHeight( elem.id, elem.currentHeight ); elem.currentTop = ( ( ( ElementGetHeight( 'AB-Overlay' ) - ElementGetHeight( elem.id ) ) / 2 ) + ElementGetHeight( 'AB-ToolBar' ) ); ElementSetTop( elem.id, elem.currentTop ); actStep++; if ( actStep > steps ) { window.clearInterval( elem.widthChangeMemInt ); if ( typeof callback == 'function' ) { callback( ); } } },intervals); },
+	EaseInOut = function( minValue, maxValue, totalSteps, actualStep, powr ) { var delta = parseInt(maxValue) - parseInt(minValue); var stepp = minValue+(Math.pow(((1 / totalSteps) * actualStep), powr) * delta); return Math.ceil(stepp); },
+	/** 
+	* Hide selects/object on page, possible values for action are 'hidden' and 'visible' * Code from : http://www.shawnolson.net/a/1198/hide-select-menus-javascript.html
+	**/
+	FxFade  = function( elem, start, end, speed, callback ) { window.clearInterval( elemfade ); elemfade = window.setInterval( function() { start = Findend(start, end, speed); if ( !animate ) { if ( start = 0 ) { ElementInVisible( elem ); } else { ElementVisible( elem ); } start = end; } else { ElementOpacity( elem, start ); } if(start == end) { if ( end == 0 ) {/** Little trick to prevent sizer flicker **/ ElementSetWidth( 'AB-Image',  1 ); ElementSetHeight( 'AB-Image', 1 ); } window.clearInterval( elemfade ); if ( typeof callback == 'function' ) { callback(); } } }, 1); },
+	Findend = function( x, y, speed ) { return x < y ? Math.min(x + speed*10, y) : Math.max(x - speed*10, y); },
+	/**
+	* Pauses code execution for specified time. Uses busy code, not good. - Code from http://www.faqts.com/knowledge_base/view.phtml/aid/1602
+	**/
+	Pause = function( numberMillis ) { var now = new Date(); var exitTime = now.getTime() + numberMillis; while (true) { now = new Date(); if ( now.getTime() > exitTime ) return; } }
+	/**
+	* Returns array with : page width, page height, window width, window height, x page scroll, y page scroll values. * Code from - quirksmode.org
+	**/
+	GetPageSizes = function( )
 	{
 		var xScroll, yScroll;
-
-		if (window.innerHeight && window.scrollMaxY)
-		{
-			xScroll = document.body.scrollWidth;
-			yScroll = window.innerHeight + window.scrollMaxY;
-		}
-		else if (document.body.scrollHeight > document.body.offsetHeight)
-		{	/** all but Explorer Mac **/
-			xScroll = document.body.scrollWidth;
-			yScroll = document.body.scrollHeight;
-		}
-		else
-		{	/** Explorer Mac...would also work in Explorer 6 Strict, Mozilla and Safari **/
-			xScroll = document.body.offsetWidth;
-			yScroll = document.body.offsetHeight;
-		}
+		if ( window.innerHeight && window.scrollMaxY ) { xScroll = document.body.scrollWidth; yScroll = window.innerHeight + window.scrollMaxY; }
+		/* all but Explorer Mac */
+		else if ( document.body.scrollHeight > document.body.offsetHeight) { xScroll = document.body.scrollWidth; yScroll = document.body.scrollHeight; }
+		/* Explorer Mac...would also work in Explorer 6 Strict, Mozilla and Safari */
+		else { xScroll = document.body.offsetWidth; yScroll = document.body.offsetHeight; }
 
 		var windowWidth, windowHeight;
+		/* all except Explorer */
+		if (self.innerHeight) { windowWidth = self.innerWidth; windowHeight = self.innerHeight; }
+		/* Explorer 6 Strict Mode */
+		else if ( document.documentElement && document.documentElement.clientHeight ) { windowWidth = document.documentElement.clientWidth; windowHeight = document.documentElement.clientHeight; }
+		/* Other Explorers */
+		else if ( document.body ) { windowWidth = document.body.clientWidth; windowHeight = document.body.clientHeight; }
 
-		if (self.innerHeight)
-		{	/** all except Explorer **/
-			windowWidth = self.innerWidth;
-			windowHeight = self.innerHeight;
-		}
-		else if (document.documentElement && document.documentElement.clientHeight)
-		{	/** Explorer 6 Strict Mode **/
-			windowWidth = document.documentElement.clientWidth;
-			windowHeight = document.documentElement.clientHeight;
-		}
-		else if (document.body)
-		{	/** other Explorers **/
-			windowWidth = document.body.clientWidth;
-			windowHeight = document.body.clientHeight;
-		}
+		var pageHeight, pageWidth;
+		/* for small pages with total height less then height of the viewport */
+		if( yScroll < windowHeight ) { pageHeight = windowHeight; } else { pageHeight = yScroll; }
+		/* for small pages with total width less then width of the viewport */
+		if( xScroll < windowWidth ) { pageWidth = windowWidth; } else { pageWidth = xScroll; }
 
-		/** for small pages with total height less then height of the viewport **/
-		if(yScroll < windowHeight)
-		{
-			pageHeight = windowHeight;
-		}
-		else
-		{
-			pageHeight = yScroll;
-		}
-
-		/** for small pages with total width less then width of the viewport **/
-		if(xScroll < windowWidth)
-		{
-			pageWidth = windowWidth;
-		}
-		else
-		{
-			pageWidth = xScroll;
-		}
-		return new Array('',pageWidth,pageHeight,windowWidth,windowHeight);
+		return { PWidth: pageWidth, PHeight: pageHeight, WWidth: windowWidth, WHeight: windowHeight, XScroll: xScroll, XScroll: yScroll };
 	},
 
 	/**
-	* Returns array with x,y page scroll values.
-	* Code from - http://www.howtocreate.co.uk/tutorials/javascript/browserwindow
+	* Returns array with x,y page scroll values. * Core code from - quirksmode.org
 	**/
-	getScrollXY = function()
-	{
-		var xScroll = 0;
-		var yScroll = 0;
+	GetPageScroll = function( ) { var yScroll; if ( self.pageYOffset ) { yScroll = self.pageYOffset; xScroll = self.pageXOffset; } else if ( document.documentElement && document.documentElement.scrollTop ){ /* Explorer 6 Strict */ yScroll = document.documentElement.scrollTop; xScroll = document.documentElement.scrollLeft; } else if ( document.body ) { /* all other Explorers */ yScroll = document.body.scrollTop; xScroll = document.body.scrollLeft; } return { YScroll: yScroll, XScroll: xScroll }; },
 
-		if( typeof( window.pageYOffset ) == 'number' )
-		{	/** Netscape compliant **/
-			yScroll = window.pageYOffset;
-			xScroll = window.pageXOffset;
-		}
-		else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) )
-		{	/** DOM compliant **/
-			yScroll = document.body.scrollTop;
-			xScroll = document.body.scrollLeft;
-		}
-		else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) )
-		{	/** IE6 standards compliant mode **/
-			yScroll = document.documentElement.scrollTop;
-			xScroll = document.documentElement.scrollLeft;
-		}
-		return new Array('',xScroll, yScroll);
-	},
-
-	/** Hide selects/object on page
-	* documentation for this script at http://www.shawnolson.net/a/1198/hide-select-menus-javascript.html
-	* possible values for action are 'hidden' and 'visible'
-	**/
-	ToggleVisibility = function (action)
-	{
-		if (msie)
-		{
-			if (action!='visible'){action='hidden';}
-			
-			for (var S = 0; S < document.forms.length; S++)
-			{
-				for (var R = 0; R < document.forms[S].length; R++)
-				{
-					if (document.forms[S].elements[R].options)
-					{
-						document.forms[S].elements[R].style.visibility = action;
-					}
-				}
-			}
-		}
-			
-		var theObjects = document.getElementsByTagName("object");
-		for (var i = 0; i < theObjects.length; i++)
-		{
-			theObjects[i].style.visibility = action;
-		}
-	};
-
-	DetectBrowser();
+/** Common functions - End **/
 	this.SlideShows = SlideShows;
-	this.Show = Show;
-	this.Clear_url = Clear_url;
-};
-
+	this.Start = Start;
+}
 /**
 * If you don't find a better way, this may have to be a job for ScrollFreeze.
 * Code from - http://bytes.com/forum/thread498334.html
@@ -718,389 +416,330 @@ ScrollFreeze = /*2843293230303620532E4368616C6D657273*/
 	propFlag : true,
 	Ydisp : 0,
 	Xdisp : 0,
-
-	on : function()
-	{
-		if(this.getProp())
-		{
-			window.onscroll=function(){ ScrollFreeze.setXY(); }
-		}
-	},
-
-	off : function(){window.onscroll=null;},
-
-	getProp : function()
-	{
-		if( typeof window.pageYOffset != 'undefined' )
-		{
-			this.Ydisp=window.pageYOffset;
-			this.Xdisp=window.pageXOffset;
-		}
-		else if(document.documentElement)
-		{
-			this.Ydisp=document.documentElement.scrollTop;
-			this.Xdisp=document.documentElement.scrollLeft;
-		}
-		else if(document.body && typeof document.body.scrollTop != 'undefined')
-		{
-			this.Ydisp=document.body.scrollTop;
-			this.Xdisp=document.body.scrollLeft;
-		}
-		else
-		{
-			this.propFlag=false;
-		}
-		return this.propFlag;
-	},
-
-	setXY : function()
-	{
-		window.scrollTo( this.Xdisp, this.Ydisp );
-	}
+	on : function() { if ( this.getProp( ) ) { window.onscroll = function(){ ScrollFreeze.setXY(); } } },
+	off : function() { window.onscroll=null; },
+	getProp : function() { if( typeof window.pageYOffset != 'undefined' ) { this.Ydisp = window.pageYOffset; this.Xdisp = window.pageXOffset; } else if ( document.documentElement ) { this.Ydisp = document.documentElement.scrollTop; this.Xdisp = document.documentElement.scrollLeft; } else if ( document.body && typeof document.body.scrollTop != 'undefined' ) { this.Ydisp = document.body.scrollTop; this.Xdisp = document.body.scrollLeft; } else { this.propFlag = false; } return this.propFlag; },
+	setXY : function() { window.scrollTo( this.Xdisp, this.Ydisp ); }
 }
+/** AdvancedBox JS - End **/
 
 /**
 * Add a new value to an Array if isn't repeat
 **/
-function ArrayPush( arr, val )
-{
-	val = AdvancedBox.Clear_url( val )
-	/** have this array this value ? **/
-	var found = contains( val, arr );
+function ArrayPush( arr, val ) { val = url_clean( val ); /** have this array this value ? **/ var found = contains( val, arr ); if( !found[0] ) { arr.push( val ); /* arr[arr.length] = val; */ } }
 
-	if( !found[0] )
-	{
-		arr[arr.length] = val;
-	}
+/**
+* To cover IE 5.0's lack of the push method
+**/
+if ( typeof Array.prototype.push ==' undefined' )
+{
+	Array.prototype.push = function(value) { this[this.length] = value; }
 }
 
 /**
 * Search in array
 * Returns (true and number ) if 'v' is contained in the array 'a'
 **/
-function contains( v, a )
+function contains( v, a ) { for( var j=0; j<a.length; j++ ) { if( a[j] == v ) { return new Array( true, j ); } } return new Array( false, 0 ); }
+
+/** Clear the image url **/
+function url_clean( url )
 {
-	for( var j=0; j<a.length; j++ )
+	url = decodeURIComponent( url.toString().replace(/\s/g, ' ') );
+
+	/** Is this an attached image ? if yes, need more work to clear the image url **/
+	if ( url.indexOf( 'download' ) != -1 )
 	{
-		if( a[j] == v )
-		{
-			return new Array( true, j );
-		}
+		/** Will get the real url to the download script, Ex : http://www.mssti.com/phpbb3/download/file.php **/
+		var valor   = url.substring( 0, url.indexOf( '?' ) );
+		/** Will get an string starting from the id, Ex : id=65&mode=view or only id=65 **/
+		var valorId1= url.substring( url.indexOf( 'id' ) );
+		/** Will get only the id value, Ex : id=65 or null if have no extra params **/
+		var valorId2 = valorId1.substring( valorId1.indexOf( 'id' ), valorId1.indexOf( '&' ) );
+		/** Recreate the image url, Ex : http://www.mssti.com/phpbb3/download/file.php?id=65 **/
+		url = valor + '?' + ( valorId2 ? valorId2 : valorId1 );
 	}
-	return new Array( false, 0 );
+	return url;
 }
-/** AdvancedBox JS - End **/
 
-/**
-* Image Resizer JS - START
-* Code from : http://www.silkroadforums.com/viewtopic.php?f=9&t=81182&view=previous
-* eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('6.r=\'1e\';6.C=\'1f\';d 6(a,b){5.i=a;5.7=b;5.e=0;5.f=0;5.g=u;5.j=u;b.i=6.r+a};6.U=d(){D a=1;1g(c.L(6.r+a)!=u){a++}v a};6.1h=d(a){6.V=1i;6.W=1j;6.l=1k;6.m=1l;6.X=1m;6.Y=1n;6.Z=1o;6.10=1p;D b=M;h(a.i&&a.i.1q(6.r)==0&&c.L(6.C+a.i.11(6.r.N))!=u){w=a.i.11(6.r.N);9=12 6(w,a);b=O;9.13()}P{w=6.U();9=12 6(w,a)}h(9.e==0)9.e=a.8;h(9.f==0)9.f=a.n;h((6.l>0&&9.e>6.l)||(6.m>0&&9.f>6.m)){h(b){9.14(5.g)}P{9.15()}9.E()}};6.x.13=d(){D a=c.o(\'17\');a.p=5.7.p;5.7.8=a.8;5.7.n=a.n};6.x.14=d(){D a=c.L(6.C+w);5.g=a;5.j=a.Q.Q.1r[1].Q;5.g.F=5;5.E()};6.x.15=d(){k=c.o(\'1s\');R=c.o(\'1t\');G=c.o(\'1u\');y=c.o(\'18\');z=c.o(\'18\');q=c.o(\'17\');H=c.1v(\'\');q.p=6.W;q.8=16;q.n=16;q.1w=\'\';q.1x=0;y.8=1y;y.I=\'1z\';z.1A=\'1B\';z.I=\'1C\';k.I=\'1D\';k.1E=H;k.F=5;k.i=6.C+5.i;y.t(q);z.t(H);G.t(y);G.t(z);R.t(G);k.t(R);5.7.1F.1G(k,5.7);5.g=k;5.j=H;1H(S.1I,5.7.p)};6.x.E=d(){h(6.l>0&&5.e>6.l){19=O;5.7.8=6.l;5.7.n=(6.l/5.e)*5.f}h(6.m>0&&5.f>6.m){19=O;5.7.n=6.m;5.7.8=(6.m/5.f)*5.e}5.g.8=5.7.8;5.g.1a=d(){v 5.F.1b()};h(5.7.T&&5.7.T>0){5.j.A=6.Z.B(\'%1$s\',5.e).B(\'%2$s\',5.f).B(\'%3$s\',1J.1K(5.7.T/1L))}P{5.j.A=6.10.B(\'%1$s\',5.e).B(\'%2$s\',5.f)}h((5.j.A.N)*4.4>5.7.8){5.j.A=6.X}v M};6.x.1b=d(){1M(6.V){J\'S\':S.1N(5.7.p);K;1O:J\'1P\':1c.1d(5.7.p,\'1Q\');K;J\'1R\':1c.1d(5.7.p,\'1S\');K;J\'1T\':5.7.8=5.e;5.7.n=5.f;5.7.I=\'1U\';h(5.g!=u){5.j.A=6.Y;5.g.8=5.7.8;5.g.1a=d(){v 5.F.E()}}K}v M};',62,119,'|||||this|NcodeImageResizer|img|width|resizer|||document|function|originalWidth|originalHeight|warning|if|id|warningTextNode|mtable|MaxWidth|MaxHeight|height|createElement|src|mimg|IMAGE_ID_BASE||appendChild|null|return|newid|prototype|mtd1|mtd2|data|replace|WARNING_ID_BASE|var|scale|resize|mtr|mtext|className|case|break|getElementById|false|length|true|else|firstChild|mtbody|AdvancedBox|fileSize|getNextId|mode|WarningImage|warning_small|warning_fullsize|warning_filesize|warning_no_filesize|substr|new|restoreImage|reclaimWarning|createWarning||IMG|TD|resized|onclick|unScale|window|open|ncode_imageresizer_container_|ncode_imageresizer_warning_|while|createOn|ImageResizerMode|ImageResizerWarningImage|ImageResizerMaxWidth|ImageResizerMaxHeight|ImageResizerWarningSmall|ImageResizerWarningFullsize|ImageResizerWarningFilesize|ImageResizerWarningNoFilesize|indexOf|childNodes|TABLE|TBODY|TR|createTextNode|alt|border|20|td1|unselectable|on|td2|ncode_imageresizer_warning|textNode|parentNode|insertBefore|ArrayPush|SlideShows|Math|round|1024|switch|Show|default|newwindow|_blank|samewindow|_self|enlarge|ncode_imageresizer_original'.split('|'),0,{}))
-**/
-NcodeImageResizer.IMAGE_ID_BASE = 'ncode_imageresizer_container_';
-NcodeImageResizer.WARNING_ID_BASE = 'ncode_imageresizer_warning_';
-
-function NcodeImageResizer(id, img)
+/** Image Resizer JS - START **/
+function ImageResizerOn( ObjImage )
 {
-	this.id = id;
-	this.img = img;
-	this.originalWidth = 0;
-	this.originalHeight = 0;
-	this.warning = null;
-	this.warningTextNode = null;
+	var ResizerId = Math.floor(Math.random()*(100));
+	var ResizerW  = ObjImage.width;
+	var ResizerH  = ObjImage.height;
+	var ResizerP = 0;
 
-	img.id = NcodeImageResizer.IMAGE_ID_BASE + id;
-};
-
-NcodeImageResizer.getNextId = function()
-{
-	var id = 1;
-	while (document.getElementById(NcodeImageResizer.IMAGE_ID_BASE + id) != null)
+	ObjImage.width = ImageResizerMaxWidth;
+	if ( ObjImage.width < ResizerW && ResizerW > 0 && ObjImage.width > 0 )
 	{
-		id++;
+		ResizerP = Math.ceil( parseInt( ObjImage.width / ResizerW * 100 ) );
 	}
-	return id;
-};
 
-NcodeImageResizer.createOn = function(img)
-{
-	NcodeImageResizer.mode					= ImageResizerMode;
-	NcodeImageResizer.WarningImage			= ImageResizerWarningImage;
-	NcodeImageResizer.MaxWidth				= ImageResizerMaxWidth;
-	NcodeImageResizer.MaxHeight				= ImageResizerMaxHeight;
-	NcodeImageResizer.warning_small			= ImageResizerWarningSmall;
-	NcodeImageResizer.warning_fullsize		= ImageResizerWarningFullsize;
-	NcodeImageResizer.warning_filesize		= ImageResizerWarningFilesize;
-	NcodeImageResizer.warning_no_filesize	= ImageResizerWarningNoFilesize;
-
-	var isRecovery = false;
-	/** if this is a recovery from QuickEdit, which only restores the HTML, not the OO structure **/
-	if (img.id && img.id.indexOf(NcodeImageResizer.IMAGE_ID_BASE) == 0 && document.getElementById(NcodeImageResizer.WARNING_ID_BASE + img.id.substr(NcodeImageResizer.IMAGE_ID_BASE.length)) != null)
+	var objResizerDiv				= document.createElement( 'div' );
+		objResizerDiv.setAttribute( 'id', ResizerId );
+		objResizerDiv.style.width	= ObjImage.width+'px';
+		objResizerDiv.className		= 'resized-div';
+		objResizerDiv.onclick		= function() {ImageResizeronclick( ObjImage, ResizerId ); return false; };
+	if (ObjImage.fileSize && ObjImage.fileSize > 0)
 	{
-		newid = img.id.substr(NcodeImageResizer.IMAGE_ID_BASE.length);
-		resizer = new NcodeImageResizer(newid, img);
-		isRecovery = true;
-		resizer.restoreImage();
+		objResizerDiv.alt = objResizerDiv.title = ImageResizerWarningFilesize.replace( '%1$s', ResizerW).replace( '%2$s', ResizerH).replace( '%3$s', Math.round(ObjImage.fileSize / 1024));
 	}
 	else
 	{
-		newid = NcodeImageResizer.getNextId();
-		resizer = new NcodeImageResizer(newid, img);
+		objResizerDiv.alt = objResizerDiv.title = ImageResizerWarningNoFilesize.replace( '%1$s', ResizerW).replace( '%2$s', ResizerH);
 	}
 
-	if (resizer.originalWidth == 0) resizer.originalWidth = img.width;
-	if (resizer.originalHeight == 0) resizer.originalHeight = img.height;
+	var	objResizerImg				= document.createElement( 'img' );
+		objResizerImg.src			= ImageResizerWarningImage;
+		objResizerImg.width			= 16;
+		objResizerImg.height		= 16;
+		objResizerImg.alt			= '';
+		objResizerImg.border		= 0;
+		objResizerDiv.className		= 'resized-div';
 
-	if ((NcodeImageResizer.MaxWidth > 0 && resizer.originalWidth > NcodeImageResizer.MaxWidth) || (NcodeImageResizer.MaxHeight > 0 && resizer.originalHeight > NcodeImageResizer.MaxHeight))
-	{
-		if (isRecovery)
-		{
-			resizer.reclaimWarning(this.warning);
-		}
-		else
-		{
-			resizer.createWarning();
-		}
-		resizer.scale();
-	}
-};
+	var objResizerSpan				= document.createElement( 'span' );
+		objResizerSpan.className	= 'resized-txt';
 
-NcodeImageResizer.prototype.restoreImage = function()
+	var	objResizerText			= document.createTextNode( '' );
+		objResizerText.data		= ImageResizerWarningFullsize.replace( '%1$s', ResizerP).replace( '%2$s', ResizerW).replace( '%3$s', ResizerH);
+//		objResizerText.data		= 'Image resized to : ' + ResizerP + '% of its original size [ ' + ResizerW + ' x ' + ResizerH + ' ]';
+
+	objResizerDiv.appendChild(objResizerImg);
+	objResizerSpan.appendChild(objResizerText);
+	objResizerDiv.appendChild(objResizerSpan);
+	ObjImage.parentNode.insertBefore(objResizerDiv,ObjImage);
+
+	if ( ImageResizerMode == 'AdvancedBox' ) { ArrayPush( AdvancedBox.SlideShows , ObjImage.src ); }
+}
+
+function ImageResizeronclick( ObjImage, Id )
 {
-	var newimg = document.createElement('IMG');
-	newimg.src = this.img.src;
-	this.img.width = newimg.width;
-	this.img.height = newimg.height;
-};
-
-NcodeImageResizer.prototype.reclaimWarning = function()
-{
-	var warning = document.getElementById(NcodeImageResizer.WARNING_ID_BASE + newid);
-
-	this.warning = warning;
-	this.warningTextNode = warning.firstChild.firstChild.childNodes[1].firstChild;
-	this.warning.resize = this;
-	this.scale();
-};
-
-NcodeImageResizer.prototype.createWarning = function()
-{
-	mtable = document.createElement('TABLE');
-	mtbody = document.createElement('TBODY');
-	mtr = document.createElement('TR');
-	mtd1 = document.createElement('TD');
-	mtd2 = document.createElement('TD');
-	mimg = document.createElement('IMG');
-	mtext = document.createTextNode('');
-
-	mimg.src = NcodeImageResizer.WarningImage;
-	mimg.width = 16;
-	mimg.height = 16;
-	mimg.alt = '';
-	mimg.border = 0;
-
-	mtd1.width = 20;
-	mtd1.className = 'td1';
-
-	mtd2.unselectable = 'on';
-	mtd2.className = 'td2';
-
-	mtable.className = 'ncode_imageresizer_warning';
-	mtable.textNode = mtext;
-	mtable.resize = this;
-	mtable.id = NcodeImageResizer.WARNING_ID_BASE + this.id;
-
-	mtd1.appendChild(mimg);
-	mtd2.appendChild(mtext);		
-	mtr.appendChild(mtd1);
-	mtr.appendChild(mtd2);
-	mtbody.appendChild(mtr);
-	mtable.appendChild(mtbody);
-
-	this.img.parentNode.insertBefore(mtable, this.img);
-
-	this.warning = mtable;
-	this.warningTextNode = mtext;
-	
-	ArrayPush(AdvancedBox.SlideShows , this.img.src);
-
-};
-
-NcodeImageResizer.prototype.scale = function()
-{
-	if (NcodeImageResizer.MaxHeight > 0 && this.originalHeight > NcodeImageResizer.MaxHeight)
-	{
-		resized = true;
-		this.img.height = NcodeImageResizer.MaxHeight;
-		this.img.width = (NcodeImageResizer.MaxHeight / this.originalHeight) * this.originalWidth;
-	}
-	if (NcodeImageResizer.MaxWidth > 0 && this.originalWidth > NcodeImageResizer.MaxWidth)
-	{
-		resized = true;
-		this.img.width = NcodeImageResizer.MaxWidth;
-		this.img.height = (NcodeImageResizer.MaxWidth / this.originalWidth) * this.originalHeight;
-	}
-
-	this.warning.width = this.img.width;
-	this.warning.onclick = function()
-	{
-		return this.resize.unScale();
-	};
-
-	if (this.img.fileSize && this.img.fileSize > 0)
-	{
-		this.warningTextNode.data = NcodeImageResizer.warning_filesize.replace('%1$s', this.originalWidth).replace('%2$s', this.originalHeight).replace('%3$s', Math.round(this.img.fileSize / 1024));
-	}
-	else
-	{
-		this.warningTextNode.data = NcodeImageResizer.warning_no_filesize.replace('%1$s', this.originalWidth).replace('%2$s', this.originalHeight);
-	}
-
-	if ( (this.warningTextNode.data.length)*4.4 > this.img.width  )
-	{
-		this.warningTextNode.data = NcodeImageResizer.warning_small;
-	}
-
-	return false;
-};
-
-NcodeImageResizer.prototype.unScale = function()
-{
-	switch (NcodeImageResizer.mode)
+	switch ( ImageResizerMode )
 	{
 		case 'AdvancedBox' :
-			AdvancedBox.Show(this.img.src);
+			if ( ObjImage.className == 'attach_parent' ) { AdvancedBox.Start( ObjImage.parentNode.href ); } else { AdvancedBox.Start( ObjImage.src ); }
 			break;
 		default:
 		case 'newwindow':
-			window.open(this.img.src, '_blank');
+			if ( ObjImage.className == 'attach_parent' ) { window.open( ObjImage.parentNode.href, '_blank' ); } else { window.open( ObjImage.src, '_blank' ); }
 			break;
 		case 'samewindow':
-			window.open(this.img.src, '_self');
+			if ( ObjImage.className == 'attach_parent' ) { window.open( ObjImage.parentNode.href, '_self' ); } else { window.open( ObjImage.src, '_self' ); }
 			break;
 		case 'enlarge':
-			this.img.width = this.originalWidth;
-			this.img.height = this.originalHeight;
-			this.img.className = 'ncode_imageresizer_original';
-			if (this.warning != null)
-			{
-				this.warningTextNode.data = NcodeImageResizer.warning_fullsize;
-				this.warning.width = this.img.width;
-				this.warning.onclick = function()
-				{
-					return this.resize.scale();
-				};
-			}
+			var ParentId = document.getElementById(Id)
+			if ( ObjImage.className == 'attach_parent' ) { ImgOnLoad_scale( ParentId, ObjImage, ObjImage.parentNode.href, ObjImage.width, ObjImage.height ); } else { ImgOnLoad_scale( ParentId, ObjImage, ObjImage.src, ObjImage.width, ObjImage.height ); }
+			break;
+		case 'pop-up':
+			var popup_url = ( ObjImage.className == 'attach_parent' ) ? ObjImage.parentNode.href : ObjImage.src ;
+			var popup_width = ( ObjImage.width + 30 );
+			var popup_height = ( ObjImage.height + 30 );
+			popup( popup_url, popup_width, popup_height );
 			break;
 	}
 	return false;
 };
 /** Image Resizer JS - END **/
 
-/**
-*
-**/
+/** Initialize the Resizer **/
 function ImgOnLoad()
 {
-	/** Get all images inside posts **/
-	var posted_images_ary = new Array();
+	/**
+	* phpbb images in signatures
+	* class ="resize_me"
+	* Recomended true - Options  false | true
+	* This setting is currently mannaged in the ACP
+	**/
+	var exclude_signatures 			= ( ImageResizerSignature == '1' ) ? false : true;
 
-	/** Subsilver2 styles **/
-	if ( document.getElementById("pagecontent") )
-	{
-		posted_images_ary = document.getElementById("pagecontent").getElementsByTagName("img");
-	}
-	/** ProSilver styles **/
-	if ( document.getElementById("page-body") )
-	{
-		posted_images_ary = document.getElementById("page-body").getElementsByTagName("img");
-	}
+	/**
+	* ABBC3 thumbnail
+	* class="hoverbox resize_me"
+	* Recomended true - Options  false | true
+	**/
+	var exclude_thumbnail_abbc3		= true;
 
+	/**
+	* phpbb thumbnail attached
+	* class ="attach_parent"
+	* Recomended true - Options  false | true
+	**/
+	var exclude_thumbnail_attached	= true;
+
+	/**
+	* phpbb image attached
+	* class="attach_me"
+	* Recomended false - Options  false | true
+	**/
+	var exclude_images_attached		= false;
+
+/** Search images in signatures - Start **/
+	if ( exclude_signatures )
+	{
+		var pro_sig_elm_ary = sub_sig_elm_ary = new Array();
+		var pro_sig_img_ary = sub_sig_img_ary = sig_images_ary = new Array();
+
+		/** Signatures in ProSilver styles **/
+		pro_sig_elm_ary = getElementsByClassName( 'signature', 'div' );
+		for (var e = 0, psea = pro_sig_elm_ary.length; e < psea; e++)
+		{
+			pro_sig_img_ary = getElementsByClassName( 'resize_me', 'img', document.getElementById( pro_sig_elm_ary[e].id ));
+			for (var i = 0, psia = pro_sig_img_ary.length; i < psia; i++) { sig_images_ary.push( pro_sig_img_ary[i].src); }
+		}
+
+		/** Signatures in Subsilver2 styles **/
+		sub_sig_elm_ary = getElementsByClassName( 'postbody', 'span' );
+		for (var e = 0, ssea = sub_sig_elm_ary.length; e < ssea; e++)
+		{
+			sub_sig_img_ary = getElementsByClassName( 'resize_me', 'img', document.getElementById( sub_sig_elm_ary[e].id ));
+			for (var i = 0, ssia = sub_sig_img_ary.length; i < ssia; i++) { sig_images_ary.push(sub_sig_img_ary[i].src); }
+		}
+		/** Now the array sig_images_ary contain all images in signatures **/
+	}
+/** Search images in signatures - End **/
+	
+/** Search all images inside posts - Start **/
+	var post_images_ary = post_attach_ary = posted_images_ary = new Array();
+
+	/** Real images - Attached images - Attached thumbnail **/
+	post_images_ary = MyGetElementsByClassName( 'resize_me|attach_me|attach_parent' )
+	for (var i = 0, ipia = post_images_ary.length; i < ipia; i++) { posted_images_ary.push( post_images_ary[i] ); }
+	/** Now the array posted_images_ary contain all images in post **/
+/** Search all images inside posts - End **/
+
+/** Go ahead and to the jod **/
 	for (var pia = 0; pia < posted_images_ary.length; pia++)
 	{
-		var GetParent = false;
+		var ImageResizer = false;
+		var ContinueResizer = true;
+
 		var img = posted_images_ary[pia];
 
-		if ( img.className.match(/(^|\s)hoverbox(\s|$)/) /** ABBC3 thumbnail **/
-//		  || img.parentNode.className.match(/(^|\s)attach-image(\s|$)/) /** prosilver style attach - image **/
-		  || img.parentNode.parentNode.parentNode.className.match(/(^|\s)thumbnail(\s|$)/) /** prosilver attach - thumbnail **/
-//		  || img.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.className.match(/(^|\s)attachtitle(\s|$)/) /** subsilver2 attach - image **/
-		  || img.parentNode.parentNode.className.match(/(^|\s)attachcontent(\s|$)/) /** subsilver2 attach - thumbnail **/
-		  || ( img.parentNode.parentNode.className.match(/(^|\s)row[\d](\s|$)/) && img.parentNode.parentNode.parentNode.parentNode.parentNode.className.match(/(^|\s)tablebg(\s|$)/) ) /** subsilver2 in-line attach **/
-		)
-		{
-			if ( img.parentNode.parentNode.parentNode.className.match(/(^|\s)thumbnail(\s|$)/)
-			||   img.parentNode.parentNode.className.match(/(^|\s)attachcontent(\s|$)/)
-			|| ( img.parentNode.parentNode.className.match(/(^|\s)row[\d](\s|$)/) && img.parentNode.parentNode.parentNode.parentNode.parentNode.className.match(/(^|\s)tablebg(\s|$)/) )
-			)
-			{
-				GetParent = true;
-			}
+		/** Skip to resize signatures **/
+		if ( exclude_signatures && sig_images_ary.length > 0 ) { if( contains( img.src, sig_images_ary )[0] ) { continue; } }
 
-			switch (ImageResizerMode)
-			{
-				case 'AdvancedBox' :
-					if ( !GetParent )
-					{
-						ArrayPush(AdvancedBox.SlideShows , img.src);
-						img.onclick = function() {AdvancedBox.Show(this.src); return false;}
-					}
-					else
-					{
-						ArrayPush(AdvancedBox.SlideShows , img.parentNode.href);
-						img.onclick = function() {AdvancedBox.Show(this.parentNode.href); return false;}
-					}
-					break;
-				default:
-				case 'newwindow':
-					img.onclick = function() {window.open(this.src, '_blank'); return false;}
-					break;
-				case 'samewindow':
-					img.onclick = function() {window.open(this.src, '_self'); return false;}
-					break;
-				case 'enlarge':
-					img.onclick = function() {ImgOnLoad_unScale(this); return false;}
-					break;
-			}
-		}
-		else
+		/** Check if this image will be resized **/
+		if ( ( ImageResizerMaxWidth > 0 && img.width > ImageResizerMaxWidth ) || ( ImageResizerMaxHeight > 0 && img.height > ImageResizerMaxHeight ) )
 		{
-			if ( (ImageResizerMaxWidth > 0 || ImageResizerMaxHeight > 0) && (img.width > ImageResizerMaxWidth || img.height > ImageResizerMaxHeight) )
-			{
-				NcodeImageResizer.createOn(img);
-			}
+			ImageResizer = true;
+			if ( img.className == 'hoverbox resize_me' ) { ImageResizer = ( exclude_thumbnail_abbc3 ? false : true ); }
+			if ( img.className == 'attach_parent' ) { ImageResizer = ( exclude_thumbnail_attached ? false : true ); }
+			if ( img.className == 'attach_me' ) { ImageResizer = ( exclude_images_attached ? false : true ); }
 		}
+		
+		switch ( img.className )
+		{
+			default:
+				break;
+			/** ABBC3 thumbnail **/
+			case 'hoverbox resize_me':
+				switch (ImageResizerMode)
+				{
+					case 'AdvancedBox':
+						img.onclick = function() { AdvancedBox.Start( this.src ); return false; }; ArrayPush( AdvancedBox.SlideShows, img.src );
+						break;
+					case 'enlarge':
+						img.onclick = function() { ImgOnLoad_scale( this, this, this.src, this.width, this.height ); return false; }
+						break;
+					case 'newwindow':
+						img.onclick = function() { window.open(this.src, '_blank' ); return false; }
+						break;
+					case 'samewindow':
+						img.onclick = function() { window.open(this.src, '_self' ); return false; }
+						break;									
+					default:
+					case 'pop-up':
+						img.onclick = function() { popup( this.src, this.width, this.height ); return false; }
+						break;									
+				}
+				break;
+			/** phpbb image attached **/
+			case 'attach_parent':
+				// Disable the attachment.html onclick="viewableArea(this);"
+				img.parentNode.onclick = function() { return false; }
+				switch (ImageResizerMode)
+				{
+					case 'AdvancedBox':
+						if ( !ImageResizer ) { img.onclick = function() { AdvancedBox.Start( this.parentNode.href ); return false; }; ArrayPush( AdvancedBox.SlideShows, img.parentNode.href ); }
+						break;
+					case 'enlarge':
+						if ( !ImageResizer ) { img.onclick = function() { ImgOnLoad_scale( this, this, this.parentNode.href, this.width, this.height ); return false; } }
+						break;
+					case 'newwindow':
+						if ( !ImageResizer ) { img.onclick = function() { window.open(this.parentNode.href, '_blank' ); return false; } }
+						break;
+					case 'samewindow':
+						if ( !ImageResizer ) { img.onclick = function() { window.open(this.parentNode.href, '_self' ); return false; } }
+						break;									
+					default:
+					case 'pop-up':
+						if ( !ImageResizer ) { img.onclick = function() { popup( this.parentNode.href, this.width, this.height ); return false; } }
+						break;									
+				}
+				break;
+			/** phpbb image attached **/
+			case 'attach_me':
+				img.onclick = function() { return false; }
+				switch (ImageResizerMode)
+				{
+					case 'AdvancedBox':
+						if ( !ImageResizer ) { img.onclick = function() { AdvancedBox.Start( this.src ); return false; }; ArrayPush( AdvancedBox.SlideShows, img.src ); }
+						break;
+					case 'enlarge':
+						if ( !ImageResizer ) { ImgOnLoad_unScale( img, img, img.src ); }
+						break;
+					case 'newwindow':
+						if ( !ImageResizer ) { ImgOnLoad_unScale( img, img, img.src ); img.onclick = function() { window.open(this.src, '_blank' ); return false; } }
+						break;
+					case 'samewindow':
+						if ( !ImageResizer ) { ImgOnLoad_unScale( img, img, img.src ); img.onclick = function() { window.open(this.src, '_self' ); return false; } }
+						break;
+					default:
+					case 'pop-up':
+						if ( !ImageResizer ) { ImgOnLoad_unScale( img, img, img.src ); img.onclick = function() { popup( this.src, this.width, this.height ); return false; } }
+						break;									
+				}
+		}
+
+		if ( ImageResizer ) { ImageResizerOn(img); }
 	}
+	/* MSIE if (typeof(window.detachEvent) != 'undefined' ) { window.detachEvent( 'onload', ImgOnLoad); } */ 
+	return true;
 }
 
-function ImgOnLoad_unScale(img)
+function ImgOnLoad_scale( obj, imgobj, imgsrc, imgwidth, imgheight )
 {
 	var new_img = new Image();
-	new_img.setAttribute('src', img.src); // new_img.src = img.src;
-	img.setAttribute('width', new_img.width);
-	img.onclick = function() { ImgOnLoad_scale(img); return false;}
+	new_img.setAttribute( 'src', imgsrc);
+	new_img.onload = function() { obj.style.width = new_img.width+'px'; imgobj.setAttribute( 'width', new_img.width); imgobj.setAttribute( 'height', new_img.height); return false; }
+	obj.onclick = function() { ImgOnLoad_unScale( obj, imgobj, imgsrc, imgwidth, imgheight ); return false; }
 }
 
-function ImgOnLoad_scale(img)
+function ImgOnLoad_unScale( obj, imgobj, imgsrc, imgwidth, imgheight )
 {
-	img.setAttribute('width', (img.className.match(/(^|\s)hoverbox(\s|$)/) ? ImageResizerThumbnails : ImageResizerThumbnailsPhpbb) );
-	img.onclick = function() { ImgOnLoad_unScale(img); return false;}
+	obj.style.width	= imgwidth+'px';
+	imgwidth  = ( imgwidth  > 0 ) ? imgwidth  : ImageResizerMaxWidth;
+	imgheight = ( imgheight > 0 ) ? imgheight : ImageResizerMaxHeight;
+	imgobj.setAttribute( 'width', imgwidth );
+	if ( imgheight > 0) { imgobj.setAttribute( 'height', imgheight ); } else { imgobj.setAttribute( 'height', imgwidth ); }
+	obj.onclick = function() { ImgOnLoad_scale( obj, imgobj, imgsrc, imgwidth, imgheight ); return false; }
 }
 
-/**
-* Install the safety net to catch any images that were somehow not resized - START
-**/
+/** Install the safety net to catch any images that needs to be resized - START **/
 if (window.onload_functions) // prosilver
 {
+//	onload_functions.push('ImgOnLoad()');
 	onload_functions[onload_functions.length] = "ImgOnLoad();";
 }
 else if (typeof(window.addEventListener) != "undefined") // DOM
 {
-	window.addEventListener("load", ImgOnLoad, false);
+	window.addEventListener( "load", ImgOnLoad, false);
 }
 else if (typeof(window.attachEvent) != "undefined") // MSIE
 {
-	window.attachEvent("onload", ImgOnLoad);
+	window.attachEvent( "onload", ImgOnLoad);
 }
-/** Install the safety net to catch any images that were somehow not resized - END **/
+/** Install the safety net to catch any images that needs to be resized - END **/
 
 // ]]>

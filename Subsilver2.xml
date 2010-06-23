@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http
+://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.1.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+		
+		<title lang="en">Advanced BBCode Box 3 ( aka ABBC3 )</title>
+		
+		<description lang="en">Changes for Subsilver2 based off style </description>
+
+		<author-notes lang="en"><![CDATA[You will have to make this change to ALL themes you have installed, based off Subsilver2. I use "Subsilver2" as an example.
+	-------------------------------------------------------------------
+	IMPORTANT !
+	
+	Before made any changes, makes sure your template is stored into "filesystem"
+	    ACP -> STYLES -> STYLE COMPONENTS -> Templates : subsilver2 -> Details
+	
+	If you do not want to change from "Database" to "Filesystem",
+	you must do next changes within your ACP :
+	    ACP -> STYLES -> STYLE COMPONENTS -> Templates : subsilver2 -> Edit
+	
+	-------------------------------------------------------------------]]>
+		</author-notes>
+		
+		<author-group>
+			<author>
+				<realname>Gabriel</realname>
+				<username>leviatan21</username>
+				<email>info@mssti.com</email>
+				<homepage>http://www.mssti.com/phpbb3/</homepage>
+			</author>
+		</author-group>
+		
+		<mod-version>1.0.11</mod-version>
+		
+		<installation>
+			<level>easy</level>
+			<time>120</time>
+			<target-version>3.0.3</target-version>
+		</installation>
+
+		<link-group>
+			<link type="parent"  href="Install_ABBC3_v1011.xml" lang="en">Code change</link>
+		</link-group>
+	</header>
+	
+	<action-group>
+		<copy>
+			<file from="root/styles/subsilver2/template/*.*" to="styles/subsilver2/template/*.*" />
+		</copy>
+
+		<open src="styles/subsilver2/template/attachment.html">
+			<edit>
+				<find><![CDATA[<a href="{_file.U_DOWNLOAD_LINK}"><img src="{_file.THUMB_IMAGE}" alt="{_file.DOWNLOAD_NAME}" /></a><br />]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[alt="{_file.DOWNLOAD_NAME}"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ class="attach_parent"]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<img src="{_file.U_INLINE_LINK}" alt="{_file.DOWNLOAD_NAME}" /><br />]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[alt="{_file.DOWNLOAD_NAME}"]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ class="attach_me"]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+
+		<open src="styles/subsilver2/template/overall_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add">
+
+&lt;!-- // MOD : MSSTI ABBC3 (V1.0.11) - Start --&gt;
+
+&lt;!-- IF S_ABBC3_MOD and ( S_BBCODE_ALLOWED or S_NEW_MESSAGE or S_EDIT_POST or S_VIEWTOPIC or S_DISPLAY_PREVIEW or S_POST_REVIEW or S_DISPLAY_REVIEW ) or ( U_MCP and ( U_MCP_POST or U_MCP_TOPIC or U_MCP_FORUM) ) or ( S_PRIVMSGS and S_VIEW_MESSAGE ) --&gt;
+&lt;script type="text/javascript" src="{S_ABBC3_PATH}/abbcode.js" charset="{S_CONTENT_ENCODING}"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" /&gt;
+
+&lt;!-- IF S_ABBC3_RESIZE --&gt;
+&lt;script type="text/javascript" src="{S_ABBC3_PATH}/AdvancedBox.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+// &lt;![CDATA[
+/** Image Resizer JS and AdvancedBox JS - Start **/
+	var ImageResizerNumberOf			= '{L_ABBC3_RESIZE_NUMBER}';
+	var ImageResizerNextAlt				= '{L_NEXT}';
+	var ImageResizerPrevtAlt			= '{L_PREVIOUS}';
+	var ImageResizerPlayAlt				= '{L_ABBC3_RESIZE_PLAY}';
+	var ImageResizerPauseAlt			= '{L_ABBC3_RESIZE_PAUSE}';
+	var ImageResizerZoomInAlt			= '{L_ABBC3_RESIZE_ZOOM_IN}';
+	var ImageResizerZoomOutAlt			= '{L_ABBC3_RESIZE_ZOOM_OUT}';
+	var ImageResizerCloseAlt			= '{L_ABBC3_RESIZE_CLOSE}';
+	var ImageResizerBlankImage			= '{S_ABBC3_PATH}/advancedbox_blank.gif';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'pop-up' 'enlarge' 'samewindow' 'newwindow'
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
+	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
+	var ImageResizerWarningFullsize		= '{L_ABBC3_RESIZE_FULLSIZE}';
+	var ImageResizerWarningFilesize		= '{L_ABBC3_RESIZE_FILESIZE}';
+	var ImageResizerWarningNoFilesize	= '{L_ABBC3_RESIZE_NOFILESIZE}';
+/** Image Resizer JS and AdvancedBox JS - End **/
+// ]]&gt;
+&lt;/script&gt;
+&lt;!-- ENDIF --&gt;
+&lt;!-- ENDIF --&gt;
+
+&lt;!-- // MOD : MSSTI ABBC3 (V1.0.11) - End --&gt;
+
+</action>
+			</edit>
+		</open>
+
+		<open src="styles/subsilver2/template/simple_header.html">
+			<edit>
+				<find><![CDATA[</head>]]></find>
+				<action type="before-add">
+<![CDATA[
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - Start -->
+<link rel="stylesheet" type="text/css" media="all" href="{T_IMAGESET_PATH}/abbcode/abbcode.css" />
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - End -->
+
+]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/subsilver2/template/posting_buttons.html">
+			<edit>
+				<find><![CDATA[<!-- IF S_BBCODE_ALLOWED -->]]></find>
+				<action type="after-add"><![CDATA[
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - Start -->
+	<!-- IF S_ABBC3_MOD -->
+		<!-- INCLUDE posting_abbcode_buttons.html -->
+	<!-- ELSE -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - End -->
+]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[<!-- ENDIF -->
+	</td>
+</tr>]]></find>
+				<action type="replace-with"><![CDATA[
+	<!-- ENDIF -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - End -->
+
+<!-- ENDIF -->
+	</td>
+</tr>
+
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - Start -->
+<!-- IF not S_ABBC3_MOD -->
+
+]]></action>
+			</edit>
+
+			<edit>
+				<find><![CDATA[		<td class="genmed" align="center">{L_FONT_COLOR}</td>
+	<!-- ENDIF -->
+</tr>
+<!-- ENDIF -->]]></find>
+				<action type="after-add"><![CDATA[
+<!-- ENDIF -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - End -->]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/subsilver2/template/posting_body.html">
+			<edit>
+				<find><![CDATA[		<!-- INCLUDE posting_buttons.html -->
+		<tr>]]></find>
+				<action type="after-add"><![CDATA[
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - Start -->
+	<!-- IF S_ABBC3_MOD -->
+			<td valign="top" style="width: 100%;"><textarea id="message" name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 99%;">{MESSAGE}</textarea></td>
+	<!-- ELSE -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - End -->
+]]></action>
+				<find><![CDATA[			<td valign="top" style="width: 100%;"><textarea name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 98%;">{MESSAGE}</textarea></td>]]></find>
+				<action type="after-add"><![CDATA[
+	<!-- ENDIF -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - End -->
+]]></action>
+				<find><![CDATA[<!-- IF S_BBCODE_ALLOWED -->]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[S_BBCODE_ALLOWED]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ and not S_ABBC3_COLOR ]]></inline-action>
+				</inline-edit>				
+			</edit>
+		</open>
+
+		<open src="styles/subsilver2/template/ucp_profile_signature.html">
+			<edit>
+				<find><![CDATA[		<!-- INCLUDE posting_buttons.html -->
+		<tr>]]></find>
+				<action type="after-add"><![CDATA[
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - Start -->
+	<!-- IF S_ABBC3_MOD -->
+				<td colspan="2"><textarea class="post" id="signature" name="signature" rows="10" cols="76" style="width: 99%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></td>
+	<!-- ELSE -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - End -->
+]]></action>
+				<find><![CDATA[			<td colspan="2"><textarea class="post" name="signature" rows="10" cols="76" style="width: 90%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></td>]]></find>
+				<action type="after-add"><![CDATA[
+	<!-- ENDIF -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.11) - End -->
+]]></action>
+				<find><![CDATA[<!-- IF S_BBCODE_ALLOWED -->]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[S_BBCODE_ALLOWED]]></inline-find>
+					<inline-action type="after-add"><![CDATA[ and not S_ABBC3_COLOR ]]></inline-action>
+				</inline-edit>				
+			</edit>
+		</open>
+
+		<open src="styles/subsilver2/template/viewtopic_body.html">
+			<edit>
+				<find><![CDATA[<span class="postbody">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[class="postbody"]]></inline-find>
+					<inline-action type="before-add"><![CDATA[ id="sig{postrow.POST_ID}" ]]></inline-action>
+				</inline-edit>				
+			</edit>
+		</open>
+
+		<diy-instructions lang="en"><![CDATA[IMPORTANT !
+
+#####################################################################
+Log on to Administration Control Panel
+
+#####################################################################
+A) Purge the templates :
+
+	A.1) Navigate to "Styles" Tab.
+	A.2) Under "Style components " click on "Templates".
+	A.3) Under "Actions" click on "Refresh".
+	A.4) in the next screen, click on "Yes" ( Repeat last 2 steps to each instaled style, based off Subsilver2 ).
+	A.5) Under "Style components " click on "Themes".
+	A.6) Under "Actions" click on "Refresh".
+	A.7) in the next screen, click on "Yes" ( Repeat last 2 steps to each instaled style, based off Subsilver2 ).
+]]>
+		</diy-instructions>
+	</action-group>
+</mod>

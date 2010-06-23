@@ -5,7 +5,7 @@
 ##
 ## MOD Description: This tutorial you will find how to display images in full size with other script.
 ##
-## MOD Version: ABBC3 1.0.10
+## MOD Version: ABBC3 1.0.11
 ##
 ## Installation Level: easy
 ##
@@ -33,6 +33,11 @@
 ##	Part 3 : GreyBox - http://www.orangoo.com/labs/GreyBox/
 ##
 ##	Part 4 : Lightview - http://www.nickstakenburg.com/projects/lightview/
+##			 Not compatible with BlackSmoke style
+##
+##	PART 5 : Shadowbox with Ibox
+##
+##	PART 6 : PopBox - http://www.c6software.com/Products/PopBox/
 ##
 #####################################################################
 ## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD
@@ -42,12 +47,15 @@
 ## PART 1 : Highslide JS
 #####################################################################
 ##
-## Files To Edit: 3
+## Files To Edit: 1
 ##	
 ## Included Files: 8
 ##
 ## Author Notes:
-##  Unfortunately Internet Explorer doesn't understand how to manage some attached images with Highslide JS :(
+##
+##	Slide show doesn't work
+##
+##	Updated to ABBC3 v1.0.11 by MSSTI 
 ##
 ##	Highslide JS is an open source JavaScript software used to display images in full size.
 ##	Highslide JS is licensed under a Creative Commons Attribution-NonCommercial 2.5 License.
@@ -57,7 +65,7 @@
 ##		You are allowed to distribute Highslide JS with non-commercial packages given that you 
 ##		a) emphasize on your download page that Highslide JS is not free for commercial use.
 ##		b) provide a link back to this web page on your download page.
-##	
+##
 #####################################################################
 
 #
@@ -67,248 +75,29 @@ root/styles/abbcode/HighslideBox.js to styles/abbcode/HighslideBox.js
 root/styles/abbcode/highslide/*.*   to styles/abbcode/highslide/*.*
 #
 #-----[ OPEN ]-------------------------------------------------------
-#
-language/en/mods/abbcode.php
-#
-#-----[ FIND ]-------------------------------------------------------
-#
-	'ABBC3_RESIZE_PAUSE'		=> 'Pause slideshow',
-#
-#-----[ AFTER, ADD ]------------------------------------------------
-# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
-#
-
-// Highslide JS - http://vikjavev.no/highslide/forum/viewtopic.php?t=2119
-	'ABBC3_HIGHSLIDE_LOADINGTEXT'		=> 'Loading...',
-	'ABBC3_HIGHSLIDE_LOADINGTITLE'		=> 'Click to cancel',
-	'ABBC3_HIGHSLIDE_FOCUSTITLE'		=> 'Click to bring to front',
-	'ABBC3_HIGHSLIDE_FULLEXPANDTITLE'	=> 'Expand to actual size',
-	'ABBC3_HIGHSLIDE_FULLEXPANDTEXT'	=> 'Full size',
-	'ABBC3_HIGHSLIDE_CREDITSTEXT'		=> 'Powered by <i>Highslide JS</i>',
-	'ABBC3_HIGHSLIDE_CREDITSTITLE'		=> 'Go to the Highslide JS homepage',
-	'ABBC3_HIGHSLIDE_PREVIOUSTEXT'		=> 'Previous',
-	'ABBC3_HIGHSLIDE_PREVIOUSTITLE'		=> 'Previous (arrow left)',
-	'ABBC3_HIGHSLIDE_NEXTTEXT'			=> 'Next',
-	'ABBC3_HIGHSLIDE_NEXTTITLE'			=> 'Next (arrow right)',
-	'ABBC3_HIGHSLIDE_MOVETITLE'			=> 'Move',
-	'ABBC3_HIGHSLIDE_MOVETEXT'			=> 'Move',
-	'ABBC3_HIGHSLIDE_CLOSETEXT'			=> 'Close',
-	'ABBC3_HIGHSLIDE_CLOSETITLE'		=> 'Close (esc)',
-	'ABBC3_HIGHSLIDE_RESIZETITLE'		=> 'Resize',
-	'ABBC3_HIGHSLIDE_PLAYTEXT'			=> 'Play',
-	'ABBC3_HIGHSLIDE_PLAYTITLE'			=> 'Play slideshow (spacebar)',
-	'ABBC3_HIGHSLIDE_PAUSETEXT'			=> 'Pause',
-	'ABBC3_HIGHSLIDE_PAUSETITLE'		=> 'Pause slideshow (spacebar)',
-	'ABBC3_HIGHSLIDE_NUMBER'			=> 'Image %1 of %2',
-	'ABBC3_HIGHSLIDE_RESTORETITLE'		=> 'Click to close image, click and drag to move. Use arrow keys for next and previous.',
-
-#
-#-----[ OPEN ]-------------------------------------------------------
-#
-styles/abbcode/abbcode.css
-#
-#-----[ FIND ]-------------------------------------------------------
-#
-/** AdvancedBox JS _ End **/
-#
-#-----[ AFTER, ADD ]------------------------------------------------
-# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
-#
-
-/* Highslide JS	- Start */
-.highslide-wrapper div {
-	font-family: Verdana, Helvetica;
-	font-size: 10pt;
-}
-.highslide {
-	cursor: url(highslide/zoomin.cur), pointer;
-	outline: none;
-	text-decoration: none;
-}
-.highslide img {
-	border: 2px solid silver;
-}
-.highslide:hover img {
-	border-color: gray;
-}
-.highslide-active-anchor img, .highslide-active-anchor:hover img {
-	border-color: black;
-}
-.highslide-image {
-	border-width: 2px;
-	border-style: solid;
-	border-color: black black #202020 black;
-	background: gray;
-}
-.highslide-wrapper, .glossy-dark {
-	background: #111;
-}
-.highslide-image-blur {
-}
-.highslide-caption {
-	display: none;
-	border-top: none;
-	font-size: 1em;
-	padding: 5px;
-	color: white;
-	background: #111;
-}
-.highslide-heading {
-	display: none;
-	color: white;
-	font-size: 1.2em;
-	font-weight: bold;
-	margin-bottom: 0.4em;
-}
-.highslide-dimming {
-	position: absolute;
-	background: black;
-}
-.highslide-loading {
-	display: block;
-	color: white;
-	font-size: 9px;
-	font-weight: bold;
-	text-transform: uppercase;
-	text-decoration: none;
-	padding: 3px;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
-	background-color: black;
-
-	padding-left: 22px;
-	background-image: url(highslide/loader.gif);
-	background-repeat: no-repeat;
-	background-position: 3px 1px;
-}
-a.highslide-credits,
-a.highslide-credits i {
-	padding: 2px;
-	color: silver;
-	text-decoration: none;
-	font-size: 10px;
-}
-a.highslide-credits:hover,
-a.highslide-credits:hover i {
-	color: white;
-	background-color: gray;
-}
-.highslide-move a {
-	cursor: move;
-}
-/* Controls. See http://www.google.com/search?q=css+sprites */
-.highslide-controls {
-    width: 105px;
-    height: 20px;
-    position: relative;
-    top: -23px;
-    left: 0px;
-}
-.highslide-controls ul {
-	height: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.highslide-controls li {
-    float: left;
-}
-.highslide-controls a {
-    background-image: url(highslide/controlbar-white-small.gif);
-    display: block;
-    float: left;
-    height: 20px;
-    width: 20px;
-    outline: none;
-}
-.highslide-controls a.disabled {
-    cursor: default;
-}
-.highslide-controls a span {
-    /* hide the text for these graphic buttons */
-    display: none;
-}
-.highslide-controls .highslide-move {
-	display: none;
-}
-.highslide-move a {
-    cursor: move;
-}
-/* The CSS sprites for the controlbar */
-.highslide-controls .highslide-previous a {
-    background-position: 0 0;
-}
-.highslide-controls .highslide-previous a:hover {
-    background-position: 0 -20px;
-}
-.highslide-controls .highslide-previous a.disabled {
-    background-position: 0 -40px !important;
-}
-.highslide-controls .highslide-play a {
-    background-position: -20px 0;
-}
-.highslide-controls .highslide-play a:hover {
-    background-position: -20px -20px;
-}
-.highslide-controls .highslide-play a.disabled {
-	background-position: -20px -40px !important;
-}
-.highslide-controls .highslide-pause a {
-    background-position: -40px 0;
-}
-.highslide-controls .highslide-pause a:hover {
-    background-position: -40px -20px;
-}
-.highslide-controls .highslide-next a {
-    background-position: -60px 0;
-}
-.highslide-controls .highslide-next a:hover {
-    background-position: -60px -20px;
-}
-.highslide-controls .highslide-next a.disabled {
-    background-position: -60px -40px !important;
-}
-.highslide-controls .highslide-full-expand a {
-    background-position: -100px 0;
-}
-.highslide-controls .highslide-full-expand a:hover {
-    background-position: -100px -20px;
-}
-.highslide-controls .highslide-full-expand a.disabled {
-    background-position: -100px -40px !important;
-}
-.highslide-controls .highslide-close a {
-    background-position: -120px 0;
-}
-.highslide-controls .highslide-close a:hover {
-    background-position: -120px -20px;
-} 
-/* Highslide JS	- End */
-#
-#-----[ OPEN ]-------------------------------------------------------
 # NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
 #
 styles/prosilver/template/overall_header.html
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-<!-- IF S_ABBC3_RESIZE or S_ABBC3_ADVANCEDBOX -->
+<!-- IF S_ABBC3_RESIZE -->
 <script type="text/javascript" src="{S_ABBC3_PATH}/AdvancedBox.js"></script>
 <script type="text/javascript">
 // <![CDATA[
 /** Image Resizer JS and AdvancedBox JS - Start **/
-	var ImageResizerAdvancedbox			= '{S_ABBC3_ADVANCEDBOX}';
 	var ImageResizerNumberOf			= '{L_ABBC3_RESIZE_NUMBER}';
+	var ImageResizerNextAlt				= '{L_NEXT}';
+	var ImageResizerPrevtAlt			= '{L_PREVIOUS}';
 	var ImageResizerPlayAlt				= '{L_ABBC3_RESIZE_PLAY}';
 	var ImageResizerPauseAlt			= '{L_ABBC3_RESIZE_PAUSE}';
 	var ImageResizerZoomInAlt			= '{L_ABBC3_RESIZE_ZOOM_IN}';
 	var ImageResizerZoomOutAlt			= '{L_ABBC3_RESIZE_ZOOM_OUT}';
 	var ImageResizerCloseAlt			= '{L_ABBC3_RESIZE_CLOSE}';
 	var ImageResizerBlankImage			= '{S_ABBC3_PATH}/advancedbox_blank.gif';
-	var ImageResizerThumbnails			= '{S_ABBC3_MAX_THUM_WIDTH}';
-	var ImageResizerThumbnailsPhpbb		= '{S_PHPBB_MAX_THUM_WIDTH}';
-	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/images/errormt0.gif';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
 	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
 	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
 	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
@@ -322,15 +111,17 @@ styles/prosilver/template/overall_header.html
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
-<!-- IF S_ABBC3_RESIZE or S_ABBC3_ADVANCEDBOX -->
+<!-- IF S_ABBC3_RESIZE -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/highslide/highslide.js"></script>
 <script type="text/javascript" src="{S_ABBC3_PATH}/HighslideBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/highslide/highslide.css" />
+
 <script type="text/javascript">
 // <![CDATA[
-/** Image Resizer JS with Highslide JS - Start **/
-	var ImageResizerThumbnails			= '{S_ABBC3_MAX_THUM_WIDTH}';
-	var ImageResizerThumbnailsPhpbb		= '{S_PHPBB_MAX_THUM_WIDTH}';
-	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/images/errormt0.gif';
+/** Image Resizer JS with Highslide JS - End **/
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'AdvancedBox' 'pop-up' 'enlarge' 'samewindow' 'newwindow'
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
 	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
 	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
 	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
@@ -367,7 +158,6 @@ styles/prosilver/template/overall_header.html
 // ]]>
 </script>
 <!-- ENDIF -->
-
 #
 #-----[DIY]----------------------------------------------------------
 #
@@ -382,7 +172,10 @@ After installation, make sure you purge the cache and refresh all the styles thr
 ## Included Files: 10
 ##
 ## Author Notes:
-##  Unfortunately Internet Explorer doesn't understand how to manage some attached images with LiteBox :(
+##
+##	Slide show doesn't work
+##	Code from : http://www.doknowevil.net/litebox/
+##	Updated to ABBC3 v1.0.11 by MSSTI
 ##
 #####################################################################
 
@@ -399,23 +192,23 @@ styles/prosilver/template/overall_header.html
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-<!-- IF S_ABBC3_RESIZE or S_ABBC3_ADVANCEDBOX -->
+<!-- IF S_ABBC3_RESIZE -->
 <script type="text/javascript" src="{S_ABBC3_PATH}/AdvancedBox.js"></script>
 <script type="text/javascript">
 // <![CDATA[
 /** Image Resizer JS and AdvancedBox JS - Start **/
-	var ImageResizerAdvancedbox			= '{S_ABBC3_ADVANCEDBOX}';
 	var ImageResizerNumberOf			= '{L_ABBC3_RESIZE_NUMBER}';
+	var ImageResizerNextAlt				= '{L_NEXT}';
+	var ImageResizerPrevtAlt			= '{L_PREVIOUS}';
 	var ImageResizerPlayAlt				= '{L_ABBC3_RESIZE_PLAY}';
 	var ImageResizerPauseAlt			= '{L_ABBC3_RESIZE_PAUSE}';
 	var ImageResizerZoomInAlt			= '{L_ABBC3_RESIZE_ZOOM_IN}';
 	var ImageResizerZoomOutAlt			= '{L_ABBC3_RESIZE_ZOOM_OUT}';
 	var ImageResizerCloseAlt			= '{L_ABBC3_RESIZE_CLOSE}';
 	var ImageResizerBlankImage			= '{S_ABBC3_PATH}/advancedbox_blank.gif';
-	var ImageResizerThumbnails			= '{S_ABBC3_MAX_THUM_WIDTH}';
-	var ImageResizerThumbnailsPhpbb		= '{S_PHPBB_MAX_THUM_WIDTH}';
-	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/images/errormt0.gif';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
 	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
 	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
 	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
@@ -429,15 +222,20 @@ styles/prosilver/template/overall_header.html
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
-<!-- IF S_ABBC3_RESIZE or S_ABBC3_ADVANCEDBOX -->
+<!-- IF S_ABBC3_RESIZE -->
+<!-- Please, do not change these files, which have been adjusted to work with ABBC3. -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/lightbox/prototype.lite.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/lightbox/moo.fx.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/lightbox/litebox-1.0.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/lightbox/lightbox.css" />
+
 <script type="text/javascript" src="{S_ABBC3_PATH}/LiteBox.js"></script>
 <script type="text/javascript">
 // <![CDATA[
 /** Image Resizer JS with Litebox JS - Start **/
-	var ImageResizerThumbnails			= '{S_ABBC3_MAX_THUM_WIDTH}';
-	var ImageResizerThumbnailsPhpbb		= '{S_PHPBB_MAX_THUM_WIDTH}';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
 	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/images/errormt0.gif';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
 	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
 	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
 	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
@@ -449,12 +247,8 @@ styles/prosilver/template/overall_header.html
 /** Image Resizer JS with Litebox JS - End **/
 // ]]>
 </script>
-<script type="text/javascript" src="{S_ABBC3_PATH}/lightbox/prototype.lite.js"></script>
-<script type="text/javascript" src="{S_ABBC3_PATH}/lightbox/moo.fx.js"></script>
-<script type="text/javascript" src="{S_ABBC3_PATH}/lightbox/litebox-1.0.js"></script>
-<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/lightbox/lightbox.css" />
-<!-- ENDIF -->
 
+<!-- ENDIF -->
 #
 #-----[DIY]----------------------------------------------------------
 #
@@ -469,8 +263,12 @@ After installation, make sure you purge the cache and refresh all the styles thr
 ## Included Files: 12
 ##
 ## Author Notes:
-##  Unfortunately Internet Explorer doesn't understand how to manage some attached images with GreyBox :(
+##	Code from : http://orangoo.com/labs/GreyBox/
 ##
+##	Q. Known Incompatible Browser Extensions?
+##		BitComet's IE BHO toolbar 
+##
+##	Updated to ABBC3 v1.0.11 by MSSTI
 #####################################################################
 
 #
@@ -486,23 +284,23 @@ styles/prosilver/template/overall_header.html
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-<!-- IF S_ABBC3_RESIZE or S_ABBC3_ADVANCEDBOX -->
+<!-- IF S_ABBC3_RESIZE -->
 <script type="text/javascript" src="{S_ABBC3_PATH}/AdvancedBox.js"></script>
 <script type="text/javascript">
 // <![CDATA[
 /** Image Resizer JS and AdvancedBox JS - Start **/
-	var ImageResizerAdvancedbox			= '{S_ABBC3_ADVANCEDBOX}';
 	var ImageResizerNumberOf			= '{L_ABBC3_RESIZE_NUMBER}';
+	var ImageResizerNextAlt				= '{L_NEXT}';
+	var ImageResizerPrevtAlt			= '{L_PREVIOUS}';
 	var ImageResizerPlayAlt				= '{L_ABBC3_RESIZE_PLAY}';
 	var ImageResizerPauseAlt			= '{L_ABBC3_RESIZE_PAUSE}';
 	var ImageResizerZoomInAlt			= '{L_ABBC3_RESIZE_ZOOM_IN}';
 	var ImageResizerZoomOutAlt			= '{L_ABBC3_RESIZE_ZOOM_OUT}';
 	var ImageResizerCloseAlt			= '{L_ABBC3_RESIZE_CLOSE}';
 	var ImageResizerBlankImage			= '{S_ABBC3_PATH}/advancedbox_blank.gif';
-	var ImageResizerThumbnails			= '{S_ABBC3_MAX_THUM_WIDTH}';
-	var ImageResizerThumbnailsPhpbb		= '{S_PHPBB_MAX_THUM_WIDTH}';
-	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/images/errormt0.gif';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
 	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
 	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
 	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
@@ -516,15 +314,14 @@ styles/prosilver/template/overall_header.html
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
-<!-- IF S_ABBC3_RESIZE or S_ABBC3_ADVANCEDBOX -->
+<!-- IF S_ABBC3_RESIZE -->
 <script type="text/javascript" src="{S_ABBC3_PATH}/GreyBox.js"></script>
 <script type="text/javascript">
 // <![CDATA[
 /** Image Resizer JS with GreyBox JS - Start **/
-	var ImageResizerThumbnails			= '{S_ABBC3_MAX_THUM_WIDTH}';
-	var ImageResizerThumbnailsPhpbb		= '{S_PHPBB_MAX_THUM_WIDTH}';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
 	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/images/errormt0.gif';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
 	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
 	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
 	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
@@ -535,12 +332,12 @@ styles/prosilver/template/overall_header.html
 /** Image Resizer JS with GreyBox JS - End **/
 // ]]>
 </script>
+<!-- Please, do not change these files, which have been adjusted to work with ABBC3. -->
 <script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS.js"></script>
 <script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS_fx.js"></script>
 <script type="text/javascript" src="{S_ABBC3_PATH}/greybox/gb_scripts.js"></script>
 <link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/greybox/gb_styles.css" />
 <!-- ENDIF -->
-
 #
 #-----[DIY]----------------------------------------------------------
 #
@@ -569,23 +366,23 @@ styles/prosilver/template/overall_header.html
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-<!-- IF S_ABBC3_RESIZE or S_ABBC3_ADVANCEDBOX -->
+<!-- IF S_ABBC3_RESIZE -->
 <script type="text/javascript" src="{S_ABBC3_PATH}/AdvancedBox.js"></script>
 <script type="text/javascript">
 // <![CDATA[
 /** Image Resizer JS and AdvancedBox JS - Start **/
-	var ImageResizerAdvancedbox			= '{S_ABBC3_ADVANCEDBOX}';
 	var ImageResizerNumberOf			= '{L_ABBC3_RESIZE_NUMBER}';
+	var ImageResizerNextAlt				= '{L_NEXT}';
+	var ImageResizerPrevtAlt			= '{L_PREVIOUS}';
 	var ImageResizerPlayAlt				= '{L_ABBC3_RESIZE_PLAY}';
 	var ImageResizerPauseAlt			= '{L_ABBC3_RESIZE_PAUSE}';
 	var ImageResizerZoomInAlt			= '{L_ABBC3_RESIZE_ZOOM_IN}';
 	var ImageResizerZoomOutAlt			= '{L_ABBC3_RESIZE_ZOOM_OUT}';
 	var ImageResizerCloseAlt			= '{L_ABBC3_RESIZE_CLOSE}';
 	var ImageResizerBlankImage			= '{S_ABBC3_PATH}/advancedbox_blank.gif';
-	var ImageResizerThumbnails			= '{S_ABBC3_MAX_THUM_WIDTH}';
-	var ImageResizerThumbnailsPhpbb		= '{S_PHPBB_MAX_THUM_WIDTH}';
-	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/images/errormt0.gif';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
 	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
 	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
 	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
@@ -599,15 +396,20 @@ styles/prosilver/template/overall_header.html
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
-<!-- IF S_ABBC3_RESIZE or S_ABBC3_ADVANCEDBOX -->
+<!-- IF S_ABBC3_RESIZE -->
+<!-- Please, do not change these files, which have been adjusted to work with ABBC3. -->
+<script type='text/javascript' src='{S_ABBC3_PATH}/lightview/prototype.js'></script>
+<script type='text/javascript' src='{S_ABBC3_PATH}/lightview/scriptaculous.js?load=effects'></script>
+<script type='text/javascript' src='{S_ABBC3_PATH}/lightview/lightview.js'></script>
+<link rel="stylesheet" type="text/css" href="{S_ABBC3_PATH}/lightview/lightview.css" />
+
 <script type="text/javascript" src="{S_ABBC3_PATH}/Lightview.js"></script>
 <script type="text/javascript">
 // <![CDATA[
 /** Image Resizer JS with lightview JS - Start **/
-	var ImageResizerThumbnails			= '{S_ABBC3_MAX_THUM_WIDTH}';
-	var ImageResizerThumbnailsPhpbb		= '{S_PHPBB_MAX_THUM_WIDTH}';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
 	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
-	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/images/errormt0.gif';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
 	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
 	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
 	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
@@ -618,16 +420,185 @@ styles/prosilver/template/overall_header.html
 /** Image Resizer JS with lightview JS - End **/
 // ]]>
 </script>
-<script type='text/javascript' src='{S_ABBC3_PATH}/lightview/prototype.js'></script>
-<script type='text/javascript' src='{S_ABBC3_PATH}/lightview/scriptaculous.js?load=effects'></script>
-<script type='text/javascript' src='{S_ABBC3_PATH}/lightview/lightview.js'></script>
-<link rel="stylesheet" type="text/css" href="{S_ABBC3_PATH}/lightview/lightview.css" />
 <!-- ENDIF -->
 #
 #-----[DIY]----------------------------------------------------------
 #
 After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
 
+#####################################################################
+## PART 5 : Ibox
+#####################################################################
+##
+## Files To Edit: 1
+##	
+## Included Files: 18
+##
+#####################################################################
+
+#
+#-----[ COPY ]-------------------------------------------------------
+#
+root/styles/abbcode/Ibox.js  to styles/abbcode/Ibox.js
+root/styles/abbcode/ibox/*.* to styles/abbcode/ibox/*.*
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
+#
+styles/prosilver/template/overall_header.html
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+<!-- IF S_ABBC3_RESIZE -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/AdvancedBox.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+/** Image Resizer JS and AdvancedBox JS - Start **/
+	var ImageResizerNumberOf			= '{L_ABBC3_RESIZE_NUMBER}';
+	var ImageResizerNextAlt				= '{L_NEXT}';
+	var ImageResizerPrevtAlt			= '{L_PREVIOUS}';
+	var ImageResizerPlayAlt				= '{L_ABBC3_RESIZE_PLAY}';
+	var ImageResizerPauseAlt			= '{L_ABBC3_RESIZE_PAUSE}';
+	var ImageResizerZoomInAlt			= '{L_ABBC3_RESIZE_ZOOM_IN}';
+	var ImageResizerZoomOutAlt			= '{L_ABBC3_RESIZE_ZOOM_OUT}';
+	var ImageResizerCloseAlt			= '{L_ABBC3_RESIZE_CLOSE}';
+	var ImageResizerBlankImage			= '{S_ABBC3_PATH}/advancedbox_blank.gif';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
+	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
+	var ImageResizerWarningFullsize		= '{L_ABBC3_RESIZE_FULLSIZE}';
+	var ImageResizerWarningFilesize		= '{L_ABBC3_RESIZE_FILESIZE}';
+	var ImageResizerWarningNoFilesize	= '{L_ABBC3_RESIZE_NOFILESIZE}';
+/** Image Resizer JS and AdvancedBox JS - End **/
+// ]]>
+</script>
+<!-- ENDIF -->
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+<!-- IF S_ABBC3_RESIZE -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/ibox/shadowbox.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/Ibox.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+/** Image Resizer JS with Ibox JS - Start **/
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
+	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
+	var ImageResizerWarningFullsize		= '{L_ABBC3_RESIZE_FULLSIZE}';
+	var ImageResizerWarningFilesize		= '{L_ABBC3_RESIZE_FILESIZE}';
+	var ImageResizerWarningNoFilesize	= '{L_ABBC3_RESIZE_NOFILESIZE}';
+
+	Shadowbox.loadSkin('classic', '{S_ABBC3_PATH}/ibox/skins'); // use the "classic" skin
+/** Image Resizer JS with Ibox JS - End **/
+// ]]>
+</script>
+<!-- ENDIF -->
+#
+#-----[DIY]----------------------------------------------------------
+#
+After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
+
+#####################################################################
+## PART 6 : PopBox
+#####################################################################
+##
+## Files To Edit: 2
+##	
+## Included Files: 7
+##
+#####################################################################
+
+#
+#-----[ COPY ]-------------------------------------------------------
+#
+root/styles/abbcode/PopBox.js  to styles/abbcode/PopBox.js
+root/styles/abbcode/PopBox/*.* to styles/abbcode/PopBox/*.*
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
+#
+language/en/mods/abbcode.php
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	'ABBC3_RESIZE_PAUSE'		=> 'Pause slideshow',
+#
+#-----[ AFTER, ADD ]-------------------------------------------------------
+#
+
+	'ABBC3_POPBOX_REVERSETEXT'	=> 'Click the image to shrink it.',
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
+#
+styles/prosilver/template/overall_header.html
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+<!-- IF S_ABBC3_RESIZE -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/AdvancedBox.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+/** Image Resizer JS and AdvancedBox JS - Start **/
+	var ImageResizerNumberOf			= '{L_ABBC3_RESIZE_NUMBER}';
+	var ImageResizerNextAlt				= '{L_NEXT}';
+	var ImageResizerPrevtAlt			= '{L_PREVIOUS}';
+	var ImageResizerPlayAlt				= '{L_ABBC3_RESIZE_PLAY}';
+	var ImageResizerPauseAlt			= '{L_ABBC3_RESIZE_PAUSE}';
+	var ImageResizerZoomInAlt			= '{L_ABBC3_RESIZE_ZOOM_IN}';
+	var ImageResizerZoomOutAlt			= '{L_ABBC3_RESIZE_ZOOM_OUT}';
+	var ImageResizerCloseAlt			= '{L_ABBC3_RESIZE_CLOSE}';
+	var ImageResizerBlankImage			= '{S_ABBC3_PATH}/advancedbox_blank.gif';
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}';
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
+	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
+	var ImageResizerWarningFullsize		= '{L_ABBC3_RESIZE_FULLSIZE}';
+	var ImageResizerWarningFilesize		= '{L_ABBC3_RESIZE_FILESIZE}';
+	var ImageResizerWarningNoFilesize	= '{L_ABBC3_RESIZE_NOFILESIZE}';
+/** Image Resizer JS and AdvancedBox JS - End **/
+// ]]>
+</script>
+<!-- ENDIF -->
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+<!-- IF S_ABBC3_RESIZE -->
+<link type="text/css" rel="stylesheet" href="{S_ABBC3_PATH}/PopBox/PopBox.css" />
+<script type="text/javascript" src="{S_ABBC3_PATH}/PopBox/PopBox.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/PopBox.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+/** Image Resizer JS with lightview JS - Start **/
+	var ImageResizerSignature			= '{S_ABBC3_RESIZE_SIGNATURE}';
+	var ImageResizerMode				= '{S_ABBC3_RESIZE_METHOD}'; // 'advancedbox' 'enlarge' 'samewindow' 'newwindow'
+	var ImageResizerWarningImage		= '{S_ABBC3_PATH}/warning.gif';
+	var ImageResizerMaxWidth			= '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	var ImageResizerMaxHeight			= '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	var ImageResizerWarningSmall		= '{L_ABBC3_RESIZE_SMALL}';
+	var ImageResizerWarningFullsize		= '{L_ABBC3_RESIZE_FULLSIZE}';
+	var ImageResizerWarningFilesize		= '{L_ABBC3_RESIZE_FILESIZE}';
+	var ImageResizerWarningNoFilesize	= '{L_ABBC3_RESIZE_NOFILESIZE}';
+	
+	var popBoxRevertText				= '{L_ABBC3_POPBOX_REVERSETEXT}';
+
+/** Image Resizer JS with lightview JS - End **/
+// ]]>
+</script>
+<!-- ENDIF -->
+#
+#-----[DIY]----------------------------------------------------------
+#
+After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
 #

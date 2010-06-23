@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- MODX by the phpBB MOD Team XSL file v1.2.1 copyright 2005-2008 the phpBB MOD Team.
-	$Id: modx.prosilver.en.xsl 2047 2008-08-13 22:43:15Z primehalo $ -->
+	$Id: modx.prosilver.en.xsl 2242 2008-10-06 19:40:58Z paul $ -->
 <!DOCTYPE xsl:stylesheet[
 	<!ENTITY nbsp "&#160;">
 ]>
@@ -924,6 +924,10 @@ function xslLangEl(langCode, obj_id)
 	for (i = 0; i < nodes.length; i++)
 	{
 		c = nodes[i];
+		if (c.nodeType != 1)
+		{
+			continue;
+		}
 		a = (obj_id == 'link-group') ? c.getElementsByTagName('a') : null;
 		k = (a && a[0].href) ? a[0].href : c.tagName;
 		if (!c.lang || m[k] === true)
@@ -956,7 +960,8 @@ function xslLangEl(langCode, obj_id)
 			c.style.display = '';
 			if (a)
 			{
-				c.firstChild.style.display = 'none';
+				c.getElementsByTagName('span')[0].style.display = 'none';
+				//c.firstChild.style.display = 'none'; // This line doesn't work in Safari
 			}
 		}
 		else
@@ -1214,7 +1219,7 @@ function selectFirstBox()
 
 function mod_do_keypress(e)
 {
-	var key = window.event ? window.event.keyCode : (e ? e.which : null);
+	var key = (window.event && !window.event.ctrlKey) ? window.event.keyCode : ((e && !e.ctrlKey) ? e.which : null);
 
 	switch (key)
 	{
@@ -1790,7 +1795,7 @@ function toggle_edit(o)
 		</xsl:if>
 		<xsl:if test="count(mod:open) > 0">
 		<h2 id="lang-edts">Edits</h2>
-		<p><span class="key">s</span><span class="key">&lt;</span><span class="key">&gt;</span><span id="lang-edtt">Use your keyboard to navigate the code boxes. You may also hit '<em>s</em>' on your keyboard to go to the first code box.</span></p>
+		<p><span class="key">s</span><span class="key">w</span><span class="key">x</span><span id="lang-edtt">Use your keyboard to navigate the code boxes. You may also hit '<em>s</em>' on your keyboard to go to the first code box.</span></p>
 		<div id="edits">
 			<div class="inner">
 				<xsl:for-each select="mod:open">

@@ -1,22 +1,21 @@
-/*  phpBB 3.0 Style Sheet
-    --------------------------------------------------------------
-	Style name:			abbcode
-	Based on style:		proSilver and subSilver2 (this is the default phpBB 3 style)
-	Original author:	leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
-	Modified by:		leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
-	
-	Copyright 2008 leviatan21
-    --------------------------------------------------------------
-*/
+/**  phpBB 3.0 Style Sheet
+* --------------------------------------------------------------
+* @package: phpBB3 :: Advanced BBCode box 3 -> styles -> abbcode
+* @version: $Id: abbcode.css, v 1.0.11 2008/10/11 11:10:08 leviatan21 Exp $
+* @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
+* @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
+* @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
+* --------------------------------------------------------------
+**/
 .cat {
 	text-indent: 0;
 }
 
 .helpline { 
-	overflow:hidden;
-	background-color:transparent !important;
-	border-style:none;
-	font-size:10px;
+	overflow: hidden;
+	background-color: transparent !important;
+	border-style: none;
+	font-size: 10px;
 }
 
 #abbc3posttable textarea.inputbox, 
@@ -26,56 +25,55 @@
 }
 #abbc3posttable textarea:hover, 
 #abbc3wysiwig textarea:hover {
-	border:0;
+	border: 0;
 }
 #abbc3posttable, 
 #abbc3wysiwig {
 	border: 1px solid #C0C0C0;
 	border-collapse: collapse;
-	vertical-align:top;
+	vertical-align: top;
 }
 #abbc3posttable select, 
 #abbc3wysiwig select {
-	height:20px;
-	margin:3px 0;
-/*	font-size:0.8em;	*/
+	height: 20px;
+	margin: 3px 0;
 }
 #abbc3posttable option, 
 #abbc3wysiwig option {
-	background-color:#eeeeee;
-	color:black;
+	background-color: #eeeeee;
+	color: black;
 }
 #abbc3posttable option.selected, 
 #abbc3wysiwig option.selected {
-	color:black;
-	font-weight:bold;
-	font-style:italic;
+	color: black;
+	font-weight: bold;
+	font-style: italic;
 }
 #abbc3posttable tr, #abbc3posttable td, #abbc3posttable div, 
 #abbc3wysiwig tr, #abbc3wysiwig td, #abbc3wysiwig div {
-	height:26px;
-	margin:0;
-	padding:0 0 0 2px;
-	vertical-align:top;
+	height: 26px;
+	margin: 0;
+	padding: 0 0 0 2px;
+	vertical-align: top;
 }
 #abbc3posttable .btnbbcode3, #abbc3posttable .option.genmed,
 #abbc3wysiwig .btnbbcode3, #abbc3wysiwig .option.genmed {
-	height:20px;
-	vertical-align:top;
-	margin:3px 0 4px 0;
-	padding:0;
+	height: 20px;
+	vertical-align: top;
+	margin: 3px 0 4px 0;
+	padding: 0;
 	cursor: pointer;
-	background-color:transparent !important;
-	padding:1px;
+	background-color: transparent !important;
+	padding: 1px;
 }
 #abbc3posttable .button2, 
 #abbc3wysiwig .button2 {
-	padding:0;
-	margin:0;
+	padding: 0;
+	margin: 0;
 }
 .abbc3_link {
 	float: right;
-	margin:8px 4px 0 0;
+	margin: 8px 4px 0 0;
 	padding: 0;
 }
 
@@ -98,18 +96,18 @@
 /** MOD : add button over - END **/
 
 #abbc3posttable .dot, #abbc3wysiwig .dot {
-	margin:3px 0;
-	padding:0;
-	cursor:default;
-	background-color:transparent !important;
+	margin: 3px 0;
+	padding: 0;
+	cursor: default;
+	background-color: transparent !important;
 }
 
 /* wizards */
 #abbcode_wizards {
-	font-size:1em;
+	font-size: 1em;
 }
 #abbcode_wizards #preview {
-	text-align:center;
+	text-align: center;
 	height: 100%;
 	padding: 0;
 	margin: 0;
@@ -118,7 +116,7 @@
 	font-weight: bold;
 }
 #abbcode_wizards select, #abbcode_wizards input, #abbcode_wizards label {
-	font-size:1em;
+	font-size: 1em;
 }
 
 /** Place the testlink files in a scroll box **/
@@ -134,8 +132,16 @@ dl.testlink {
 	background-color: #FFFFFF;
 	border: 1px solid #dbdbdb;
 }
+.abbc3_wrong {
+	color: #ff0000; 
+	font-size: 1em;;
+}
+.abbc3_good {
+	color: #2E8B57; 
+	font-size: 1em;;
+}
 
-/** Spoiler - Start **/
+/** Spoiler - START **/
 .spoilwrapper {
 	margin: 0 5px;
 	padding: 5px;
@@ -163,25 +169,21 @@ input.btnspoil:hover {
 	background-color: #ECECEC;
 	color: #BC2A4D;
 }
-/** Spoiler - End **/
+/** Spoiler - END **/
 
-/** Img - Start **/
-div.center {text-align: center; display: table; margin-left: auto; margin-right: auto;}
-div.left { float:left; padding:0 10px; clear:both; }
-div.right { float:right; padding:0 10px; clear:both; }
+/** Img - START **/
+div.center { text-align: center; display: table; margin-left: auto; margin-right: auto; }
+div.left   { float:left; padding:0 10px; clear:both; }
+div.right  { float:right; padding:0 10px; clear:both; }
+/** Img - END **/
 
-/** thumbnails - Start **/
-.hoverbox { background:#eee; color:inherit; border-color:#ddd #bbb #aaa #ccc; border-style:solid; border-width:1px; margin:3px; padding:5px; }
-/** thumbnails - End **/
-
-/** thumbnails - End **/
-
-/** NFO bbcode - START
+/** NFO bbcode - START **/
 /** IE6 Only **/
-* html.nfo { line-height:86%; letter-spacing:-2.9px; font-size:10px; font-family:Terminal; }
+* html.nfo { line-height: 86%; letter-spacing: -2.9px; font-size: 10px; font-family: Terminal; }
 /** IE7 Only **/
-*:first-child+html .nfo { line-height:86%; letter-spacing:-2.9px; font-size:10px; font-family:Terminal; }
-.nfo { color:#000000; font-weight:normal; line-height:70%; letter-spacing:-2.5px; font-size:9px; font-family:"Courier New"; background-color:#ffffff; border:solid 1px #666666; }
+*:first-child+html .nfo { line-height: 86%; letter-spacing: -2.9px; font-size: 10px; font-family: Terminal; }
+.NFOTable .codetitle	{ font-weight: bold; }
+.nfo { color: #000000; font-weight: normal; line-height: 70%; letter-spacing: -2.5px; font-size: 9px; font-family: "Courier New"; background-color: #ffffff; }
 /** NFO bbcode - END **/
 
 /** ed2k bbcode - START **/
@@ -193,215 +195,56 @@ div.right { float:right; padding:0 10px; clear:both; }
 /** ed2k bbcode - END **/
 
 /** Moderator bbcode - START **/
-#ModTable td.row1 { background-color: #ff6060; }
-#ModTable td.row2 { border-bottom:1px solid #000000; background: #FFFFFF; }
-#ModTable .exclamation { font-weight:bold; font-family:"Times New Roman", Verdana; font-size:45px; color:#ffffff; }
-#ModTable { background:#fafafa; border:1px solid #000000; font-family:Verdana, "Trebuchet MS", "Lucida Grande", Helvetica, Arial, sans-serif; font-size:0.85em; font-weight:normal; color:#000000; overflow:hidden; }
+.ModTable              { background-color: #FFFFFF; border: 1px solid #000000; font-size:0.9em; font-weight: normal; color: #000000; overflow: hidden; }
+.ModTable .exclamation { background-color: #ff6060; font-weight:bold; font-family: "Times New Roman", Verdana; font-size: 4em; color:#ffffff; vertical-align: middle; text-align: center; width: 1%; }
+.ModTable .rowuser     { border-bottom: 1px solid #000000; font-weight: bold; }
+.ModTable .rowtext     {}
 /** Moderator bbcode - END **/
+
+/** Offtopic bbcode - START **/
+.OffTopic		{ border: 1px dotted #114499; font-size:0.9em; font-weight: normal; color: #2277DD;}
+.OffTopicTitle	{ font-weight: bold; font-style: italic; color: #114499; background-color: #FFFFFF;  padding: 0.5em; }
+.OffTopicText	{ padding: 0.5em; }
+/** Offtopic bbcode - END **/
 
 .codetitle, .codecontent { overflow: auto; }
 .quotecontent, blockquote div { overflow: auto; max-height: 200px; }
 
-/** Image Resizer JS - Start **/
-table.ncode_imageresizer_warning { background: #FFFFE1; color: #000000; border: 1px solid #cccccc; cursor: pointer; text-align: inherit;}
-table.ncode_imageresizer_warning td { font-size: 10px; vertical-align: middle; text-decoration: none; }
-table.ncode_imageresizer_warning td.td1 { padding: 2px; }
-table.ncode_imageresizer_warning td.td2 { text-align:left; /*color:#ff0000; padding: 2px;*/ }
-/** Image Resizer JS - End **/
+/** thumbnails - START **/
+.hoverbox { cursor: /* url("zoomin.cur"), */ pointer ; background:#eee; color: inherit; border-color: #ddd #bbb #aaa #ccc; border-style: solid; border-width: 1px; margin: 3px; padding: 5px; }
+/** thumbnails - END **/
 
-/** AdvancedBox JS - Start **/
-.AdvancedBoxBackGround  { z-index: 100; position: absolute; top: 0; left: 0; background-color: #000; }
-span.AdvancedBoxImage   { z-index: 101; position: fixed; margin: 0; padding: 0; }
-div.AdvancedBoxImage    { position: relative; border: 4px solid white; background-color: white; margin: 30px 0px 25px 0px; padding: 0; }
-img.AdvancedBoxImage    { border: none; margin: 0; padding: 0; }
-#hoverNav               { z-index: 102; position: absolute; width: auto; margin: 0; padding: 0; }
-#hoverNav a             { outline: none; }
-#LoadingLink            { z-index: 1000; position: fixed; top: 50%; left: 50%; width: 20px; height: 20px; margin: 0; padding: 0; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
-#CloserLink, #ZoomLink, #NextLink, #PrevLink, #PlayLink, #PauseLink { z-index: 104; margin: 0; padding: 0; width: 20px; height: 20px; float: left; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
-#nOnText                { margin: 0; padding: 0 5px; width: auto; height: 18px; color: #666; float: left; line-height: 150%; border: 1px solid #999; background: #f1f1f1 url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
-#nOnText:hover          { border: 1px solid #000; color: #194CD8; }
-#CloserLink             { background: url("advancedbox_icon_close.gif") top left no-repeat; }
-#ZoomLink               { background: url("advancedbox_icon_zoom.gif") top left no-repeat; }
-#NextLink               { background: url("advancedbox_icon_next.gif") top left no-repeat; }
-#PrevLink               { background: url("advancedbox_icon_prev.gif") top left no-repeat; }
-#PlayLink               { background: url("advancedbox_icon_play.gif") top left no-repeat; }
-#PauseLink              { background: url("advancedbox_icon_pause.gif") top left no-repeat; }
-#LoadingLink            { background: url("advancedbox_icon_loading.gif") top left no-repeat; }
-#ZoomLink:hover, #ZoomLink:visited, 
-#CloserLink:hover, #CloserLink:visited, 
-#NextLink:hover, #NextLink:visited, 
-#PrevLink:hover, #PrevLink:visited, 
-#PlayLink:hover, #PlayLink:visited , 
-#PauseLink:hover, #PauseLink:visited , 
-#LoadingLink:hover, #LoadingLink:visited { cursor: pointer; background-position: 0 100%; }
-/** AdvancedBox JS _ End **/
+/** Image Resizer JS - START **/
+.resized-div { margin: 0; padding: 0; border: 0px; background-color: #000000; width: auto; height: 24px; -moz-border-radius-topleft: 7px; -moz-border-radius-topright: 7px; text-align: left; }
+.resized-txt { padding-bottom: 5px; /* padding: 6px 0 0 10px; */ color: #ffffff; font-size: 12px; font-weight: normal; text-decoration: none; font-family: "Trebuchet MS", Helvetica, Arial, sans-serif; vertical-align: middle; font-variant: normal; text-transform: none; line-height: 100%; }
+.resized-div img { background-color: transparent !important; border: 1px solid transparent !important; margin: 2px 5px 0 10px; }
+.resized-div img:hover { border: 1px solid transparent !important; }
+/** Image Resizer JS - END **/
 
-/* Highslide JS	- Start */
-.highslide-wrapper div {
-	font-family: Verdana, Helvetica;
-	font-size: 10pt;
-}
-.highslide {
-	cursor: url(highslide/zoomin.cur), pointer;
-	outline: none;
-	text-decoration: none;
-}
-.highslide img {
-	border: 2px solid silver;
-}
-.highslide:hover img {
-	border-color: gray;
-}
-.highslide-active-anchor img, .highslide-active-anchor:hover img {
-	border-color: black;
-}
-.highslide-image {
-	border-width: 2px;
-	border-style: solid;
-	border-color: black black #202020 black;
-	background: gray;
-}
-.highslide-wrapper, .glossy-dark {
-	background: #111;
-}
-.highslide-image-blur {
-}
-.highslide-caption {
-	display: none;
-	border-top: none;
-	font-size: 1em;
-	padding: 5px;
-	color: white;
-	background: #111;
-}
-.highslide-heading {
-	display: none;
-	color: white;
-	font-size: 1.2em;
-	font-weight: bold;
-	margin-bottom: 0.4em;
-}
-.highslide-dimming {
-	position: absolute;
-	background: black;
-}
-.highslide-loading {
-	display: block;
-	color: white;
-	font-size: 9px;
-	font-weight: bold;
-	text-transform: uppercase;
-	text-decoration: none;
-	padding: 3px;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
-	background-color: black;
+/** AdvancedBox JS - START **/
+#AB-BackGround        { position: absolute; top: 0; left: 0; z-index: 90; width: 100%; height: 100%; background-color: #000; }
+#AB-Overlay           { position: absolute; top: 0; left: 0; width: 100%; z-index: 100; text-align: center; line-height: 0; }
+#AB-ToolBar           { position: absolute; top: 0; left: 0; height: 20px; width: 100%; z-index: 10; }
+#AB-ImageName         { float: right; margin: 0; padding: 0 5px; width: auto; height: 18px; color: #f1f1f1; line-height: 150%; }
+#AB-OuterContainer    { position: relative; width: 250px; height: 250px; margin: auto auto; border: 4px solid white; background-color: white; }
+#AB-LoadingLink       { z-index: 1000; position: absolute; top: 52%; left: 48%; width: 20px; height: 20px; margin: 0; padding: 0; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
+#AB-LoadingLink       { background: url("advancedbox_icon_loading.gif") top left no-repeat; }
+#AB-CloserLink, #AB-ZoomLink, #AB-PrevLink, #AB-NextLink, #AB-PlayLink, #AB-PauseLink { z-index: 104; margin: 0; padding: 0; width: 20px; height: 20px; float: left; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
+#AB-CloserLink        { background: url("advancedbox_icon_close.gif") top left no-repeat; }
+#AB-ZoomLink          { background: url("advancedbox_icon_zoom.gif")  top left no-repeat; }
+#AB-PrevLink          { background: url("advancedbox_icon_prev.gif")  top left no-repeat; }
+#AB-NextLink          { background: url("advancedbox_icon_next.gif")  top left no-repeat; }
+#AB-PlayLink          { background: url("advancedbox_icon_play.gif")  top left no-repeat; }
+#AB-PauseLink         { background: url("advancedbox_icon_pause.gif") top left no-repeat; }
+#AB-nOnText           { margin: 0; padding: 0 5px; width: auto; min-width: 50px; height: 18px; color: #666; float: left; line-height: 150%; border: 1px solid #999; background: #f1f1f1 url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
+#AB-ToolBar a:visited { border: 0; cursor: pointer; background-position: 100% 0; }
+#AB-ToolBar a:hover   { border: 0; cursor: pointer; background-position: 0 100%; }
+#AB-ToolBar a.disabled{ cursor: default; background-position: 100% 0; }
+/** AdvancedBox JS - END **/
 
-	padding-left: 22px;
-	background-image: url(highslide/loader.gif);
-	background-repeat: no-repeat;
-	background-position: 3px 1px;
-}
-a.highslide-credits,
-a.highslide-credits i {
-	padding: 2px;
-	color: silver;
-	text-decoration: none;
-	font-size: 10px;
-}
-a.highslide-credits:hover,
-a.highslide-credits:hover i {
-	color: white;
-	background-color: gray;
-}
-.highslide-move a {
-	cursor: move;
-}
-/* Controls. See http://www.google.com/search?q=css+sprites */
-.highslide-controls {
-    width: 105px;
-    height: 20px;
-    position: relative;
-    top: -23px;
-    left: 0px;
-}
-.highslide-controls ul {
-	height: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.highslide-controls li {
-    float: left;
-}
-.highslide-controls a {
-    background-image: url(highslide/controlbar-white-small.gif);
-    display: block;
-    float: left;
-    height: 20px;
-    width: 20px;
-    outline: none;
-}
-.highslide-controls a.disabled {
-    cursor: default;
-}
-.highslide-controls a span {
-    /* hide the text for these graphic buttons */
-    display: none;
-}
-.highslide-controls .highslide-move {
-	display: none;
-}
-.highslide-move a {
-    cursor: move;
-}
-/* The CSS sprites for the controlbar */
-.highslide-controls .highslide-previous a {
-    background-position: 0 0;
-}
-.highslide-controls .highslide-previous a:hover {
-    background-position: 0 -20px;
-}
-.highslide-controls .highslide-previous a.disabled {
-    background-position: 0 -40px !important;
-}
-.highslide-controls .highslide-play a {
-    background-position: -20px 0;
-}
-.highslide-controls .highslide-play a:hover {
-    background-position: -20px -20px;
-}
-.highslide-controls .highslide-play a.disabled {
-	background-position: -20px -40px !important;
-}
-.highslide-controls .highslide-pause a {
-    background-position: -40px 0;
-}
-.highslide-controls .highslide-pause a:hover {
-    background-position: -40px -20px;
-}
-.highslide-controls .highslide-next a {
-    background-position: -60px 0;
-}
-.highslide-controls .highslide-next a:hover {
-    background-position: -60px -20px;
-}
-.highslide-controls .highslide-next a.disabled {
-    background-position: -60px -40px !important;
-}
-.highslide-controls .highslide-full-expand a {
-    background-position: -100px 0;
-}
-.highslide-controls .highslide-full-expand a:hover {
-    background-position: -100px -20px;
-}
-.highslide-controls .highslide-full-expand a.disabled {
-    background-position: -100px -40px !important;
-}
-.highslide-controls .highslide-close a {
-    background-position: -120px 0;
-}
-.highslide-controls .highslide-close a:hover {
-    background-position: -120px -20px;
-} 
-/* Highslide JS	- End */
+/* Hidden block */
+.hiddenbox { padding: 0 2px 2px 5px; background-color: #ffffff; border: 1px solid #d8d8d8; font-size: 1em; }
+.unhidden, .hidden { border-bottom: 1px solid #cccccc; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block; }
+.unhidden { color: #339900; }
+.hidden { color: #990000; }
+.hiddentext { color: #ff0000; }

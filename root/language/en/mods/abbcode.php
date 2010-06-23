@@ -1,11 +1,11 @@
 <?php
 /**
 * @package: phpBB3 :: Advanced BBCode box 3 -> language [en][English]
-* @version: $Id: abbcode.php, v 1.0.10 2008/08/01 08:08:01 leviatan21 Exp $
+* @version: $Id: abbcode.php, v 1.0.11 2008/10/11 11:10:08 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
-*
+* @translator: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
 **/
 
 /**
@@ -50,10 +50,11 @@ $lang = array_merge($lang, array(
 	'ABBC3_RESIZE_ZOOM_OUT'		=> 'Zoom out',
 	'ABBC3_RESIZE_FILESIZE'		=> 'This image has been resized. Click this bar to view the full image. The original image is sized %1$s x %2$s and weights %3$sKB.',
 	'ABBC3_RESIZE_NOFILESIZE'	=> 'This image has been resized. Click this bar to view the full image. The original image is sized %1$s x %2$s.',
-	'ABBC3_RESIZE_FULLSIZE'		=> 'Click this bar to view the small image.',
+	'ABBC3_RESIZE_FULLSIZE'		=> 'Image resized to : %1$s % of its original size [ %2$s x %3$s ]',
 	'ABBC3_RESIZE_NUMBER'		=> 'Image %1$s of %2$s',
 	'ABBC3_RESIZE_PLAY'			=> 'Play slideshow',
 	'ABBC3_RESIZE_PAUSE'		=> 'Pause slideshow',
+	'ABBC3_POPBOX_REVERSETEXT'	=> 'Click the image to shrink it.',
 
 // Highslide JS - http://vikjavev.no/highslide/forum/viewtopic.php?t=2119
 	'ABBC3_HIGHSLIDE_LOADINGTEXT'		=> 'Loading...',
@@ -103,32 +104,47 @@ $lang = array_merge($lang, array(
 	'ABBC3_NOTE'				=> 'Note',
 	'ABBC3_EXAMPLE'				=> 'Example',
 	'ABBC3_EXAMPLES'			=> 'Examples',
+	'ABBC3_UNAUTHORISED'		=> 'You cannot use certain words : <br /><strong> %s </strong>',
+	'SAMPLE_TEXT'				=> 'This is a sample text' //	' . $lang['SAMPLE_TEXT'] . '
+));
 
-// bbcodes texts	
+//
+// TRANSLATORS PLEASE NOTE 
+// Several lines have an special note like "##	For translate : " follow for one or more "yes" 
+// These means that you can/have to translate the word under
+//
+
+$lang = array_merge($lang, array(
+// bbcodes texts
 	// Font Type Dropdown
 	'ABBC3_FONT_MOVER'			=> 'Font type',
 	'ABBC3_FONT_TIP'			=> '[font=Comic Sans MS]text[/font]',
 	'ABBC3_FONT_NOTE'			=> 'Note: You can use your own font-family',
-	'ABBC3_FONT_VIEW'			=> '<span style="font-family:Comic Sans MS">This is a sample text</span>',
+	'ABBC3_FONT_VIEW'			=> '<span style="font-family:Comic Sans MS">' . $lang['SAMPLE_TEXT'] . '</span>',
+
+	// Font family Groups
+	'ABBC3_FONT_ABBC3'			=> 'ABBC Box 3',
+	'ABBC3_FONT_SAFE'			=> 'Safe list',
+	'ABBC3_FONT_WIN'			=> 'Win default',
 
 	// Font Size Dropdown
 	'ABBC3_FONT_GIANT'			=> 'Giant',
 	'ABBC3_SIZE_MOVER'			=> 'Font size',
 	'ABBC3_SIZE_TIP'			=> '[size=150]text large[/size]',
 	'ABBC3_SIZE_NOTE'			=> 'Note: The value will be interpreted as a percentage',
-	'ABBC3_SIZE_VIEW'			=> '<span style="font-size: 150%; line-height: 116%;">This is a sample text</span>',
+	'ABBC3_SIZE_VIEW'			=> '<span style="font-size: 150%; line-height: 116%;">' . $lang['SAMPLE_TEXT'] . '</span>',
 
 	// Highlight Font Color Dropdown
 	'ABBC3_HIGHLIGHT_MOVER'		=> 'Text highlighted',
 	'ABBC3_HIGHLIGHT_TIP'		=> '[highlight=yellow]text[/highlight]',
 	'ABBC3_HIGHLIGHT_NOTE'		=> 'Note: You can use html colors (color=#FF0000 or color=red)',
-	'ABBC3_HIGHLIGHT_VIEW'		=> '<span style="background-color: yellow;">This is a sample text</span>',
+	'ABBC3_HIGHLIGHT_VIEW'		=> '<span style="background-color: yellow;">' . $lang['SAMPLE_TEXT'] . '</span>',
 
 	// Font Color Dropdown
 	'ABBC3_COLOR_MOVER'			=> 'Font colour',
 	'ABBC3_COLOR_TIP'			=> '[color=red]text[/color]',
 	'ABBC3_COLOR_NOTE'			=> 'Note: You can use html colors (color=#FF0000 or color=red)',
-	'ABBC3_COLOR_VIEW'			=> '<span style="color:red">This is a sample text</span>',
+	'ABBC3_COLOR_VIEW'			=> '<span style="color:red">' . $lang['SAMPLE_TEXT'] . '</span>',
 
 	// Cut selected text
 	'ABBC3_CUT_MOVER'			=> 'Removes selected text',
@@ -144,151 +160,170 @@ $lang = array_merge($lang, array(
 	// Code
 	'ABBC3_CODE_MOVER'			=> 'Code',
 	'ABBC3_CODE_TIP'			=> '[code]code[/code]',
-	'ABBC3_CODE_VIEW'			=> '<dl class="codebox"><dt>'. $lang['CODE'] .': <a href="#" onclick="selectCode(this); return false;">'. $lang['SELECT_ALL_CODE'] .'</a></dt><dd><code>This is a sample text</code></dd></dl>',
+	'ABBC3_CODE_VIEW'			=> '<dl class="codebox"><dt>'. $lang['CODE'] .': <a href="#" onclick="selectCode(this); return false;">'. $lang['SELECT_ALL_CODE'] .'</a></dt><dd><code>' . $lang['SAMPLE_TEXT'] . '</code></dd></dl>',
 
 	// Quote
 	'ABBC3_QUOTE_MOVER'			=> 'Quote',
 	'ABBC3_QUOTE_TIP'			=> '[quote]text[/quote] or [quote=\"member\"]text[/quote]',
-	'ABBC3_QUOTE_VIEW'			=> '<blockquote><div><cite>member '. $lang['WROTE'] .':</cite>This is a sample text</div></blockquote>',
+##	For translate :                                        yes
+	'ABBC3_QUOTE_VIEW'			=> '<blockquote><div><cite>member '. $lang['WROTE'] .':</cite>' . $lang['SAMPLE_TEXT'] . '</div></blockquote>',
 
 	// html
-	'ABBC3_HTML_MOVER'			=> 'HTML code',
-	'ABBC3_HTML_TIP'			=> '[html]xhtml code[/html]',
+//	'ABBC3_HTML_MOVER'			=> 'HTML code',
+//	'ABBC3_HTML_TIP'			=> '[html]xhtml code[/html]',
 //	'ABBC3_HTML_EXAMPLE'		=> '[html]&lt;a href=\"http://www.mssti.com/phpbb3\"&gt;link to mssti&lt;/a&gt;[/html]',
-	'ABBC3_HTML_VIEW'			=> '<a href="http://www.mssti.com/phpbb3">link to mssti</a>',
+//	'ABBC3_HTML_VIEW'			=> '<a href="http://www.mssti.com/phpbb3">link to mssti</a>',
 
 	// Spoiler
 	'ABBC3_SPOIL_MOVER'			=> 'Spoiler text',
 	'ABBC3_SPOIL_TIP'			=> '[spoil]text[/spoil]',
-	'ABBC3_SPOIL_VIEW'			=> '<div class="spoilwrapper"><div class="spoiltitle"><input class="btnspoil" type="button" value="Show Spoiler" onclick="javascript:if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerText = \'\'; this.value = \'Hide Spoiler\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerText = \'\'; this.value = \'Show Spoiler\'; }" onfocus="this.blur();" /></div><div class="spoilcontent"><div style="display: none;">This is a sample text</div></div></div>',
+##	For translate :                                                                                                                               yes                                                      yes               yes
+	'ABBC3_SPOIL_VIEW'			=> '<div class="spoilwrapper"><div class="spoiltitle"><input id="1" class="btnspoil button2" type="button" value="Show Spoiler" onClick="javascript:abbc3_spoiler( 1, 2, \'Hide Spoiler\', \'Show Spoiler\' )"></div><div class="spoilcontent"><div id="2" style="display: none;">' . $lang['SAMPLE_TEXT'] . '</div></div></div>',
 	'SPOILER_SHOW'				=> 'Show Spoiler',
 	'SPOILER_HIDE'				=> 'Hide Spoiler',
+
+	// hidden
+	'ABBC3_HIDDEN_MOVER'		=>	'Hide content to guest',
+	'ABBC3_HIDDEN_TIP'			=>	'[hidden]text[/hidden]',
+	'HIDDEN_OFF'				=>	'Hidden is OFF',
+	'HIDDEN_ON'					=>	'Hidden is ON',
+	'HIDDEN_EXPLAIN'			=>	'The board requires you to be registered and logged in before you can view the hidden message',
 
 	// Moderator tag
 	'ABBC3_MOD_MOVER'			=> 'Moderator message',
 	'ABBC3_MOD_TIP'				=> '[mod=name]text[/mod]',
-	'ABBC3_MOD_VIEW'			=> '<table id="ModTable" width="100%" cellspacing="5" cellpadding="0" border="0" align="center"><tr><td class="row1" rowspan="2" align="middle" vAlign="center" width="1%"><span class="exclamation" title="Moderator warning" style="font-size:25px">&nbsp;!&nbsp;</span></td><td class="row2"><span class="genmed"><b>Mod Name:</b></span></td></tr><tr><td>This is a sample text</td></tr></table>',
+##	For translate :                                                                                                                                                                               yes
+	'ABBC3_MOD_VIEW'			=> '<table class="ModTable" width="100%" cellspacing="5" cellpadding="0" border="0"><tr><td class="exclamation" rowspan="2">&nbsp;!&nbsp;</td><td class="rowuser">Moderator_name '. $lang['WROTE'] .':</td></tr><tr><td class="rowtext">' . $lang['SAMPLE_TEXT'] . '</td></tr></table>',
 
 	// Off topic tag
 	'OFFTOPIC'					=> 'Offtopic',
 	'ABBC3_OFFTOPIC_MOVER'		=> 'Insert Off topic text',
 	'ABBC3_OFFTOPIC_TIP'		=> '[offtopic]text[/offtopic]',
-	'ABBC3_OFFTOPIC_VIEW'		=> '<i><b><font color="#114499">Offtopic: </font></b><br/><font color="#2277DD">This is a sample text</font></i>',
+##	For translate :                                                                yes
+	'ABBC3_OFFTOPIC_VIEW'		=> '<dl class="OffTopic"><dt class="OffTopicTitle">Offtopic: </dt><dd class="OffTopicText">' . $lang['SAMPLE_TEXT'] . '</dd></dl>',
 
 	// NFO
+	'ABBC3_NFO_TITLE'			=> 'NFO text',
 	'ABBC3_NFO_MOVER'			=> 'NFO text (Better on Internet explorer)',
 	'ABBC3_NFO_TIP'				=> '[nfo]NFO text[/nfo]',
-	'ABBC3_NFO_VIEW'			=> '<table cellspacing="0" cellpadding="0" border="0" ><tr><td><span class="genmed"><b>NFO:</b></span></td></tr><tr><td class="nfo">' . str_replace(" ", "&nbsp;", '    ≤ €€€€ €€±±∞                                  ∞∞∞±±±±≤≤≤€€€€€€€€€€€  €   €€ €€€') . '</td></tr></table>',
+	'ABBC3_NFO_VIEW'			=> '<table cellspacing="0" cellpadding="0" border="0" ><tr><td><span class="genmed"><b>NFO:</b></span></td></tr><tr><td class="nfo">' . str_replace(" ", "&nbsp;", '    √ú¬≤√ú  √õ √õ¬≤¬≤     √õ√õ√õ√õ  √õ √õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ√õ     √õ√õ√õ√õ √õ  √õ √õ√õ√õ√õ√õ ¬≤¬≤ ¬±') . '</td></tr></table>',
 
 	// Justify Align
 	'ABBC3_ALIGNJUSTIFY_MOVER'	=> 'Text justified',
 	'ABBC3_ALIGNJUSTIFY_TIP'	=> '[align=justify]text[/align]',
-	'ABBC3_ALIGNJUSTIFY_VIEW'	=> '<div style="text-align:justify">This is <br/>a sample text</div>',
+##	For translate :                                                 yes          yes
+	'ABBC3_ALIGNJUSTIFY_VIEW'	=> '<div style="text-align:justify">This is <br />a sample text</div>',
 
 	// Right Align
 	'ABBC3_ALIGNRIGHT_MOVER'	=> 'Text right aligned',
 	'ABBC3_ALIGNRIGHT_TIP'		=> '[align=right]text[/align]',
-	'ABBC3_ALIGNRIGHT_VIEW'		=> '<div style="text-align:right">This is a sample text</div>',
+	'ABBC3_ALIGNRIGHT_VIEW'		=> '<div style="text-align:right">' . $lang['SAMPLE_TEXT'] . '</div>',
 
 	// Center Align
 	'ABBC3_ALIGNCENTER_MOVER'	=> 'Text aligned to the center',
 	'ABBC3_ALIGNCENTER_TIP'		=> '[align=center]text[/align]',
-	'ABBC3_ALIGNCENTER_VIEW'	=> '<div style="text-align:center">This is a sample text</div>',
+	'ABBC3_ALIGNCENTER_VIEW'	=> '<div style="text-align:center">' . $lang['SAMPLE_TEXT'] . '</div>',
 
 	// Left Align
 	'ABBC3_ALIGNLEFT_MOVER'		=> 'Text left aligned',
 	'ABBC3_ALIGNLEFT_TIP'		=> '[align=left]text[/align]',
-	'ABBC3_ALIGNLEFT_VIEW'		=> '<div style="text-left:justify">This is a sample text</div>',
+	'ABBC3_ALIGNLEFT_VIEW'		=> '<div style="text-left:justify">' . $lang['SAMPLE_TEXT'] . '</div>',
 
 	// Preformat
 	'ABBC3_PRE_MOVER'			=> 'Text preformatted',
 	'ABBC3_PRE_TIP'				=> '[pre]text[/pre]',
-	'ABBC3_PRE_VIEW'			=> '<pre>This is a sample text</pre>',
+	'ABBC3_PRE_VIEW'			=> '<pre>' . $lang['SAMPLE_TEXT'] . '</pre>',
 
 	// Tab
 	'ABBC3_TAB_MOVER'			=> 'Creates a normal indent',
 	'ABBC3_TAB_TIP'				=> '[tab=nn]',
 	'ABBC3_TAB_NOTE'			=> 'Enter a number that will be a margin measured in pixels.',
-	'ABBC3_TAB_VIEW'			=> '<span style="margin-left:20px;"></span>This is a sample text',
+	'ABBC3_TAB_VIEW'			=> '<span style="margin-left:20px;"></span>' . $lang['SAMPLE_TEXT'] . '',
 
 	// Superscript
 	'ABBC3_SUP_MOVER'			=> 'Sets the text as superscripts',
 	'ABBC3_SUP_TIP'				=> '[sup]text[/sup]',
-	'ABBC3_SUP_VIEW'			=> '<sup>This is a sample text</sup>',
+##	For translate :                 yes                                                                 yes
+	'ABBC3_SUP_VIEW'			=> 'This is a normal text <sup>' . $lang['SAMPLE_TEXT'] . '</sup> this is a normal text',
 
 	// Subscript
 	'ABBC3_SUB_MOVER'			=> 'Sets the text as subscripts',
 	'ABBC3_SUB_TIP'				=> '[sub]text[/sub]',
-	'ABBC3_SUB_VIEW'			=> '<sub>This is a sample text</sub>',
+##	For translate :                 yes                                                                 yes
+	'ABBC3_SUB_VIEW'			=> 'This is a normal text <sub>' . $lang['SAMPLE_TEXT'] . '</sub> this is a normal text',
 
 	// Bold
 	'ABBC3_B_MOVER'				=> 'Text in bold',
 	'ABBC3_B_TIP'				=> '[b]text[/b]',
-	'ABBC3_B_VIEW'				=> '<strong>This is a sample text</strong>',
+	'ABBC3_B_VIEW'				=> '<strong>' . $lang['SAMPLE_TEXT'] . '</strong>',
 
 	// Italic
 	'ABBC3_I_MOVER'				=> 'Text in italics',
 	'ABBC3_I_TIP'				=> '[i]text[/i]',
-	'ABBC3_I_VIEW'				=> '<em>This is a sample text</em>',
+	'ABBC3_I_VIEW'				=> '<em>' . $lang['SAMPLE_TEXT'] . '</em>',
 
 	// Underline
 	'ABBC3_U_MOVER'				=> 'Text underlined',
 	'ABBC3_U_TIP'				=> '[u]text[/u]',
-	'ABBC3_U_VIEW'				=> '<span style="text-decoration: underline">This is a sample text</span>',
+	'ABBC3_U_VIEW'				=> '<span style="text-decoration: underline">' . $lang['SAMPLE_TEXT'] . '</span>',
 
 	// Strikethrough
 	'ABBC3_S_MOVER'				=> 'Text strikethrough',
 	'ABBC3_S_TIP'				=> '[s]text[/s]',
-	'ABBC3_S_VIEW'				=> '<span style="text-decoration: line-through;">This is a sample text</span>',
+	'ABBC3_S_VIEW'				=> '<span style="text-decoration: line-through;">' . $lang['SAMPLE_TEXT'] . '</span>',
 
 	// Text Fade
 	'ABBC3_FADE_MOVER'			=> 'Text fadein fadeout',
 	'ABBC3_FADE_TIP'			=> '[fade]text[/fade]',
-	'ABBC3_FADE_VIEW'			=> '<span class="fade_link">This is a sample text</span> <script type="text/javascript">fade_ontimer()</script>',
+	'ABBC3_FADE_VIEW'			=> '<span class="fade_link">' . $lang['SAMPLE_TEXT'] . '</span> <script type="text/javascript">fade_ontimer()</script>',
 
 	// Text Gradient
 	'ABBC3_GRAD_MOVER'			=> 'Text gradient',
 	'ABBC3_GRAD_TIP'			=> '',
-	'ABBC3_GRAD_VIEW'			=> '<span style="color: #FF0000">T</span><span style="color: #F2000D">h</span><span style="color: #E6001A">i</span><span style="color: #D90026">s</span> <span style="color: #BF0040">i</span><span style="color: #B3004D">s</span> <span style="color: #990066">a</span> <span style="color: #800080">s</span><span style="color: #73008C">i</span><span style="color: #660099">m</span><span style="color: #5900A6">p</span><span style="color: #4D00B3">l</span><span style="color: #4000BF">e</span> <span style="color: #2600D9">t</span><span style="color: #1A00E6">e</span><span style="color: #0D00F2">x</span><span style="color: #0000FF">t</span>',
+##For translate (The separate words are "This is a sample text") yes                                  yes                                  yes                                  yes                                   yes                                  yes                                   yes                                   yes                                  yes                                  yes                                  yes                                  yes                                  yes                                   yes                                  yes                                  yes                                  yes
+	'ABBC3_GRAD_VIEW'			=> '<span style="color: #FF0000">T</span><span style="color: #F2000D">h</span><span style="color: #E6001A">i</span><span style="color: #D90026">s</span> <span style="color: #BF0040">i</span><span style="color: #B3004D">s</span> <span style="color: #990066">a</span> <span style="color: #800080">s</span><span style="color: #73008C">a</span><span style="color: #660099">m</span><span style="color: #5900A6">p</span><span style="color: #4D00B3">l</span><span style="color: #4000BF">e</span> <span style="color: #2600D9">t</span><span style="color: #1A00E6">e</span><span style="color: #0D00F2">x</span><span style="color: #0000FF">t</span>',
 	'ABBC3_GRAD_MIN_ERROR'		=> 'Please, first select the text : ',
 	'ABBC3_GRAD_MAX_ERROR'		=> 'Only allows less than 120 characters : ',
+	'ABBC3_GRAD_COLORS'			=> 'Pre Selected Colors',
 
 	// Glow text
 	'ABBC3_GLOW_MOVER'			=> 'Glow text (Only Internet explorer)',
 	'ABBC3_GLOW_TIP'			=> '[glow=(color)]text[/glow]',
-	'ABBC3_GLOW_VIEW'			=> '<div style="filter:Glow(color=red,strength=4);color:#ffffff;height:110%">This is a sample text</div>',
+	'ABBC3_GLOW_VIEW'			=> '<div style="filter:Glow(color=red,strength=4);color:#ffffff;height:110%">' . $lang['SAMPLE_TEXT'] . '</div>',
 
 	// Shadow text
 	'ABBC3_SHADOW_MOVER'		=> 'Shadow text (Only Internet explorer)',
 	'ABBC3_SHADOW_TIP'			=> '[shadow=(color)]text[/shadow]',
-	'ABBC3_SHADOW_VIEW'			=> '<div style="filter:shadow(color=black,strength=4);color:blue;height:110%">This is a sample text</div>',
+	'ABBC3_SHADOW_VIEW'			=> '<div style="filter:shadow(color=black,strength=4);color:blue;height:110%">' . $lang['SAMPLE_TEXT'] . '</div>',
 
 	// Dropshadow text
 	'ABBC3_DROPSHADOW_MOVER'	=> 'Dropshadow text (Only Internet explorer)',
 	'ABBC3_DROPSHADOW_TIP'		=> '[dropshadow=(color)]text[/dropshadow]',
-	'ABBC3_DROPSHADOW_VIEW'		=> '<div style="filter:dropshadow(color=#999999,strength=4);color:blue;height:110%">This is a sample text</div>',
+	'ABBC3_DROPSHADOW_VIEW'		=> '<div style="filter:dropshadow(color=#999999,strength=4);color:blue;height:110%">' . $lang['SAMPLE_TEXT'] . '</div>',
 
 	// Blur text
 	'ABBC3_BLUR_MOVER'			=> 'Blur text (Only Internet explorer)',
 	'ABBC3_BLUR_TIP'			=> '[blur=(color)]text[/blur]',
-	'ABBC3_BLUR_VIEW'			=> '<div style="filter:Blur(strength=7);color:blue;height:110%">This is a sample text</div>',
+	'ABBC3_BLUR_VIEW'			=> '<div style="filter:Blur(strength=7);color:blue;height:110%">' . $lang['SAMPLE_TEXT'] . '</div>',
 
 	// Wave text
 	'ABBC3_WAVE_MOVER'			=> 'Wave text (Only Internet explorer)',
 	'ABBC3_WAVE_TIP'			=> '[wave=(color)]text[/wave]',
-	'ABBC3_WAVE_VIEW'			=> '<div style="filter:Wave(strength=2);color:blue;height:110%">This is a sample text</div>',
+	'ABBC3_WAVE_VIEW'			=> '<div style="filter:Wave(strength=2);color:blue;height:110%">' . $lang['SAMPLE_TEXT'] . '</div>',
 
 	// Unordered List
 	'ABBC3_LISTB_MOVER'			=> 'Bullet list',
 	'ABBC3_LISTB_TIP'			=> '[list]text[/list]',
 	'ABBC3_LISTB_NOTE'			=> 'Note: Use [*] to create bullets',
-	'ABBC3_LISTB_VIEW'			=> '<ul><li>Item1</li><li>Item2</li><li>Item3</li></ul>',
+##	For translate :                         yes           yes           yes                   yes              yes              yes                yes
+	'ABBC3_LISTB_VIEW'			=> '<ul><li>Item1</li><li>Item2</li><li>Item3</li></ul><br /> or <br /><ul><li>Item disc<ul><li>Item circle<ul><li>item square</li></ul></li></ul></li></ul><br />',
 
 	// Ordered List
 	'ABBC3_LISTO_MOVER'			=> 'Ordered list',
-	'ABBC3_LISTO_TIP'			=> '[list=1|a]text[/list]',
+	'ABBC3_LISTO_TIP'			=> '[list=1|a|A|i|I]text[/list]',
 	'ABBC3_LISTO_NOTE'			=> 'Note: Use [*] to create bullets',
-	'ABBC3_LISTO_VIEW'			=> '<ol style="list-style-type: lower-alpha"><li>Item1</li><li>Item2</li><li>Item3</li></ol>',
+##	For translate :                                                                  yes          yes           yes             yes                                                   yes           yes           yes             yes                                                   yes            yes            yes              yes                                                   yes            yes             yes                yes                                                   yes            yes             yes
+	'ABBC3_LISTO_VIEW'			=> '<ol style="list-style-type: arabic-numbers"><li>Item1</li><li>Item2</li><li>Item3</li></ol> or <br /><ol style="list-style-type: lower-alpha"><li>Item1</li><li>Item2</li><li>Item3</li></ol> or <br /><ol style="list-style-type: upper-alpha"><li>item A</li><li>item B</li><li>item C</li></ol> or <br /><ol style="list-style-type: lower-roman"><li>Item i</li><li>Item ii</li><li>Item iii</li></ol> or <br /><ol style="list-style-type: upper-roman"><li>Item I</li><li>Item II</li><li>Item III</li></ol>',
 
 	// List item
 	'ABBC3_LISTITEM_MOVER'		=> 'List item',
@@ -304,37 +339,37 @@ $lang = array_merge($lang, array(
 	// Message Box text direction Left to right
 	'ABBC3_DIRRTL_MOVER'		=> 'Text with reading right-to-left',
 	'ABBC3_DIRRTL_TIP'			=> '[dir=rtl]text[/dir]',
-	'ABBC3_DIRRTL_VIEW'			=> '<BDO dir="rtl">This is a sample text</BDO>',
+	'ABBC3_DIRRTL_VIEW'			=> '<BDO dir="rtl">' . $lang['SAMPLE_TEXT'] . '</BDO>',
 
 	// Message Box text direction right to Left
 	'ABBC3_DIRLTR_MOVER'		=> 'Text with reading left-to-right',
 	'ABBC3_DIRLTR_TIP'			=> '[dir=ltr]text[/dir]',
-	'ABBC3_DIRLTR_VIEW'			=> '<BDO dir="ltr">This is a sample text</BDO>',
+	'ABBC3_DIRLTR_VIEW'			=> '<BDO dir="ltr">' . $lang['SAMPLE_TEXT'] . '</BDO>',
 
 	// Marquee Down
 	'ABBC3_MARQDOWN_MOVER'		=> 'Scrolling text down',
 	'ABBC3_MARQDOWN_TIP'		=> '[marq=down]text[/marq]',
-	'ABBC3_MARQDOWN_VIEW'		=> '<marquee direction="down" scrolldelay="120" height="80px">This is a sample text</marquee>',
+	'ABBC3_MARQDOWN_VIEW'		=> '<marquee direction="down" scrolldelay="120" height="80px">' . $lang['SAMPLE_TEXT'] . '</marquee>',
 
 	// Marquee Up
 	'ABBC3_MARQUP_MOVER'		=> 'Scrolling text upwards',
 	'ABBC3_MARQUP_TIP'			=> '[marq=up]text[/marq]',
-	'ABBC3_MARQUP_VIEW'			=> '<marquee direction="up" scrolldelay="120" height="80px">This is a sample text</marquee>',
+	'ABBC3_MARQUP_VIEW'			=> '<marquee direction="up" scrolldelay="120" height="80px">' . $lang['SAMPLE_TEXT'] . '</marquee>',
 
 	// Marquee Right
 	'ABBC3_MARQRIGHT_MOVER'		=> 'Displacement text to the right',
 	'ABBC3_MARQRIGHT_TIP'		=> '[marq=right]text[/marq]',
-	'ABBC3_MARQRIGHT_VIEW'		=> '<marquee direction="right" scrolldelay="120">This is a sample text</marquee>',
+	'ABBC3_MARQRIGHT_VIEW'		=> '<marquee direction="right" scrolldelay="120">' . $lang['SAMPLE_TEXT'] . '</marquee>',
 
 	// Marquee Left
 	'ABBC3_MARQLEFT_MOVER'		=> 'Displacement text to the left',
 	'ABBC3_MARQLEFT_TIP'		=> '[marq=left]text[/marq]',
-	'ABBC3_MARQLEFT_VIEW'		=> '<marquee direction="left" scrolldelay="120">This is a sample text</marquee>',
+	'ABBC3_MARQLEFT_VIEW'		=> '<marquee direction="left" scrolldelay="120">' . $lang['SAMPLE_TEXT'] . '</marquee>',
 
 	// Table row cell wizard
 	'ABBC3_TABLE_MOVER'			=> 'Insert a table',
 	'ABBC3_TABLE_TIP'			=> '[table=(ccs style)][tr=(ccs style)][td=(ccs style)]text[/td][/tr][/table]',
-	'ABBC3_TABLE_VIEW'			=> '<table style="width:50%;border:1px solid #cccccc;" cellspacing="0" cellpadding="0"><tr style="text-align:center;"><td style="border:1px solid #cccccc;">This is a sample text</td></tr></table>',
+	'ABBC3_TABLE_VIEW'			=> '<table style="width:50%;border:1px solid #cccccc;" cellspacing="0" cellpadding="0"><tr style="text-align:center;"><td style="border:1px solid #cccccc;">' . $lang['SAMPLE_TEXT'] . '</td></tr></table>',
 
 	'ABBC3_TABLE_STYLE'			=> 'Enter style table',
 	'ABBC3_TABLE_EXAMPLE'		=> 'width:50%;border:1px solid #cccccc;',
@@ -358,7 +393,7 @@ $lang = array_merge($lang, array(
 	'ABBC3_UPLOAD_ALREADY'		=> 'Attach %s already exist, please choose an alternative or rename your file and try again',
 	'ABBC3_UPLOAD_ERROR'		=> 'Could not upload file to %s. Return error code : %d',
 	'ABBC3_UPLOAD_EXTENSION'	=> 'Available extensions',
-	'ABBC3_UPLOAD_EXTENSION_EXPLAIN'	=> 'You can add/change/delete allowed datatypes. Separate extensions with a comma (,)',
+
 	'ABBC3_UPLOAD_DISABLED'		=> 'The upload extension %s is not allowed',
 	'ABBC3_UPLOAD_SIZE'			=> 'The maximum size',
 	'ABBC3_UPLOAD_NOSIZE'		=> 'The upload filesize %d is too large. The maximum allowed upload size is %d KB',
@@ -385,6 +420,9 @@ $lang = array_merge($lang, array(
 	'ABBC3_ED2K_EXAMPLE'		=> 'ed2k://|file|The_Two_Towers-The_Purist_Edit-Trailer.avi|14997504|965c013e991ee246d63d45ea71954c4d|/',
 	'ABBC3_ED2K_VIEW'			=> '<a href="ed2k://|file|The_Two_Towers-The_Purist_Edit-Trailer.avi|14997504|965c013e991ee246d63d45ea71954c4d|/" class="postlink">The_Two_Towers-The_Purist_Edit-Trailer.avi</a>',
 	'ABBC3_ED2K_ADD'			=> 'Add selected links to your ed2k client',
+	'ABBC3_ED2K_FRIEND'			=> 'ed2k friend',
+	'ABBC3_ED2K_SERVER'			=> 'ed2k server',
+	'ABBC3_ED2K_SERVERLIST'		=> 'ed2k serverlist',
 
 	// Web included by iframe
 	'ABBC3_WEB_TAG'				=> 'web',
@@ -405,7 +443,7 @@ $lang = array_merge($lang, array(
 	'ABBC3_THUMBNAIL_MOVER'		=> 'Insert thumbnail',
 	'ABBC3_THUMBNAIL_TIP'		=> '[thumbnail(=left|right)]http://...[/thumbnail]',
 	'ABBC3_THUMBNAIL_EXAMPLE'	=> 'http://www.google.com/intl/en_com/images/logo_plain.png',
-	'ABBC3_THUMBNAIL_VIEW'		=> '<img src="http://www.google.com/intl/en_com/images/logo_plain.png" alt="" border="0" " width="' . $config['ABBC3_MAX_THUM_WIDTH'] . '" class="hoverbox" />',
+	'ABBC3_THUMBNAIL_VIEW'		=> '<img src="http://www.google.com/intl/en_com/images/logo_plain.png" alt="' . $user->lang['IMAGE'] . '" border="0" width="200px" class="hoverbox resize_me" />',
 
 	// Imgshack
 	'ABBC3_IMGSHACK_MOVER'		=> 'Insert image from imageshack',
@@ -413,6 +451,7 @@ $lang = array_merge($lang, array(
 	'ABBC3_IMGSHACK_VIEW'		=> '<a href="http://img207.imageshack.us/my.php?image=advancedbbcodebox3prosidd3.gif" class="postlink"><img src="http://img207.imageshack.us/img207/1773/advancedbbcodebox3prosidd3.th.gif" alt="Image" /></a>',
 
 	// Rapid share checker
+	'ABBC3_FOPEN_ERROR'			=> '<strong>Error : </strong> Sorry but it appears that <strong>allow_url_fopen</strong> is disabled., this function requires the PHP directive allow_url_fopen to be enabled.',
 	'ABBC3_RAPIDSHARE_TAG'		=> 'rapidshare',
 	'ABBC3_RAPIDSHARE_MOVER'	=> 'Insert a file from rapidshare',
 	'ABBC3_RAPIDSHARE_TIP'		=> '[rapidshare]http://rapidshare.com/files/...[/rapidshare]',
@@ -423,6 +462,7 @@ $lang = array_merge($lang, array(
 
 	// testlink
 	'ABBC3_CURL_ERROR'			=> '<strong>Error : </strong> Sorry but it appears that CURL is not loaded, Please install it to use this function.',
+	'ABBC3_LOGIN_EXPLAIN_VIEW'	=> 'The board requires you to be registered and logged in to view links.',
 	'ABBC3_TESTLINK_TAG'		=> 'link checker',
 	'ABBC3_TESTLINK_MOVER'		=> 'Insert a file stored on public server',
 	'ABBC3_TESTLINK_TIP'		=> '[testlink]http://rapidshare.com/files/...[/testlink]',
@@ -440,10 +480,11 @@ $lang = array_merge($lang, array(
 	'ABBC3_CLICK_VIEW'			=> '<a href="./click.php?id=1" >http://www.phpbb.com</a> ( Clicked 1 time )<br />',
 	'ABBC3_CLICK_TIME'			=> '( Clicked %d time )',
 	'ABBC3_CLICK_TIMES'			=> '( Clicked %d times )',
+	'ABBC3_CLICK_ERROR'			=> '<strong>ERROR:</strong> Please enter a VALID click ID in URL',
 
 	// Search tag
 	'ABBC3_SEARCH_MOVER'		=> 'Insert search word',
-	'ABBC3_SEARCH_TIP'			=> '[search(=(msn|yahoo|google))]text[/search]',
+	'ABBC3_SEARCH_TIP'			=> '[search(=(msn|yahoo|google|altavista|lycos|wikipedia))]text[/search]',
 	'ABBC3_SEARCH_VIEW'			=> $lang['SEARCH_MINI'] . ' ' . $config['sitename'] . ' : <a href="search.php?keywords=Advanced BBcode box 3">"Advanced BBcode box 3"</a><br/><br/>' . $lang['SEARCH_MINI'] . ' msn : <a href="http://search.live.com/results.aspx?q=Advanced BBcode box 3&mkt=tr-TR&lf=1" target="_blank">"Advanced BBcode box 3"</a><br/><br/>' .$lang['SEARCH_MINI'] . ' yahoo : <a href="http://search.yahoo.com/search?p=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3"</a><br/><br/>' . $lang['SEARCH_MINI'] . ' google : <a href="http://www.google.com.tr/search?q=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3"</a>',
 
 	// BBvideo Wizard
@@ -563,6 +604,12 @@ $lang = array_merge($lang, array(
 	'ABBC3_LIVELEAK_VIEW'		=> '<object type="application/x-shockwave-flash" width="200" height="100" wmode="transparent" data="http://www.liveleak.com/player.swf?autostart=false&token=i=413_1202590393"><param name="movie" value="http://www.liveleak.com/player.swf?autostart=false&token=$1" /><param name="wmode" value="transparent" /><param name="quality" value="high" /></object>',
 
 	// Custom BBcodes
-));
+	// Deezer audio
+	'DEEZER_TAG'			=> 'Deezer',
+	'DEEZER_MOVER'			=> 'Insert audio from Deezer',
+	'DEEZER_TIP'			=> '[Deezer]Deezer audio URL[/Deezer]',
+	'DEEZER_EXAMPLE'		=> 'http://www.deezer.com/track/351534',
+	'DEEZER_VIEW'			=> '<object width="180" height="220"><param name="movie" value="http://www.deezer.com/embedded/widget.swf?path=696108&lang=en&autoplay=true&id=351534"></param><embed src="http://www.deezer.com/embedded/widget.swf?path=696108&lang=en&autoplay=true&id=351534" type="application/x-shockwave-flash" width="180" height="220"></embed></object>',
 
+));
 ?>

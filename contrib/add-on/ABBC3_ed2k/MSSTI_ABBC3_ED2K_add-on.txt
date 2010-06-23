@@ -5,13 +5,15 @@
 ##
 ## MOD Description: This mod add-on added a new feature for ed2k post in your forum.
 ##
-## MOD Version: 0.0.4
+## MOD Version: 1.0.10a
 ##
 ## Installation Level: Easy
 ## Installation Time: ~1 Minutes
 ##
-## Files To Edit: 1
+## Files To Edit:
 ##	viewtopic.php
+##	styles/prosilver/template/viewtopic_body.html
+##	styles/subsilver2/template/viewtopic_body.html
 ##
 ## Included Files: 0
 ##
@@ -39,10 +41,10 @@ viewtopic.php
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-	$message = smiley_text($message);
+	$prev_post_id = $row['post_id'];
 
 #
-#-----[ AFTER, ADD ]-------------------------------------------------
+#-----[ REPLACE, WITH ]-------------------------------------------------
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find. 
 #
 // MOD : add-on MSSTI ABBC3 eD2k Add all links feature - START
@@ -50,9 +52,99 @@ viewtopic.php
 	{
 		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
 	}
-	$message = make_addalled2k_link_abbc3($message, $row['post_id']);
+
+	$t_ed2k_reallinks = make_addalled2k_link_abbc3($message);
+
+	if ( !empty($t_ed2k_reallinks) && sizeof($t_ed2k_reallinks) > 1 )
+	{
+		global $abbc3_unique_id;
+
+		$user->add_lang('mods/abbcode');
+
+		$template->assign_vars(array(
+			'ALL_ED2K_LINK'	=> true,
+			'ED2K_ID'		=> "'posttable" . $abbc3_unique_id . "'",
+			'ED2K_TEXT1'	=> $user->lang['ABBC3_ED2K_TAG'],
+			'ED2K_TEXT2'	=> $user->lang['SELECT_ALL_CODE'],
+			'ED2K_TEXT3'	=> $user->lang['ABBC3_ED2K_ADD'],
+		));
+
+		foreach( $t_ed2k_reallinks as $t_ed2klink )
+		{
+			$t_ed2k_parts = explode( "|", $t_ed2klink );
+
+			$template->assign_block_vars('postrow.ed2k_row', array(
+				'LINK_VALUE' 	=> $t_ed2klink,
+				'LINK_TEXT'		=> $t_ed2k_parts[2],
+			));
+		}
+
+	}
+	unset($t_ed2k_reallinks);
 // MOD : add-on MSSTI ABBC3 eD2k Add all links feature - End
 
+	$prev_post_id = $row['post_id'];
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+styles/prosilver/template/viewtopic_body.html
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			<!-- IF postrow.S_DISPLAY_NOTICE --><div class="rules">{L_DOWNLOAD_NOTICE}</div><!-- ENDIF -->
+#
+#-----[ REPLACE, WITH ]-------------------------------------------------
+#
+<!-- // MOD : MSSTI ABBC3 (V1.0.10a) add-on eD2k Add all links feature - Start -->
+			<!-- IF ALL_ED2K_LINK -->
+			<br />
+			<hr />
+			<div class="ed2k_div1"><a href="javascript:abbc3_toggle({ED2K_ID});">{ED2K_TEXT1}</a></div>
+			<div id={ED2K_ID} class="ed2k_div2">
+				<dl class="ed2k_table">
+					<!-- BEGIN ed2k_row -->
+					<dd><input type="checkbox" name="lnk" value="{postrow.ed2k_row.LINK_VALUE}" />{postrow.ed2k_row.LINK_TEXT}</dd>
+					<!-- END ed2k_row -->
+					<dd style="text-align:center;"><input type="button" value="{ED2K_TEXT2}" class="button2" onclick="checkAll('lnk')" />&nbsp;&nbsp;<input type="button" value="{ED2K_TEXT3}" class="button2" onclick="download('lnk',0,1)" /></dd>
+				</dl>
+			</div>
+			<!-- ENDIF -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.10a) add-on eD2k Add all links feature - End -->
+
+			<!-- IF postrow.S_DISPLAY_NOTICE --><div class="rules">{L_DOWNLOAD_NOTICE}</div><!-- ENDIF -->
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+styles/subsilver2/template/viewtopic_body.html
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+					<!-- IF postrow.S_DISPLAY_NOTICE -->
+#
+#-----[ REPLACE, WITH ]-------------------------------------------------
+#
+<!-- // MOD : MSSTI ABBC3 (V1.0.10a) add-on eD2k Add all links feature - Start -->
+					<!-- IF ALL_ED2K_LINK -->
+					<br />
+					<hr />
+					<div class="ed2k_div1"><a href="javascript:toggle_ed2k({ED2K_ID});">{ED2K_TEXT1}</a></div>
+					<div id={ED2K_ID} class="ed2k_div2" >
+						<table border="0" cellspacing="0" cellpadding="0" class="ed2k_table" width="100%">
+							<!-- BEGIN ed2k_row -->
+							<tr>
+								<td class="ed2k_col1"><input type="checkbox" name="lnk" value="{postrow.ed2k_row.LINK_VALUE}" /></td>
+								<td class="ed2k_col2">{postrow.ed2k_row.LINK_TEXT}</td>
+							</tr>
+							<!-- END ed2k_row -->
+							<tr>
+								<td colspan="2" class="ed2k_col1"><input type="button" value="{ED2K_TEXT2}" class="button2" onclick="checkAll('lnk')" />&nbsp;&nbsp;<input type="button" value="{ED2K_TEXT3}" class="button2" onclick="download('lnk',0,1)" /></td>
+							</tr>
+						</table>
+					</div>
+					<!-- ENDIF -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.10a) add-on eD2k Add all links feature - End -->
+
+					<!-- IF postrow.S_DISPLAY_NOTICE -->
 #
 #-----[DIY]----------------------------------------------------------
 #

@@ -1,0 +1,104 @@
+#####################################################################
+## MOD Title: Advanced BBCode Box 3 ( aka ABBC3 )
+##
+## MOD Author: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
+##
+## MOD Description: How to upgrade ABBC3 from 1.0.10 to 1.0.11
+##
+## MOD Version: 1.0.11
+##
+## Files To Edit:
+## 	root/language/en/mods/abbcode.php
+## 	root/language/en/mods/acp_abbcode.php
+##
+#####################################################################
+##
+## Author notes :
+##
+##	This file describes the changes in language files
+##
+#####################################################################
+#
+#---- [ OPEN ] ------------------------------------------------------
+#
+root/language/en/mods/abbcode.php
+#####################################################################
+Line		Note		Variable							Need tranlation?
+#####################################################################
+
+53			Changed		ABBC3_RESIZE_FULLSIZE				yes
+106			New	line	ABBC3_UNAUTHORISED					yes
+107			New line	SAMPLE_TEXT							yes
+110 to 114	New lines	Note about translation				no
+122			Changed		ABBC3_FONT_VIEW						No more
+134			Changed		ABBC3_SIZE_VIEW						No more
+140			Changed		ABBC3_HIGHLIGHT_VIEW				No more
+146			Changed		ABBC3_COLOR_VIEW					No more
+162			Changed		ABBC3_CODE_VIEW						No more
+167			New line	Note about translation				no
+179			New line	Note about translation				no
+187			New line	Note about translation				no
+194			New line	Note about translation				no
+198			New line	ABBC3_NFO_TITLE						Yes
+206			New line	Note about translation				no
+212			Changed		ABBC3_ALIGNRIGHT_VIEW				No more
+217			Changed		ABBC3_ALIGNCENTER_VIEW				No more
+222			Changed		ABBC3_ALIGNLEFT_VIEW				No more
+227			Changed		ABBC3_PRE_VIEW						No more
+233			Changed		ABBC3_TAB_VIEW						No more
+238			New line	Note about translation				no
+244			New line	Note about translation				no
+250			Changed		ABBC3_B_VIEW						No more
+255			Changed		ABBC3_I_VIEW						No more
+260			Changed		ABBC3_U_VIEW						No more
+265			Changed		ABBC3_S_VIEW						No more
+270			Changed		ABBC3_FADE_VIEW						No more
+275			New line	Note about translation				no
+279			New line	ABBC3_GRAD_COLORS					Yes
+284			Changed		ABBC3_GLOW_VIEW						No more
+289			Changed		ABBC3_SHADOW_VIEW					No more
+294			Changed		ABBC3_DROPSHADOW_VIEW				No more
+299			Changed		ABBC3_BLUR_VIEW						No more
+304			Changed		ABBC3_WAVE_VIEW						No more
+310			New line	Note about translation					no
+311			Changed		ABBC3_LISTB_VIEW					Yes
+317			New line	Note about translation				no
+318			Changed		ABBC3_LISTO_VIEW					Yes
+334			Changed		ABBC3_DIRRTL_VIEW					No more
+339			Changed		ABBC3_DIRLTR_VIEW					No more
+344			Changed		ABBC3_MARQDOWN_VIEW					No more
+349			Changed		ABBC3_MARQUP_VIEW					No more
+354			Changed		ABBC3_MARQRIGHT_VIEW				No more
+359			Changed		ABBC3_MARQLEFT_VIEW					No more
+388			Deleted 	ABBC3_UPLOAD_EXTENSION_EXPLAIN		Moved to root/language/en/mods/acp_abbcode.php
+415			New line	ABBC3_ED2K_FRIEND					Yes
+416			New line	ABBC3_ED2K_SERVER					Yes
+417			New line	ABBC3_ED2K_SERVERLIST				Yes
+438			Changed		ABBC3_THUMBNAIL_VIEW				No
+446			New line	ABBC3_FOPEN_ERROR					Yes
+457			New line	ABBC3_LOGIN_EXPLAIN_VIEW			Yes
+475			New line	ABBC3_CLICK_ERROR					Yes
+479			Changed		ABBC3_SEARCH_TIP					No
+
+#####################################################################
+#
+#---- [ OPEN ] ------------------------------------------------------
+#
+root/language/en/mods/acp_abbcode.php
+#####################################################################
+Line		Note		Variable							Need tranlation?
+#####################################################################
+
+67			Changed		Note about translation				no
+68			Changed		ABBCODES_RESIZE_METHODS				Yes
+74			New line	ABBCODES_RESIZE_SIGNATURE			Yes
+75			New line	ABBCODES_RESIZE_SIGNATURE_EXPLAIN	Yes
+82			New line	ABBCODES_UPLOAD_EXTENSION			Yes
+83			New line	ABBCODES_UPLOAD_EXTENSION_EXPLAIN	Yes
+106			New line	ABBCODES_SYNC						Yes
+107			New line	ABBCODES_RESYNC_SUCCESS				Yes
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+#
+# EoM
