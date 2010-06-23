@@ -1,0 +1,52 @@
+<!-- INCLUDE overall_header.html -->
+
+	<div class="clear" id="ABBC3Help"></div>
+	
+	<span style="float: right;">{L_ABBC3_HELP_ABOUT}</span>
+	<h2>{L_ABBC3_HELP_TITLE}</h2>
+
+<!-- BEGIN bbc_row -->
+
+	<!-- IF bbc_row.ABBC3_HELP_WRITE -->
+	
+	<div class="panel <!-- IF bbc_row.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF -->">
+		<div class="inner">
+			<span class="corners-top"><span></span></span>
+			<div class="content">
+				<h2>{L_ABBC3_HELP_DESC} : <strong>{bbc_row.ABBC3_HELP_DESC}</strong></h2>
+				<dl class="faq">
+					<dt><strong>{L_ABBC3_HELP_WRITE}:</strong></dt>
+					<dd>{bbc_row.ABBC3_HELP_WRITE}<!-- IF bbc_row.ABBC3_HELP_NOTE --><br/>{bbc_row.ABBC3_HELP_NOTE}<!-- ENDIF --></dd>
+				</dl>
+				<hr class="dashed" />
+				<!-- IF bbc_row.ABBC3_HELP_EXAMPLE -->
+				<dl class="faq">
+					<dt><strong>{L_ABBC3_EXAMPLE} :</strong></dt>
+					<dd>{bbc_row.ABBC3_HELP_EXAMPLE}</dd>
+				</dl>
+				<hr class="dashed" />
+				<!-- ENDIF -->
+				<!-- IF bbc_row.ABBC3_HELP_VIEW -->
+				<dl class="faq">
+					<dt><strong>{L_ABBC3_HELP_VIEW} :</strong></dt>
+					<dd>{bbc_row.ABBC3_HELP_VIEW}</dd>
+				</dl>
+				<hr class="dashed" />
+				<!-- ENDIF -->
+				<dl class="faq">
+					<dd><a href="#ABBC3Help" class="top2">{L_BACK_TO_TOP}</a></dd>
+				</dl>
+			</div>
+			<span class="corners-bottom"><span></span></span>
+		</div>
+	</div>
+	
+	<!-- ENDIF -->
+	
+<!-- END bbc_row -->
+
+<div id="page-footer">
+	<div class="copyright">{L_ABBC3_HELP_ABOUT}</div>
+</div>
+
+<!-- INCLUDE overall_footer.html -->

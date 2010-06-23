@@ -1,0 +1,58 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="ABBC3Help"></a>
+
+<div id="pagecontent">
+
+<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<th><span style="float: right;">{L_ABBC3_HELP_ABOUT}</span><br/>{L_ABBC3_HELP_TITLE}</th>
+	</tr>
+</table>
+	
+<br clear="all" />
+	
+<table class="tablebg" width="100%" cellspacing="1">
+	<!-- BEGIN bbc_row -->
+		<!-- IF bbc_row.ABBC3_HELP_WRITE -->
+			<tr> 
+				<td class="cat" align="center"><p class="gensmall" style="float:left;"><a href="#ABBC3Help">{L_BACK_TO_TOP}</a></p><h4>{L_ABBC3_HELP_DESC} : <strong>{bbc_row.ABBC3_HELP_DESC}</strong></h4></td>
+			</tr>
+			<tr> 
+				<td class="row2" valign="top">
+					<div class="postbody"><b>&#187; {L_ABBC3_HELP_WRITE} :</b></div>
+					<div class="postbody">{bbc_row.ABBC3_HELP_WRITE}</div><!-- IF bbc_row.ABBC3_HELP_NOTE -->{bbc_row.ABBC3_HELP_NOTE}<!-- ENDIF -->
+				</td>
+			</tr>
+			<!-- IF bbc_row.ABBC3_HELP_EXAMPLE -->
+			<tr> 
+				<td class="row2" valign="top">
+					<div class="postbody"><b>&#187; {L_ABBC3_EXAMPLE} :</b></div>
+					<div class="postbody">{bbc_row.ABBC3_HELP_EXAMPLE}</div>
+				</td>
+			</tr>
+			<!-- ENDIF -->
+			<!-- IF bbc_row.ABBC3_HELP_VIEW -->
+			<tr>
+				<td class="spacer" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+			</tr>
+			<tr>
+				<td class="row1" valign="top">
+					<div class="postbody"><b>&#187; {L_ABBC3_HELP_VIEW} :</b></div>
+					<div class="postbody">{bbc_row.ABBC3_HELP_VIEW}</div>
+				</td>
+			</tr>
+			<!-- ENDIF -->
+		<!-- ENDIF -->
+	<!-- END bbc_row -->
+</table>
+
+</div>
+
+<div id="wrapfooter">
+	{L_ABBC3_HELP_ABOUT}
+</div>
+
+<br clear="all" />
+
+<!-- INCLUDE overall_footer.html -->

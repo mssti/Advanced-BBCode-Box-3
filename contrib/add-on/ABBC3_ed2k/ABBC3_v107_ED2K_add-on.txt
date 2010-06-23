@@ -55,6 +55,10 @@ viewtopic.php
 # NOTE: Add these lines on a new blank line after the preceding line(s) to find. 
 #
 	// MOD : add-on eD2k Add all links feature - START
+	if (!class_exists('abbcode'))
+	{
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
 	$message = make_addalled2k_link($message, $row['post_id']);
 	// MOD : add-on eD2k Add all links feature - End
 

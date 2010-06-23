@@ -11,10 +11,8 @@
 ##
 ## Files To Edit:
 ##	styles/prosilver/imageset/bbcode_box/stylesheet.css
-##	styles/prosilver/template/posting_abbcodes_buttons.html
 ##
-## Included Files:
-##	bbcode_box/images/*.*
+## Included Files: N/A
 ##
 ## License: http://opensource.org/licenses/gpl-license.php GNU General Public License v2 
 #####################################################################
@@ -32,6 +30,9 @@
 #####################################################################
 ## MOD History:
 ##
+##	2008-03-31 - Version 0.0.3
+##	- Update to ABBC3 v108
+##
 ##	2008-02-21 - Version 0.0.2
 ##	- Update to ABBC3 v107b
 ##
@@ -43,79 +44,33 @@
 #####################################################################
 
 #
-#-----[ COPY ]-------------------------------------------------------
-#
-copy bbcode_box/images/*.* to styles/prosilver/imageset/bbcode_box/images/*.*
-
-#
 #-----[ OPEN ]-------------------------------------------------------
 # NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
 # 
-styles/prosilver/imageset/bbcode_box/stylesheet.css
+styles/prosilver/imageset/abbcode/abbcode.css
 
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-	border: 0;
-}
-#abbc3posttable .btnbbcode3:hover {
-	background-color:#ffffff; 
-}
+/* MOD : add button over - START **/
+/* DELETE ME 1
 
 #
 #-----[ REPLACE WITH ]-----------------------------------------------
 #
-/** MOD : add button over - START **/
-/*	border: 0;	*/
-}
-.editor_Button {
-	background: url("images/button_background.gif");
-	border: 1px solid #6593CF;
-	padding:1px;
-}
-.editor_Button:hover {
-	background: #FCEEC1 url("images/button_over.gif");
-	border: 1px solid #FFBD69;
-}
+/* MOD : add button over - START **/
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+/* DELETE ME 2
+/** MOD : add button over - END **/
+				
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
 /** MOD : add button over - END **/
 
-#
-#-----[ OPEN ]-------------------------------------------------------
-# NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
-#
-styles/prosilver/template/posting_abbcodes_buttons.html
-
-#
-#-----[ FIND ]-------------------------------------------------------
-#
-				<img src="{T_IMAGESET_PATH}/bbcode_box/images/{abbc3_tags.TAG_SRC}"	class="btnbbcode3"	type="image"	name="{abbc3_tags.TAG_NAME}" 	onClick="bbstyle2('{abbc3_tags.TAG_NAME}')"		onMouseOver="helpline2('{abbc3_tags.TAG_NAME}')"		onMouseOut="helpline2()"	title="{abbc3_tags.TAG_MOVER}" />
-				
-#
-#-----[ IN LINE, FIND ]----------------------------------------------
-#
-class="btnbbcode3"
-
-#
-#-----[ REPLACE WITH ]-----------------------------------------------
-#
-class="btnbbcode3 editor_Button"
-
-#
-#-----[ FIND ]-------------------------------------------------------
-#				
-				<img src="{T_IMAGESET_PATH}/bbcode_box/images/{abbc3_custom_tags.TAG_SRC}"	class="btnbbcode3"	type="image"	name="abbc3_{abbc3_custom_tags.TAG_NAME}" 	onClick="bbfontstyle('{abbc3_custom_tags.TAG_OPEN}', '{abbc3_custom_tags.TAG_CLOSE}');"		onMouseOver="helpline2('{abbc3_custom_tags.TAG_NAME}')"		onMouseOut="helpline2()"	title="{abbc3_custom_tags.TAG_MOVER}" />
-				
-#
-#-----[ IN LINE, FIND ]----------------------------------------------
-#
-class="btnbbcode3"
-
-#
-#-----[ REPLACE WITH ]-----------------------------------------------
-#
-class="btnbbcode3 editor_Button"
-
-		
 #
 #-----[DIY]----------------------------------------------------------
 #

@@ -1,0 +1,75 @@
+#####################################################################
+## MOD Title: Advanced BBCode Box 3 ( aka ABBC3 )
+##
+## MOD Author: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb2/
+##
+## MOD Description: How to display post from previous version with new ABBC3 v1.0.8
+##
+## MOD Version: 0.0.1
+##
+## Installation Level: Easy
+## Installation Time: ~2 Minutes
+##
+## License: http://opensource.org/licenses/gpl-license.php GNU General Public License v2
+#####################################################################
+## For security purposes, please check: http://www.phpbb.com/mods/
+## for the latest version of this MOD. Although MODs are checked
+## before being allowed in the MODs Database there is no guarantee
+## that there are no security problems within the MOD. No support
+## will be given for MODs not found within the MODs Database which
+## can be found at http://www.phpbb.com/mods/
+#####################################################################
+## Author Notes:
+##
+##	Before apply this fix I heavily recommend you do a full backup of your database and files!
+##
+##	The new ABBC3 v1.0.8 is quite different from all previous version.
+##	Because of it, may be, you older post text with ABBC3 bbcodes only, shouldn't be displayed correctly.
+##	For fix it, you have 2 ways, 
+##		1) The recommended way : 
+##			Once you made a backup of everything,
+##			Upload update_abbc3.php file to your root forum, within your FTP Client (in ASCII mode).
+##			Once the file have been uploaded to your site you should point your browser at this location 
+##			For example if your domain name is www.mydomain.tld and you placed phpBB3 in a directory /phpBB3 off your web root
+##			you would enter http://www.mydomain.tld/phpBB3/update_abbc3.php into your browser. 
+##			When you have done this you should see the Updating screen appear.
+##
+##		2) The patch way :
+##			This way shoul be less effective and made your forum a little more slowly.
+##			To do it continue with the next fix.
+##	
+#####################################################################
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/functions_content.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	// custom BBCodes might contain carriage returns so they
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+#
+	// MOD : ABBC3 (V1.0.8) - START
+	if (!class_exists('abbcode'))
+	{
+		global $phpbb_root_path, $phpEx;
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
+	$abbcode3 = new abbcode();
+	$abbcode3->abbcode_init();
+	$text = $abbcode3->abbcode_process($text);
+	// MOD : ABBC3 (V1.0.8) - END
+
+#
+#-----[DIY]----------------------------------------------------------
+#
+After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+#
+# EoM

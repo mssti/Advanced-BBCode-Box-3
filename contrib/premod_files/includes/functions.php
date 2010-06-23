@@ -3300,13 +3300,17 @@ function page_header($page_title = '', $display_online_list = true)
 
 	// Which timezone?
 	$tz = ($user->data['user_id'] != ANONYMOUS) ? strval(doubleval($user->data['user_timezone'])) : strval(doubleval($config['board_timezone']));
-
-	// MOD : ABBC3 (V1.0.7) - START
-	$abbcode3 = new abbcode3();
-	$abbcode3->abbcode3_init();
-	$abbcode3->display_abbc3();
-	// MOD : ABBC3 (V1.0.7) - END
-
+	
+	// MOD : ABBC3 (V1.0.8) - START
+	if (!class_exists('abbcode'))
+	{
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
+	$abbcode = new abbcode();
+	$abbcode->abbcode_init( 'config' );
+	$abbcode->abbcode_display( 'config' );
+	// MOD : ABBC3 (V1.0.8) - END
+	
 	// The following assigns all _common_ variables that may be used at any point in a template.
 	$template->assign_vars(array(
 		'SITENAME'						=> $config['sitename'],

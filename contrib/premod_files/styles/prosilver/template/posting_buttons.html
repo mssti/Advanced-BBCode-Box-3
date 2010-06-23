@@ -41,6 +41,13 @@
 <script type="text/javascript" src="{T_TEMPLATE_PATH}/editor.js"></script>
 
 <!-- IF S_BBCODE_ALLOWED -->
+
+<!-- // MOD : ABBC3 (V1.0.8) - START -->
+<!-- IF S_ABBC3_MOD -->
+	<!-- INCLUDE posting_abbcode_buttons.html -->
+<!-- ELSE -->
+<!-- // MOD : ABBC3 (V1.0.8) - END -->
+
 <div id="colour_palette" style="display: none;">
 	<dl style="clear: left;">
 		<dt><label>{L_FONT_COLOR}:</label></dt>
@@ -70,11 +77,6 @@
 </div>
 
 <div id="format-buttons">
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
-<!-- IF S_ABBC3_MOD -->
-	<!-- INCLUDE posting_abbcodes_buttons.html -->
-<!-- ELSE -->
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
 	<input type="button" class="button2" accesskey="b" name="addbbcode0" value=" B " style="font-weight:bold; width: 30px" onclick="bbstyle(0)" title="{L_BBCODE_B_HELP}" />
 	<input type="button" class="button2" accesskey="i" name="addbbcode2" value=" i " style="font-style:italic; width: 30px" onclick="bbstyle(2)" title="{L_BBCODE_I_HELP}" />
 	<input type="button" class="button2" accesskey="u" name="addbbcode4" value=" u " style="text-decoration: underline; width: 30px" onclick="bbstyle(4)" title="{L_BBCODE_U_HELP}" />
@@ -105,8 +107,10 @@
 	<!-- BEGIN custom_tags -->
 		<input type="button" class="button2" name="addbbcode{custom_tags.BBCODE_ID}" value="{custom_tags.BBCODE_TAG}" onclick="bbstyle({custom_tags.BBCODE_ID})" title="{custom_tags.BBCODE_HELPLINE}" />
 	<!-- END custom_tags -->
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
-<!-- ENDIF -->
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
 </div>
+
+<!-- // MOD : ABBC3 (V1.0.8) - START -->
+<!-- ENDIF -->
+<!-- // MOD : ABBC3 (V1.0.8) - END -->
+
 <!-- ENDIF -->

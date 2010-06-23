@@ -35,11 +35,13 @@
 		<script type="text/javascript" src="{T_TEMPLATE_PATH}/editor.js"></script>
 
 <!-- IF S_BBCODE_ALLOWED -->
-	<!-- // MOD : ABBC3 (V1.0.7) - START -->
+
+	<!-- // MOD : ABBC3 (V1.0.8) - START -->
 	<!-- IF S_ABBC3_MOD -->
-		<!-- INCLUDE posting_abbcodes_buttons.html -->
+		<!-- INCLUDE posting_abbcode_buttons.html -->
 	<!-- ELSE -->
-	<!-- // MOD : ABBC3 (V1.0.7) - END -->
+	<!-- // MOD : ABBC3 (V1.0.8) - END -->
+	
 		<input type="button" class="btnbbcode" accesskey="b" name="addbbcode0" value=" B " style="font-weight:bold; width: 30px;" onclick="bbstyle(0)" onmouseover="helpline('b')" onmouseout="helpline('tip')" />
 		<input type="button" class="btnbbcode" accesskey="i" name="addbbcode2" value=" i " style="font-style:italic; width: 30px;" onclick="bbstyle(2)" onmouseover="helpline('i')" onmouseout="helpline('tip')" />
 		<input type="button" class="btnbbcode" accesskey="u" name="addbbcode4" value=" u " style="text-decoration: underline; width: 30px;" onclick="bbstyle(4)" onmouseover="helpline('u')" onmouseout="helpline('tip')" />
@@ -66,14 +68,18 @@
 			<option value="150">{L_FONT_LARGE}</option>
 			<option value="200">{L_FONT_HUGE}</option>
 		</select></span>
-	<!-- // MOD : ABBC3 (V1.0.7) - START -->
+		
+	<!-- // MOD : ABBC3 (V1.0.8) - START -->
 	<!-- ENDIF -->
-	<!-- // MOD : ABBC3 (V1.0.7) - END -->
-	<!-- ENDIF -->
+	<!-- // MOD : ABBC3 (V1.0.8) - END -->
+
+<!-- ENDIF -->
 	</td>
 </tr>
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
-<!-- IF !S_ABBC3_MOD -->
+
+<!-- // MOD : ABBC3 (V1.0.8) - START -->
+<!-- IF not S_ABBC3_MOD -->
+
 <!-- IF S_BBCODE_ALLOWED and .custom_tags -->
 	<tr valign="middle" align="{S_CONTENT_FLOW_BEGIN}">
 		<td colspan="2">
@@ -91,5 +97,6 @@
 	<!-- ENDIF -->
 </tr>
 <!-- ENDIF -->
+
 <!-- ENDIF -->
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
+<!-- // MOD : ABBC3 (V1.0.8) - END -->

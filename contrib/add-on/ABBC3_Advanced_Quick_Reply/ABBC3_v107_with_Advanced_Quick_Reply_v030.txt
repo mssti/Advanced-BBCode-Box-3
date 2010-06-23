@@ -5,15 +5,16 @@
 ##
 ## MOD Description: MOD tutorial for using Advanced Quick Reply with Advanced BBCode Box 3
 ##
-## MOD Version: 0.0.2
+## MOD Version: 0.0.3
 ##
 ## Installation Level: Easy
-## Installation Time: ~10 Minutes
+## Installation Time: ~1 Minutes
 ##
-## Files To Edit: 1
+## Files To Edit:
+##	viewtopic.php
 ##	includes/quickreply.php
 ##
-## Included Files: 0
+## Included Files:
 ##
 ## License: http://opensource.org/licenses/gpl-license.php GNU General Public License v2
 #####################################################################
@@ -31,6 +32,31 @@
 #####################################################################
 ## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD
 #####################################################################
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+viewtopic.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+$QuickReply = new QuickReply($topic_id, $forum_id, $topic_data, $last_post);
+
+#
+#-----[ AFTER, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+// MOD : ABBC3 (V1.0.8) - START
+	if (!class_exists('abbcode'))
+	{
+		global $phpbb_root_path, $phpEx;
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
+	$abbcode3 = new abbcode();
+	$abbcode3->abbcode_init();
+	$abbcode3->abbcode_display();
+// MOD : ABBC3 (V1.0.8) - END
 
 #
 #-----[ OPEN ]-------------------------------------------------------

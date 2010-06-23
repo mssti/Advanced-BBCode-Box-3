@@ -1,0 +1,219 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<!-- IF S_EDIT -->
+
+	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
+	
+	<h1>{L_TITLE_EDIT}</h1>
+	
+	<p>{L_TITLE_EXPLAIN}</p>
+
+	<script type="text/javascript" defer="defer">
+	// <![CDATA[
+		function update_image(newimage)
+		{
+			document.getElementById('newimg').src = (newimage) ? "{ICON_BASEDIR}/images/bg/" + encodeURI(newimage) : 'images/no_image.png';
+		}
+	// ]]>
+
+	</script>
+
+	<!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<form id="acp_abbcodes" method="post" action="{U_ACTION}">
+	
+	<!-- BEGIN options -->
+	
+	<!-- IF options.S_LEGEND -->
+	
+		<!-- IF not options.S_FIRST_ROW -->
+		</fieldset>
+		<!-- ENDIF -->
+		<fieldset>
+			<legend>{options.LEGEND}</legend>
+	<!-- ELSE -->
+			<dl>
+				<dt><label for="{options.KEY}">{options.TITLE}:</label><!-- IF options.S_EXPLAIN --><br /><span>{options.TITLE_EXPLAIN}</span><!-- ENDIF --></dt>
+				<dd>{options.CONTENT}</dd>
+			</dl>
+	<!-- ENDIF -->
+	
+	<!-- END options -->
+	
+	<!-- IF S_AUTH -->
+		<!-- BEGIN auth_tpl -->
+			{auth_tpl.TPL}
+		<!-- END auth_tpl -->
+	<!-- ENDIF -->
+	
+		</fieldset>
+		
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />
+			<input class="button2" type="reset"  id="reset"  name="reset"  value="{L_RESET}" />
+			<a class="button2" href="{U_RESET}">{L_RESET_TO_DEFAULT}</a>
+		</p>
+		{S_FORM_TOKEN}
+
+	</form>
+
+<!-- ELSEIF S_BBCODES -->
+
+	<script type="text/javascript" defer="defer">
+	// <![CDATA[
+		function update_image(newimage)
+		{
+		//	alert ( currentimage )
+			document.getElementById('newimg').src = (newimage) ? "{ICON_BASEDIR}/images/" + encodeURI(newimage) : 'images/no_image.png';
+		}
+	// ]]>
+
+	</script>
+
+	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
+
+	<h1>{L_TITLE_BBCODES}</h1>
+
+	<p>{L_EXPLAIN_BBCODES}</p>
+
+	<!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<!-- IF S_BBCODE_EDIT -->
+	<form id="acp_icons" method="post" action="{F_ACTION}">
+	<!-- ENDIF -->
+		<fieldset>
+			<legend>{L_STYLE_NAME}</legend>
+			[{STYLE_NAME}]
+		</fieldset>
+			<table cellspacing="1">
+				<thead>
+					<tr>
+						<!-- IF S_BBCODE_EDIT --> <!-- DEFINE $COLSPAN = 4 --> <!-- ELSE --> <!-- DEFINE $COLSPAN = 1 --> <!-- ENDIF -->
+						<th colspan="{$COLSPAN}">{L_ABBCODES_NAME}</th>
+						<!-- IF not S_BBCODE_EDIT -->
+						<th>{L_ABBCODES_STATUS}</th>
+						<th>{L_OPTIONS}</th>
+						<!-- ENDIF -->
+					</tr>
+						<!-- IF S_BBCODE_EDIT -->
+					<tr class="row3">
+						<td>{L_ABBCODES_NAME}</td>
+						<td>{L_DISPLAY_ON_POSTING}</td>
+						<td>{L_ABBCODES_TAG}</td>
+						<td>{L_CURRENT_IMAGE}</td>
+					</tr>
+						<!-- ENDIF -->
+				</thead>
+				
+				<tbody>
+				<!-- BEGIN items -->
+				
+				<!-- IF items.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+	
+					<td>
+					<!--{items.ID} -->{items.TAG_NAME}<input type="hidden" name="name" value="{items.NAME}" />
+					</td>
+					
+				<!-- IF S_BBCODE_EDIT -->
+					<td>
+						<input type="checkbox" class="radio" name="display_on_posting"{items.POSTING_CHECKED} />
+					</td>
+					
+					<td>
+					<!-- IF items.IMG_SRC -->
+						{items.S_NEW_IMG}
+					</td>
+					<td>
+						<img src="{items.IMG_SRC}" id="newimg" name="{items.NAME}" alt="" />
+					<!-- ELSE -->
+						&nbsp;
+					</td>
+					<td>
+						&nbsp;
+					<!-- ENDIF -->
+					</td>
+					
+				<!-- ELSE -->
+					<td>{items.L_STYLE_ACT_DEACT}</td>
+					<td style="text-align: right; white-space: nowrap;">
+						<!-- IF items.S_FIRST_ROW -->{ICON_MOVE_UP_DISABLED}<!-- ELSE --><a href="{items.U_MOVE_UP}">{ICON_MOVE_UP}</a><!-- ENDIF -->&nbsp;
+						<!-- IF items.S_LAST_ROW -->{ICON_MOVE_DOWN_DISABLED}<!-- ELSE --><a href="{items.U_MOVE_DOWN}">{ICON_MOVE_DOWN}</a><!-- ENDIF -->&nbsp;
+						<a href="{items.U_EDIT}">{ICON_EDIT}</a>
+					</td>
+				<!-- ENDIF -->
+				</tr>
+				
+				<!-- END items -->
+			</tbody>
+		</table>
+
+		<p class="submit-buttons">
+			<!-- IF S_BBCODE_EDIT -->
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset"  id="reset"  name="reset" value="{L_RESET}" />
+			<!-- ELSE -->
+			<a class="button2" href="{U_RESET}">{L_RESET_TO_DEFAULT}</a>
+			<!-- ENDIF -->
+		</p>
+		{S_FORM_TOKEN}
+
+	<!-- IF S_BBCODE_EDIT -->
+	</form>
+	<!-- ENDIF -->
+	
+<!-- ELSEIF S_FRONTEND -->
+
+	<h1>{L_TITLE}</h1>
+
+	<p>{L_EXPLAIN}</p>
+
+	<table cellspacing="1">
+		<thead>
+			<tr>
+				<th>{L_NAME}</th>
+				<th>{L_ABBCODES_STATUS}</th>
+				<th style="width:15%" nowrap="nowrap">{L_STYLE_USED_BY}</th>
+				<th>{L_OPTIONS}</th>
+				<th>{L_ACTIONS}</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		<!-- BEGIN installed -->
+			<tr>
+				<td><strong>{installed.STYLE_NAME}</strong><!-- IF installed.S_DEFAULT_STYLE --> *<!-- ENDIF --></td>
+				<td>{installed.L_STYLE_ACT_DEACT}</td>
+				<td>{installed.STYLE_COUNT}</td>
+				<td>{installed.S_OPTIONS}</td>
+				<td><!-- IF installed.S_ACTIONS -->{installed.S_ACTIONS} | <!-- ENDIF --><a href="{installed.U_PREVIEW}">{L_PREVIEW}</a></td>
+			</tr>
+		<!-- END installed -->
+		</tbody>
+	</table>
+	
+	<!-- IF S_FOUNDER -->
+	<fieldset>
+		<form id="action_purge_cache_form" method="post" action="{U_ACTION}">
+			<dl>
+				<dt><label for="action_purge_cache">{L_PURGE_CACHE}</label><br /><span>{L_PURGE_CACHE_EXPLAIN}</span></dt>
+				<dd><input type="hidden" name="action" value="purge_cache" /><input class="button2" type="submit" id="action_purge_cache" name="action_purge_cache" value="{L_RUN}" /></dd>
+			</dl>
+		</form>
+  	</fieldset>
+  	<!-- ENDIF -->
+
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

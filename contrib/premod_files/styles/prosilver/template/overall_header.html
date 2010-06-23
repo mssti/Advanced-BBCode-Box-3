@@ -87,26 +87,38 @@
 	<link href="{T_THEME_PATH}/bidi.css" rel="stylesheet" type="text/css" media="screen, projection" />
 <!-- ENDIF -->
 
-<!-- // MOD : ABBC3 (V1.0.7) - START -->
-<script type="text/javascript" src="{T_IMAGESET_PATH}/bbcode_box/bbcode_box.js" charset="{S_CONTENT_ENCODING}"></script>
-<!-- IF S_ABBC3_LITEBOX -->
-<script type="text/javascript" src="{T_IMAGESET_PATH}/bbcode_box/lightbox/prototype.lite.js"></script>
-<script type="text/javascript" src="{T_IMAGESET_PATH}/bbcode_box/lightbox/moo.fx.js"></script>
-<script type="text/javascript" src="{T_IMAGESET_PATH}/bbcode_box/lightbox/litebox-1.0.js"></script>
+<!-- // MOD : ABBC3 (V1.0.8) - START -->
+
+<!-- IF S_ABBC3_MOD and (S_NEW_MESSAGE or S_EDIT_POST or S_VIEWTOPIC or S_DISPLAY_PREVIEW or S_PRIVMSGS or S_POST_REVIEW or S_DISPLAY_REVIEW or S_BBCODE_ALLOWED or mcp) -->
+<script type="text/javascript" src="{T_IMAGESET_PATH}/abbcode/abbcode.js" charset="{S_CONTENT_ENCODING}"></script>
+
+<!-- IF (S_ABBC3_GREYBOX or S_BBCODE_ALLOWED or S_ABBC3_RESIZE) -->
 <script type="text/javascript">
 // <![CDATA[
-	var fileLoadingImage = "{T_IMAGESET_PATH}/bbcode_box/lightbox/loading.gif";
-	var fileBottomNavCloseImage = "{T_IMAGESET_PATH}/bbcode_box/lightbox/closelabel.gif";
-	window.onload = initLightbox;
-// ]]>
-</script>
+	var GB_ROOT_DIR                       = "{T_IMAGESET_PATH}/abbcode/greybox/";
+<!-- IF S_ABBC3_RESIZE -->
+	NcodeImageResizer.MODE                = '{S_ABBC3_RESIZE_METHOD}'; // 'greybox' 'enlarge' 'samewindow' 'newwindow'
+	NcodeImageResizer.IMAGE               = '{T_IMAGESET_PATH}/abbcode/images/errormt0.gif';
+	NcodeImageResizer.MAXWIDTH            = '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	NcodeImageResizer.MAXHEIGHT           = '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	NcodeImageResizer.warning_small       = '{L_ABBC3_RESIZE_SMALL}';
+	NcodeImageResizer.warning_filesize    = '{L_ABBC3_RESIZE_FILESIZE}';
+	NcodeImageResizer.warning_no_filesize = '{L_ABBC3_RESIZE_NOFILESIZE}';
+	NcodeImageResizer.warning_fullsize    = '{L_ABBC3_RESIZE_FULLSIZE}';
 <!-- ENDIF -->
 
-<style type="text/css" media="all">
-@import "{T_IMAGESET_PATH}/bbcode_box/stylesheet.css";
-@import "{T_IMAGESET_PATH}/bbcode_box/lightbox/lightbox.css";
-</style>
-<!-- // MOD : ABBC3 (V1.0.7) - END -->
+// ]]>
+</script>
+
+<script type="text/javascript" src="{T_IMAGESET_PATH}/abbcode/greybox/AJS.js"></script>
+<script type="text/javascript" src="{T_IMAGESET_PATH}/abbcode/greybox/AJS_fx.js"></script>
+<script type="text/javascript" src="{T_IMAGESET_PATH}/abbcode/greybox/gb_scripts.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{T_IMAGESET_PATH}/abbcode/greybox/gb_styles.css" />
+<!-- ENDIF -->
+
+<link rel="stylesheet" type="text/css" media="all" href="{T_IMAGESET_PATH}/abbcode/abbcode.css" />
+<!-- ENDIF -->
+<!-- // MOD : ABBC3 (V1.0.8) - END -->
 
 </head>
 

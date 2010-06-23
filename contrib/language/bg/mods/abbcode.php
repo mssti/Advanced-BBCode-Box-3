@@ -1,15 +1,12 @@
 <?php
-/** 
-*
-* abbcode [Bulgarian]
-* @package language
-* @version $Id: abbcode.php, v 1.0.7b 2008/02/21 02:05:07 leviatan21 Exp $
-* @English version $Id: $ phpBB 3.0.0 - 1.0.7b
-* @copyright leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License 
+/**
+* @package: phpBB3 :: Advanced BBCode box 3 -> language [bg][Bulgarian]
+* @version: $Id: abbcode.php, v 1.0.8 2008/03/31 03:01:00 leviatan21 Exp $
+* @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
+* @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
+* @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
 * @translator: alfa - http://www.boinc-bulgaria.net
-* @translator: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
-*/
+**/
 
 /**
 * DO NOT CHANGE
@@ -35,452 +32,389 @@ if (empty($lang) || !is_array($lang))
 // You do not need this where single placeholders are used, e.g. 'Message %d' is fine
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
-//
 // Reference : http://www.phpbb.com/mods/documentation/phpbb-documentation/language/index.php#lang-use-php
 
-/**
-* NOTE: Most of the language items are used in javascript
-* If you want to use quotes or other chars that need escaped, be sure you escape them double 
-* (Especially for ', you must use \\\' instead of \'. For " you only need to use \".
-*/
-
-/**
-* ******************************************************************
-* Some characters you may want to copy&paste:
-* ******************************************************************
-* й - Г©
-* и - ГЁ
-* к - ГЄ
-* л - Г«
-* а - Г
-* в - Гў
-* д - Г¤
-* о - Г®
-* п - ГЇ
-* т - ГІ
-* ф - Гґ
-* щ - Г№
-* ы - Г»
-* з - Г§
-* б = ГЎ
-* Б = Г  XX
-* й = Г©
-* Й = Г‰ XX
-* н = Г­
-* Н = Г?
-* у = Гі
-* У = Г“
-* ъ = Гє
-* Ъ = Гљ
-* с = Г±
-* С = Г‘
-* ? = Вї
-********************************************************************/
-
 $lang = array_merge($lang, array(
-	'BBCODE_STYLES_TIP'			=> 'Съвет: Стиловете може да бъдат приложени към текста бързо.',
+// Help page
+	'ABBC3_HELP_TITLE'			=> 'Advanced BBCode box 3 :: РџРѕРјРѕС‰',
+	'ABBC3_HELP_DESC'			=> 'РћРїРёС?Р°РЅРёРµ',
+	'ABBC3_HELP_WRITE'			=> 'Р’Р°С€РёС?С‚ С„РѕСЂРјР°С‚ Р·Р° РїРёС?Р°РЅРµ',
+	'ABBC3_HELP_VIEW'			=> 'Р?Р°С€РёС?С‚ С„РѕСЂРјР°С‚ Р·Р° РїРѕРєР°Р·РІР°РЅРµ',
+	'ABBC3_HELP_ABOUT'			=> 'Advanced BBCode Box 3 РѕС‚ <a href="http://www.mssti.com/phpbb3">mssti</a>',
+	'ABBC3_HELP_ALT'			=> 'Advanced BBCode Box 3 (aka ABBC3)',
+	
+// Image Resizer JS - Start
+	'ABBC3_RESIZE_SMALL'		=> 'Р?Р°С‚РёС?РЅРµС‚Рµ С‚Р°Р·Рё Р»РёРЅРёС? Р·Р° РґР° РІРёРґРёС‚Рµ РєР°СЂС‚РёРЅРєР°С‚Р°.',
+	'ABBC3_RESIZE_FILESIZE'		=> 'РўР°Р·Рё РєР°СЂС‚РёРЅРєР° Рµ С?РјР°Р»РµРЅР°. Р?Р°С‚РёС?РЅРµС‚Рµ С‚СѓРє Р·Р° РґР° С? РІРёРґРёС‚Рµ РІ С†С?Р» СЂР°Р·РјРµСЂ. РћСЂРёРіРёРЅР°Р»РЅРёС? СЂР°Р·РјРµСЂ РЅР° РєР°СЂС‚РёРЅРєР°С‚Р° Рµ %1$sx%2$s Рё С‚РµР¶Рё %3$sKB.',
+	'ABBC3_RESIZE_NOFILESIZE'	=> 'РўР°Р·Рё РєР°СЂС‚РёРЅРєР° Рµ С?РјР°Р»РµРЅР°. Р?Р°С‚РёС?РЅРµС‚Рµ С‚СѓРє Р·Р° РґР° С? РІРёРґРёС‚Рµ РІ С†С?Р» СЂР°Р·РјРµСЂ. РћСЂРёРіРёРЅР°Р»РЅРёС? СЂР°Р·РјРµСЂ РЅР° РєР°СЂС‚РёРЅРєР°С‚Р° Рµ %1$sx%2$s.',
+	'ABBC3_RESIZE_FULLSIZE'		=> 'Р?Р°С‚РёС?РЅРµС‚Рµ С‚СѓРє Р·Р° РґР° РІРёРґРёС‚Рµ РјР°Р»РєР° РєР°СЂС‚РёРЅР°.',
+	
+// Text to be applied to the helpline & mouseover & help page & Wizard texts
+	'BBCODE_STYLES_TIP'			=> 'РЎСЉРІРµС‚: РЎС‚РёР»РѕРІРµС‚Рµ РјРѕР¶Рµ РґР° Р±СЉРґР°С‚ РїСЂРёР»РѕР¶РµРЅРё РєСЉРј С‚РµРєС?С‚Р° Р±СЉСЂР·Рѕ.',
 
-	// Help
-	'ABBC3_HELP_TITLE'			=> 'Advanced BBCode box 3 :: Помощ',
-	'ABBC3_HELP_CUSTOM_TITLE'	=> 'Advanced BBCode box 3 :: Помощ за собствени BBCode ',
-	'ABBC3_HELP_DESC'			=> 'Описание',
-	'ABBC3_HELP_WRITE'			=> 'Вашият формат за писане',
-	'ABBC3_HELP_VIEW'			=> 'Нашият формат за показване',
-	'ABBC3_HELP_ABOUT'			=> 'Advanced BBCode Box 3 от <a href="http://www.mssti.com/phpbb3">mssti</a>',
+	'ABBC3_ERROR'				=> 'Р“СЂРµС€РєР° : ',
+	'ABBC3_ERROR_TAG'			=> 'Р?РµРѕС‡Р°РєРІР°РЅР° РіСЂРµС€РєР° РёР·РїРѕР»Р·РІР°Р№РєРё РµС‚РёРєРµС‚ : ',
 
-	// Dropdown titles options
-	'ABBC3_FONTTYPE_MOVER'		=> 'Вид шрифт',
-	'ABBC3_FONTTYPE_TIP'		=> ' [font=Comic Sans MS]текст[/font]',
-	'ABBC3_FONTTYPE_VIEW'		=> '<span style="font-family:Comic Sans MS">Това е примерен текст</span>',
+	'ABBC3_ID'					=> 'Р’СЉРІРµРґРµС‚Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ :',
+	'ABBC3_NOID'				=> 'Р’РёРµ РЅРµ РЅР°РїРёС?Р°С…С‚Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°',
+	'ABBC3_LINK'				=> 'Р’СЉРІРµРґРµС‚Рµ Р°РґСЂРµС? Р·Р° ',
+	'ABBC3_DESC'				=> 'Р’СЉРІРµРґРµС‚Рµ РѕРїРёС?Р°РЅРёРµ Р·Р° ',
+	'ABBC3_NAME'				=> 'РћРїРёС?Р°РЅРёРµ',
+	'ABBC3_NOLINK'				=> 'Р’РёРµ РЅРµ РЅР°РїРёС?Р°С…С‚Рµ Р°РґСЂРµС? Р·Р° ',
+	'ABBC3_NODESC'				=> 'Р’РёРµ РЅРµ РЅР°РїРёС?Р°С…С‚Рµ РѕРїРёС?Р°РЅРёРµ Р·Р° ',
+	'ABBC3_WIDTH'				=> 'Р’СЉРІРµРґРµС‚Рµ С€РёСЂРѕС‡РёРЅР°',
+	'ABBC3_WIDTH_NOTE'			=> 'Р‘РµР»РµР¶РєР°: РґР°РЅРЅРёС‚Рµ РјРѕР¶Рµ РґР° Р±СЉРґР°С‚ РёРЅС‚РµСЂРїСЂРµС‚РёСЂР°РЅРё РєР°С‚Рѕ РїСЂРѕС†РµРЅС‚',
+	'ABBC3_NOWIDTH'				=> 'Р?Рµ РІСЉРІРµРґРѕС…С‚Рµ С€РёСЂРѕС‡РёРЅР°С‚Р°',
+	'ABBC3_HEIGHT'				=> 'Р’СЉРІРµРґРµС‚Рµ РґСЉР»Р¶РёРЅР°',
+	'ABBC3_HEIGHT_NOTE'			=> 'Р‘РµР»РµР¶РєР°: РґР°РЅРЅРёС‚Рµ РјРѕР¶Рµ РґР° Р±СЉРґР°С‚ РёРЅС‚РµСЂРїСЂРµС‚РёСЂР°РЅРё РєР°С‚Рѕ РїСЂРѕС†РµРЅС‚',
+	'ABBC3_NOHEIGHT'			=> 'Р?Рµ РІСЉРІРµРґРѕС…С‚Рµ РґСЉР»Р¶РёРЅР°С‚Р°',
 
-	'ABBC3_FONT_GIANT'			=> 'Огромен',
+	'ABBC3_NOTE'				=> 'Р‘РµР»РµР¶РєР°',
+	'ABBC3_EXAMPLE'				=> 'РџСЂРёРјРµСЂ',
+	'ABBC3_EXAMPLES'			=> 'РџСЂРёРјРµСЂРё',
+	
+// bbcodes texts	
+	// Font Type Dropdown
+	'ABBC3_FONTTYPE_MOVER'		=> 'Р’РёРґ С€СЂРёС„С‚',
+	'ABBC3_FONTTYPE_TIP'		=> '[font=Comic Sans MS]С‚РµРєС?С‚[/font]',
+	'ABBC3_FONTTYPE_NOTE'		=> 'Р‘РµР»РµР¶РєР°: РњРѕР¶РµС‚Рµ РґР° РёР·РїРѕР»Р·РІР°С‚Рµ С?РѕР±С?С‚РІРµРЅРёС‚Рµ С?Рё С€СЂРёС„С‚РѕРІРµ',
+	'ABBC3_FONTTYPE_VIEW'		=> '<span style="font-family:Comic Sans MS">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</span>',
+	
+	// Font Size Dropdown
+	'ABBC3_FONT_GIANT'			=> 'РћРіСЂРѕРјРµРЅ',
+	'ABBC3_FONTSIZE_MOVER'		=> 'Р“РѕР»РµРјРёРЅР° РЅР° С€СЂРёС„С‚Р°',
+	'ABBC3_FONTSIZE_TIP'		=> '[size=150РіРѕР»С?Рј С‚РµРєС?С‚[/size]',
+	'ABBC3_FONTSIZE_NOTE'		=> 'Р‘РµР»РµР¶РєР°: РґР°РЅРЅРёС‚Рµ С‰Рµ Р±СЉРґР°С‚ РёРЅС‚РµСЂРїСЂРµС‚РёСЂР°РЅРё РєР°С‚Рѕ РїСЂРѕС†РµРЅС‚',
+	'ABBC3_FONTSIZE_VIEW'		=> '<span style="font-size: 150%; line-height: 116%;">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚t</span>',
+	
+	// Highlight Font Color Dropdown
+	'ABBC3_FONTHILI_MOVER'		=> 'РњР°СЂРєРёСЂР°РЅ С‚РµРєС?С‚',
+	'ABBC3_FONTHILI_TIP'		=> '[highlight=yellow]С‚РµРєС?С‚[/highlight]',
+	'ABBC3_FONTHILI_NOTE'		=> 'Р‘РµР»РµР¶РєР°: РјРѕР¶РµС‚Рµ РґР° РёР·РїРѕР»Р·РІР°С‚Рµ html С†РІРµС‚РѕРІРµ color=#FF0000 РёР»Рё color=red)',
+	'ABBC3_FONTHILI_VIEW'		=> '<span style="background-color: yellow;">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</span>',
+	
+	// Font Color Dropdown
+	'ABBC3_FONTCOLOR_MOVER'		=> 'Р¦РІС?С‚ РЅР° С€СЂРёС„С‚Р°',
+	'ABBC3_FONTCOLOR_TIP'		=> '[color=red]С‚РµРєС?С‚[/color]',
+	'ABBC3_FONTCOLOR_NOTE'		=> 'Р‘РµР»РµР¶РєР°: РјРѕР¶РµС‚Рµ РґР° РёР·РїРѕР»Р·РІР°С‚Рµ html С†РІРµС‚РѕРІРµ (color=#FF0000 РёР»Рё color=red)',
+	'ABBC3_FONTCOLOR_VIEW'		=> '<span style="color:red">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</span>',
 
-	'ABBC3_FONTCOLOR_MOVER'		=> 'Цвят на шрифта',
-	'ABBC3_FONTCOLOR_TIP'		=> ' [color=red]текст[/color] Бележка: можете да използвате html цветове (color=#FF0000 или color=red)',
-	'ABBC3_FONTCOLOR_VIEW'		=> '<span style="color:red">Това е примерен текст</span>',
+	// Cut selected text
+	'ABBC3_CUT_MOVER'			=> 'РџСЂРµРјР°С…РІР° РёР·Р±СЂР°РЅРёС? С‚РµРєС?С‚',
+	// Copy selected text
+	'ABBC3_COPY_MOVER'			=> 'РљРѕРїРёСЂР° РёР·Р±СЂР°РЅРёС? С‚РµРєС?С‚',
+	// Paste previously copy text
+	'ABBC3_PASTE_MOVER'			=> 'Р—Р°Р»РµРїРІР° РёР·Р±СЂР°РЅРёС? С‚РµРєС?С‚',
+	'ABBC3_PASTE_ERROR'			=> 'РњРѕР»С?, РїСЉРІСЂРѕ РєРѕРїРёСЂР°Р№С‚Рµ С‚РµРєС?С‚, РїРѕС?Р»Рµ РіРѕ Р·Р°Р»РµРїРµС‚Рµ ',
+	// Remove BBCode (Removes all BBCode tags from selected text)
+	'ABBC3_PLAIN_MOVER'			=> 'РџСЂРµРјР°С…РІР° BBРєРѕРґРѕРІРµС‚Рµ РѕС‚ РёР·Р±СЂР°РЅРёС? С‚РµРєС?С‚',
+	'ABBC3_NOSELECT_ERROR'		=> 'РњРѕР»С?, РїСЉСЂРІРѕ РёР·Р±РµСЂРµС‚Рµ С‚РµРєС?С‚ ',
+	
+	// Code
+	'ABBC3_CODE_MOVER'			=> 'РљРѕРґ',
+	'ABBC3_CODE_TIP'			=> '[code]РљРѕРґ[/code]',
+	'ABBC3_CODE_VIEW'			=> '<dl class="codebox"><dt>'. $lang['CODE'] .': <a href="#" onclick="selectCode(this); return false;">'. $lang['SELECT_ALL_CODE'] .'</a></dt><dd><code>РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</code></dd></dl>',
 
-	'ABBC3_FONTSIZE_MOVER'		=> 'Големина на шрифта',
-	'ABBC3_FONTSIZE_TIP'		=> ' [size=150голям текст[/size] Бележка: данните ще бъдат интерпретирани като процент',
-	'ABBC3_FONTSIZE_VIEW'		=> '<span style="font-size: 150%; line-height: 116%;">Това е примерен текстt</span>',
+	// Quote
+	'ABBC3_QUOTE_MOVER'			=> 'Р¦РёС‚Р°С‚',
+	'ABBC3_QUOTE_TIP'			=> '[quote]С‚РµРєС?С‚[/quote] РёР»Рё [quote=\"РїРѕС‚СЂРµР±РёС‚РµР»\"]С‚РµРєС?С‚[/quote]',
+	'ABBC3_QUOTE_VIEW'			=> '<blockquote><div><cite>member '. $lang['WROTE'] .':</cite>РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div></blockquote>',
 
-	'ABBC3_FONTHILI_MOVER'		=> 'Маркиран текст',
-	'ABBC3_FONTHILI_TIP'		=> ' [highlight=yellow]текст[/highlight] Бележка: можете да използвате html цветове color=#FF0000 или color=red)',
-	'ABBC3_FONTHILI_VIEW'		=> '<span style="background-color: yellow;">Това е примерен текст</span>',
+	// Spoiler
+	'ABBC3_SPOIL_MOVER'			=> 'РЎРєСЂРёС‚ С‚РµРєС?С‚',
+	'ABBC3_SPOIL_TIP'			=> '[spoil]С‚РµРєС?С‚[/spoil]',
+	'ABBC3_SPOIL_VIEW'			=> '<div class="spoilwrapper"><div class="spoiltitle"><input class="btnspoil" type="button" value="РџРѕРєР°Р¶Рё" onClick="javascript:if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerText = \'\'; this.value = \'РЎРєСЂРёРё С‚РµРєС?С‚Р°\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerText = \'\'; this.value = \'РџРѕРєР°Р¶Рё С‚РµРєС?С‚Р°\'; }" onfocus="this.blur();"></div><div class="spoilcontent"><div style="display: none;">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div></div></div>',
+	'SPOILER_SHOW'				=> 'РџРѕРєР°Р¶Рё С‚РµРєС?С‚',
+	'SPOILER_HIDE'				=> 'РЎРєСЂРёР№ С‚РµРєС?С‚',
 
-	// Text to be applied to the helpline & mouseover & help page
-	'ABBC3_JUSTIFY_MOVER'		=> 'Равностранно',
-	'ABBC3_JUSTIFY_TIP'			=> ' [align=justify]текст[/align]',
-	'ABBC3_JUSTIFY_VIEW'		=> '<div style="text-align:justify">Това е примерен текст</div>',
+	// Hide tag
+	'ABBC3_HIDE_MOVER'			=> 'РЎРєСЂРёР№ С?СЉРѕР±С‰РµРЅРёРµС‚Рѕ',
+	'ABBC3_HIDE_TIP'			=> '[hide]С?СЉРѕР±С‰РµРЅРёРµ[/hide]',
+	'ABBC3_HIDE_VIEW'			=> '<dl class="hidebox"><dt class="hide">РЎРєСЂРёРІР°РЅРµ: Р’РєР»СЋС‡РµРЅРѕ</dt><dd>РџСЉСЂРІРѕ С‚СЂС?Р±РІР° РґР° РѕС‚РіРѕРІРѕСЂРёС‚Рµ РЅР° С‚Р°Р·Рё С‚РµРјР° РїСЂРµРґРё РґР° РІРёРґРёС‚Рµ С?СЉРѕР±С‰РµРЅРёРµС‚Рѕ</dd></dl>',
+	
+	// Moderator tag
+	'ABBC3_MODERATOR_MOVER'		=> 'РњРѕРґРµСЂР°С‚РѕСЂС?РєРѕ С?СЉРѕР±С‰РµРЅРёРµ',
+	'ABBC3_MODERATOR_TIP'		=> '[mod=name]С‚РµРєС?С‚[/mod]',
+	'ABBC3_MODERATOR_VIEW'		=> '<table id="ModTable" width="100%" cellspacing="5" cellpadding="0" border="0" align="center"><tr><td class="row1" rowspan="2" align="middle" vAlign="center" width="1%"><span class="exclamation" title="РњРѕРґРµСЂР°С‚РѕСЂС?РєРѕ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ" style="font-size:25px">&nbsp;!&nbsp;</span></td><td class="row2"><span class="genmed"><b>РРјРµ РЅР° РјРѕРґРµСЂР°С‚РѕСЂ:</b></span></td></tr><tr><td>РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</td></tr></table>',
+	
+	// Off topic tag
+	'ABBC3_OFFTOPIC'			=> 'РР·РІСЉРЅ С‚РµРјР°С‚Р°',
+	'ABBC3_OFFTOPIC_MOVER'		=> 'Р’СЉРІРµРґРµС‚Рµ С‚РµРєС?С‚ РёР·РІСЉРЅ С‚РµРјР°С‚Р°',
+	'ABBC3_OFFTOPIC_TIP'		=> '[offtopic]С‚РµРєС?С‚[/offtopic]',
+	'ABBC3_OFFTOPIC_VIEW'		=> '<i><b><font color="#114499">РР·РІСЉРЅ С‚РµРјР°С‚Р°: </font></b><br/><font color="#2277DD">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</font></i>',
+	
+	// NFO
+	'ABBC3_NFO_MOVER'			=> 'Р?Р›Рћ С‚РµРєС?С‚ (Р’РёР¶РґР° С?Рµ РїРѕ-РґРѕР±СЂРµ РЅР° Internet Explorer)',
+	'ABBC3_NFO_TIP'				=> '[nfo]Р?Р›Рћ С‚РµРєС?С‚[/nfo]',
+	'ABBC3_NFO_VIEW'			=> '<table cellspacing="0" cellpadding="0" border="0" ><tr><td><span class="genmed"><b>NFO:</b></span></td></tr><tr><td class="nfo">' . str_replace(" ", "&nbsp;", '    Р† Р«Р«Р«Р« Р«Р«В±В±В°                                  В°В°В°В±В±В±В±Р†Р†Р†Р«Р«Р«Р«Р«Р«Р«Р«Р«Р«Р«  Р«   Р«Р« Р«Р«Р«') . '</td></tr></table>',
+	
+	// Justify Align
+	'ABBC3_JUSTIFY_MOVER'		=> 'Р Р°РІРЅРѕС?С‚СЂР°РЅРЅРѕ',
+	'ABBC3_JUSTIFY_TIP'			=> '[align=justify]С‚РµРєС?С‚[/align]',
+	'ABBC3_JUSTIFY_VIEW'		=> '<div style="text-align:justify">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
+	
+	// Right Align
+	'ABBC3_RIGHT_MOVER'			=> 'РџРѕРґСЂР°РІРЅРё РЅР°РґС?С?РЅРѕ',
+	'ABBC3_RIGHT_TIP'			=> '[align=right]С‚РµРєС?С‚[/align]',
+	'ABBC3_RIGHT_VIEW'			=> '<div style="text-align:right">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
+	
+	// Center Align
+	'ABBC3_CENTER_MOVER'		=> 'Р¦РµРЅС‚СЂРёСЂР°Р№',
+	'ABBC3_CENTER_TIP'			=> '[align=center]С‚РµРєС?С‚[/align]',
+	'ABBC3_CENTER_VIEW'			=> '<div style="text-align:center">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
+	
+	// Left Align
+	'ABBC3_LEFT_MOVER'			=> 'РџРѕРґСЂР°РІРЅРё РЅР°Р»С?РІРѕ',
+	'ABBC3_LEFT_TIP'			=> '[align=left]С‚РµРєС?С‚[/align]',
+	'ABBC3_LEFT_VIEW'			=> '<div style="text-left:justify">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
+	
+	// Preformat
+	'ABBC3_PRE_MOVER'			=> 'РџСЂРµС„РѕСЂРјР°С‚РёСЂР°РЅ С‚РµРєС?С‚',
+	'ABBC3_PRE_TIP'				=> '[pre]С‚РµРєС?С‚[/pre]',
+	'ABBC3_PRE_VIEW'			=> '<pre>РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</pre>',
+	
+	// Tab
+	'ABBC3_TAB_MOVER'			=> 'Creates a normal indent',
+	'ABBC3_TAB_TIP'				=> '[tab=nn]',
+	'ABBC3_TAB_NOTE'			=> 'Enter a number that will be a margin measured in pixels.',
+	'ABBC3_TAB_VIEW'			=> '<span style="margin-left:20px;"></span>This is a sample text',
+	
+	// Superscript
+	'ABBC3_SUP_MOVER'			=> 'Р?Р°РіР»Р°С?С? С‚РµРєС?С‚Р° РєР°С‚Рѕ РіРѕСЂРµРЅ РёРЅРґРµРєС?',
+	'ABBC3_SUP_TIP'				=> '[sup]С‚РµРєС?С‚[/sup]',
+	'ABBC3_SUP_VIEW'			=> '<sup>РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</sup>',
 
-	'ABBC3_RIGHT_MOVER'			=> 'Подравни надясно',
-	'ABBC3_RIGHT_TIP'			=> ' [align=right]текст[/align]',
-	'ABBC3_RIGHT_VIEW'			=> '<div style="text-align:right">Това е примерен текст</div>',
+	// Subscript
+	'ABBC3_SUB_MOVER'			=> 'Р?Р°РіР»Р°С?С? С‚РµРєС?С‚Р° РєР°С‚Рѕ РґРѕР»РµРЅ РёРЅРґРµРєС?',
+	'ABBC3_SUB_TIP'				=> '[sub]С‚РµРєС?С‚[/sub]',
+	'ABBC3_SUB_VIEW'			=> '<sub>РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</sub>',
 
-	'ABBC3_CENTER_MOVER'		=> 'Центрирай',
-	'ABBC3_CENTER_TIP'			=> ' [align=center]текст[/align]',
-	'ABBC3_CENTER_VIEW'			=> '<div style="text-align:center">Това е примерен текст</div>',
+	// Bold
+	'ABBC3_BOLD_MOVER'			=> 'РЈРґРµР±РµР»РµРЅ',
+	'ABBC3_BOLD_TIP'			=> '[b]С‚РµРєС?С‚[/b]',
+	'ABBC3_BOLD_VIEW'			=> '<strong>РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</strong>',
 
-	'ABBC3_LEFT_MOVER'			=> 'Подравни наляво',
-	'ABBC3_LEFT_TIP'			=> ' [align=left]текст[/align]',
-	'ABBC3_LEFT_VIEW'			=> '<div style="text-left:justify">Това е примерен текст</div>',
+	// Italic
+	'ABBC3_ITALIC_MOVER'		=> 'Р?Р°РєР»РѕРЅРµРЅ',
+	'ABBC3_ITALIC_TIP'			=> '[i]С‚РµРєС?С‚[/i]',
+	'ABBC3_ITALIC_VIEW'			=> '<em>РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</em>',
 
-	'ABBC3_PRE_MOVER'			=> 'Преформатиран текст',
-	'ABBC3_PRE_TIP'				=> ' [pre]текст[/pre]',
-	'ABBC3_PRE_VIEW'			=> '<pre>Това е примерен текст</pre>',
+	// Underline
+	'ABBC3_UNDERLINE_MOVER'		=> 'РџРѕРґС‡РµСЂС‚Р°РЅ',
+	'ABBC3_UNDERLINE_TIP'		=> '[u]С‚РµРєС?С‚[/u]',
+	'ABBC3_UNDERLINE_VIEW'		=> '<span style="text-decoration: underline">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</span>',
 
-	'ABBC3_SUP_MOVER'			=> 'Наглася текста като горен индекс',
-	'ABBC3_SUP_TIP'				=> ' [sup]текст[/sup]',
-	'ABBC3_SUP_VIEW'			=> '<sup>Това е примерен текст</sup>',
+	// Strikethrough
+	'ABBC3_STRIKE_MOVER'		=> 'Р—Р°РґСЂР°С?РєР°РЅ',
+	'ABBC3_STRIKE_TIP'			=> '[s]С‚РµРєС?С‚[/s]',
+	'ABBC3_STRIKE_VIEW'			=> '<span style="text-decoration: line-through;">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</span>',
 
-	'ABBC3_SUB_MOVER'			=> 'Наглася текста като долен индекс',
-	'ABBC3_SUB_TIP'				=> ' [sub]текст[/sub]',
-	'ABBC3_SUB_VIEW'			=> '<sub>Това е примерен текст</sub>',
+	// Text Fade
+	'ABBC3_FADE_MOVER'			=> 'РћР±РµР·С†РІРµС‚РµРЅ С‚РµРєС?С‚',
+	'ABBC3_FADE_TIP'			=> '[fade]С‚РµРєС?С‚[/fade]',
+	'ABBC3_FADE_VIEW'			=> '<span class="fade_link">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</span> <script type="text/javascript">fade_ontimer()</script>',
 
-	'ABBC3_BOLD_MOVER'			=> 'Удебелен',
-	'ABBC3_BOLD_TIP'			=> ' [b]текст[/b]',
-	'ABBC3_BOLD_VIEW'			=> '<strong>Това е примерен текст</strong>',
-
-	'ABBC3_ITALIC_MOVER'		=> 'Наклонен',
-	'ABBC3_ITALIC_TIP'			=> ' [i]текст[/i]',
-	'ABBC3_ITALIC_VIEW'			=> '<em>Това е примерен текст</em>',
-
-	'ABBC3_UNDERLINE_MOVER'		=> 'Подчертан',
-	'ABBC3_UNDERLINE_TIP'		=> ' [u]текст[/u]',
-	'ABBC3_UNDERLINE_VIEW'		=> '<span style="text-decoration: underline">Това е примерен текст</span>',
-
-	'ABBC3_STRIKE_MOVER'		=> 'Задраскан',
-	'ABBC3_STRIKE_TIP'			=> ' [s]текст[/s]',
-	'ABBC3_STRIKE_VIEW'			=> '<strike>Това е примерен текст</strike>',
-
-	'ABBC3_FADE_MOVER'			=> 'Обезцветен текст',
-	'ABBC3_FADE_TIP'			=> ' [fade]текст[/fade]',
-	'ABBC3_FADE_VIEW'			=> '<span class="fade_link">Това е примерен текст</span> <script type="text/javascript">fade_ontimer()</script>',
-
-	'ABBC3_GRAD_MOVER'			=> 'Градиент',
+	// Text Gradient
+	'ABBC3_GRAD_MOVER'			=> 'Р“СЂР°РґРёРµРЅС‚',
 	'ABBC3_GRAD_TIP'			=> '',
-	'ABBC3_GRAD_VIEW'			=> '<span style="color: #FF0000">Т</span><span style="color: #F2000D">о</span><span style="color: #E6001A">в</span><span style="color: #D90026">а</span> <span style="color: #BF0040">е</span> <span style="color: #A60059">п</span><span style="color: #990066">р</span><span style="color: #8C0073">и</span><span style="color: #800080">м</span><span style="color: #73008C">е</span><span style="color: #660099">р</span><span style="color: #5900A6">е</span><span style="color: #4D00B3">н</span> <span style="color: #3300CC">т</span><span style="color: #2600D9">е</span><span style="color: #1A00E6">к</span><span style="color: #0D00F2">с</span><span style="color: #0000FF">т</span></span>',
+	'ABBC3_GRAD_VIEW'			=> '<span style="color: #FF0000">Рў</span><span style="color: #F2000D">Рѕ</span><span style="color: #E6001A">РІ</span><span style="color: #D90026">Р°</span> <span style="color: #BF0040">Рµ</span> <span style="color: #A60059">Рї</span><span style="color: #990066">СЂ</span><span style="color: #8C0073">Рё</span><span style="color: #800080">Рј</span><span style="color: #73008C">Рµ</span><span style="color: #660099">СЂ</span><span style="color: #5900A6">Рµ</span><span style="color: #4D00B3">РЅ</span> <span style="color: #3300CC">С‚</span><span style="color: #2600D9">Рµ</span><span style="color: #1A00E6">Рє</span><span style="color: #0D00F2">С?</span><span style="color: #0000FF">С‚</span></span>',
+	'ABBC3_GRAD_MIN_ERROR'		=> 'РњРѕР»С?, РїСЉСЂРІРѕ РёР·Р±РµСЂРµС‚Рµ С‚РµРєС?С‚ : ',
+	'ABBC3_GRAD_MAX_ERROR'		=> 'РџРѕР·РІРѕР»РµРЅРѕ Рµ РїРѕ-РјР°Р»РєРѕ РѕС‚ 120 Р·РЅР°РєР° : ',
 
-	'ABBC3_RTL_MOVER'			=> 'Текст с разчитане от дясно на ляво',
-	'ABBC3_RTL_TIP'				=> ' [dir=rtl]текст[/dir]',
-	'ABBC3_RTL_VIEW'			=> '<BDO dir="rtl">Това е примерен текст</BDO>',
+	// Glow text
+	'ABBC3_GLOW_MOVER'			=> 'РўРµРєС?С‚ С? Р±Р»С?С?СЉРє (РЎР°РјРѕ Р·Р° Internet Explorer)',
+	'ABBC3_GLOW_TIP'			=> '[glow=(color)]С‚РµРєС?С‚[/glow]',
+	'ABBC3_GLOW_VIEW'			=> '<div style="filter:Glow(color=red,strength=4);color:#ffffff;height:110%">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
 
-	'ABBC3_LTR_MOVER'			=> 'Текст с разчитане от ляво на дясно',
-	'ABBC3_LTR_TIP'				=> ' [dir=ltr]текст[/dir]',
-	'ABBC3_LTR_VIEW'			=> '<BDO dir="ltr">Това е примерен текст</BDO>',
-
-	'ABBC3_MARQD_MOVER'			=> 'Измести надолу',
-	'ABBC3_MARQD_TIP'			=> ' [marq=down]текст[/marq]',
-	'ABBC3_MARQD_VIEW'			=> '<marquee direction="down" scrolldelay="120">Това е примерен текст</marquee>',
-
-	'ABBC3_MARQU_MOVER'			=> 'Измести нагоре',
-	'ABBC3_MARQU_TIP'			=> ' [marq=up]текст[/marq]',
-	'ABBC3_MARQU_VIEW'			=> '<marquee direction="up" scrolldelay="120">Това е примерен текст</marquee>',
-
-	'ABBC3_MARQR_MOVER'			=> 'Измести надясно',
-	'ABBC3_MARQR_TIP'			=> ' [marq=right]текст[/marq]',
-	'ABBC3_MARQR_VIEW'			=> '<marquee direction="right" scrolldelay="120">Това е примерен текст</marquee>',
-
-	'ABBC3_MARQL_MOVER'			=> 'Измести наляво',
-	'ABBC3_MARQL_TIP'			=> ' [marq=left]текст[/marq]',
-	'ABBC3_MARQL_VIEW'			=> '<marquee direction="left" scrolldelay="120">Това е примерен текст</marquee>',
-
-	'ABBC3_TABLE_MOVER'			=> 'Въведи таблица',
-	'ABBC3_TABLE_TIP'			=> ' [table=(ccs стил)][tr=(ccs стил)][td=(ccs стил)]текст[/td][/tr][/table]',
-	'ABBC3_TABLE_VIEW'			=> '<table style="width:50%;border:1px solid #cccccc;" cellspacing="0" cellpadding="0"><tr style="text-align:center;"><td style="border:1px solid #cccccc;">Това е примерен текст</td></tr></table>',
-
-	'ABBC3_QUOTE_MOVER'			=> 'Цитат',
-	'ABBC3_QUOTE_TIP'			=> ' [quote]текст[/quote] или [quote=\"потребител\"]текст[/quote]',
-	'ABBC3_QUOTE_VIEW'			=> '<blockquote><div><cite>member '. $lang['WROTE'] .':</cite>Това е примерен текст</div></blockquote>',
-
-	'ABBC3_CODE_MOVER'			=> 'Код',
-	'ABBC3_CODE_TIP'			=> ' [code]Код[/code]',
-	'ABBC3_CODE_VIEW'			=> '<dl class="codebox"><dt>'. $lang['CODE'] .': <a href="#" onclick="selectCode(this); return false;">'. $lang['SELECT_ALL_CODE'] .'</a></dt><dd><code>Това е примерен текст</code></dd></dl>',
-
-	'ABBC3_SPOIL_MOVER'			=> 'Скрит текст',
-	'ABBC3_SPOIL_TIP'			=> ' [spoil]текст[/spoil]',
-	'ABBC3_SPOIL_VIEW'			=> '<div class="spoilwrapper"><div class="spoiltitle"><input class="btnspoil" type="button" value="Покажи" onClick="javascript:if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerText = \'\'; this.value = \'Скрии текста\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerText = \'\'; this.value = \'Покажи текста\'; }" onfocus="this.blur();"></div><div class="spoilcontent"><div style="display: none;">Това е примерен текст</div></div></div>',
-
-	'ABBC3_ED2K_MOVER'			=> 'ed2k адрес',
-	'ABBC3_ED2K_TIP'			=> ' [url]ed2k адрес[/url] или [url=link ed2k]адрес[/url]',
-	'ABBC3_ED2K_VIEW'			=> '<a href="ed2k://|file|Robin.Hood.S02E01.Sisterhood.HDTV.XviD-BiA.avi|367335424|6EB031138DE4A80997A13C272760202F|h=CJZXHKH25ZONIMWVUOENVQKJSZDV5JI6|/" class="postlink">Robin.Hood.S02E01.Sisterhood.HDTV.XviD-BiA.avi</a>',
-
-	'ABBC3_URL_MOVER'			=> 'Сайт',	
-	'ABBC3_URL_TIP'				=> ' [url]http://...[/url] или [url=http://...]Име на страница[/url]',
-	'ABBC3_URL_VIEW'			=> '<a href="http://www.google.com" class="postlink">Google</a>',
-
-	'ABBC3_EMAIL_MOVER'			=> 'email',
-	'ABBC3_EMAIL_TIP'			=> ' [email]user@server.ext[/email] или [email=user@server.ext]Моят мейл[/email]',
-	'ABBC3_EMAIL_VIEW'			=> '<a href="mailto:user@server.ext">user@server.ext</a>',
-
-	'ABBC3_WEB_MOVER'			=> 'Въведи страница в мнението',
-	'ABBC3_WEB_TIP'				=> ' [web width=200 height=100 ]Адрес на страницата[/web]',
-	'ABBC3_WEB_VIEW'			=> '<iframe width="100%" height="100" src="http://www.google.com" style="font-size: 2px;"></iframe><br/>',
-
-	'ABBC3_IMG_MOVER'			=> 'Въведи картинка',
-	'ABBC3_IMG_TIP'				=> ' [img=(left|center|right)]http://...[/img]',
-	'ABBC3_IMG_VIEW'			=> '<div align="center"><img src="http://www.google.com/intl/en_com/images/logo_plain.png" /></div>',
-
-	'ABBC3_THUMB_MOVER'			=> 'Въведи миниатура',
-	'ABBC3_THUMB_TIP'			=> ' [thumbnail(=left|right)]http://...[/thumbnail]',
-	'ABBC3_THUMB_VIEW'			=> '<a href="http://www.google.com/intl/en_com/images/logo_plain.png" rel="lightbox[]" alt="http://www.google.com/intl/en_com/images/logo_plain.png" title="" class="hoverbox"><img src="http://www.google.com/intl/en_com/images/logo_plain.png" border="0" width="100px" align="right"/></a>',
-
-	'ABBC3_IMGSHACK_MOVER'		=> 'Въведи картинка от imageshack',
-	'ABBC3_IMGSHACK_TIP'		=> ' [url=http://imageshack.us][img=http://...][/img][/url]',
-	'ABBC3_IMGSHACK_VIEW'		=> '<a href="http://img207.imageshack.us/my.php?image=advancedbbcodebox3prosidd3.gif" class="postlink"><img src="http://img207.imageshack.us/img207/1773/advancedbbcodebox3prosidd3.th.gif" alt="Картинка" /></a>',
-
-	'ABBC3_FLASH_MOVER'			=> 'Въведи flash файл',
-	'ABBC3_FLASH_TIP'			=> ' [flash width=# height=#]Flash адрес[/flash]',
-	'ABBC3_FLASH_VIEW'			=> '<object classid="clsid:D27CDB6E-AE6D-11CF-96B8-444553540000" codebase="http://active.macromedia.com/flash2/cabs/swflash.cab#version=5,0,0,0" width="200" height="100"><param name="movie" value="http://www.adobe.com/support/flash/ts/documents/test_version/version.swf" /><param name="play" value="true" /><param name="loop" value="true" /><param name="quality" value="high" /><param name="allowScriptAccess" value="never" /><param name="allowNetworking" value="internal" /><embed src="http://www.adobe.com/support/flash/ts/documents/test_version/version.swf" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" width="200" height="100" play="true" loop="true" quality="high" allowscriptaccess="never" allownetworking="internal"></embed></object>',
-
-	'ABBC3_VIDEO_MOVER'			=> 'Въведи видео',
-	'ABBC3_VIDEO_TIP'			=> ' [video width=# height=#]Видео адрес[/video]',
-	'ABBC3_VIDEO_VIEW'			=> '<object width="200" height="100" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="wmstream_"><param name="url" value="$3" /><param name="showcontrols" value="1" /><param name="showdisplay" value="0" /><param name="showstatusbar" value="0" /><param name="autosize" value="1" /><param name="autostart" value="0" /><param name="visible" value="1" /><param name="animationstart" value="0" /><param name="loop" value="0" /><param name="src" value="$3" /><!--[if !IE]>--><object width="200" height="100" type="video/x-ms-wmv" data="$3"><param name="src" value="$3" /><param name="controller" value="1" /><param name="showcontrols" value="1" /><param name="showdisplay" value="0" /><param name="showstatusbar" value="0" /><param name="autosize" value="1" /><param name="autostart" value="0" /><param name="visible" value="1" /><param name="animationstart" value="0" /><param name="loop" value="0" /></object><!--<![endif]--></object>',
-
-	'ABBC3_STREAM_MOVER'		=> 'Въведи аудио',
-	'ABBC3_STREAM_TIP'			=> ' [stream]Адрес[/stream]',
-	'ABBC3_STREAM_VIEW'			=> '<object width="200" height="45" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="wmstream_"><param name="url" value="$1" /><param name="showcontrols" value="1" /><param name="showdisplay" value="0" /><param name="showstatusbar" value="0" /><param name="autosize" value="1" /><param name="autostart" value="0" /><param name="visible" value="1" /><param name="animationstart" value="0" /><param name="loop" value="0" /><param name="src" value="$1" /><!--[if !IE]>--><object width="200" height="45" type="video/x-ms-wmv" data="$1"><param name="src" value="$1" /><param name="controller" value="1" /><param name="showcontrols" value="1" /><param name="showdisplay" value="0" /><param name="showstatusbar" value="0" /><param name="autosize" value="1" /><param name="autostart" value="0" /><param name="visible" value="1" /><param name="animationstart" value="0" /><param name="loop" value="0" /></object><!--<![endif]--></object>',
-
-	'ABBC3_RAM_MOVER'			=> 'Въведи Real Media',
-	'ABBC3_RAM_TIP'				=> ' [ram]Real Media адрес[/ram]',
-	'ABBC3_RAM_VIEW'			=> '<object id="rmstream_" classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" width="200" height="100"><param name="src" value="$3" /><param name="autostart" value="false" /><param name="controls" value="ImageWindow" /><param name="console" value="ctrls_" /><param name="prefetch" value="false" /><embed name="rmstream_" type="audio/x-pn-realaudio-plugin" src="$3" width="200" height="100" autostart="false" controls="ImageWindow" console="ctrls_" prefetch="false"></embed></object><br /><object id="ctrls_" classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" width="200" height="36"><param name="controls" value="ControlPanel" /><param name="console" value="ctrls_{_file.ATTACH_ID}" /><embed name="ctrls_" type="audio/x-pn-realaudio-plugin" width="200" height="36" controls="ControlPanel" console="ctrls_"></embed></object>',
-
-	'ABBC3_QUICKTIME_MOVER'		=> 'Въведи Quick time',
-	'ABBC3_QUICKTIME_TIP'		=> ' [quicktime width=# height=#]Quick time адрес[/quicktime]',
-	'ABBC3_QUICKTIME_VIEW'		=> '<object id="qtstream_" classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab#version=6,0,2,0" width="200" height="100"><param name="src" value="http://www.nature.com/neuro/journal/v3/n3/extref/Li_control.mov.qt" /><param name="controller" value="true" /><param name="autoplay" value="false" /><param name="type" value="video/quicktime" /><embed name="qtstream_" src="http://www.nature.com/neuro/journal/v3/n3/extref/Li_control.mov.qt" pluginspage="http://www.apple.com/quicktime/download/" enablejavascript="true" controller="true" width="200" height="100" type="video/quicktime" autoplay="false"></embed></object>',
-
-	'ABBC3_STAGE6_MOVER'		=> 'Въведи видео от Stage6', // от http://www.stage6.com/
-	'ABBC3_STAGE6_TIP'			=> ' [stage6]Stage6 ID[/stage6]',
-	'ABBC3_STAGE6_VIEW'			=> '<object  classid="clsid:67DABFBF-D0AB-41fa-9C46-CC0F21721616" codebase="http://download.divx.com/player/DivXBrowserPlugin.cab" width="200" height="100" ><param name="src" value="http://video.stage6.com/2068715/.divx" /><param name="autoplay" value="false" /><param name="custommode" value="Stage6" /><param name="showpostplaybackad" value="false" /><embed type="video/divx" src="http://video.stage6.com/2068715/.divx" pluginspage="http://go.divx.com/plugin/download/" showpostplaybackad="false" custommode="Stage6" autoplay="false" width="200" height="100" /></object><br />',
-
-	'ABBC3_GVIDEO_MOVER'		=> 'Въведи видео от Google',
-	'ABBC3_GVIDEO_TIP'			=> ' [GVideo]Видео адрес[/GVideo]',
-	'ABBC3_GVIDEO_VIEW'			=> '<object classid="clsid:D27CDB6E-AE6D-11CF-96B8-444553540000" codebase="http://active.macromedia.com/flash2/cabs/swflash.cab#version=5,0,0,0" width="200" height="100"><param name="movie" value="http://video.google.com/googleplayer.swf?docid=-8351924403384451128" /><param name="play" value="false" /><param name="loop" value="false" /><param name="quality" value="high" /><param name="allowScriptAccess" value="never" /><param name="allowNetworking" value="internal" /><embed src="http://video.google.com/googleplayer.swf?docid=-8351924403384451128" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" width="200" height="100" play="false" loop="false" quality="high" allowscriptaccess="never" allownetworking="internal"></embed></object>',
-
-	'ABBC3_YOUTUBE_MOVER'		=> 'Въведи видео от Youtube',
-	'ABBC3_YOUTUBE_TIP'			=> ' [youtube]Видео адрес[/youtube]',
-	'ABBC3_YOUTUBE_VIEW'		=> '<object width="200" height="100"><param name="movie" value="http://www.youtube.com/v/TA4hm97m494" /><param name="wmode" value="transparent" /><embed src="http://www.youtube.com/v/TA4hm97m494" type="application/x-shockwave-flash" wmode="transparent" width="200" height="100"></embed></object>',
-
-	'ABBC3_LISTB_MOVER'			=> 'Подредете по точки',
-	'ABBC3_LISTB_TIP'			=> ' [list]текст[/list] Бележка: използвайте [*] за да създадете точка',
+	// Shadow text
+	'ABBC3_SHADOW_MOVER'		=> 'РўРµРєС?С‚ С?СЉС? С?С?РЅРєР° (РЎР°РјРѕ Р·Р° Internet Explorer)',
+	'ABBC3_SHADOW_TIP'			=> '[shadow=(color)]С‚РµРєС?С‚[/shadow]',
+	'ABBC3_SHADOW_VIEW'			=> '<div style="filter:shadow(color=black,strength=4);color:blue;height:110%">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
+	
+	// Dropshadow text
+	'ABBC3_DROPSHADOW_MOVER'	=> 'РЎС?РЅРєР° (РЎР°РјРѕ Р·Р° Internet Explorer)',
+	'ABBC3_DROPSHADOW_TIP'		=> '[dropshadow=(color)]С‚РµРєС?С‚[/dropshadow]',
+	'ABBC3_DROPSHADOW_VIEW'		=> '<div style="filter:dropshadow(color=#999999,strength=4);color:blue;height:110%">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
+	
+	// Blur text
+	'ABBC3_BLUR_MOVER'			=> 'Blur С‚РµРєС?С‚ (РЎР°РјРѕ Р·Р° Internet Explorer)',
+	'ABBC3_BLUR_TIP'			=> '[blur=(color)]С‚РµРєС?С‚[/blur]',
+	'ABBC3_BLUR_VIEW'			=> '<div style="filter:Blur(strength=7);color:blue;height:110%">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
+	
+	// Wave text
+	'ABBC3_WAVE_MOVER'			=> 'РўРµРєС?С‚ РЅР° РІСЉР»РЅРёС‡РєРё (РЎР°РјРѕ Р·Р° Internet Explorer)',
+	'ABBC3_WAVE_TIP'			=> '[wave=(color)]С‚РµРєС?С‚[/wave]',
+	'ABBC3_WAVE_VIEW'			=> '<div style="filter:Wave(strength=2);color:blue;height:110%">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</div>',
+	
+	// Unordered List
+	'ABBC3_LISTB_MOVER'			=> 'РџРѕРґСЂРµРґРµС‚Рµ РїРѕ С‚РѕС‡РєРё',
+	'ABBC3_LISTB_TIP'			=> '[list]С‚РµРєС?С‚[/list]',
+	'ABBC3_LISTB_NOTE'			=> 'Р‘РµР»РµР¶РєР°: РёР·РїРѕР»Р·РІР°Р№С‚Рµ [*] Р·Р° РґР° С?СЉР·РґР°РґРµС‚Рµ С‚РѕС‡РєР°',
 	'ABBC3_LISTB_VIEW'			=> '<ul><li>Item1</li><li>Item2</li><li>Item3</li></ul>',
 
-	'ABBC3_LISTO_MOVER'			=> 'Нумериран списък',
-	'ABBC3_LISTO_TIP'			=> ' [list=1|a]text[/list] Бележка: използвайте [*] за да създадете точка',
+	// Ordered List
+	'ABBC3_LISTO_MOVER'			=> 'Р?СѓРјРµСЂРёСЂР°РЅ С?РїРёС?СЉРє',
+	'ABBC3_LISTO_TIP'			=> '[list=1|a]text[/list]',
+	'ABBC3_LISTO_NOTE'			=> 'Р‘РµР»РµР¶РєР°: РёР·РїРѕР»Р·РІР°Р№С‚Рµ [*] Р·Р° РґР° С?СЉР·РґР°РґРµС‚Рµ С‚РѕС‡РєР°',
 	'ABBC3_LISTO_VIEW'			=> '<ol style="list-style-type: lower-alpha"><li>Item1</li><li>Item2</li><li>Item3</li></ol>',
 
-	'ABBC3_HR_MOVER'			=> 'Заглавие',
-	'ABBC3_HR_TIP'				=> ' [hr] Бележка: Създава заглавие на една линия',
+	// List item
+	'ABBC3_LISTITEM_MOVER'		=> 'РџРѕРґСЂРµРґРµС‚Рµ РїРѕ С‚РѕС‡РєРё',
+	'ABBC3_LISTITEM_TIP'		=> '[*]',
+	'ABBC3_LISTITEM_NOTE'		=> 'Р‘РµР»РµР¶РєР°: РЎСЉР·РґР°РІР° С‚РѕС‡РєРё РІ С?РїРёС?СЉРєР°',
+	
+	// Line Break
+	'ABBC3_HR_MOVER'			=> 'Р—Р°РіР»Р°РІРёРµ',
+	'ABBC3_HR_TIP'				=> '[hr]',
+	'ABBC3_HR_NOTE'				=> 'Р‘РµР»РµР¶РєР°: РЎСЉР·РґР°РІР° Р·Р°РіР»Р°РІРёРµ РЅР° РµРґРЅР° Р»РёРЅРёС?',
 	'ABBC3_HR_VIEW'				=> '<hr noshade color="#000000" size="1px">',
 
-	'ABBC3_CUT_MOVER'			=> 'Премахва избрания текст',
-	'ABBC3_COPY_MOVER'			=> 'Копира избрания текст',
-	'ABBC3_PASTE_MOVER'			=> 'Залепва избрания текст',
-	'ABBC3_PLAIN_MOVER'			=> 'Премахва BBкодовете от избрания текст',
-	'ABBC3_PASTE_ERROR'			=> 'Моля, пъвро копирайте текст, после го залепете ',
-	'ABBC3_NOSELECT_ERROR'		=> 'Моля, първо изберете текст ',
+	// Message Box text direction Left to Light
+	'ABBC3_RTL_MOVER'			=> 'РўРµРєС?С‚ С? СЂР°Р·С‡РёС‚Р°РЅРµ РѕС‚ РґС?С?РЅРѕ РЅР° Р»С?РІРѕ',
+	'ABBC3_RTL_TIP'				=> '[dir=rtl]С‚РµРєС?С‚[/dir]',
+	'ABBC3_RTL_VIEW'			=> '<BDO dir="rtl">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</BDO>',
+	
+	// Message Box text direction right to Left
+	'ABBC3_LTR_MOVER'			=> 'РўРµРєС?С‚ С? СЂР°Р·С‡РёС‚Р°РЅРµ РѕС‚ Р»С?РІРѕ РЅР° РґС?С?РЅРѕ',
+	'ABBC3_LTR_TIP'				=> '[dir=ltr]С‚РµРєС?С‚[/dir]',
+	'ABBC3_LTR_VIEW'			=> '<BDO dir="ltr">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</BDO>',
+	
+	// Marquee Down
+	'ABBC3_MARQD_MOVER'			=> 'РР·РјРµС?С‚Рё РЅР°РґРѕР»Сѓ',
+	'ABBC3_MARQD_TIP'			=> '[marq=down]С‚РµРєС?С‚[/marq]',
+	'ABBC3_MARQD_VIEW'			=> '<marquee direction="down" scrolldelay="120" height="80px">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</marquee>',
+	
+	// Marquee Up
+	'ABBC3_MARQU_MOVER'			=> 'РР·РјРµС?С‚Рё РЅР°РіРѕСЂРµ',
+	'ABBC3_MARQU_TIP'			=> '[marq=up]С‚РµРєС?С‚[/marq]',
+	'ABBC3_MARQU_VIEW'			=> '<marquee direction="up" scrolldelay="120" height="80px">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</marquee>',
+	
+	// Marquee Right
+	'ABBC3_MARQR_MOVER'			=> 'РР·РјРµС?С‚Рё РЅР°РґС?С?РЅРѕ',
+	'ABBC3_MARQR_TIP'			=> '[marq=right]С‚РµРєС?С‚[/marq]',
+	'ABBC3_MARQR_VIEW'			=> '<marquee direction="right" scrolldelay="120">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</marquee>',
+	
+	// Marquee Left
+	'ABBC3_MARQL_MOVER'			=> 'РР·РјРµС?С‚Рё РЅР°Р»С?РІРѕ',
+	'ABBC3_MARQL_TIP'			=> '[marq=left]С‚РµРєС?С‚[/marq]',
+	'ABBC3_MARQL_VIEW'			=> '<marquee direction="left" scrolldelay="120">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</marquee>',
+	
+	// Table row cell wizard
+	'ABBC3_TABLE_MOVER'			=> 'Р’СЉРІРµРґРё С‚Р°Р±Р»РёС†Р°',
+	'ABBC3_TABLE_TIP'			=> '[table=(ccs С?С‚РёР»)][tr=(ccs С?С‚РёР»)][td=(ccs С?С‚РёР»)]С‚РµРєС?С‚[/td][/tr][/table]',
+	'ABBC3_TABLE_VIEW'			=> '<table style="width:50%;border:1px solid #cccccc;" cellspacing="0" cellpadding="0"><tr style="text-align:center;"><td style="border:1px solid #cccccc;">РўРѕРІР° Рµ РїСЂРёРјРµСЂРµРЅ С‚РµРєС?С‚</td></tr></table>',
 
-	// Wizard texts
-	'ABBC3_ERROR'				=> 'Грешка : ',
-	'ABBC3_ERROR_TAG'			=> 'Неочаквана грешка използвайки етикет : ',
-
-	'ABBC3_ID'					=> 'Въведете идентификатор :',
-	'ABBC3_NOID'				=> 'Вие не написахте идентификатора',
-	'ABBC3_LINK'				=> 'Въведете адрес за ',
-	'ABBC3_DESC'				=> 'Въведете описание за ',
-	'ABBC3_NAME'				=> 'Описание',
-	'ABBC3_NOLINK'				=> 'Вие не написахте адрес за ',
-	'ABBC3_NODESC'				=> 'Вие не написахте описание за ',
-	'ABBC3_WIDTH'				=> 'Въведете широчина',
-	'ABBC3_WIDTH_NOTE'			=> 'Бележка: данните може да бъдат интерпретирани като процент',
-	'ABBC3_NOWIDTH'				=> 'Не въведохте широчината',
-	'ABBC3_HEIGHT'				=> 'Въведете дължина',
-	'ABBC3_HEIGHT_NOTE'			=> 'Бележка: данните може да бъдат интерпретирани като процент',
-	'ABBC3_NOHEIGHT'			=> 'Не въведохте дължината',
-
-	'ABBC3_ED2K_TAG'			=> 'ed2k',
-	'ABBC3_ED2K_NOTE' 			=> '', //'Пример: ed2k://|file|Robin.Hood.S02E01.Sisterhood.HDTV.XviD-BiA.avi|367335424|6EB031138DE4A80997A13C272760202F|h=CJZXHKH25ZONIMWVUOENVQKJSZDV5JI6|/',
-	'ABBC3_ED2K_ADD'			=> 'Въведете адреса във вашият ed2k клиент',
-
-	'ABBC3_URL_TAG'				=> 'страница',
-	'ABBC3_URL_NOTE' 			=> 'Пример: http://www.google.com',
-
-	'ABBC3_WEB_TAG'				=> 'сайт',
-	'ABBC3_WEB_NOTE'			=> 'Пример: http://www.google.com',
-
+	'ABBC3_TABLE_STYLE'			=> 'Р’СЉРІРµРґРµС‚Рµ С?С‚РёР» РЅР° С‚Р°Р±Р»РёС†Р°',
+	'ABBC3_TABLE_EXAMPLE'		=> 'width:50%;border:1px solid #cccccc;',
+	
+	'ABBC3_ROW_NUMBER'			=> 'Р’СЉРІРµРґРµС‚Рµ Р±СЂРѕР№ РЅР° СЂРµРґРёС†Рё',
+	'ABBC3_ROW_ERROR'			=> 'Р?Рµ РІСЉРІРµРґРѕС…С‚Рµ Р±СЂРѕР№ Р·Р° СЂРµРґРёС†РёС‚Рµ',
+	'ABBC3_ROW_STYLE'			=> 'Р’СЉРІРµРґРµС‚Рµ С?С‚РёР» Р·Р° СЂРµРґРёС†РёС‚Рµ',
+	'ABBC3_ROW_EXAMPLE'			=> 'text-align:center;',
+	
+	'ABBC3_CELL_NUMBER'			=> 'Р’СЉРІРµРґРµС‚Рµ Р±СЂРѕР№ РЅР° РєРѕР»РѕРЅРєРёС‚Рµ',
+	'ABBC3_CELL_ERROR'			=> 'Р?Рµ РІСЉРІРµРґРѕС…С‚Рµ Р±СЂРѕР№ РЅР° РєРѕР»РѕРЅРєРёС‚Рµ',
+	'ABBC3_CELL_STYLE'			=> 'Р’СЉРІРµРґРµС‚Рµ С?С‚РёР» РЅР° РєРѕР»РѕРЅРєРёС‚Рµ',
+	'ABBC3_CELL_EXAMPLE'		=> 'border:1px solid #cccccc;',
+	
+	// Simple upload files
+	'ABBC3_UPLOAD_TITLE'		=> 'Advanced BBCode box 3 :: РЎС‚СЂР°РЅРёС†Р° Р·Р° РєР°С‡РІР°РЅРµ РЅР° С„Р°Р№Р»Рё',
+	'ABBC3_UPLOAD_MOVER'		=> 'РљР°С‡Рё С„Р°Р№Р»',
+	'ABBC3_UPLOAD_LINK'			=> 'РўРѕРІР° Рµ Р°РґСЂРµС?Р° РЅР° РєР°С‡РµРЅРёС? РІРё С„Р°Р№Р»',
+	'ABBC3_UPLOAD_UPLOADED'		=> 'РљР°С‡РІР°РЅРµС‚Рѕ РЅР° %s Р±РµС€Рµ СѓС?РїРµС€РЅРѕ!',
+	'ABBC3_UPLOAD_NOT_UPLOADED'	=> 'РљР°С‡РІР°РЅРµС‚Рѕ РЅР° %s С?Рµ РїСЂРѕРІР°Р»Рё',
+	'ABBC3_UPLOAD_ALREADY'		=> 'РџСЂРёРєР°С‡РµРЅРѕС‚Рѕ %s РІРµС‡Рµ С?СЉС‰РµС?С‚РІСѓРІР°, РјРѕР»С? РёР·Р±РµСЂРµС‚Рµ РґСЂСѓРі С„Р°Р№Р» РёР»Рё РїСЂРµРёРјРµРЅСѓРІР°Р№С‚Рµ С‚РѕР·Рё Рё РѕРїРёС‚Р°Р№С‚Рµ РїР°Рє',
+	'ABBC3_UPLOAD_ERROR'		=> 'Р?РµРјРѕР¶Рµ РґР° С?Рµ РєР°С‡Рё С„Р°Р№Р» РІ %s. Р’СЉСЂРЅР°С‚ РєРѕРґ Р·Р° РіСЂРµС€РєР° : %d',
+	'ABBC3_UPLOAD_EXTENSION'	=> 'РџРѕР·РІРѕР»РµРЅРё СЂР°Р·С€РёСЂРµРЅРёС?',
+	'ABBC3_UPLOAD_EXTENSION_EXPLAIN'   => 'РњРѕР¶РµС‚Рµ РґР° РґРѕР±Р°РІРёС‚Рµ/РїСЂРѕРјРµРЅРё/РёР·С‚СЂРёРµС‚Рµ РїРѕР·РІРѕР»РµРЅРёС‚Рµ СЂР°Р·С€РёСЂРµРЅРёС?. Р Р°Р·РґРµР»РµС‚Рµ СЂР°Р·Р»РёС‡РЅРёС‚Рµ СЂР°Р·С€РёСЂРµРЅРёС? С?СЉС? Р·Р°РїРµС‚Р°С? (,)',
+	'ABBC3_UPLOAD_DISABLED'		=> 'РљР°С‡РµРЅРѕС‚Рѕ СЂР°Р·С€РёСЂРµРЅРёРµ РЅРµ Рµ РїРѕР·РІРѕР»РµРЅРѕ %s',
+	'ABBC3_UPLOAD_SIZE'			=> 'РњР°РєС?РёРјР°Р»РµРЅ СЂР°Р·РјРµСЂ',
+	'ABBC3_UPLOAD_NOSIZE'		=> 'РљР°С‡РµРЅРёС? С„Р°Р№Р» %d Рµ РїСЂРµРєР°Р»РµРЅРѕ РіРѕР»С?Рј. РњР°РєС?РёРјР°Р»РЅРёС? РїРѕР·РІРѕР»РµРЅ СЂР°Р·РјРµСЂ Рµ %d KB',
+	'ABBC3_UPLOAD_EMPTY'		=> 'РљР°С‡РµРЅРёС?С‚ С„Р°Р№Р» Рµ РїСЂР°Р·РµРЅ, РњРѕР»С? РїСЉСЂРІРѕ РёР·Р±РµСЂРµС‚Рµ С„Р°Р№Р»',
+	
+	// Hyperlink Wizard
+	'ABBC3_URL_TAG'				=> 'С?С‚СЂР°РЅРёС†Р°',
+	'ABBC3_URL_MOVER'			=> 'РЎР°Р№С‚',	
+	'ABBC3_URL_TIP'				=> '[url]http://...[/url] РёР»Рё [url=http://...]РРјРµ РЅР° С?С‚СЂР°РЅРёС†Р°[/url]',
+	'ABBC3_URL_EXAMPLE'			=> 'http://www.google.com',
+	'ABBC3_URL_VIEW'			=> '<a href="http://www.google.com" class="postlink">Google</a>',
+	
+	// Email Wizard
 	'ABBC3_EMAIL_TAG'			=> 'email',
-	'ABBC3_EMAIL_NOTE' 			=> 'Пример: user@server.ext',
+	'ABBC3_EMAIL_MOVER'			=> 'email',
+	'ABBC3_EMAIL_TIP'			=> '[email]user@server.ext[/email] РёР»Рё [email=user@server.ext]РњРѕС?С‚ РјРµР№Р»[/email]',
+	'ABBC3_EMAIL_EXAMPLE' 		=> 'user@server.ext',
+	'ABBC3_EMAIL_VIEW'			=> '<a href="mailto:user@server.ext">user@server.ext</a>',
 
-	'ABBC3_IMG_TAG'				=> 'снимка',
-	'ABBC3_IMG_NOTE'			=> 'Пример: http://www.google.com/intl/en_com/images/logo_plain.png',
-
-	'ABBC3_THUMB_TAG'			=> 'миниатура',
-	'ABBC3_THUMB_NOTE'			=> 'Пример: http://www.google.com/intl/en_com/images/logo_plain.png',
-
-	'ABBC3_FLASH_TAG'			=> 'flash',
-	'ABBC3_FLASH_NOTE'			=> 'Пример: http://www.adobe.com/support/flash/ts/documents/test_version/version.swf',
-
-	'ABBC3_VIDEO_TAG'			=> 'видео',
-	'ABBC3_VIDEO_NOTE'			=> '', //'Пример: ???',
-
-	'ABBC3_STREAM_TAG'			=> 'аудио',
-	'ABBC3_STREAM_NOTE'			=> '', //'Пример: ???',
-
-	'ABBC3_RAM_TAG'				=> 'Real Media',
-	'ABBC3_RAM_NOTE'			=> '', //'Пример: ???',
-
-	'ABBC3_QUICKTIME_TAG'		=> 'Quick time',
-	'ABBC3_QUICKTIME_NOTE'		=> 'Пример: http://www.nature.com/neuro/journal/v3/n3/extref/Li_control.mov.qt' . '<br/>' .'http://www.carnivalmidways.com/images/Music/thisisatest.mp3',
-
-	'ABBC3_STAGE6_TAG'			=> 'Stage6 Видео',
-	'ABBC3_STAGE6_NOTE'			=> 'Пример: 2068715',
-
-	'ABBC3_GVIDEO_TAG'			=> 'Google Видео',
-	'ABBC3_GVIDEO_NOTE'			=> 'Видео: http://video.google.com/videoplay?docid=-8351924403384451128',
-
-	'ABBC3_YOUTUBE_TAG'			=> 'Youtube Видео',
-	'ABBC3_YOUTUBE_NOTE'		=> 'Пример: http://www.youtube.com/watch?v=TA4hm97m494',
-
-	'ABBC3_TABLE_STYLE'			=> 'Въведете стил на таблица',
-	'ABBC3_TABLE_NOTE'			=> 'Пример: width:50%;border:1px solid #cccccc;',
+	// Ed2k link Wizard
+	'ABBC3_ED2K_TAG'			=> 'ed2k',
+	'ABBC3_ED2K_MOVER'			=> 'ed2k Р°РґСЂРµС?',
+	'ABBC3_ED2K_TIP'			=> '[url]ed2k Р°РґСЂРµС?[/url] РёР»Рё [url=link ed2k]Р°РґСЂРµС?[/url]',
+	'ABBC3_ED2K_EXAMPLE'		=> 'ed2k://|file|The_Two_Towers-The_Purist_Edit-Trailer.avi|14997504|965c013e991ee246d63d45ea71954c4d|/',
+	'ABBC3_ED2K_VIEW'			=> '<a href="ed2k://|file|The_Two_Towers-The_Purist_Edit-Trailer.avi|14997504|965c013e991ee246d63d45ea71954c4d|/" class="postlink">The_Two_Towers-The_Purist_Edit-Trailer.avi</a>',
+	'ABBC3_ED2K_ADD'			=> 'Р’СЉРІРµРґРµС‚Рµ Р°РґСЂРµС?Р° РІСЉРІ РІР°С€РёС?С‚ ed2k РєР»РёРµРЅС‚',
 	
-	'ABBC3_ROW_NUMBER'			=> 'Въведете брой на редици',
-	'ABBC3_ROW_ERROR'			=> 'Не въведохте брой за редиците',
-	'ABBC3_ROW_STYLE'			=> 'Въведете стил за редиците',
-	'ABBC3_ROW_NOTE'			=> 'Пример: text-align:center;',
+	// Web included by iframe
+	'ABBC3_WEB_TAG'				=> 'С?Р°Р№С‚',
+	'ABBC3_WEB_MOVER'			=> 'Р’СЉРІРµРґРё С?С‚СЂР°РЅРёС†Р° РІ РјРЅРµРЅРёРµС‚Рѕ',
+	'ABBC3_WEB_TIP'				=> '[web width=200 height=100 ]Р?РґСЂРµС? РЅР° С?С‚СЂР°РЅРёС†Р°С‚Р°[/web]',
+	'ABBC3_WEB_EXAMPLE'			=> 'http://www.google.com',
+	'ABBC3_WEB_VIEW'			=> '<iframe width="100%" height="100" src="http://www.google.com" style="font-size: 2px;"></iframe><br/>',
 	
-	'ABBC3_CELL_NUMBER'			=> 'Въведете брой на колонките',
-	'ABBC3_CELL_ERROR'			=> 'Не въведохте брой на колонките',
-	'ABBC3_CELL_STYLE'			=> 'Въведете стил на колонките',
-	'ABBC3_CELL_NOTE'			=> 'Пример: border:1px solid #cccccc;',
+	// Image Wizard
+	'ABBC3_IMG_TAG'				=> 'С?РЅРёРјРєР°',
+	'ABBC3_IMG_MOVER'			=> 'Р’СЉРІРµРґРё РєР°СЂС‚РёРЅРєР°',
+	'ABBC3_IMG_TIP'				=> '[img=(left|center|right)]http://...[/img]',
+	'ABBC3_IMG_EXAMPLE'			=> 'http://www.google.com/intl/en_com/images/logo_plain.png',
+	'ABBC3_IMG_VIEW'			=> '<div align="center"><img src="http://www.google.com/intl/en_com/images/logo_plain.png" /></div>',
 
-	'ABBC3_GRAD_MIN_ERROR'		=> 'Моля, първо изберете текст : ',
-	'ABBC3_GRAD_MAX_ERROR'		=> 'Позволено е по-малко от 120 знака : ',
-
-	'SPOILER_SHOW'				=> 'Покажи текст',
-	'SPOILER_HIDE'				=> 'Скрий текст',
-
-	// Custom bbcodes
-
-	// MOD : add-on hide bbcode - START
-	// [hide]text[/hide] Code..
-	'ABBC3_HIDE_MOVER'			=> 'Скрий съобщението',
-	'ABBC3_HIDE_TIP'			=> ' [hide]съобщение[/hide]',
-	'ABBC3_HIDE_VIEW'			=> '<dl class="hidebox"><dt class="hide">Скриване: Включено</dt><dd>Първо трябва да отговорите на тази тема преди да видите съобщението</dd></dl>',
-	// MOD : add-on hide bbcode - END
-
-	// MOD : add-on Dailymotion bbcode - START
-	// [dm]Dailymotion ID[/dm] Code..
-	'ABBC3_DMOTION_MOVER'		=> 'Въведи видео от dailymotion', // от http://www.dailymotion.com/
-	'ABBC3_DMOTION_TIP'			=> ' [dm]Dailymotion ID[/dm]',
-	'ABBC3_DMOTION_VIEW'		=> '<object width="200" height="100"><param name="movie" value="http://www.dailymotion.com/swf/x3hm7o" /><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="never" /><embed src="http://www.dailymotion.com/swf/x3hm7o" type="application/x-shockwave-flash" width="200" height="100" allowFullScreen="true" allowScriptAccess="never"></embed></object>',
-	// MOD : add-on Dailymotion bbcode - END
-
-	// MOD : add-on Moderator bbcode - START
-	// [mod=name]text[/mod] Code..
-	'ABBC3_MODERATOR_MOVER'		=> 'Модераторско съобщение',
-	'ABBC3_MODERATOR_TIP'		=> ' [mod=name]текст[/mod]',
-	'ABBC3_MODERATOR_VIEW'		=> '<table id="ModTable" width="100%" cellspacing="5" cellpadding="0" border="0" align="center"><tr><td class="row1" rowspan="2" align="middle" vAlign="center" width="1%"><span class="exclamation" title="Модераторско предупреждение">&nbsp;!&nbsp;</span></td><td class="row2"><span class="genmed"><b>Име на модератор:</b></span></td></tr><tr><td>Това е примерен текст</td></tr></table>',
-	// MOD : add-on Moderator bbcode - END
+	// Thumbnail
+	'ABBC3_THUMBNAIL_TAG'		=> 'РјРёРЅРёР°С‚СѓСЂР°',
+	'ABBC3_THUMBNAIL_MOVER'		=> 'Р’СЉРІРµРґРё РјРёРЅРёР°С‚СѓСЂР°',
+	'ABBC3_THUMBNAIL_TIP'		=> '[thumbnail(=left|right)]http://...[/thumbnail]',
+	'ABBC3_THUMBNAIL_EXAMPLE'	=> 'http://www.google.com/intl/en_com/images/logo_plain.png',
+	'ABBC3_THUMBNAIL_VIEW'		=> '<a href="http://www.google.com/intl/en_com/images/logo_plain.png" rel="lightbox[]" alt="http://www.google.com/intl/en_com/images/logo_plain.png" title="" class="hoverbox"><img src="http://www.google.com/intl/en_com/images/logo_plain.png" border="0" width="100px" align="right"/></a>',
 	
-	// MOD : add-on Veoh bbcode - START
-	// [veoh]URL video[/veoh] Code..
-	'ABBC3_VEOH_MOVER'			=> 'Въведи видео от Veoh',
-	'ABBC3_VEOH_TIP'			=> ' [veoh]Видео адрес[/veoh].',
-	'ABBC3_VEOH_TAG'			=> ' Veoh.',
-	'ABBC3_VEOH_NOTE'			=> 'Пример: http://www.veoh.com/videos/v1409404EqT5SJjM.',
-	'ABBC3_VEOH_VIEW'			=> '<embed src="http://www.veoh.com/videodetails2.swf?permalinkId=v1409404EqT5SJjM&id=anonymous&player=videodetailsembedded&videoAutoPlay=0" allowFullScreen="true" width="200" height="100" bgcolor="#000000" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>',
-	// MOD : add-on Veoh bbcode - END
+	// Imgshack
+	'ABBC3_IMGSHACK_MOVER'		=> 'Р’СЉРІРµРґРё РєР°СЂС‚РёРЅРєР° РѕС‚ imageshack',
+	'ABBC3_IMGSHACK_TIP'		=> '[url=http://imageshack.us][img=http://...][/img][/url]',
+	'ABBC3_IMGSHACK_VIEW'		=> '<a href="http://img207.imageshack.us/my.php?image=advancedbbcodebox3prosidd3.gif" class="postlink"><img src="http://img207.imageshack.us/img207/1773/advancedbbcodebox3prosidd3.th.gif" alt="РљР°СЂС‚РёРЅРєР°" /></a>',
 	
-	// MOD : add-on offtopic bbcode - START
-	// [offtopic]text[/offtopic] Code..
-	'ABBC3_OFFTOPIC'			=> 'Извън темата',
-	'ABBC3_OFFTOPIC_MOVER'		=> 'Въведете текст извън темата',
-	'ABBC3_OFFTOPIC_TIP'		=> ' [offtopic]текст[/offtopic]',
-	'ABBC3_OFFTOPIC_VIEW'		=> '<i><b><font color="#114499">Извън темата: </font></b><br/><font color="#2277DD">Това е примерен текст</font></i>',
-	// MOD : add-on offtopic bbcode - END
-
-	// MOD : add-on Gamespot bbcode - START
-	// [gamespot] Gamespot video URL [gamespot] Code..
-	'ABBC3_GAMESPOT_MOVER'		=> 'Въведи видео от Gamespot',
-	'ABBC3_GAMESPOT_TIP'		=> ' [gamespot]Gamespot видео адрес [gamespot]',
-	'ABBC3_GAMESPOT_NOTE'		=> ' Пример : http://www.gamespot.com/video/944074/6185798/tom-clancys-rainbow-six-vegas-2-official-trailer-3',
-	'ABBC3_GAMESPOT_VIEW'		=> '<embed id="mymovie" width="200" height="100" flashvars="paramsURI=http%3A%2F%2Fwww%2Egamespot%2Ecom%2Fpages%2Fvideo%5Fplayer%2Fproteus%5Fxml%2Ephp%3Fadseg%3D%26adgrp%3D%26sid%3D6185798%26pid%3D944074%26mb%3D%26onid%3D%26nc%3D1202626246593%26embedded%3D1%26showWatermark%3D0%26autoPlay%3D0" allowfullscreen="true" allowscriptaccess="never" quality="high" name="mymovie" src="http://image.com.com/gamespot/images/cne_flash/production/media_player/proteus/gs/proteus_embed.swf" type="application/x-shockwave-flash"/>',
-	// MOD : add-on Gamespot bbcode - END
-
-	// MOD : add-on Gametrailers bbcode - START
-	// [gametrailers] Gametrailers video URL [gametrailers] Code..
-	'ABBC3_GAMETRAILERS_MOVER'	=> 'Въведи видео от Gametrailers',
-	'ABBC3_GAMETRAILERS_TIP'	=> ' [gametrailers]Gametrailers видео адрес[/gametrailers]',
-	'ABBC3_GAMETRAILERS_NOTE'	=> ' Пример : http://www.gametrailers.com/player/30461.html',
-	'ABBC3_GAMETRAILERS_VIEW'	=> '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"  codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="gtembed" width="200" height="100"><param name="allowScriptAccess" value="never" /><param name="allowFullScreen" value="true" /><param name="movie" value="http://www.gametrailers.com/remote_wrap.php?mid=30461" /><param name="quality" value="high" /><embed src="http://www.gametrailers.com/remote_wrap.php?mid=30461" swLiveConnect="true" name="gtembed" align="middle" allowScriptAccess="never" allowFullScreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="200" height="100"></embed></object>',
-	// MOD : add-on Gametrailers bbcode - END
-
-	// MOD : add-on IGN video bbcode - START
-	// [ignvideo] ING video URL [ignvideo] Code..
-	'ABBC3_IGNVIDEO_MOVER'		=> 'Въведи видео от IGN',
-	'ABBC3_IGNVIDEO_TIP'		=> ' [ignvideo]IGN видео адрес[/ignvideo]',
-	'ABBC3_IGNVIDEO_NOTE'		=> ' Пример: object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv',
-	'ABBC3_IGNVIDEO_VIEW'		=> 	'<embed src="http://videomedia.ign.com/ev/ev.swf" flashvars="object_ID=967025&downloadURL=http://tvmovies.ign.com/tv/video/article/850/850894/knightrider_trailer_020808_flvlow.flv" type="application/x-shockwave-flash" width="200" height="100" ></embed>',
-	// MOD : add-on IGN video bbcode - END
-
-	// MOD : add-on liveleak bbcode - START
-	// [liveleak] Liveleak video URL [liveleak] Code..
-	'ABBC3_LIVELEAK_MOVER'		=> 'Въведи видео от Liveleak',
-	'ABBC3_LIVELEAK_TIP'		=> ' [liveleak]Liveleak видео адрес[/liveleak]',
-	'ABBC3_LIVELEAK_NOTE'		=> ' Пример: http://www.liveleak.com/view?i=413_1202590393',
-	'ABBC3_LIVELEAK_VIEW'		=> '<object type="application/x-shockwave-flash" width="200" height="100" wmode="transparent" data="http://www.liveleak.com/player.swf?autostart=false&token=i=413_1202590393"><param name="movie" value="http://www.liveleak.com/player.swf?autostart=false&token=$1" /><param name="wmode" value="transparent" /><param name="quality" value="high" /></object>',
-	// MOD : add-on liveleak bbcode - End
-
-	// MOD : add-on NFO bbcode - START
-	// [nfo]NFO text[/nfo] Code..
-	'ABBC3_NFO_MOVER'			=> 'НЛО текст (Вижда се по-добре на Internet Explorer)',
-	'ABBC3_NFO_TIP'				=> ' [nfo]НЛО текст[/nfo]',
-	'ABBC3_NFO_VIEW'			=> '<table cellspacing="0" cellpadding="0" border="0" ><tr><td><span class="genmed"><b>NFO:</b></span></td></tr><tr><td class="nfo">' . str_replace(" ", "&nbsp;", '    І ЫЫЫЫ ЫЫ±±°                                  °°°±±±±ІІІЫЫЫЫЫЫЫЫЫЫЫ  Ы   ЫЫ ЫЫЫ') . '</td></tr></table>',
-	// MOD : add-on NFO bbcode - End
-
-	// MOD : add-on glow bbcode - START
-	// [glow=color]Text[/glow] Code..
-	'ABBC3_GLOW_MOVER'			=> 'Текст с блясък (Само за Internet Explorer)',
-	'ABBC3_GLOW_TIP'			=> ' [glow=(color)]текст[/glow]',
-	'ABBC3_GLOW_VIEW'			=> '<div style="filter:Glow(color=red,strength=4);color:#ffffff;height:110%">Това е примерен текст</div>',
-	// MOD : add-on glow bbcode - END
-
-	// MOD : add-on shadow bbcode - START
-	// [shadow=(color)]text[/shadow] Code..
-	'ABBC3_SHADOW_MOVER'		=> 'Текст със сянка (Само за Internet Explorer)',
-	'ABBC3_SHADOW_TIP'			=> ' [shadow=(color)]текст[/shadow]',
-	'ABBC3_SHADOW_VIEW'			=> '<div style="filter:shadow(color=black,strength=4);color:blue;height:110%">Това е примерен текст</div>',
-	// MOD : add-on shadow bbcode - End
-
-	// MOD : add-on dropshadow bbcode - START
-	// [dropshadow=(color)]text[/dropshadow] Code..
-	'ABBC3_DROPSHADOW_MOVER'	=> 'Сянка (Само за Internet Explorer)',
-	'ABBC3_DROPSHADOW_TIP'		=> ' [dropshadow=(color)]текст[/dropshadow]',
-	'ABBC3_DROPSHADOW_VIEW'		=> '<div style="filter:dropshadow(color=#999999,strength=4);color:blue;height:110%">Това е примерен текст</div>',
-	// MOD : add-on dropshadow bbcode - End
-
-	// MOD : add-on Blur bbcode - START
-	// [blur=(color)]text[/blur] Code..
-	'ABBC3_BLUR_MOVER'			=> 'Blur текст (Само за Internet Explorer)',
-	'ABBC3_BLUR_TIP'			=> ' [blur=(color)]текст[/blur]',
-	'ABBC3_BLUR_VIEW'			=> '<div style="filter:Blur(strength=7);color:blue;height:110%">Това е примерен текст</div>',
-	// MOD : add-on Blur bbcode - End
-
-	// MOD : add-on Wave bbcode - START
-	// [wave=(color)]text[/wave] Code
-	'ABBC3_WAVE_MOVER'			=> 'Текст на вълнички (Само за Internet Explorer)',
-	'ABBC3_WAVE_TIP'			=> ' [wave=(color)]текст[/wave]',
-	'ABBC3_WAVE_VIEW'			=> '<div style="filter:Wave(strength=2);color:blue;height:110%">Това е примерен текст</div>',
-	// MOD : add-on Wave bbcode - End
-
-	// MOD : add-on Search bbcode - START
-	// [search(=(msn|yahoo|google))]text[/search] Code..
-	'ABBC3_SEARCH_MOVER'		=> 'Въведете дума за търсене',
-	'ABBC3_SEARCH_TIP'			=> ' [search(=(msn|yahoo|google))]текст[/search]',
+	// testlink
+	'ABBC3_TESTLINK_TAG'		=> 'РџСЂРѕРІРµСЂС?РІР°РЅРµ РЅР° Р°РґСЂРµС?',
+	'ABBC3_TESTLINK_MOVER'		=> 'Р’СЉРІРµРґРµС‚Рµ С„Р°Р№Р» РєР°С‡РµРЅ РЅР° РїСѓР±Р»РёС‡РµРЅ С?СЉСЂРІСЉСЂ',
+	'ABBC3_TESTLINK_TIP'		=> '[testlink]http://rapidshare.com/files/...[/testlink]',
+	'ABBC3_TESTLINK_NOTE'		=> 'Р’Р°Р»РёРґРЅРё С?СЉСЂРІСЉСЂРё : rapidshare, megaupload, megarotic, depositfiles, megashares .',
+	'ABBC3_TESTLINK_EXAMPLE'	=> 'http://rapidshare.com/files/86587996/ABBC3_v108.zip.html',
+	'ABBC3_TESTLINK_VIEW'		=> '<dl class="testlink"><dd><font color="red" size="4" >X</font>&nbsp;<a href="http://rapidshare.com/files/86587996/ABBC3_v108.zip.html" >http://rapidshare.com/files/86587996/ABBC3_v108.zip.html</a><br /></dd></dl>',
+	'ABBC3_TESTLINK_GOOD'		=> 'Р?Р°РјРµСЂРµРЅ С„Р°Р№Р» РЅР° С?СЉСЂРІСЉСЂР°!',
+	'ABBC3_TESTLINK_WRONG'		=> 'Р?Рµ РЅР°РјРµСЂРµРЅ С„Р°Р№Р»!',
+	
+	// Click counter
+	'ABBC3_CLICK_TAG'			=> 'РєР»РёРє',
+	'ABBC3_CLICK_MOVER'			=> 'Р’СЉРІРµРґРµС‚Рµ Р±СЂРѕС?С‡ РЅР° РєР»РёРєРІР°РЅРёС?',
+	'ABBC3_CLICK_TIP'			=> '[click]http://...[/click] РёР»Рё [click=http://...]РРјРµ РЅР° С?С‚СЂР°РЅРёС†Р°[/click] РёР»Рё [click][img]http://...[/img][/click]',
+	'ABBC3_CLICK_EXAMPLE' 		=> 'http://www.google.com ' . ' ' . 'http://www.google.com/intl/en_com/images/logo_plain.png' ,
+	'ABBC3_CLICK_VIEW'			=> '<a href="./click.php?id=1" >http://www.phpbb.com</a> ( РљР»РёРєРЅР°С‚Рѕ 1 РїСЉС‚ )<br />',
+	'ABBC3_CLICK_TIME'			=> '( РљР»РёРєРЅР°С‚Рѕ %d РїСЉС‚ )',
+	'ABBC3_CLICK_TIMES'			=> '( РљР»РёРєРЅР°С‚Рѕ %d РїСЉС‚Рё )',
+	
+	// Search tag
+	'ABBC3_SEARCH_MOVER'		=> 'Р’СЉРІРµРґРµС‚Рµ РґСѓРјР° Р·Р° С‚СЉСЂС?РµРЅРµ',
+	'ABBC3_SEARCH_TIP'			=> '[search(=(msn|yahoo|google))]С‚РµРєС?С‚[/search]',
 	'ABBC3_SEARCH_VIEW'			=> $lang['SEARCH_MINI'] . $config['sitename'] . ' :  <a href="search.php?keywords=Advanced BBcode box 3">"Advanced BBcode box 3" </a><br/><br/>' . $lang['SEARCH_MINI'] . 'msn :  <a href="http://search.live.com/results.aspx?q=Advanced BBcode box 3&mkt=tr-TR&lf=1" target="_blank">"Advanced BBcode box 3" </a><br/><br/>' .$lang['SEARCH_MINI'] . 'yahoo :  <a href="http://search.yahoo.com/search?p=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3" </a><br/><br/>' . $lang['SEARCH_MINI'] . 'google : <a href="http://www.google.com.tr/search?q=Advanced BBcode box 3" target="_blank">"Advanced BBcode box 3" </a>',
-	// MOD : add-on Search bbcode - End
-
-
+	
+	// BBvideo Wizard
+	'ABBC3_BBVIDEO_TAG'			=> 'BBvideo',
+	'ABBC3_BBVIDEO_MOVER'		=> 'Р’СЉРІРµРґРё РІРёРґРµРѕ',
+	'ABBC3_BBVIDEO_TIP'			=> '[BBvideo]Р’РёРґРµРѕ Р°РґСЂРµС?[/BBvideo]',
+	'ABBC3_BBVIDEO_EXAMPLE'		=> 'http://www.youtube.com/watch?v=TA4hm97m494',
+	'ABBC3_BBVIDEO_VIEW'		=> '<object width="200" height="100"><param name="movie" value="http://www.youtube.com/v/TA4hm97m494" /><param name="wmode" value="transparent" /><embed src="http://www.youtube.com/v/TA4hm97m494" type="application/x-shockwave-flash" wmode="transparent" width="200" height="100"></embed></object>',
+	'ABBC3_BBVIDEO_FILE'		=> 'Р’РёРґРµРѕ С„РѕСЂРјР°С‚',
+	'ABBC3_BBVIDEO_VIDEO'		=> 'Р’РёРґРµРѕ РѕС‚',
+	
+	// Custom bbcodes
+	
 ));
 
 ?>

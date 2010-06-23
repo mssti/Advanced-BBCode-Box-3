@@ -1,18 +1,20 @@
 #####################################################################
-## MOD Title: Advanced BBCode Box 3
+## MOD Title: Advanced BBCode Box 3 ( aka ABBC3 )
 ##
 ## MOD Author: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb2/
 ##
 ## MOD Description: MOD tutorial for using Evil Quick Reply v1.0.1 with Advanced BBCode Box 3 v1.0.7
 ##
-## MOD Version: 0.0.2
+## MOD Version: 0.0.3
 ##
 ## Installation Level: Easy
 ## Installation Time: ~1 Minutes
 ##
 ## Files To Edit:
+##	viewtopic.php
 ##
-## Included Files: N/A
+## Included Files:
+##	subsilver2/template/posting_qr_body.html
 ##
 ## License: http://opensource.org/licenses/gpl-license.php GNU General Public License v2
 #####################################################################
@@ -24,8 +26,6 @@
 ## can be found at http://www.phpbb.com/mods/
 #####################################################################
 ## Author Notes: 
-##
-##	Thanks jimcarrel
 ##
 ## 	Evil Quick Reply 1.0.1 MOD : http://www.phpbb.com/community/viewtopic.php?p=3284014#p3284014
 ##
@@ -40,57 +40,44 @@ EQR have several step for install.
 
     * 1) install.xml
     * 2) templates/prosilver.xml
-    * 3) contrib/addons/smilies_bbcodes/install.xml
-    * 4) contrib/addons/smilies_bbcodes/templates/prosilver.xml
+    * 3) templates/subsilver2.xml
+    * 4) contrib/addons/smilies_bbcodes/install.xml
+    * 5) contrib/addons/smilies_bbcodes/templates/prosilver.xml
 
-#
-#-----[ OPEN ]-------------------------------------------------------
-# NOTE: You will have to make this change to ALL themes you have installed. I use "prosilver" as an example.
-#
-# NOTE: If you already install step 4, apply this fix.
-styles/prosilver/template/posting_qr_body.html
-
-#
-#-----[ FIND ]-------------------------------------------------------
-#
-			<!-- INCLUDE posting_buttons.html -->
-			
-			<dl id="smiley-box">
-				<!-- IF S_SMILIES_ALLOWED and .smiley -->
-					<strong>{L_SMILIES}</strong><br />
-					<!-- BEGIN smiley -->
-						<a href="#" onclick="insert_text('{smiley.A_SMILEY_CODE}', true); return false;"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
-					<!-- END smiley -->
-				<!-- ENDIF -->
-				<!-- IF S_SHOW_SMILEY_LINK and S_SMILIES_ALLOWED-->
-					<br /><a href="{U_MORE_SMILIES}" onclick="popup(this.href, 300, 350, '_phpbbsmilies'); return false;">{L_MORE_SMILIES}</a>
-				<!-- ENDIF -->
-			</dl>
-
-#
-#-----[ REPLACE WITH ]-----------------------------------------------
-#
-			<!-- INCLUDE posting_buttons.html -->
+Once you install all, apply this fix.
 
 #
 #-----[ OPEN ]-------------------------------------------------------
 #
-includes/functions_quick_reply.php
+viewtopic.php
 
 #
 #-----[ FIND ]-------------------------------------------------------
 #
-		'QR_SUBJECT'			=> $subject,
-			
+quick_reply($topic_id, $forum_id, $topic_data);
+
 #
-#-----[ BEFORE, ADD ]------------------------------------------------
-# NOTE: Add these lines on a new blank line before the preceding line(s) to find. 
+#-----[ AFTER, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
 #
-		'S_EDIT_DRAFT'			=> false,
-			
+// MOD : ABBC3 (V1.0.8) - START
+	if (!class_exists('abbcode'))
+	{
+		global $phpbb_root_path, $phpEx;
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
+	$abbcode3 = new abbcode();
+	$abbcode3->abbcode_init();
+	$abbcode3->abbcode_display();
+// MOD : ABBC3 (V1.0.8) - END
+
 #
 #-----[DIY]----------------------------------------------------------
 #
+For styles based off Prosilver you fave done
+For styles based off Subsilver2 :
+copy / overwrtie subsilver2/template/posting_qr_body.html to styles/subsilver2/template/posting_qr_body.html
+
 After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
 
 #

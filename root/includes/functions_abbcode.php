@@ -1,12 +1,12 @@
 <?php
 /**
+* @package: phpBB3 :: Advanced BBCode box 3
+* @version: $Id: functions_abbcode.php, v 1.0.8 2008/03/31 03:01:00 leviatan21 Exp $
+* @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
+* @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
+* @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
 *
-* @package phpBB3
-* @version $Id: functions_abbcde.php,v 1.0.7 2008/02/20 23:30:06 leviatan21 Exp $
-* @copyright leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
-*
-*/
+**/
 
 /**
 * @ignore
@@ -21,15 +21,27 @@ $user->session_begin();
 $auth->acl($user->data);
 $user->setup();
 
-$mode   = request_var('mode', '');
+$mode           = request_var('mode', '');
+$abbcode_bbcode = request_var('abbc3', '');
+$atcaret_pos    = request_var('caret', '');
+$form_name	    = request_var('form_name', '');
+$text_name	    = request_var('text_name', '');
 
 // Load the appropriate file
 switch ($mode)
 {
-	case 'upload':
-		abbcode_upload_file();
-		break;
-	
+	case 'wizards':
+		
+		switch ($abbcode_bbcode)
+		{
+			case 'abbc3_upload':
+				abbcode_upload_file( $atcaret_pos, $form_name, $text_name );
+				break;
+			default:
+				abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name );
+				break;
+		}
+
 	case 'click':
 		abbcode_click_file();
 		break;
@@ -45,58 +57,54 @@ switch ($mode)
 **/
 function abbcode_show_help()
 {
-	global $template, $user;
+	global $template, $user, $config, $phpbb_root_path, $phpEx;
 	
-	$abbcode3 = new abbcode3();
-	$abbcode3->abbcode3_init();
-	$abbcode3->display_abbc3();
+	if (!class_exists('abbcode'))
+	{
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
+	$abbcode = new abbcode();
+	$abbcode->abbcode_init();
+	$abbcode->abbcode_display();
 	
-	$user->add_lang('viewtopic');
-	$user->add_lang('mods/abbcode');
-	
+	$user->add_lang(array('viewtopic', 'mods/abbcode', 'mods/abbcode_custom'));
+
 	// Pull the array data from the lang pack
 	$help_blocks = array();
-	if ( sizeof( $abbcode3->abbcode_ary ) )
+
+	/**
+	* Display ABBC3 ?
+	**/
+	if ( $abbcode->abbcode_config['ABBC3_MOD'] )
 	{
-		foreach ( $abbcode3->abbcode_ary as $abbcode_name => $abbcode_data )
+		/**
+		* ABBC3 bbcodes 
+		**/
+		if ( sizeof( $abbcode->abbcode_ary ) )
 		{
-			if ( $abbcode_data['display'] ) // true ?
+			foreach ( $abbcode->abbcode_ary as $abbcode_name => $abbcode_data )
 			{
-				if ( substr($abbcode_name,0,11) != 'ABBC3_BREAK' && substr($abbcode_name,0,14) != 'ABBC3_DIVISION' ) // is a breck line or division ?
+				if ( $abbcode_data['display'] ) // true ?
 				{
-					$template->assign_block_vars('bbc_row', array(
-						'ABBC3_HELP_DESC'		=> $user->lang[$abbcode_name . '_MOVER'],
-						'ABBC3_HELP_WRITE'		=> $user->lang[$abbcode_name . '_TIP'] . '<br/>' . $user->lang[$abbcode_name . '_NOTE'],
-						'ABBC3_HELP_VIEW'		=> $user->lang[$abbcode_name . '_VIEW'],
-					));
+					if ( substr($abbcode_name,0,11) != 'ABBC3_BREAK' && substr($abbcode_name,0,14) != 'ABBC3_DIVISION' ) // is a breck line or division ?
+					{
+						$template->assign_block_vars('bbc_row', array(
+							'ABBC3_HELP_DESC'	=> &$user->lang[$abbcode_name . '_MOVER'],
+							'ABBC3_HELP_WRITE'	=> &$user->lang[$abbcode_name . '_TIP'],
+							'ABBC3_HELP_NOTE'	=> &$user->lang[$abbcode_name . '_NOTE'] ,
+							'ABBC3_HELP_EXAMPLE'=> &$user->lang[$abbcode_name . '_EXAMPLE'] ,
+							'ABBC3_HELP_VIEW'	=> &$user->lang[$abbcode_name . '_VIEW'],
+						));
+					}
 				}
 			}
 		}
 	}
-	
-	if ( sizeof( $abbcode3->abbcode_custom_ary ) )
-	{
-		foreach ( $abbcode3->abbcode_custom_ary as $abbcode_custom_name => $abbcode_custom_data )
-		{
-			if ( $abbcode_custom_data['display'] ) // true ?
-			{
-				if ( substr($abbcode_custom_name,0,11) != 'ABBC3_BREAK' && substr($abbcode_custom_name,0,14) != 'ABBC3_DIVISION' ) // is a breck line or division ?
-				{
-					$template->assign_block_vars('bbc_custom_row', array(
-						'ABBC3_HELP_DESC'		=> $user->lang[$abbcode_custom_name . '_MOVER'],
-						'ABBC3_HELP_WRITE'		=> $user->lang[$abbcode_custom_name . '_TIP'],
-						'ABBC3_HELP_VIEW'		=> $user->lang[$abbcode_custom_name . '_VIEW'],
-					));
-				}
-			}
-		}
-	}
-	
 	// Output page
 	page_header($user->lang['ABBC3_HELP_TITLE']);
 	
 	$template->set_filenames(array(
-		'body' => 'posting_abbcodes_help_body.html')
+		'body' => 'posting_abbcode_help.html')
 	);
 	
 	page_footer();
@@ -104,44 +112,52 @@ function abbcode_show_help()
 
 /**
 * Upload files - Simple way, code from //http://www.php.net/manual/es/features.file-upload.php
+* 
+* @return bbcode tag with link
 */
-function abbcode_upload_file( )
+function abbcode_upload_file( $atcaret_pos, $form_name, $text_name )
 {
 	global $template, $user, $phpbb_root_path, $config, $phpEx;
 
 	include_once($phpbb_root_path . 'includes/functions_upload.' . $phpEx);
 	$upload = new fileupload();
-
-	$form_name  = 'fileupload';
+	
+	if (!class_exists('abbcode'))
+	{
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
+	$abbcode = new abbcode();
+	$abbcode->abbcode_init( 'config' );
+	
 	$add_file   = (isset($_POST['add_file'])) ? true : false;
 	$upload_dir = $config['upload_path'] . '/';
 	
-	// Add / change or delete this to your liking. Example add : ,'zip'
-	$types_ary  = array('swf', 'gif', 'jpg', 'jpeg', 'png', 'psd', 'bmp', 'tif', 'tiff', 'swc', 'iff', 'wbmp', 'xbm');
+	$aveilable_types = $abbcode->abbcode_config['ABBC3_UPLOAD_EXTENSION'];
+	$types_ary  = preg_split("/[\s,]+/",$aveilable_types);
 	
-	// Set-up max file size change this to your liking, Set to 0 for disable. Example : $max_size   = 0;
-	$max_size   = 0; // / You can use the default phphbb3 : $max_size = $config['max_filesize'];
+	$max_size   = (int) $abbcode->abbcode_config['ABBC3_UPLOAD_MAX_SIZE'];
 	
-	$user->add_lang('posting');
-	$user->add_lang('mods/abbcode');
+	$size_format = ($max_size >= 1048576) ? 'mb' : (($max_size >= 1024) ? 'kb' : 'b');
 	
-	for ($i = 0, $end = sizeof($types_ary); $i < $end; ++$i)
-	{
-		$aveilable_types .= ( $i < count( $types_ary)-1) ? $types_ary[$i] . ', ' : $types_ary[$i].'.';
-	}
+	$user->add_lang(array('posting', 'mods/abbcode', 'mods/abbcode_custom', 'acp/attachments'));
 	
 	$template->assign_vars(array(
-		'ABBC3_ATTACH_PAGE'			=> append_sid("{$phpbb_root_path}includes/functions_abbcode.$phpEx", 'mode=upload'),	// Link to ABBC3 attachment page
-		'ABBC3_ATTACH_FILESIZE'		=> $max_size,
-		'ABBC3_ATTACH_EXTENSION'	=> $aveilable_types,
+		'S_UPLOAD'					=> true,
+		'ATCARET_POST'				=> $atcaret_pos,
+		'FORM_NAME'					=> $form_name,
+		'TEXT_NAME'					=> $text_name,
+
+		'ABBC3_UPLOAD_FILESIZE'		=> ( $max_size ) ? $max_size : $user->lang['ATTACH_MAX_FILESIZE_EXPLAIN'],
+		'ABBC3_UPLOAD_SIZEFORMAT'	=> ( $max_size ) ? $size_format : '',
+		'ABBC3_UPLOAD_EXTENSION'	=> $aveilable_types,
 	));
 
 	if ( $add_file )
 	{
-		$fileupload = $_FILES['fileupload'];
+		$fileupload = $_FILES['promptbox1'];
 		$file_uploaded = false;
 		
-		$file = new filespec( $fileupload, $this );
+		$file = new filespec( $fileupload, $upload );
 		
 		$fileupload['name']		 = basename($file->realname);
 		$fileupload['tmp_name']	 = $file->filename;
@@ -163,48 +179,50 @@ function abbcode_upload_file( )
 					if ( !$fileupload['error'] )
 					{
 						// Check if file exist on server
-						if ( file_exists( $phpbb_root_path . $upload_dir . $fileupload['name'] ) )
+						if ( !file_exists( $phpbb_root_path . $upload_dir . $fileupload['name'] ) )
 						{
-							@unlink( $phpbb_root_path . $upload_dir . $fileupload['name'] );
-						}
-
-						if ( !@move_uploaded_file( $fileupload['tmp_name'], $phpbb_root_path . $upload_dir . $fileupload['name'] ) )
-						{
-							if ( !@copy( $fileupload['tmp_name'], $phpbb_root_path . $upload_dir . $fileupload['name'] ) )
+							if ( !@move_uploaded_file( $fileupload['tmp_name'], $phpbb_root_path . $upload_dir . $fileupload['name'] ) )
 							{
-								$fileupload['error'] = sprintf($user->lang['ABBC3_ATTACH_NOT_UPLOADED'], $fileupload['name']);
+								if ( !@copy( $fileupload['tmp_name'], $phpbb_root_path . $upload_dir . $fileupload['name'] ) )
+								{
+									$fileupload['error'] = sprintf($user->lang['ABBC3_UPLOAD_NOT_UPLOADED'], $fileupload['name']);
+								}
+								else
+								{
+									$fileupload['error'] = sprintf($user->lang['ABBC3_UPLOAD_UPLOADED'], $fileupload['name']);
+									$file_uploaded = true;
+								}
 							}
 							else
 							{
-								$fileupload['error'] = sprintf($user->lang['ABBC3_ATTACH_UPLOADED'], $fileupload['name']);
+								$fileupload['error'] = sprintf($user->lang['ABBC3_UPLOAD_UPLOADED'], $fileupload['name']);
 								$file_uploaded = true;
 							}
 						}
 						else
 						{
-							$fileupload['error'] = sprintf($user->lang['ABBC3_ATTACH_UPLOADED'], $fileupload['name']);
-							$file_uploaded = true;
+							$fileupload['error'] = sprintf($user->lang['ABBC3_UPLOAD_ALREADY'], $fileupload['name']);
 						}
 					}
 					else
 					{
-						$fileupload['error'] = sprintf($user->lang['ABBC3_ATTACH_ERROR'], $fileupload['name'], $fileupload["error"]);
+						$fileupload['error'] = sprintf($user->lang['ABBC3_UPLOAD_ERROR'], $fileupload['name'], $fileupload["error"]);
 					}
 				}
 				else
 				{
-					$fileupload['error'] = sprintf($user->lang['ABBC3_ATTACH_DISABLED'], $fileupload['extension']);
+					$fileupload['error'] = sprintf($user->lang['ABBC3_UPLOAD_DISABLED'], $fileupload['extension']);
 				}
 			}
 			else
 			{
-				$fileupload['error'] = sprintf($user->lang['ABBC3_ATTACH_SIZE'], $fileupload['size'], $max_size);
+				$fileupload['error'] = sprintf($user->lang['ABBC3_UPLOAD_NOSIZE'], $fileupload['size'], $max_size);
 			}
 		}
 		else
 		{
-			$fileupload['error'] = $user->lang['ABBC3_ATTACH_EMPTY'];
-		}	//	echo "2 name=[".$fileupload['name']."] file_uploaded=[".$file_uploaded."] extension=[".$fileupload['extension']."]<br/>";
+			$fileupload['error'] = $user->lang['ABBC3_UPLOAD_EMPTY'];
+		}
 		
 		$open_tag  = ( $fileupload['extension'] == 'swf') ? '[flash]'  : '' ;
 		$close_tag = ( $fileupload['extension'] == 'swf') ? '[/flash]' : '';
@@ -225,10 +243,10 @@ function abbcode_upload_file( )
 	unset($fileupload);
 	
 	// Output page ...
-	page_header($user->lang['ABBC3_ATTACH_TITLE']);
+	page_header($user->lang['ABBC3_UPLOAD_TITLE']);
 		
 	$template->set_filenames(array(
-		'body' => 'posting_abbcode_attach_body.html')
+		'body' => 'posting_abbcode_wizards.html')
 	);
 	
 	page_footer();
@@ -239,7 +257,7 @@ function abbcode_upload_file( )
 *
 * @return url page
 */
-function abbc3_script_path ()
+function abbcode_script_path ()
 {
 	$server_name = (!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : getenv('SERVER_NAME');
 	$server_port = (!empty($_SERVER['SERVER_PORT'])) ? (int) $_SERVER['SERVER_PORT'] : (int) getenv('SERVER_PORT');
@@ -267,7 +285,6 @@ function abbc3_script_path ()
 	return $url;
 }
 
-// MOD : add-on Clicks Counter feature - START
 /**
 * ABBC3 simple redirect page
 **/
@@ -311,5 +328,84 @@ function abbcode_click_file()
 	header( "Location: " . trim($row['url'] ) );
 	exit;
 }
-// MOD : add-on Clicks Counter feature - END
+
+/**
+* Upload files - Simple way, code from //http://www.php.net/manual/es/features.file-upload.php
+* 
+* @return bbcode tag with link
+*/
+function abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name )
+{
+	global $template, $config, $phpbb_root_path, $phpEx, $user, $user_cache, $poster_id;
+
+	if (!class_exists('abbcode'))
+	{
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
+	$abbcode = new abbcode();
+	$abbcode->abbcode_init( 'config' );
+	$abbcode->abbcode_init( 'bbvideo' );
+
+	$user->add_lang(array('posting', 'mods/abbcode', 'mods/abbcode_custom'));
+
+	$abbcode_name = strtoupper($abbcode_bbcode);
+	$abbc3_video_width  = &$abbcode->abbcode_config['ABBC3_VIDEO_width'];
+	$abbc3_video_height = &$abbcode->abbcode_config['ABBC3_VIDEO_height'];
+	
+	if ( $abbcode_bbcode == 'abbc3_bbvideo' )
+	{
+		if ( sizeof( $abbcode->abbcode_video_ary ) )
+		{
+			$video_options = '';
+			foreach ( $abbcode->abbcode_video_ary as $video_name => $video_data )
+			{
+				if ( $video_data['display'] )
+				{
+					$example = &$video_data['example'];
+					$video_options .= '<option value="' . ( ( $example ) ? $example : 'No data example' ) . '" >' . $video_name . '</option>';
+				}
+			}
+		}
+	}
+
+	list( $garbage, $tag ) = split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
+	$need_description  = array( 'url', 'email', 'click' );
+	$need_width_height = array( 'web', 'flash', 'flv', 'video', 'quicktime', 'ram', 'bbvideo' );
+	
+	// General setings
+	$template->assign_vars(array(
+		'S_WIZARD_GENERAL'	=> ( $abbcode_bbcode == 'abbc3_table') ? false : ( $abbcode_bbcode == 'abbc3_grad' ) ? false : true ,
+		'S_WIZARD_TABLE'	=> ( $abbcode_bbcode == 'abbc3_table') ? true  : false,
+		'S_WIZARD_GRAD'		=> ( $abbcode_bbcode == 'abbc3_grad' ) ? true  : false,
+		'S_BBVIDEO_OPTIONS'	=> ( $abbcode_bbcode == 'abbc3_bbvideo' ) ? $video_options : '',
+		
+		'ATCARET_POST'		=> $atcaret_pos,
+		'FORM_NAME'			=> $form_name,
+		'TEXT_NAME'			=> $text_name,
+		'BBCODE'			=> $abbcode_bbcode,
+		'BBNAME'			=> $abbcode_name,
+		'POST_AUTHOR'		=> $user_cache[$poster_id]['username'],
+
+		'ABBC3_OPEN'		=> $tag,
+		'ABBC3_CLOSE'		=> '/' . $tag,
+		'ABBC3_TAG'			=> &$user->lang[$abbcode_name . '_TAG'],
+		'ABBC3_MOVER'		=> &$user->lang[$abbcode_name . '_MOVER'],
+		'ABBC3_NOTE'		=> &$user->lang[$abbcode_name . '_NOTE'],
+		'ABBC3_EXAMPLE'		=> &$user->lang[$abbcode_name . '_EXAMPLE'],
+		'ABBC3_DESC'		=> ( in_array( $tag, $need_description  ) ) ? true : false,
+		'ABBC3_W_H'			=> ( in_array( $tag, $need_width_height ) ) ? true : false,
+		'ABBC3_WIDTH'		=> &$abbc3_video_width,
+		'ABBC3_HEIGHT'		=> &$abbc3_video_height,
+
+	));
+
+	// Output page ...
+	page_header( $abbcode_bbcode );
+	$template->set_filenames(array(
+		'body' => 'posting_abbcode_wizards.html')
+	);
+	
+	page_footer();
+}
+
 ?>
