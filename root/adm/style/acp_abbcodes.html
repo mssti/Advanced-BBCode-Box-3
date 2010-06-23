@@ -1,4 +1,5 @@
 <!-- INCLUDE overall_header.html -->
+<!-- // MOD : MSSTI ABBC3 (v1.0.10) - START -->
 
 <a name="maincontent"></a>
 
@@ -89,10 +90,6 @@
 	
 	<span style="float: {S_CONTENT_FLOW_END};">&laquo; <!-- IF U_BACK --><a href="{U_BACK}">{L_BACK}</a><!-- ELSE -->{U_ABBC3}<!-- ENDIF --> &raquo;</span>
 	
-	<h1>{L_TITLE_BBCODES}</h1>
-	
-	<p>{L_EXPLAIN_BBCODES}</p>
-	
 	<!-- IF S_ERROR -->
 	<div class="errorbox">
 		<h3>{L_WARNING}</h3>
@@ -101,12 +98,22 @@
 	<!-- ENDIF -->
 	
 	<!-- IF S_BBCODE_EDIT -->
-	<form id="acp_icons" method="post" action="{F_ACTION}">
+	<h1>{L_ABBCODES_EDIT}</h1>
+
+	<p>{L_ABBCODES_EDIT_EXPLAIN}</p>
+
+	<form id="abbc3_bbcodes" method="post" action="{F_ACTION}">
+	<!-- ELSE -->
+	<h1>{L_TITLE_BBCODES}</h1>
+
+	<p>{L_EXPLAIN_BBCODES}</p>
+
+	<form id="abbc3_bbcodes" method="post" action="{A_ACTION}">
 	<!-- ENDIF -->
-			<table cellspacing="1">
+			<table cellspacing="1"">
 				<thead>
 					<tr>
-						<!-- IF S_BBCODE_EDIT --> <!-- DEFINE $COLSPAN = 6 --> <!-- ELSE --> <!-- DEFINE $COLSPAN = 1 --> <!-- ENDIF -->
+						<!-- IF S_BBCODE_EDIT --> <!-- DEFINE $COLSPAN = 7 --> <!-- ELSE --> <!-- DEFINE $COLSPAN = 1 --> <!-- ENDIF -->
 						<th colspan="{$COLSPAN}">{L_ABBCODES_NAME}</th>
 						<!-- IF not S_BBCODE_EDIT -->
 						<th>{L_ACP_POST_SETTINGS}</th>
@@ -123,11 +130,12 @@
 						<td>{L_ACP_SIGNATURE_SETTINGS}</td>
 						<td>{L_ABBCODES_TAG}</td>
 						<td>{L_CURRENT_IMAGE}</td>
+						<td>{L_ACP_GROUPS_MANAGE} *</td>
 					</tr>
 						<!-- ENDIF -->
 				</thead>
 				
-				<tbody>
+				<tbody style="vertical-align:top;">
 				<!-- BEGIN items -->
 				
 				<!-- IF items.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
@@ -162,8 +170,16 @@
 						&nbsp;
 					<!-- ENDIF -->
 					</td>
-					
-				<!-- ELSE -->
+					<td>
+						<select id="group" name="group_id[]" multiple="multiple" size="10">{items.S_GROUP_OPTIONS}</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="{$COLSPAN}">
+						* {L_ABBCODES_GROUPS_EXPLAIN}
+					</td>
+				</tr>
+			<!-- ELSE -->
 					<td>{items.ON_POST}</td>
 					<td>{items.ON_PM}</td>
 					<td>{items.ON_SIG}</td>
@@ -183,14 +199,16 @@
 			<!-- IF S_BBCODE_EDIT -->
 			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
 			<input class="button2" type="reset"  id="reset"  name="reset" value="{L_RESET}" />
+			<!-- ELSE -->
+			<input class="button1" type="submit" id="add_division"   name="add_division"  value="{L_ABBCODES_ADD_DIVISION}" />&nbsp;
+			<input class="button2" type="submit" id="add_linebreak"  name="add_linebreak" value="{L_ABBCODES_ADD_BREAK}" />
 			<!-- ENDIF -->
 		</p>
 		{S_FORM_TOKEN}
 
-	<!-- IF S_BBCODE_EDIT -->
 	</form>
-	<!-- ENDIF -->
 
 <!-- ENDIF -->
 
+<!-- // MOD : MSSTI ABBC3 (v1.0.10) - END -->
 <!-- INCLUDE overall_footer.html -->

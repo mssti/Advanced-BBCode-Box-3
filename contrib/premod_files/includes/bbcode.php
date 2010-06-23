@@ -16,7 +16,7 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 if (!class_exists('abbcode'))
 {
 	include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
@@ -26,7 +26,7 @@ if (!class_exists('abbcode'))
 * @package phpBB3
 */
 class bbcode extends abbcode
-// MOD : ABBC3 (V1.0.9) - end
+// MOD : MSSTI ABBC3 (V1.0.10) - end
 {
 	var $bbcode_uid = '';
 	var $bbcode_bitfield = '';
@@ -171,7 +171,7 @@ class bbcode extends abbcode
 		{
 			global $db;
 
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 			$sql = 'SELECT *
 				FROM ' . BBCODES_TABLE . '
 				WHERE ' . $db->sql_in_set('bbcode_id', $sql) . '
@@ -179,7 +179,8 @@ class bbcode extends abbcode
 //			$sql = 'SELECT *
 //				FROM ' . BBCODES_TABLE . '
 //				WHERE ' . $db->sql_in_set('bbcode_id', $sql);
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 			$result = $db->sql_query($sql, 3600);
 
 			while ($row = $db->sql_fetchrow($result))
@@ -230,10 +231,10 @@ class bbcode extends abbcode
 				case 3:
 					$this->bbcode_cache[$bbcode_id] = array(
 						'preg' => array(
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 							'#\[url:$uid\](ed2k://\|(file|server|serverlist|friend)(|\|[^\\/\|:<>\*\?\"]+?)\|(.*?)\|/?)\[/url:$uid\]#sie'		=> "\$this->ed2k_pass( \$bbcode_id, '\$1', '' )",
 							'#\[url=(ed2k://\|(file|server|serverlist|friend)(|\|[^\\/\|:<>\*\?\"]+?)\|(.*?)\|/?):$uid\](.*?)\[/url:$uid\]#sie'	=> "\$this->ed2k_pass( \$bbcode_id, '\$1', '\$5' )",
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
 							'#\[url:$uid\]((.*?))\[/url:$uid\]#s'			=> $this->bbcode_tpl('url', $bbcode_id),
 							'#\[url=([^\[]+?):$uid\](.*?)\[/url:$uid\]#s'	=> $this->bbcode_tpl('url', $bbcode_id),
 						)
@@ -381,6 +382,11 @@ class bbcode extends abbcode
 						}
 
 						// Replace {L_*} lang strings
+
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
+						$user->add_lang('mods/abbcode');
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 						$bbcode_tpl = preg_replace('/{L_([A-Z_]+)}/e', "(!empty(\$user->lang['\$1'])) ? \$user->lang['\$1'] : ucwords(strtolower(str_replace('_', ' ', '\$1')))", $bbcode_tpl);
 
 						if (!empty($rowset[$bbcode_id]['second_pass_replace']))
@@ -415,9 +421,6 @@ class bbcode extends abbcode
 		if (empty($bbcode_hardtpl))
 		{
 			global $user;
-// MOD : ABBC3 (V1.0.9) - Start
-			global $config;
-// MOD : ABBC3 (V1.0.9) - End
 			
 			$bbcode_hardtpl = array(
 				'b_open'	=> '<span style="font-weight: bold">',
@@ -426,10 +429,7 @@ class bbcode extends abbcode
 				'i_close'	=> '</span>',
 				'u_open'	=> '<span style="text-decoration: underline">',
 				'u_close'	=> '</span>',
-// MOD : ABBC3 (V1.0.9) - Start
-				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '"' . ( ( $config['ABBC3_RESIZE'] ) ? ' onload="NcodeImageResizer.createOn(this);"' : '') . ' />',
-//				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '" />',
-// MOD : ABBC3 (V1.0.9) - End
+				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '" />',
 				'size'		=> '<span style="font-size: $1%; line-height: normal">$2</span>',
 				'color'		=> '<span style="color: $1">$2</span>',
 				'email'		=> '<a href="mailto:$1">$2</a>'

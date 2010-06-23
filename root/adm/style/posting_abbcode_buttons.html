@@ -1,7 +1,13 @@
-<!-- // MOD : ABBC3 (V1.0.9) - START -->
+<!-- // MOD : MSSTI ABBC3 (v1.0.10) - START -->
 
 <script type="text/javascript">
 // <![CDATA[
+
+/**
+* Default values for width and height values for the wizard pop-up window
+**/
+var popup_width = 700;
+var popup_height = 300;
 
 /**
 * Help line tips values
@@ -9,15 +15,15 @@
 var help_line2 = {
 
 <!-- BEGIN abbc3_tags -->
-	{abbc3_tags.TAG_NAME} : "{abbc3_tags.TAG_MOVER}" + " : {abbc3_tags.TAG_TIP}" + '\n' + "{abbc3_tags.TAG_NOTE}" + ( ("{abbc3_tags.TAG_EXAMPLE}") ? "{L_ABBC3_EXAMPLE} : {abbc3_tags.TAG_EXAMPLE}" :"" ),
+	'{abbc3_tags.TAG_NAME}'	: "{abbc3_tags.TAG_MOVER}" + " : {abbc3_tags.TAG_TIP}" + " {abbc3_tags.TAG_NOTE}" + ( ("{abbc3_tags.TAG_EXAMPLE}") ? "\n{L_ABBC3_EXAMPLE} : {abbc3_tags.TAG_EXAMPLE}" : "" ),
 <!-- END abbc3_tags -->
 	
-	abbc3_font  : "{L_ABBC3_FONT_MOVER}"  + "{L_ABBC3_FONT_TIP}"  + '\n' + "{L_ABBC3_FONT_NOTE}" ,
-	abbc3_size  : "{L_ABBC3_SIZE_MOVER}"  + "{L_ABBC3_SIZE_TIP}"  + '\n' + "{L_ABBC3_SIZE_NOTE}" ,
-	abbc3_highlight : "{L_ABBC3_HIGHLIGHT_MOVER}"  + "{L_ABBC3_HIGHLIGHT_TIP}"  + '\n' + "{L_ABBC3_HIGHLIGHT_NOTE}" ,
-	abbc3_color : "{L_ABBC3_COLOR_MOVER}" + "{L_ABBC3_COLOR_TIP}" + '\n' + "{L_ABBC3_COLOR_NOTE}" ,
+	'abbc3_font'			: "{L_ABBC3_FONT_MOVER}" + "{L_ABBC3_FONT_TIP}" + '\n' + "{L_ABBC3_FONT_NOTE}",
+	'abbc3_size'			: "{L_ABBC3_SIZE_MOVER}" + "{L_ABBC3_SIZE_TIP}" + '\n' + "{L_ABBC3_SIZE_NOTE}",
+	'abbc3_highlight'		: "{L_ABBC3_HIGHLIGHT_MOVER}" + "{L_ABBC3_HIGHLIGHT_TIP}" + '\n' + "{L_ABBC3_HIGHLIGHT_NOTE}",
+	'abbc3_color'			: "{L_ABBC3_COLOR_MOVER}" + "{L_ABBC3_COLOR_TIP}" + '\n' + "{L_ABBC3_COLOR_NOTE}",
 
-	abbc3_tip		:	"{L_BBCODE_STYLES_TIP}"
+	'abbc3_tip'				: "{L_BBCODE_STYLES_TIP}"
 }
 
 /**
@@ -36,75 +42,42 @@ function helpline2( help )
 }
 
 /**
-* Main function
+* Main function Apply bbcodes
+* based-of editor.js on function bbfontstyle(bbopen, bbclose)
 **/
-
-/** Get client info **/
-var clientPC = navigator.userAgent.toLowerCase();
-
-/** Get browser version	**/
-var clientVer = parseInt(navigator.appVersion);
-
-var is_ie  = ((clientPC.indexOf('msie') != -1) && (clientPC.indexOf('opera') == -1));
-var is_win = ((clientPC.indexOf('win')  != -1) || (clientPC.indexOf('16bit') != -1));
-
-var theSelection, oSelectRange, oSelectLength = 0, copy_paste;
-
-
-GB_myShow = function(caption, url, height, width, fullscreen, callback_fn)
-{
-	var options = { caption:caption, height:height || 450, width:width || 700, fullscreen:fullscreen || false, center_win:true, show_loading:true, callback_fn:callback_fn }
-	var win = new GB_Window( options );
-	return win.show(url);
-}
-
-function bbstyle2( bbcode, ftvalue )
+function bbstyle2( bbcode )
 {
 	theSelection = false;
 
-	var txtarea = document.forms[form_name].elements[text_name];
-	
-	/** Get text selection - not only the post content :(	**/
-	if (window.getSelection)
-	{
-		theSelection = window.getSelection().toString();
-	}
-	else if (document.getSelection)
-	{
-		theSelection = document.getSelection();
-	}
-	else if (document.selection)
-	{
-		theSelection = document.selection.createRange().text;
-	}
+	var textarea = document.forms[form_name].elements[text_name];
+
+	textarea.focus();
 
 	if ((clientVer >= 4) && is_ie && is_win)
 	{
-		/** Get text selection	**/
+		/** Get text selection **/
 		theSelection = document.selection.createRange().text;
-		oSelectLength = theSelection.length;
 	}
 	else if (document.forms[form_name].elements[text_name].selectionEnd && (document.forms[form_name].elements[text_name].selectionEnd - document.forms[form_name].elements[text_name].selectionStart > 0))
 	{
-		var selLength = txtarea.textLength;
-		var selStart = txtarea.selectionStart;
-		var selEnd = txtarea.selectionEnd;
-		var scrollTop = txtarea.scrollTop;
+		var selLength = textarea.textLength;
+		var selStart = textarea.selectionStart;
+		var selEnd = textarea.selectionEnd;
+		var scrollTop = textarea.scrollTop;
 		
 		if (selEnd == 1 || selEnd == 2) 
 		{
 			selEnd = selLength;
 		}
 		
-		var s1 = (txtarea.value).substring(0,selStart);
-		var s2 = (txtarea.value).substring(selStart, selEnd)
-		var s3 = (txtarea.value).substring(selEnd, selLength);
+		var s1 = (textarea.value).substring(0,selStart);
+		var s2 = (textarea.value).substring(selStart, selEnd)
+		var s3 = (textarea.value).substring(selEnd, selLength);
 		
 		theSelection = s2
-		oSelectLength = selEnd - selStart;
 	}
-	
-	var atcaret_pos = getCaretPosition(document.forms[form_name].elements[text_name]).start;
+
+	var theSelectionLength = theSelection.length;
 
 	switch ( bbcode )
 	{
@@ -165,6 +138,9 @@ function bbstyle2( bbcode, ftvalue )
 		case "abbc3_marqright" :
 			bbfontstyle( "[marq=right]", "[/marq]" );
 			break;
+		case "abbc3_html" :
+			bbfontstyle( "[html]", "[/html]" );
+			break;
 		case "abbc3_code" :
 			bbfontstyle( "[code]", "[/code]" );
 			break;
@@ -187,7 +163,7 @@ function bbstyle2( bbcode, ftvalue )
 			bbfontstyle( "[hr]", "" );
 			break;
 		case "abbc3_imgshack" :
-			GB_myShow ( bbcode, 'http://imageshack.us/', 300, 650, true )
+			popup( 'http://imageshack.us/', 800, 600 );
 			break;
 
 /** Custom bbcodes - Start **/
@@ -201,7 +177,7 @@ function bbstyle2( bbcode, ftvalue )
 		case "abbc3_offtopic" :
 			bbfontstyle( "[offtopic]", "[/offtopic]" );
 			break;
-		case "abbc3_dmotion" :
+		case "abbc3_dm" :
 			bbfontstyle( "[dm]", "[/dm]" );
 			break;
 		case "abbc3_gamespot" :
@@ -255,6 +231,7 @@ function bbstyle2( bbcode, ftvalue )
 		case "abbc3_testlink" :
 		case "abbc3_click" :
 		case "abbc3_table" :
+		case "deezer" :
 		/** This bbcodes needs extra data **/
 		case "abbc3_bbvideo" :
 		case "abbc3_flash" :
@@ -266,7 +243,7 @@ function bbstyle2( bbcode, ftvalue )
 		case "abbc3_stream" :
 		case "abbc3_stage6" :
 		case "abbc3_veoh" :
-		case "abbc3_college" :
+		case "abbc3_collegehumor" :
 		case "abbc3_gvideo" :
 		case "abbc3_youtube" :
 		/** Gradient needs his own function **/
@@ -275,24 +252,23 @@ function bbstyle2( bbcode, ftvalue )
 		/** Extra Custom bbcodes - Start **/
 
 		/** Extra Custom bbcodes - End **/
-		
-			if ( bbcode == "abbc3_grad")
+			if ( bbcode == "abbc3_grad" )
 			{
-				if ( !oSelectLength )
+				if (theSelection == '' || typeof theSelection == 'undefined' || theSelection == null)
 				{
-					alert( "abbc3_grad : {L_ABBC3_GRAD_MIN_ERROR}" + oSelectLength );
+					alert( "abbc3_grad : {L_ABBC3_GRAD_MIN_ERROR}" + theSelectionLength );
 					return;
 				}
 
-				if ( oSelectLength > 120 )
+				if ( theSelectionLength > 120 )
 				{
-					alert("abbc3_grad : {L_ABBC3_GRAD_MAX_ERROR}" + oSelectLength);
+					alert("abbc3_grad : {L_ABBC3_GRAD_MAX_ERROR}" + theSelectionLength);
 					return;
 				}
 			}
 			else if ( ( bbcode != "abbc3_table" ) && ( bbcode != "abbc3_upload" ) )
 			{
-				if ( oSelectLength )
+				if (theSelection)
 				{
 					bbcode_extra = ( bbcode == 'abbc3_bbvideo' 
 								  || bbcode == 'abbc3_flash' 
@@ -308,61 +284,64 @@ function bbstyle2( bbcode, ftvalue )
 					return ;
 				}
 			}
-			GB_myShow ( bbcode, '../../../{S_ABBC3_WIZARD_PAGE}&abbc3=' + bbcode + '&caret=' + atcaret_pos + '&form_name=' + form_name + '&text_name=' + text_name, 300, 680, true )
+
+			var popup_url = '{S_ABBC3_WIZARD_PAGE}' + '&amp;abbc3=' + bbcode + '&amp;form_name=' + form_name + '&amp;text_name=' + text_name;
+			popup( popup_url, popup_width, popup_height );
 			break;
 /** This bbcodes needs wizard - End **/
 
 		case "abbc3_plain" :
-			if ( oSelectLength )
-			{
-				if ( ( clientVer >= 4 ) && is_ie && is_win )
-				{
-					temp = theSelection;
-					document.selection.createRange().text = temp.replace(/\[[^\]]*\]/gi,"");
-				}
-				else if ( txtarea.selectionEnd && ( txtarea.selectionEnd - txtarea.selectionStart > 0 ) )
-				{
-					temp = theSelection;
-					temp = temp.replace(/\[[^\]]*\]/gi,"");
-					txtarea.value = s1 + temp + s3;
-
-					txtarea.selectionStart = selEnd + open.length + close.length;
-					txtarea.selectionEnd = txtarea.selectionStart;
-				}
-			}
-			else
+			if (theSelection == '' || typeof theSelection == 'undefined' || theSelection == null)
 			{
 				alert ( "{L_ABBC3_NOSELECT_ERROR}" );
 				return;
 			}
+			else
+			{
+				var tempSelection = theSelection.replace(/\[[^\]]*\]/gi,"");
+				
+				if ( ( clientVer >= 4 ) && is_ie && is_win )
+				{
+					document.selection.createRange().text = tempSelection;
+				}
+				else if ( textarea.selectionEnd && ( textarea.selectionEnd - textarea.selectionStart > 0 ) )
+				{
+					textarea.value = s1 + tempSelection + s3;
+
+					textarea.selectionStart = selEnd + open.length + close.length;
+					textarea.selectionEnd = textarea.selectionStart;
+				}
+			}
 			break;
 		case "abbc3_cut" :
-			if ( oSelectLength )
+			if (theSelection == '' || typeof theSelection == 'undefined' || theSelection == null)
+			{
+				alert ( "{L_ABBC3_NOSELECT_ERROR}" );
+				return;
+			}
+			else
 			{
 				if ( ( clientVer >= 4 ) && is_ie && is_win )
 				{
 					document.selection.createRange().text = '';
 				}
-				else if ( txtarea.selectionEnd && ( txtarea.selectionEnd - txtarea.selectionStart > 0 ) )
+				else if ( textarea.selectionEnd && ( textarea.selectionEnd - textarea.selectionStart > 0 ) )
 				{
-					txtarea.value = (txtarea.value).substring(0,selStart) + (txtarea.value).substring( selEnd, selLength );
+					var selStart = textarea.selectionStart;
+					var selEnd = textarea.selectionEnd;
+					textarea.value = (textarea.value).substring(0,selStart) + (textarea.value).substring( selEnd, selLength );
 				}
-			}
-			else
-			{
-				alert ( "{L_ABBC3_NOSELECT_ERROR}" );
-				return;
 			}
 			break;
 		case "abbc3_copy" :
-			if ( oSelectLength )
-			{
-				copy_paste = theSelection;
-			}
-			else
+			if (theSelection == '' || typeof theSelection == 'undefined' || theSelection == null)
 			{
 				alert ( "{L_ABBC3_NOSELECT_ERROR}" );
 				return;
+			}
+			else
+			{
+				copy_paste = theSelection;
 			}
 			break;
 		case "abbc3_paste" :
@@ -381,9 +360,8 @@ function bbstyle2( bbcode, ftvalue )
 			bbfontstyle( "["+bbcode+"]", "[/"+bbcode+"]" );
 			break;
 	}
-	oSelectRange = false;
-	oSelectLength = 0;
-
+	
+	theSelection = '';
 }
 
 /**
@@ -441,7 +419,7 @@ function ABBCcolorPalette( bbcode )
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 			<!-- ENDIF -->
-			
+
 			<!-- IF S_ABBC3_FONT -->
 				<select id="abbc3_font" name="abbc3_font" onchange="bbfontstyle('[font=' + this.form.abbc3_font.options[this.form.abbc3_font.selectedIndex].value + ']', '[/font]'); this.form.abbc3_font.selectedIndex = 0" onmouseover="helpline2('abbc3_font')" onmouseout="helpline2()" title="{L_ABBC3_FONT_MOVER}">
 					<option selected="selected" >- {L_ABBC3_FONT_MOVER} -</option>
@@ -515,61 +493,74 @@ function ABBCcolorPalette( bbcode )
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 			<!-- ENDIF -->
-							
-	<!-- BEGIN abbc3_tags -->
-            
-         <!-- IF abbc3_tags.S_ABBC3_BREAK -->
-            <!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW-->
-            <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
-            <!-- ENDIF -->
-            
-         </td>
-      </tr>
-   
-      <tr align="{S_CONTENT_FLOW_BEGIN}">
-         <td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
-            <!-- IF S_ABBC3_TAB -->
-            <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
-            <!-- ENDIF -->
-         <!-- ELSE -->
 
-            <img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
-
-         <!-- ENDIF -->
-
-   <!-- END abbc3_tags -->
-		
+			<!-- IF S_ABBC3_COLOR -->
+				<select id="abbc3_color" name="abbc3_color" onchange="bbfontstyle('[color=#' + this.form.abbc3_color.options[this.form.abbc3_color.selectedIndex].value + ']', '[/color]'); this.form.abbc3_color.selectedIndex = 0;" onmouseover="helpline2('abbc3_color')" onmouseout="helpline2()" title="{L_ABBC3_COLOR_MOVER}">
+					<option selected="selected" >- {L_ABBC3_COLOR_MOVER}- </option>
+					<script type="text/javascript">
+					// <![CDATA[
+						ABBCcolorPalette('abbc3_color');
+					// ]]>
+					</script>
+				</select>
 				<!-- IF S_ABBC3_TAB -->
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
-		
+			<!-- ENDIF -->
+
+
+<!-- BEGIN abbc3_tags -->
+		<!-- IF abbc3_tags.S_ABBC3_BREAK -->
+			<!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
 			</td>
 		</tr>
-					
+		<tr align="{S_CONTENT_FLOW_BEGIN}">
+			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSEIF abbc3_tags.S_ABBC3_DIVISION-->
+			<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSE -->
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+		<!-- ENDIF -->	
+<!-- END abbc3_tags -->
+
+				<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<!-- ENDIF -->
+
+			</td>
+		</tr>
+
 		<!-- IF .custom_tags -->		
 		<tr align="{S_CONTENT_FLOW_BEGIN}">
 			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
 				<!-- IF S_ABBC3_TAB -->
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
-				
+
 				<!-- BEGIN custom_tags -->
-				<input style="margin:4px 0 0 0;" type="button" class="button2" name="addbbcode{custom_tags.BBCODE_ID}" value="{custom_tags.BBCODE_TAG}" onclick="bbstyle({custom_tags.BBCODE_ID})" title="{custom_tags.BBCODE_TIPLINE}"<!-- IF custom_tags.BBCODE_HELPLINE !== '' --> onmouseover="helpline('cb_{custom_tags.BBCODE_ID}')" onmouseout="helpline2()"<!-- ENDIF --> />
+				<input style="margin:8px 0 4px 0;" type="button" class="button2" name="addbbcode{custom_tags.BBCODE_ID}" value="{custom_tags.BBCODE_TAG}" onclick="bbstyle({custom_tags.BBCODE_ID})" title="{custom_tags.BBCODE_TIPLINE}"<!-- IF custom_tags.BBCODE_HELPLINE !== '' --> onmouseover="helpline('cb_{custom_tags.BBCODE_ID}')" onmouseout="helpline2()"<!-- ENDIF --> />
 				<!-- END custom_tags -->
-				
+
 				<!-- IF S_ABBC3_TAB -->
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 			</td>
 		</tr>
 		<!-- ENDIF -->
-		
+
 		<tr>
 			<td colspan="2">
-				<textarea readonly="readonly" id="helpbox" name="helpbox" rows="2" cols="76" class="helpline" >{L_STYLES_TIP}</textarea><!--<span id="helpbox" class="helpline" >{L_STYLES_TIP}</span>-->
+				<textarea readonly="readonly" id="helpbox" name="helpbox" rows="3" cols="170" style="width:100%" class="helpline" >{L_STYLES_TIP}</textarea>
 			</td>
 		</tr>
-		
+
 	</table>
 
-<!-- // MOD : ABBC3 (V1.0.9) - END -->
+<!-- // MOD : MSSTI ABBC3 (v1.0.10) - END -->

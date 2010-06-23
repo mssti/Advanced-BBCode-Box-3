@@ -1,7 +1,7 @@
 <?php
 /**
 * @package: phpBB3 :: Advanced BBCode box 3
-* @version: $Id: functions_abbcode.php, v 1.0.9 2008/05/01 05:01:00 leviatan21 Exp $
+* @version: $Id: functions_abbcode.php, v 1.0.10 2008/08/01 01:08:08 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
@@ -151,7 +151,7 @@ function abbcode_upload_file( $form_name, $text_name )
 		
 		$file = new filespec( $fileupload, $upload );
 		
-		$fileupload['name']		 = basename($file->realname);
+		$fileupload['name']		 = $user->data['user_id'] . '_' . basename($file->realname);
 		$fileupload['tmp_name']	 = $file->filename;
 		$fileupload['extension'] = strtolower($file->get_extension($file->realname));
 		$fileupload['size']		 = $file->filesize;
@@ -168,6 +168,10 @@ function abbcode_upload_file( $form_name, $text_name )
 				if ( in_array($fileupload['extension'] , $types_ary ) )
 				{
 					// Check for file errors
+					// Error 1: El tamaño es mayor a lo que el servidor soporta.
+					// Error 2: El tamaño es mayor a lo que el formulario soporta.
+					// Error 3: El archivo se subio PARCIALMENTE
+					// Error 4: El archivo no se subio.
 					if ( !$fileupload['error'] )
 					{
 						// Check if file exist on server
@@ -358,9 +362,11 @@ function abbcode_wizards( $abbcode_bbcode, $form_name, $text_name )
 		}
 	}
 
-	list( $garbage, $tag ) = split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
-	$need_description  = array( 'url', 'email', 'click' );
-	$need_width_height = array( 'web', 'flash', 'flv', 'video', 'quicktime', 'ram', 'bbvideo' );
+	list( $garbage, $tag )	= split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
+	$need_description		= array( 'url', 'email', 'click' );
+	$need_width_height		= array( 'web', 'flash', 'flv', 'video', 'quicktime', 'ram', 'bbvideo' );
+	$abbc3_width			= $abbcode_bbcode == 'abbc3_web' ? '100%' : $config['ABBC3_VIDEO_width'];
+	$abbc3_height			= $config['ABBC3_VIDEO_height'];
 	
 	// General setings
 	$template->assign_vars(array(
@@ -383,13 +389,13 @@ function abbcode_wizards( $abbcode_bbcode, $form_name, $text_name )
 		'ABBC3_EXAMPLE'		=> &$user->lang[$abbcode_name . '_EXAMPLE'],
 		'ABBC3_DESC'		=> ( in_array( $tag, $need_description  ) ) ? true : false,
 		'ABBC3_W_H'			=> ( in_array( $tag, $need_width_height ) ) ? true : false,
-		'ABBC3_WIDTH'		=> $config['ABBC3_VIDEO_width'],
-		'ABBC3_HEIGHT'		=> $config['ABBC3_VIDEO_height'],
+		'ABBC3_WIDTH'		=> $abbc3_width,
+		'ABBC3_HEIGHT'		=> $abbc3_height,
 
 	));
 
 	// Output page ...
-	page_header( &$user->lang[$abbcode_name . '_MOVER'] );
+	page_header( $user->lang[$abbcode_name . '_MOVER'] );
 	
 	$template->set_filenames(array(
 		'body' => 'posting_abbcode_wizards.html')

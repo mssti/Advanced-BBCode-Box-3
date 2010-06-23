@@ -2,7 +2,7 @@
 /**
 * 
 * @package: phpBB3 :: Advanced BBCode box 3 -> acp
-* @version: $Id: acp_abbcode.php, v 1.0.9 2008/05/01 05:01:00 leviatan21 Exp $
+* @version: $Id: acp_abbcode.php, v 1.0.10 2008/08/01 01:08:01 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
@@ -66,6 +66,12 @@ class acp_abbcodes
 			case 'bbcodes'	:
 				switch ($action)
 				{
+					case 'newdlb':
+						$this->add_division	= (isset($_POST['add_division'])) ? true : false;
+						$this->add_linebreak= (isset($_POST['add_linebreak'])) ? true : false;
+						$this->add_new_division_or_linebreak( $this->add_division, $this->add_linebreak );
+
+					// no break;
 					case 'move_up':
 					case 'move_down':
 						
@@ -78,8 +84,9 @@ class acp_abbcodes
 						$current_order = (int) $db->sql_fetchfield('current_order');
 						$db->sql_freeresult($result);
 						
-						if ($current_order == 0 && $action == 'move_up')
+						if ( ($current_order == 0 && $action == 'move_up') || ($current_order <= 5 && $action == 'move_up') )
 						{
+							$bbcode_id = null;
 							break;
 						}
 						
@@ -104,6 +111,7 @@ class acp_abbcodes
 						}
 						$bbcode_id = null;
 					// no break;
+
 				}
 				$this->bbcodes_edit($id, $mode, $action, $bbcode_id);
 				break;
@@ -118,34 +126,36 @@ class acp_abbcodes
 		global $db, $user, $template, $phpbb_root_path, $config;
 		
 		$this->page_title = 'ABBCODES_SETINGS';
-		
+
+	//	$isfounder = ($user->data['user_type'] == USER_FOUNDER) ? true : false;
+
 		$display_vars = array(
 			'title'	=> 'ABBCODES_SETINGS',
 			'lang'	=> array('mods/abbcode', 'mods/acp_abbcodes', 'acp/attachments'),
 			'vars'	=> array(
 				'legend1'				=> 'GENERAL_OPTIONS',
-				'ABBC3_MOD'				=> array('lang' => 'ABBCODES_DISABLE',			'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true),
-				'ABBC3_BG'				=> array('lang' => 'ABBCODES_BG',				'validate' => 'string',	'type' => 'custom',			'function' => 'image_select', 'params' => array($this->dir . '/images/bg', '{CONFIG_VALUE}', 'config[ABBC3_BG]', true, $this->u_action), 'explain' => true),
-				'ABBC3_TAB'				=> array('lang' => 'ABBCODES_TAB',				'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true, 'append' => '&nbsp;&nbsp;<span>[ <img src="' . $this->dir . '/images/dots.gif" alt="" /> ]</span>'),
-				'ABBC3_BOXRESIZE'		=> array('lang' => 'ABBCODES_BOXRESIZE',		'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true),
+				'ABBC3_MOD'				=> array('lang' => 'ABBCODES_DISABLE',			'validate' => 'bool',	'type' => 'radio:yes_no',	'explain'	=> true),
+				'ABBC3_BG'				=> array('lang' => 'ABBCODES_BG',				'validate' => 'string',	'type' => 'custom',			'function'	=> 'image_select', 'params' => array($this->dir . '/images/bg', '{CONFIG_VALUE}', 'config[ABBC3_BG]', true, $this->u_action), 'explain' => true),
+				'ABBC3_TAB'				=> array('lang' => 'ABBCODES_TAB',				'validate' => 'bool',	'type' => 'radio:yes_no',	'explain'	=> true, 'append' => '&nbsp;&nbsp;<span>[ <img src="' . $this->dir . '/images/dots.gif" alt="" /> ]</span>'),
+				'ABBC3_BOXRESIZE'		=> array('lang' => 'ABBCODES_BOXRESIZE',		'validate' => 'bool',	'type' => 'radio:yes_no',	'explain'	=> true),
 				
 				'legend2'				=> 'CAT_IMAGES',
-				'ABBC3_RESIZE'			=> array('lang' => 'ABBCODES_RESIZE',			'validate' => 'bool', 	'type' => 'radio:yes_no',	'explain' => true),
-				'ABBC3_RESIZE_METHOD'	=> array('lang' => 'ABBCODES_RESIZE_METHOD',	'validate' => 'string',	'type' => 'custom',			'function' => 'method_select', 'params' => array('{CONFIG_VALUE}', 'config[ABBC3_RESIZE_METHOD]'), 'explain' => true),
-				'ABBC3_GREYBOX'			=> array('lang' => 'ABBCODES_GREYBOX',			'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true, 'append' => '&nbsp;&nbsp;<span>[ <a href="http://www.orangoo.com/labs/GreyBox/" target="_blank">GreyBox</a> ]</span>'),
+				'ABBC3_RESIZE'			=> array('lang' => 'ABBCODES_RESIZE',									'type' => 'string',			'explain'	=> true, 'append' => $user->lang['ABBCODES_JAVASCRIPT_EXPLAIN']),
+				'ABBC3_RESIZE_METHOD'	=> array('lang' => 'ABBCODES_RESIZE_METHOD',	'validate' => 'string',	'type' => 'custom',			'function'	=> 'method_select', 'params' => array('{CONFIG_VALUE}', 'config[ABBC3_RESIZE_METHOD]'), 'explain' => true),
 				
-				'ABBC3_MAX_IMG_WIDTH'	=> array('lang' => 'ABBCODES_MAX_IMAGE_SIZE',	'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' px'),
-				'ABBC3_MAX_THUM_WIDTH'	=> array('lang' => 'ABBCODES_MAX_THUMB_WIDTH',	'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' px'),
+				'ABBC3_MAX_IMG_WIDTH'	=> array('lang' => 'ABBCODES_MAX_IMAGE_WIDTH',	'validate' => 'int',	'type' => 'text:7:15',		'explain'	=> true, 'append' => ' px'),
+				'ABBC3_MAX_IMG_HEIGHT'	=> array('lang' => 'ABBCODES_MAX_IMAGE_HEIGHT',	'validate' => 'int',	'type' => 'text:7:15',		'explain'	=> true, 'append' => ' px'),
+				'ABBC3_MAX_THUM_WIDTH'	=> array('lang' => 'ABBCODES_MAX_THUMB_WIDTH',	'validate' => 'int',	'type' => 'text:7:15',		'explain'	=> true, 'append' => ' px'),
 				
 				'legend3'				=> 'ABBC3_BBVIDEO_TAG',
-				'ABBC3_VIDEO'			=> array('lang' => 'ABBCODES_VIDEO_SIZE',		'validate' => 'int',	'type' => 'dimension:3:4',	'explain' => true, 'append' => ' px'),
+				'ABBC3_VIDEO'			=> array('lang' => 'ABBCODES_VIDEO_SIZE',		'validate' => 'int',	'type' => 'dimension:3:4',	'explain'	=> true, 'append' => ' px'),
 				'ABBC3_VIDEO_width'		=> false,
 				'ABBC3_VIDEO_height'	=> false,
 				
 				'legend4'				=> 'ABBC3_UPLOAD_MOVER',
-				'upload_path'			=> array('lang'	=> 'UPLOAD_DIR',										'type' => 'string',			'explain' => true, 'append' => ' ' . $config['upload_path'] . '/'),
-				'ABBC3_UPLOAD_MAX_SIZE'	=> array('lang'	=> 'ATTACH_MAX_FILESIZE',		'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' ' . $user->lang['BYTES']),
-				'ABBC3_UPLOAD_EXTENSION'=> array('lang'	=> 'ABBC3_UPLOAD_EXTENSION',	'validate' => 'string',	'type' => 'textarea:5:40',	'explain' => true),
+				'upload_path'			=> array('lang'	=> 'UPLOAD_DIR',										'type' => 'string',			'explain'	=> true, 'append' => ' ' . $config['upload_path'] . '/'),
+				'ABBC3_UPLOAD_MAX_SIZE'	=> array('lang'	=> 'ATTACH_MAX_FILESIZE',		'validate' => 'int',	'type' => 'text:7:15',		'explain'	=> true, 'append' => ' ' . $user->lang['BYTES']),
+				'ABBC3_UPLOAD_EXTENSION'=> array('lang'	=> 'ABBC3_UPLOAD_EXTENSION',	'validate' => 'string',	'type' => 'textarea:5:40',	'explain'	=> true),
 			)
 		);
 		
@@ -319,6 +329,82 @@ class acp_abbcodes
 	}
 
 	/**
+	* Add a new division or breack line
+	**/
+	function add_new_division_or_linebreak( $add_division, $add_linebreak )
+	{
+		global $user, $db, $template, $config, $cache;
+		
+		// get last bbcode id - Start
+		$sql = 'SELECT MIN(bbcode_id) as min_bbcode_id
+			FROM ' . BBCODES_TABLE;
+		$result = $db->sql_query($sql);
+		$row = $db->sql_fetchrow($result);
+		$db->sql_freeresult($result);
+		if ($row)
+		{
+			$next_bbcode_id = $row['min_bbcode_id'];
+		}
+		else
+		{
+			$next_bbcode_id = 0;
+		}
+		$next_bbcode_id = $next_bbcode_id-1;
+		// get last bbcode id - End
+
+		// get last order - Start
+		$sql = 'SELECT MAX(bbcode_order) as max_bbcode_order
+			FROM ' . BBCODES_TABLE;
+		$result = $db->sql_query($sql);
+		$row = $db->sql_fetchrow($result);
+		$db->sql_freeresult($result);
+		$next_bbcode_order = (int) $row['max_bbcode_order'] + 1;
+		// get last order - End
+
+		$sql = "SELECT * 
+				FROM " . BBCODES_TABLE . " 
+				WHERE bbcode_helpline = '" . ( $add_linebreak ? 'ABBC3_BREAK' : 'ABBC3_DIVISION') . "' 
+				ORDER BY bbcode_order";
+		$result = $db->sql_query($sql);
+		// Do a loop but I only need last 
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$bbcode = $row['bbcode_tag'];
+		}
+		// get the value of current tag
+		$number = preg_replace('#(break|division)(\d+)#s', '$2', $bbcode);
+		$next_bbcode_number = (int) $number + 1;
+		
+		$sql_ary = array(
+			'bbcode_id'					=> $next_bbcode_id,
+			'bbcode_tag'				=> ( $add_linebreak ? 'break' : 'division') . $next_bbcode_number,
+			'bbcode_helpline'			=> ( $add_linebreak ? 'ABBC3_BREAK' : 'ABBC3_DIVISION'),
+			'display_on_posting'		=> false,
+			'display_on_pm'				=> false,
+			'display_on_sig'			=> false,
+			'bbcode_match'				=> '.',
+			'bbcode_tpl'				=> '.',
+			'first_pass_match'			=> '.',
+			'first_pass_replace'		=> '.',
+			'second_pass_match'			=> '.',
+			'second_pass_replace'		=> '.',
+			'abbcode'					=> true,
+			'bbcode_image'				=> ( $add_linebreak ? 'spacer.gif' : 'dots.gif'),
+			'bbcode_order'				=> $next_bbcode_order,
+		);
+		$db->sql_query('INSERT INTO ' . BBCODES_TABLE . $db->sql_build_array('INSERT', $sql_ary));
+
+		$cache->destroy('sql', BBCODES_TABLE);
+		$user->add_lang('acp/posting');
+		$lang = 'BBCODE_ADDED';
+		$log_action = 'LOG_BBCODE_ADD';
+
+		add_log('admin', $log_action, $sql_ary['bbcode_tag']);
+
+		trigger_error($user->lang[$lang] . adm_back_link($this->u_action));
+	}
+	
+	/**
 	* Show/edit bbcodes
 	**/
 	function bbcodes_edit($id, $mode, $action, $bbcode = '')
@@ -327,7 +413,7 @@ class acp_abbcodes
 		
 		$user->add_lang(array('acp/posting', 'mods/acp_abbcodes', 'mods/abbcode'));
 		
-		// Is this ABBC3 is disables on this style
+		// Is this ABBC3 is disabled
 		if ( !$config['ABBC3_MOD'] )
 		{
 			trigger_error($user->lang['ABBCODES_MOD_DISABLE'] . adm_back_link($this->u_action), E_USER_WARNING);
@@ -339,23 +425,32 @@ class acp_abbcodes
 		if ( $this->submit && $bbcode )
 		{
 			// Get items to create/modify
-			$abbcode_name		= (isset($_POST['name']))				? request_var('name', array('' => '')) : array();
-			$display_on_posting = (isset($_POST['display_on_posting']))	? request_var('display_on_posting', array('' => 0)) : array();
-			$display_on_pm		= (isset($_POST['display_on_pm']))		? request_var('display_on_pm', array('' => 0)) : array();
-			$display_on_sig		= (isset($_POST['display_on_sig']))		? request_var('display_on_sig', array('' => 0)) : array();
+			$bbcode_group		= request_var('group_id', array(0));
+			$abbcode_name		= (isset($_POST['name'])) ? request_var('name', array('' => '')) : array();
+			$display_on_posting = (isset($_POST['display_on_posting'])) ? request_var('display_on_posting', array('' => 0)) : array();
+			$display_on_pm		= (isset($_POST['display_on_pm'])) ? request_var('display_on_pm', array('' => 0)) : array();
+			$display_on_sig		= (isset($_POST['display_on_sig'])) ? request_var('display_on_sig', array('' => 0)) : array();
 			$bbcode_image		= utf8_normalize_nfc(request_var('image', array('' => ''), true));
 			
+			$group_ids = '';
+			for ($i=0; $i<count($bbcode_group); $i++)   
+			{
+				$group_ids .= $bbcode_group[$i] . ', ';
+			}
+			$group_ids = substr( $group_ids, 0 , strlen($group_ids)-2 );
+
 			$bbcode_sql = array(
 				'display_on_posting'	=> (isset( $display_on_posting[$bbcode])) ? 1 : 0,
 				'display_on_pm'			=> (isset( $display_on_pm[$bbcode])) ? 1 : 0,
 				'display_on_sig'		=> (isset( $display_on_sig[$bbcode])) ? 1 : 0,
 				'bbcode_image'			=> (isset( $bbcode_image[$bbcode])) ? $bbcode_image[$bbcode] : '',
+				'bbcode_group'			=> $group_ids,
 			);
 			
 			// Fix for breack line?
 			if ( substr($abbcode_name[$bbcode],0,5) == 'break')
 			{
-				$bbcode_sql['bbcode_image'] = $img_spacer;
+				$bbcode_sql['bbcode_image'] = 'spacer.gif';
 			}
 			
 			$sql = "UPDATE " . BBCODES_TABLE . "
@@ -376,7 +471,7 @@ class acp_abbcodes
 		
 		$error = array();
 		
-		$sql = "SELECT abbcode, bbcode_order, bbcode_id, bbcode_tag, bbcode_helpline, bbcode_image, display_on_posting, display_on_pm, display_on_sig 
+		$sql = "SELECT abbcode, bbcode_order, bbcode_id, bbcode_group, bbcode_tag, bbcode_helpline, bbcode_image, display_on_posting, display_on_pm, display_on_sig 
 				FROM " . BBCODES_TABLE . " 
 				ORDER BY bbcode_order";
 		$result = $db->sql_query($sql);
@@ -397,16 +492,18 @@ class acp_abbcodes
 			'U_ABBC3'			=> $user->lang['ABBC3_HELP_ABOUT'],
 			'U_ACTION'			=> $this->u_action,
 			'F_ACTION'			=> ( $bbcode ) ? $this->u_action . '&amp;mode=bbcodes&amp;action=edit&amp;bbcode_id=' . $bbcode : null,
+			'A_ACTION'			=> (!$bbcode ) ? $this->u_action . '&amp;mode=bbcodes&amp;action=newdlb' : null,
 			'U_BACK'			=> ( $bbcode ) ? $this->u_back : null,
 		));
 		
 		while ($row = $db->sql_fetchrow($result))
 		{
 			/** Some fixes **/
+			$bbcode_id		= $row['bbcode_id'];
 			$abbcode		= $row['abbcode'];
 			$abbcode_name	= ( ($row['abbcode']) ? 'ABBC3_' : '' ) . strtoupper( str_replace('=', '', trim($row['bbcode_tag']) ) );
+			$abbcode_name	= ( $row['bbcode_helpline'] == 'ABBC3_ED2K_TIP') ? 'ABBC3_ED2K' : $abbcode_name;
 			$abbcode_image	= trim($row['bbcode_image']);
-			$bbcode_id		= $row['bbcode_id'];
 			
 			// is a breack line or division ?
 			if ( ( substr($abbcode_name,0,11) == 'ABBC3_BREAK') || ( substr($abbcode_name,0,14) == 'ABBC3_DIVISION' ) )
@@ -440,8 +537,8 @@ class acp_abbcodes
 					'ON_PM'					=> ($row['display_on_pm']) ? $user->lang['ENABLED'] : $user->lang['DISABLED'],
 					'ON_SIG'				=> ($row['display_on_sig']) ? $user->lang['ENABLED'] : $user->lang['DISABLED'],
 					
-					'S_NOMOVE'				=> ( $abbcode && $row['bbcode_order'] <  5 ) ? true : null,
-					'S_FIRST_ROW'			=> ( $abbcode && $row['bbcode_order'] <= 5 ) ? true : false,
+					'S_NOMOVE'				=> ( $row['bbcode_order'] <  5 ) ? true : null,
+					'S_FIRST_ROW'			=> ( $row['bbcode_order'] <= 5 ) ? true : false,
 					
 					'U_EDIT'				=> $this->u_action . '&amp;mode=bbcodes&amp;action=edit&amp;bbcode_id=' . $row['bbcode_id'],
 					'U_MOVE_UP'				=> $this->u_action . '&amp;mode=bbcodes&amp;action=move_up&amp;bbcode_id=' . $row['bbcode_id'],
@@ -456,11 +553,13 @@ class acp_abbcodes
 					'TAG_NAME'				=> ( $abbcode ) ? '' : str_replace( '=', '', trim($row['bbcode_tag']) ),
 					'TAG_EXPLAIN'			=> @$user->lang[$abbcode_name . '_MOVER'],
 					
-					'IMG_SRC'				=> ($abbcode_image) ? ($abbcode_image != $img_spacer) ? $this->dir . '/images/' . $abbcode_image : '' : $this->dir . '/images/' . $img_noimg,
+ 					'IMG_SRC'				=> ($abbcode_image) ? ($abbcode_image != $img_spacer) ? $this->dir . '/images/' . $abbcode_image : '' : $this->dir . '/images/' . $img_noimg,
 					'S_NEW_IMG'				=> image_select($this->dir . '/images', $abbcode_image, 'image[' . $bbcode_id . ']', false, $this->u_action),
 					'POSTING_CHECKED'		=> ( $row['display_on_posting'] ) ? ' checked="checked"' : '',
 					'PM_CHECKED'			=> ( $row['display_on_pm'] ) ? ' checked="checked"' : '',
 					'SIG_CHECKED'			=> ( $row['display_on_sig'] ) ? ' checked="checked"' : '',
+
+					'S_GROUP_OPTIONS'		=> groups_select_options(split(',', $row['bbcode_group']), array('6')),// Exclude bots 
 				));
 			}
 		}
@@ -516,7 +615,7 @@ class acp_abbcodes
 	/**
 	* Select list of display full size image
 	**/
-	function method_select($selected_method = 'greybox', $name)
+	function method_select($selected_method = 'AdvancedBox', $name)
 	{
 		global $user;
 		
@@ -533,4 +632,24 @@ class acp_abbcodes
 		return $s_method_options;
 	}
 
+	function groups_select_options( $select_id = false, $exclude_ids = false )
+	{
+		global $user, $db;
+
+		$sql = 'SELECT group_id, group_name, group_type
+				FROM ' . GROUPS_TABLE . '
+				WHERE ' . $db->sql_in_set('group_id', array_map('intval', $exclude_ids), true) .' 
+				ORDER BY group_type DESC, group_name ASC';
+		$result = $db->sql_query($sql);
+	
+		$group_options = '';
+		while ($row = $db->sql_fetchrow($result))
+		{
+	//		$s_group_options .= '<option' . (($row['group_type'] == GROUP_SPECIAL) ? ' class="sep"' : '') . ' value="' . $row['group_id'] . '"' . $selected . '>' . (($row['group_type'] == GROUP_SPECIAL) ? $user->lang['G_' . $row['group_name']] : $row['group_name']) . '</option>';
+			$selected = (is_array($select_id)) ? ((in_array($row['group_id'], $select_id)) ? ' selected="selected"' : '') : (($row['group_id'] == $select_id) ? ' selected="selected"' : '');
+			$group_options .= '<option value="' . $row['group_id'] . '"' . $selected . '>' . ucfirst(strtolower( (($row['group_type'] == GROUP_SPECIAL) ? $user->lang['G_' . $row['group_name']] : $row['group_name']) )) . '</option>';
+		}
+		$db->sql_freeresult($result);
+		return $group_options;
+	}
 ?>

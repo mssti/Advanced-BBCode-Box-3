@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB3
-* @version $Id: constants.php 8479 2008-03-29 00:22:48Z naderman $
+* @version $Id: constants.php 8554 2008-05-15 13:29:14Z Kellanved $
 * @copyright (c) 2005 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -171,6 +171,11 @@ define('FIELD_BOOL', 4);
 define('FIELD_DROPDOWN', 5);
 define('FIELD_DATE', 6);
 
+// referer validation
+define('REFERER_VALIDATE_NONE', 0);
+define('REFERER_VALIDATE_HOST', 1);
+define('REFERER_VALIDATE_PATH', 2);
+
 
 // Additional constants
 define('VOTE_CONVERTED', 127);
@@ -241,8 +246,9 @@ define('ZEBRA_TABLE',				$table_prefix . 'zebra');
 
 // Additional tables
 
-// MOD : ABBC3 (V1.0.9) Clicks Counter feature - Start
+// MOD : MSSTI ABBC3 (V1.0.10) Clicks Counter feature - Start
 define('CLICKS_TABLE',				$table_prefix . 'clicks');
-// MOD : ABBC3 (V1.0.9) Clicks Counter feature - End
+// MOD : MSSTI ABBC3 (V1.0.10) Clicks Counter feature - End
+
 
 ?>

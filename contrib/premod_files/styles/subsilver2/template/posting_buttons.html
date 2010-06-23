@@ -10,20 +10,20 @@
 		
 		// Helpline messages
 		var help_line = {
-			b: '{LA_BBCODE_B_HELP}',
-			i: '{LA_BBCODE_I_HELP}',
-			u: '{LA_BBCODE_U_HELP}',
-			q: '{LA_BBCODE_Q_HELP}',
-			c: '{LA_BBCODE_C_HELP}',
-			l: '{LA_BBCODE_L_HELP}',
-			o: '{LA_BBCODE_O_HELP}',
-			p: '{LA_BBCODE_P_HELP}',
-			w: '{LA_BBCODE_W_HELP}',
-			s: '{LA_BBCODE_S_HELP}',
-			f: '{LA_BBCODE_F_HELP}',
-			e: '{LA_BBCODE_E_HELP}',
-			d: '{LA_BBCODE_D_HELP}',
-			t: '{LA_BBCODE_T_HELP}',
+			b: '{LA_BBCODE_B_HELP}',	//'Bold text: [b]text[/b]',
+			i: '{LA_BBCODE_I_HELP}',	//'Italic text: [i]text[/i]',
+			u: '{LA_BBCODE_U_HELP}',	//'Underline text: [u]text[/u]',
+			q: '{LA_BBCODE_Q_HELP}',	//'Quote text: [quote]text[/quote]',
+			c: '{LA_BBCODE_C_HELP}',	//'Code display: [code]code[/code]',
+			l: '{LA_BBCODE_L_HELP}',	//'List: [list]text[/list]',
+			o: '{LA_BBCODE_O_HELP}',	//'Ordered list: [list=]text[/list]',
+			p: '{LA_BBCODE_P_HELP}',	//'Insert image: [img]http://image_url[/img]',
+			w: '{LA_BBCODE_W_HELP}',	//'Insert URL: [url]http://url[/url] or [url=http://url]URL text[/url]',
+			s: '{LA_BBCODE_S_HELP}',	//'Font colour: [color=red]text[/color]  Tip: you can also use color=#FF0000',
+			f: '{LA_BBCODE_F_HELP}',	//'Font size: [size=85]small text[/size]',
+			e: '{LA_BBCODE_E_HELP}',	//'List: Add list element',
+			d: '{LA_BBCODE_D_HELP}',	//'Flash: [flash=width,height]http://url[/flash]',
+			t: '{LA_BBCODE_T_HELP}',	//
 			tip: '{L_STYLES_TIP}'
 			<!-- BEGIN custom_tags -->
 				,cb_{custom_tags.BBCODE_ID}: '{custom_tags.A_BBCODE_HELPLINE}'
@@ -36,11 +36,11 @@
 
 <!-- IF S_BBCODE_ALLOWED -->
 
-<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.10) - Start -->
 	<!-- IF S_ABBC3_MOD -->
 		<!-- INCLUDE posting_abbcode_buttons.html -->
 	<!-- ELSE -->
-	
+
 		<input type="button" class="btnbbcode" accesskey="b" name="addbbcode0" value=" B " style="font-weight:bold; width: 30px;" onclick="bbstyle(0)" onmouseover="helpline('b')" onmouseout="helpline('tip')" />
 		<input type="button" class="btnbbcode" accesskey="i" name="addbbcode2" value=" i " style="font-style:italic; width: 30px;" onclick="bbstyle(2)" onmouseover="helpline('i')" onmouseout="helpline('tip')" />
 		<input type="button" class="btnbbcode" accesskey="u" name="addbbcode4" value=" u " style="text-decoration: underline; width: 30px;" onclick="bbstyle(4)" onmouseover="helpline('u')" onmouseout="helpline('tip')" />
@@ -69,13 +69,13 @@
 		</select></span>
 
 	<!-- ENDIF -->
-<!-- // MOD : ABBC3 (V1.0.9) - End -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.10) - End -->
 
 <!-- ENDIF -->
 	</td>
 </tr>
 
-<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.10) - Start -->
 <!-- IF not S_ABBC3_MOD -->
 
 <!-- IF S_BBCODE_ALLOWED and .custom_tags -->
@@ -97,4 +97,5 @@
 <!-- ENDIF -->
 
 <!-- ENDIF -->
-<!-- // MOD : ABBC3 (V1.0.9) - End -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.10) - End -->
+ 

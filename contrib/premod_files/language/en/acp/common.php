@@ -4,7 +4,7 @@
 * acp_common [English]
 *
 * @package language
-* @version $Id: common.php 8479 2008-03-29 00:22:48Z naderman $
+* @version $Id: common.php 8591 2008-06-04 11:40:53Z Kellanved $
 * @copyright (c) 2005 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -201,15 +201,18 @@ $lang = array_merge($lang, array(
 	'ADMIN_INDEX'			=> 'Admin index',
 	'ADMIN_PANEL'			=> 'Administration Control Panel',
 
+	'ADM_LOGOUT'			=> 'ACP Logout',
+	'ADM_LOGGED_OUT'		=> 'Successfully logged out from Administration Control Panel',
+
 	'BACK'					=> 'Back',
 
 	'COLOUR_SWATCH'			=> 'Web-safe colour swatch',
 	'CONFIG_UPDATED'		=> 'Configuration updated successfully.',
 
 	'DEACTIVATE'				=> 'Deactivate',
-	'DIRECTORY_DOES_NOT_EXIST'	=> 'The entered path “%s�? does not exist.',
-	'DIRECTORY_NOT_DIR'			=> 'The entered path “%s�? is not a directory.',
-	'DIRECTORY_NOT_WRITABLE'	=> 'The entered path “%s�? is not writable.',
+	'DIRECTORY_DOES_NOT_EXIST'	=> 'The entered path “%s” does not exist.',
+	'DIRECTORY_NOT_DIR'			=> 'The entered path “%s” is not a directory.',
+	'DIRECTORY_NOT_WRITABLE'	=> 'The entered path “%s” is not writable.',
 	'DISABLE'					=> 'Disable',
 	'DOWNLOAD'					=> 'Download',
 	'DOWNLOAD_AS'				=> 'Download as',
@@ -264,10 +267,10 @@ $lang = array_merge($lang, array(
 	'SELECT_ANONYMOUS'		=> 'Select anonymous user',
 	'SELECT_OPTION'			=> 'Select option',
 
-	'SETTING_TOO_LOW'		=> 'The entered value for the setting “%1$s�? is too low. The minimal allowed value is %2$d.',
-	'SETTING_TOO_BIG'		=> 'The entered value for the setting “%1$s�? is too big. The maximal allowed value is %2$d.',	
-	'SETTING_TOO_LONG'		=> 'The entered value for the setting “%1$s�? is too long. The maximal allowed length is %2$d.',
-	'SETTING_TOO_SHORT'		=> 'The entered value for the setting “%1$s�? is not long enough. The minimal allowed length is %2$d.',
+	'SETTING_TOO_LOW'		=> 'The entered value for the setting “%1$s” is too low. The minimal allowed value is %2$d.',
+	'SETTING_TOO_BIG'		=> 'The entered value for the setting “%1$s” is too big. The maximal allowed value is %2$d.',	
+	'SETTING_TOO_LONG'		=> 'The entered value for the setting “%1$s” is too long. The maximal allowed length is %2$d.',
+	'SETTING_TOO_SHORT'		=> 'The entered value for the setting “%1$s” is not long enough. The minimal allowed length is %2$d.',
 
 	'UCP'					=> 'User Control Panel',
 	'USERNAMES_EXPLAIN'		=> 'Place each username on a separate line.',
@@ -426,12 +429,12 @@ $lang = array_merge($lang, array(
 	'LOG_ATTACH_FILEUPLOAD'		=> '<strong>Orphan File uploaded to Post</strong><br />» ID %1$d - %2$s',
 	'LOG_ATTACH_ORPHAN_DEL'		=> '<strong>Orphan Files deleted</strong><br />» %s',
 
-	'LOG_BAN_EXCLUDE_USER'	=> '<strong>Excluded user from ban</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
-	'LOG_BAN_EXCLUDE_IP'	=> '<strong>Excluded IP from ban</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
-	'LOG_BAN_EXCLUDE_EMAIL' => '<strong>Excluded e-mail from ban</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
-	'LOG_BAN_USER'			=> '<strong>Banned user</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
-	'LOG_BAN_IP'			=> '<strong>Banned IP</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
-	'LOG_BAN_EMAIL'			=> '<strong>Banned e-mail</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
+	'LOG_BAN_EXCLUDE_USER'	=> '<strong>Excluded user from ban</strong> for reason “<em>%1$s</em>”<br />» %2$s',
+	'LOG_BAN_EXCLUDE_IP'	=> '<strong>Excluded IP from ban</strong> for reason “<em>%1$s</em>”<br />» %2$s',
+	'LOG_BAN_EXCLUDE_EMAIL' => '<strong>Excluded e-mail from ban</strong> for reason “<em>%1$s</em>”<br />» %2$s',
+	'LOG_BAN_USER'			=> '<strong>Banned user</strong> for reason “<em>%1$s</em>”<br />» %2$s',
+	'LOG_BAN_IP'			=> '<strong>Banned IP</strong> for reason “<em>%1$s</em>”<br />» %2$s',
+	'LOG_BAN_EMAIL'			=> '<strong>Banned e-mail</strong> for reason “<em>%1$s</em>”<br />» %2$s',
 	'LOG_UNBAN_USER'		=> '<strong>Unbanned user</strong><br />» %s',
 	'LOG_UNBAN_IP'			=> '<strong>Unbanned IP</strong><br />» %s',
 	'LOG_UNBAN_EMAIL'		=> '<strong>Unbanned e-mail</strong><br />» %s',
@@ -477,8 +480,8 @@ $lang = array_merge($lang, array(
 	'LOG_MERGE'					=> '<strong>Merged posts</strong> into topic<br />» %s',
 	'LOG_MOVE'					=> '<strong>Moved topic</strong><br />» from %s',
 	'LOG_POST_APPROVED'			=> '<strong>Approved post</strong><br />» %s',
-	'LOG_POST_DISAPPROVED'		=> '<strong>Disapproved post “%1$s�? with the following reason</strong><br />» %2$s',
-	'LOG_POST_EDITED'			=> '<strong>Edited post “%1$s�? written by</strong><br />» %2$s',
+	'LOG_POST_DISAPPROVED'		=> '<strong>Disapproved post “%1$s” with the following reason</strong><br />» %2$s',
+	'LOG_POST_EDITED'			=> '<strong>Edited post “%1$s” written by</strong><br />» %2$s',
 	'LOG_REPORT_CLOSED'			=> '<strong>Closed report</strong><br />» %s',
 	'LOG_REPORT_DELETED'		=> '<strong>Deleted report</strong><br />» %s',
 	'LOG_SPLIT_DESTINATION'		=> '<strong>Moved split posts</strong><br />» to %s',
@@ -486,7 +489,7 @@ $lang = array_merge($lang, array(
 
 	'LOG_TOPIC_DELETED'			=> '<strong>Deleted topic</strong><br />» %s',
 	'LOG_TOPIC_APPROVED'		=> '<strong>Approved topic</strong><br />» %s',
-	'LOG_TOPIC_DISAPPROVED'		=> '<strong>Disapproved topic “%1$s�? with the following reason</strong><br />%2$s',
+	'LOG_TOPIC_DISAPPROVED'		=> '<strong>Disapproved topic “%1$s” with the following reason</strong><br />%2$s',
 	'LOG_TOPIC_RESYNC'			=> '<strong>Resynchronised topic counters</strong><br />» %s',
 	'LOG_TOPIC_TYPE_CHANGED'	=> '<strong>Changed topic type</strong><br />» %s',
 	'LOG_UNLOCK'				=> '<strong>Unlocked topic</strong><br />» %s',
@@ -522,7 +525,7 @@ $lang = array_merge($lang, array(
 	'LOG_FORUM_SYNC'						=> '<strong>Re-synchronised forum</strong><br />» %s',
 
 	'LOG_GROUP_CREATED'		=> '<strong>New usergroup created</strong><br />» %s',
-	'LOG_GROUP_DEFAULTS'	=> '<strong>Group “%1$s�? made default for members</strong><br />» %2$s',
+	'LOG_GROUP_DEFAULTS'	=> '<strong>Group “%1$s” made default for members</strong><br />» %2$s',
 	'LOG_GROUP_DELETE'		=> '<strong>Usergroup deleted</strong><br />» %s',
 	'LOG_GROUP_DEMOTED'		=> '<strong>Leaders demoted in usergroup</strong> %1$s<br />» %2$s',
 	'LOG_GROUP_PROMOTED'	=> '<strong>Members promoted to leader in usergroup</strong> %1$s<br />» %2$s',
@@ -538,8 +541,8 @@ $lang = array_merge($lang, array(
 	'LOG_IMAGESET_EDIT_DETAILS'		=> '<strong>Edited imageset details</strong><br />» %s',
 	'LOG_IMAGESET_EDIT'				=> '<strong>Edited imageset</strong><br />» %s',
 	'LOG_IMAGESET_EXPORT'			=> '<strong>Exported imageset</strong><br />» %s',
-	'LOG_IMAGESET_LANG_MISSING'		=> '<strong>Imageset misses “%2$s�? localisation</strong><br />» %1$s',
-	'LOG_IMAGESET_LANG_REFRESHED'	=> '<strong>Refreshed “%2$s�? localisation of imageset</strong><br />» %1$s',
+	'LOG_IMAGESET_LANG_MISSING'		=> '<strong>Imageset misses “%2$s” localisation</strong><br />» %1$s',
+	'LOG_IMAGESET_LANG_REFRESHED'	=> '<strong>Refreshed “%2$s” localisation of imageset</strong><br />» %1$s',
 	'LOG_IMAGESET_REFRESHED'		=> '<strong>Refreshed imageset</strong><br />» %s',
 
 	'LOG_INACTIVE_ACTIVATE'	=> '<strong>Activated inactive users</strong><br />» %s',
@@ -548,7 +551,7 @@ $lang = array_merge($lang, array(
 	'LOG_INSTALL_CONVERTED'	=> '<strong>Converted from %1$s to phpBB %2$s</strong>',
 	'LOG_INSTALL_INSTALLED'	=> '<strong>Installed phpBB %s</strong>',
 
-	'LOG_IP_BROWSER_FORWARDED_CHECK'	=> '<strong>Session IP/browser/X_FORWARDED_FOR check failed</strong><br />»User IP “<em>%1$s</em>�? checked against session IP “<em>%2$s</em>�?, user browser string “<em>%3$s</em>�? checked against session browser string “<em>%4$s</em>�? and user X_FORWARDED_FOR string “<em>%5$s</em>�? checked against session X_FORWARDED_FOR string “<em>%6$s</em>�?.',
+	'LOG_IP_BROWSER_FORWARDED_CHECK'	=> '<strong>Session IP/browser/X_FORWARDED_FOR check failed</strong><br />»User IP “<em>%1$s</em>” checked against session IP “<em>%2$s</em>”, user browser string “<em>%3$s</em>” checked against session browser string “<em>%4$s</em>” and user X_FORWARDED_FOR string “<em>%5$s</em>” checked against session X_FORWARDED_FOR string “<em>%6$s</em>”.',
 
 	'LOG_JAB_CHANGED'			=> '<strong>Jabber account changed</strong>',
 	'LOG_JAB_PASSCHG'			=> '<strong>Jabber password changed</strong>',
@@ -563,7 +566,7 @@ $lang = array_merge($lang, array(
 
 	'LOG_MASS_EMAIL'		=> '<strong>Sent mass e-mail</strong><br />» %s',
 
-	'LOG_MCP_CHANGE_POSTER'	=> '<strong>Changed poster in topic “%1$s�?</strong><br />» from %2$s to %3$s',
+	'LOG_MCP_CHANGE_POSTER'	=> '<strong>Changed poster in topic “%1$s”</strong><br />» from %2$s to %3$s',
 
 	'LOG_MODULE_DISABLE'	=> '<strong>Module disabled</strong><br />» %s',
 	'LOG_MODULE_ENABLE'		=> '<strong>Module enabled</strong><br />» %s',
@@ -608,6 +611,7 @@ $lang = array_merge($lang, array(
 	'LOG_REASON_REMOVED'	=> '<strong>Removed report/denial reason</strong><br />» %s',
 	'LOG_REASON_UPDATED'	=> '<strong>Updated report/denial reason</strong><br />» %s',
 
+	'LOG_REFERER_INVALID'		=> '<strong>Referer validation failed</strong><br />»Referer was “<em>%1$s</em>”. The request was rejected and the session killed.',
 	'LOG_RESET_DATE'			=> '<strong>Board start date reset</strong>',
 	'LOG_RESET_ONLINE'			=> '<strong>Most users online reset</strong>',
 	'LOG_RESYNC_POSTCOUNTS'		=> '<strong>User post counts resynchronised</strong>',
@@ -643,20 +647,20 @@ $lang = array_merge($lang, array(
 	'LOG_UPDATE_PHPBB'		=> '<strong>Updated phpBB from version %1$s to version %2$s</strong>',
 
 	'LOG_USER_ACTIVE'		=> '<strong>User activated</strong><br />» %s',
-	'LOG_USER_BAN_USER'		=> '<strong>Banned User via user management</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
-	'LOG_USER_BAN_IP'		=> '<strong>Banned IP via user management</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
-	'LOG_USER_BAN_EMAIL'	=> '<strong>Banned e-mail via user management</strong> for reason “<em>%1$s</em>�?<br />» %2$s',
+	'LOG_USER_BAN_USER'		=> '<strong>Banned User via user management</strong> for reason “<em>%1$s</em>”<br />» %2$s',
+	'LOG_USER_BAN_IP'		=> '<strong>Banned IP via user management</strong> for reason “<em>%1$s</em>”<br />» %2$s',
+	'LOG_USER_BAN_EMAIL'	=> '<strong>Banned e-mail via user management</strong> for reason “<em>%1$s</em>”<br />» %2$s',
 	'LOG_USER_DELETED'		=> '<strong>Deleted user</strong><br />» %s',
 	'LOG_USER_DEL_ATTACH'	=> '<strong>Removed all attachments made by the user</strong><br />» %s',
 	'LOG_USER_DEL_AVATAR'	=> '<strong>Removed user avatar</strong><br />» %s',
 	'LOG_USER_DEL_POSTS'	=> '<strong>Removed all posts made by the user</strong><br />» %s',
 	'LOG_USER_DEL_SIG'		=> '<strong>Removed user signature</strong><br />» %s',
 	'LOG_USER_INACTIVE'		=> '<strong>User deactivated</strong><br />» %s',
-	'LOG_USER_MOVE_POSTS'	=> '<strong>Moved user posts</strong><br />» posts by “%1$s�? to forum “%2$s�?',
+	'LOG_USER_MOVE_POSTS'	=> '<strong>Moved user posts</strong><br />» posts by “%1$s” to forum “%2$s”',
 	'LOG_USER_NEW_PASSWORD'	=> '<strong>Changed user password</strong><br />» %s',
 	'LOG_USER_REACTIVATE'	=> '<strong>Forced user account reactivation</strong><br />» %s',
-	'LOG_USER_UPDATE_EMAIL'	=> '<strong>User “%1$s�? changed e-mail</strong><br />» from “%2$s�? to “%3$s�?',
-	'LOG_USER_UPDATE_NAME'	=> '<strong>Changed username</strong><br />» from “%1$s�? to “%2$s�?',
+	'LOG_USER_UPDATE_EMAIL'	=> '<strong>User “%1$s” changed e-mail</strong><br />» from “%2$s” to “%3$s”',
+	'LOG_USER_UPDATE_NAME'	=> '<strong>Changed username</strong><br />» from “%1$s” to “%2$s”',
 	'LOG_USER_USER_UPDATE'	=> '<strong>Updated user details</strong><br />» %s',
 
 	'LOG_USER_ACTIVE_USER'		=> '<strong>User account activated</strong>',
@@ -683,18 +687,17 @@ $lang = array_merge($lang, array(
 	'LOG_WORD_EDIT'			=> '<strong>Edited word censor</strong><br />» %s',
 ));
 
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 $lang = array_merge($lang, array(
 	'ACP_ABBCODES'				=> 'Advanced BBcodes Box 3',
-	'LOG_CONFIG_ABBCODES'		=> '<strong>Altered ABBC3 settings</strong>',
-	'LOG_CONFIG_ABBCODES_ERROR'	=> '<strong>Error while save ABBC3 settings</strong>',
-	'LOG_RESET_ABBCODES'		=> '<strong>Reset ABBC3 settings</strong>',
-	'LOG_RESET_ABBCODES_ERROR'	=> '<strong>Error while reset ABBC3 settings</strong>',
-	'RESET_ABBCODES_EXPLAIN'	=> 'Are you sure you wish to reset <em>all bbcodes</em> to default settings?',
-	'RESET_CONFIG_EXPLAIN'		=> 'Are you sure you wish to reset <strong>ABBC3</strong> to default settings?',
 	'ACP_ABBC3_SETTINGS'		=> 'ABBC3 Settings',
 	'ACP_ABBC3_BBCODES'			=> 'ABBC3 BBCodes',
+	'LOG_CONFIG_ABBCODES'		=> '<strong>Altered ABBC3 settings</strong>',
+	'LOG_CONFIG_ABBCODES_ERROR'	=> '<strong>Error while save ABBC3 settings</strong>',
+	'LOG_CONFIG_ADD'			=> '<strong>Added board settings</strong><br />� %s',
+	'LOG_DATABASE_SCHEMA'		=> '<strong>Updating database schema</strong><br />� %s',
+	'LOG_DELETE_ABBCODES'		=> '<strong>Deleted MOD ABBC3 from database</strong>',
 ));
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
 
 ?>

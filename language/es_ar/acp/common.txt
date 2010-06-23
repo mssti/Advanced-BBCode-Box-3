@@ -1,0 +1,13 @@
+
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
+$lang = array_merge($lang, array(
+	'ACP_ABBCODES'				=> 'Advanced BBcodes Box 3',
+	'ACP_ABBC3_SETTINGS'		=> 'Configurar ABBC3',
+	'ACP_ABBC3_BBCODES'			=> 'Componentes ABBC3',
+	'LOG_CONFIG_ABBCODES'		=> '<strong>Modificado: configuración de ABBC3</strong>',
+	'LOG_CONFIG_ABBCODES_ERROR'	=> '<strong>Error mientras se guardaba la configuración de ABBC3</strong>',
+	'LOG_CONFIG_ADD'			=> '<strong>Añadido: configuración al foro</strong><br />» %s',
+	'LOG_DATABASE_SCHEMA'		=> '<strong>Actualizando la estructura de la base de datos</strong><br />» %s',
+	'LOG_DELETE_ABBCODES'		=> '<strong>Borrado: MOD ABBC3 de la base de datos</strong>',
+));
+// MOD : MSSTI ABBC3 (V1.0.10) - End

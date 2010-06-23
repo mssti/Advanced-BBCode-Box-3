@@ -1,7 +1,7 @@
 /*  phpBB 3.0 Style Sheet
     --------------------------------------------------------------
-	Style name:			proSilver
-	Based on style:		proSilver (this is the default phpBB 3 style)
+	Style name:			abbcode
+	Based on style:		proSilver and subSilver2 (this is the default phpBB 3 style)
 	Original author:	leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 	Modified by:		leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 	
@@ -13,8 +13,6 @@
 }
 
 .helpline { 
-	width:99%;
-	height:30px;
 	overflow:hidden;
 	background-color:transparent !important;
 	border-style:none;
@@ -115,7 +113,7 @@
 	height: 100%;
 	padding: 0;
 	margin: 0;
-	font-size: 2em;
+	font-size: 20px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bold;
 }
@@ -167,15 +165,16 @@ input.btnspoil:hover {
 }
 /** Spoiler - End **/
 
+/** Img - Start **/
+div.center {text-align: center; display: table; margin-left: auto; margin-right: auto;}
+div.left { float:left; padding:0 10px; clear:both; }
+div.right { float:right; padding:0 10px; clear:both; }
+
 /** thumbnails - Start **/
-.hoverbox img { background:#eee; color:inherit; border-color:#ddd #bbb #aaa #ccc; border-style:solid; border-width:1px; margin:3px; padding:5px; }
+.hoverbox { background:#eee; color:inherit; border-color:#ddd #bbb #aaa #ccc; border-style:solid; border-width:1px; margin:3px; padding:5px; }
 /** thumbnails - End **/
 
-/** Image Resizer JS - Start **/
-table.ncode_imageresizer_warning { background: #FFFFE1; color: #000000; border: 1px solid #cccccc; cursor: pointer; }
-table.ncode_imageresizer_warning td { font-size: 10px; vertical-align: middle; text-decoration: none; }
-table.ncode_imageresizer_warning td.td1 { padding: 2px; }
-/** Image Resizer JS - End **/
+/** thumbnails - End **/
 
 /** NFO bbcode - START
 /** IE6 Only **/
@@ -200,9 +199,209 @@ table.ncode_imageresizer_warning td.td1 { padding: 2px; }
 #ModTable { background:#fafafa; border:1px solid #000000; font-family:Verdana, "Trebuchet MS", "Lucida Grande", Helvetica, Arial, sans-serif; font-size:0.85em; font-weight:normal; color:#000000; overflow:hidden; }
 /** Moderator bbcode - END **/
 
-.codetitle, .codecontent{overflow: auto;}
+.codetitle, .codecontent { overflow: auto; }
+.quotecontent, blockquote div { overflow: auto; max-height: 200px; }
 
-.quotecontent, blockquote div { 
-	overflow: auto;
-	max-height: 200px;
+/** Image Resizer JS - Start **/
+table.ncode_imageresizer_warning { background: #FFFFE1; color: #000000; border: 1px solid #cccccc; cursor: pointer; text-align: inherit;}
+table.ncode_imageresizer_warning td { font-size: 10px; vertical-align: middle; text-decoration: none; }
+table.ncode_imageresizer_warning td.td1 { padding: 2px; }
+table.ncode_imageresizer_warning td.td2 { text-align:left; /*color:#ff0000; padding: 2px;*/ }
+/** Image Resizer JS - End **/
+
+/** AdvancedBox JS - Start **/
+.AdvancedBoxBackGround  { z-index: 100; position: absolute; top: 0; left: 0; background-color: #000; }
+span.AdvancedBoxImage   { z-index: 101; position: fixed; margin: 0; padding: 0; }
+div.AdvancedBoxImage    { position: relative; border: 4px solid white; background-color: white; margin: 30px 0px 25px 0px; padding: 0; }
+img.AdvancedBoxImage    { border: none; margin: 0; padding: 0; }
+#hoverNav               { z-index: 102; position: absolute; width: auto; margin: 0; padding: 0; }
+#hoverNav a             { outline: none; }
+#LoadingLink            { z-index: 1000; position: fixed; top: 50%; left: 50%; width: 20px; height: 20px; margin: 0; padding: 0; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
+#CloserLink, #ZoomLink, #NextLink, #PrevLink, #PlayLink, #PauseLink { z-index: 104; margin: 0; padding: 0; width: 20px; height: 20px; float: left; background: transparent url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
+#nOnText                { margin: 0; padding: 0 5px; width: auto; height: 18px; color: #666; float: left; line-height: 150%; border: 1px solid #999; background: #f1f1f1 url("advancedbox_blank.gif") no-repeat; /* Trick IE into showing hover */ }
+#nOnText:hover          { border: 1px solid #000; color: #194CD8; }
+#CloserLink             { background: url("advancedbox_icon_close.gif") top left no-repeat; }
+#ZoomLink               { background: url("advancedbox_icon_zoom.gif") top left no-repeat; }
+#NextLink               { background: url("advancedbox_icon_next.gif") top left no-repeat; }
+#PrevLink               { background: url("advancedbox_icon_prev.gif") top left no-repeat; }
+#PlayLink               { background: url("advancedbox_icon_play.gif") top left no-repeat; }
+#PauseLink              { background: url("advancedbox_icon_pause.gif") top left no-repeat; }
+#LoadingLink            { background: url("advancedbox_icon_loading.gif") top left no-repeat; }
+#ZoomLink:hover, #ZoomLink:visited, 
+#CloserLink:hover, #CloserLink:visited, 
+#NextLink:hover, #NextLink:visited, 
+#PrevLink:hover, #PrevLink:visited, 
+#PlayLink:hover, #PlayLink:visited , 
+#PauseLink:hover, #PauseLink:visited , 
+#LoadingLink:hover, #LoadingLink:visited { cursor: pointer; background-position: 0 100%; }
+/** AdvancedBox JS _ End **/
+
+/* Highslide JS	- Start */
+.highslide-wrapper div {
+	font-family: Verdana, Helvetica;
+	font-size: 10pt;
 }
+.highslide {
+	cursor: url(highslide/zoomin.cur), pointer;
+	outline: none;
+	text-decoration: none;
+}
+.highslide img {
+	border: 2px solid silver;
+}
+.highslide:hover img {
+	border-color: gray;
+}
+.highslide-active-anchor img, .highslide-active-anchor:hover img {
+	border-color: black;
+}
+.highslide-image {
+	border-width: 2px;
+	border-style: solid;
+	border-color: black black #202020 black;
+	background: gray;
+}
+.highslide-wrapper, .glossy-dark {
+	background: #111;
+}
+.highslide-image-blur {
+}
+.highslide-caption {
+	display: none;
+	border-top: none;
+	font-size: 1em;
+	padding: 5px;
+	color: white;
+	background: #111;
+}
+.highslide-heading {
+	display: none;
+	color: white;
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: 0.4em;
+}
+.highslide-dimming {
+	position: absolute;
+	background: black;
+}
+.highslide-loading {
+	display: block;
+	color: white;
+	font-size: 9px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 3px;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: black;
+
+	padding-left: 22px;
+	background-image: url(highslide/loader.gif);
+	background-repeat: no-repeat;
+	background-position: 3px 1px;
+}
+a.highslide-credits,
+a.highslide-credits i {
+	padding: 2px;
+	color: silver;
+	text-decoration: none;
+	font-size: 10px;
+}
+a.highslide-credits:hover,
+a.highslide-credits:hover i {
+	color: white;
+	background-color: gray;
+}
+.highslide-move a {
+	cursor: move;
+}
+/* Controls. See http://www.google.com/search?q=css+sprites */
+.highslide-controls {
+    width: 105px;
+    height: 20px;
+    position: relative;
+    top: -23px;
+    left: 0px;
+}
+.highslide-controls ul {
+	height: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.highslide-controls li {
+    float: left;
+}
+.highslide-controls a {
+    background-image: url(highslide/controlbar-white-small.gif);
+    display: block;
+    float: left;
+    height: 20px;
+    width: 20px;
+    outline: none;
+}
+.highslide-controls a.disabled {
+    cursor: default;
+}
+.highslide-controls a span {
+    /* hide the text for these graphic buttons */
+    display: none;
+}
+.highslide-controls .highslide-move {
+	display: none;
+}
+.highslide-move a {
+    cursor: move;
+}
+/* The CSS sprites for the controlbar */
+.highslide-controls .highslide-previous a {
+    background-position: 0 0;
+}
+.highslide-controls .highslide-previous a:hover {
+    background-position: 0 -20px;
+}
+.highslide-controls .highslide-previous a.disabled {
+    background-position: 0 -40px !important;
+}
+.highslide-controls .highslide-play a {
+    background-position: -20px 0;
+}
+.highslide-controls .highslide-play a:hover {
+    background-position: -20px -20px;
+}
+.highslide-controls .highslide-play a.disabled {
+	background-position: -20px -40px !important;
+}
+.highslide-controls .highslide-pause a {
+    background-position: -40px 0;
+}
+.highslide-controls .highslide-pause a:hover {
+    background-position: -40px -20px;
+}
+.highslide-controls .highslide-next a {
+    background-position: -60px 0;
+}
+.highslide-controls .highslide-next a:hover {
+    background-position: -60px -20px;
+}
+.highslide-controls .highslide-next a.disabled {
+    background-position: -60px -40px !important;
+}
+.highslide-controls .highslide-full-expand a {
+    background-position: -100px 0;
+}
+.highslide-controls .highslide-full-expand a:hover {
+    background-position: -100px -20px;
+}
+.highslide-controls .highslide-full-expand a.disabled {
+    background-position: -100px -40px !important;
+}
+.highslide-controls .highslide-close a {
+    background-position: -120px 0;
+}
+.highslide-controls .highslide-close a:hover {
+    background-position: -120px -20px;
+} 
+/* Highslide JS	- End */

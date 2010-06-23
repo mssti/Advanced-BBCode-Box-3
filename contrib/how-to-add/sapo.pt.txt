@@ -1,0 +1,5 @@
+[sapo]http://videos.sapo.pt/{TEXT}[/sapo]
+
+<embed src="http://rd3.videos.sapo.pt/play?file=http://rd3.videos.sapo.pt/{TEXT}/mov/1" type="application/x-shockwave-flash" width="400" height="322"></embed>
+
+[sapo]http://videos.sapo.pt/y7EMCklrAMpbpP2IeDbB[/sapo]

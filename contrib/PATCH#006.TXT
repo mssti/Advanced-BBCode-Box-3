@@ -1,0 +1,122 @@
+This will be the next patch :
+
+Add a new button for [b]Synchronise bbcode order[/b] in ACP -> ABBC3 bbcodes, at the bottom.
+Add the bbcode image to the list 
+
+[code]#
+#---- [ OPEN ] ----
+#
+root/adm/style/acp_abbcodes.html
+#
+#---- [ FIND ] ----
+#
+					<!-- IF items.TAG_NAME --><b>[{items.TAG_NAME}]</b> &nbsp; <!-- ENDIF -->{items.TAG_EXPLAIN}
+#
+#---- [ REPLACE WITH ] ----
+#
+					<!-- IF items.IMG_SRC -->
+						<img src="{items.IMG_SRC}" id="newimg" title="{items.NAME}" alt="{items.NAME}" style="float:right;"/>
+					<!-- ENDIF -->
+					<!-- IF items.TAG_NAME --><b>[{items.TAG_NAME}]</b> &nbsp; <!-- ENDIF -->{items.TAG_EXPLAIN}
+#
+#---- [ OPEN ] ----
+#
+root/language/en/mods/acp_abbcodes.php
+#
+#---- [ FIND ] ----
+#
+	'ABBCODES_ADD_BREAK'
+#
+#---- [ AFTER ADD ] ----
+#
+	'ABBCODES_SYNC'						=> 'Synchronise order',
+	'ABBCODES_RESYNC_SUCCESS'			=> 'The bbcode order have been resynchronised.',
+#
+#---- [ OPEN ] ----
+#
+root/includes/acp/acp_abbcodes.php
+#
+#---- [ FIND ] ----
+#
+					case 'newdlb':
+#
+#---- [ REPLACE WITH ] ----
+#
+					case 'sync':
+						$this->resync_abbcodes( );
+
+					// no break;
+					case 'newdlb':
+#
+#---- [ FIND ] ----
+#
+	/**
+	* Show/edit bbcodes
+	**/
+#
+#---- [ REPLACE WITH ] ----
+#
+	/**
+	* Synchronise order
+	**/
+	function resync_abbcodes( )
+	{
+		global $user, $db;
+
+		$user->add_lang('mods/acp_abbcodes');
+
+		// This pseodo-bbcode should not change the position order
+		$bbcode_tag_ary =  array( 'font=', 'size', 'highlight=', 'color');
+		$next_bbcode_order = sizeof($bbcode_tag_ary)+1;
+
+		$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_order 
+				FROM ' . BBCODES_TABLE . ' 
+				WHERE ' . $db->sql_in_set('bbcode_tag', $bbcode_tag_ary, true) . ' 
+				ORDER BY bbcode_order';
+		$result = $db->sql_query($sql);
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$sql = 'UPDATE ' . BBCODES_TABLE . " 
+					SET bbcode_order = $next_bbcode_order 
+					WHERE bbcode_id = {$row['bbcode_id']}";
+			$db->sql_query($sql);
+
+			$next_bbcode_order++;
+		}
+		$db->sql_freeresult($result);
+		
+		trigger_error($user->lang['ABBCODES_RESYNC_SUCCESS'] . adm_back_link($this->u_action));
+	}
+
+	/**
+	* Show/edit bbcodes
+	**/
+#
+#---- [ FIND ] ----
+#
+			'U_BACK'			=> ( $bbcode ) ? $this->u_back : null,
+#
+#---- [ REPLACE WITH ] ----
+#
+			'U_SYNC'			=> (!$bbcode ) ? $this->u_action . '&amp;mode=bbcodes&amp;action=sync' : null,
+			'U_BACK'			=> ( $bbcode ) ? $this->u_back : null,
+#
+#---- [ FIND ] ----
+#
+					'ON_POST'				=> ($row['display_on_posting']) ? $user->lang['ENABLED'] : $user->lang['DISABLED'],
+#
+#---- [ REPLACE WITH ] ----
+#
+ 					'IMG_SRC'				=> ($abbcode_image && $abbcode_image != $img_spacer) ? $this->dir . '/images/' . $abbcode_image : '',
+					'NAME'					=> str_replace( '=', '', trim($row['bbcode_tag']) ),
+				
+					'ON_POST'				=> ($row['display_on_posting']) ? $user->lang['ENABLED'] : $user->lang['DISABLED'],
+#
+#----[ DIY ]----
+#
+After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
+#
+#-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+#
+# EoM[/code]

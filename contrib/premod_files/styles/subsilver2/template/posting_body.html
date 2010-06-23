@@ -210,35 +210,20 @@
 		<table width="100%" cellspacing="0" cellpadding="0" border="0">
 		<!-- INCLUDE posting_buttons.html -->
 		<tr>
-
-		<!-- // MOD : ABBC3 (V1.0.9) - Start -->
-		<!-- IF S_ABBC3_MOD -->
-			<td valign="top"><textarea id="message" name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 99%;">{MESSAGE}</textarea></td>		
+		
+<!-- // MOD : MSSTI ABBC3 (V1.0.10) - Start -->
+			<td valign="top" style="width: 100%;"><textarea id="message" name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 99%;">{MESSAGE}</textarea></td>
 			<!-- IF S_BBCODE_ALLOWED and not S_ABBC3_COLOR -->
-			<td width="80" align="center" valign="top">
-				<script type="text/javascript">
-				// <![CDATA[
-					colorPalette('v', 7, 6)
-				// ]]>
-				</script>
-			</td>
-			<!-- ENDIF -->
-		<!-- ELSE -->
-		
-			<td valign="top" style="width: 100%;"><textarea name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 98%;">{MESSAGE}</textarea></td>
-			<!-- IF S_BBCODE_ALLOWED -->
-			<td width="80" align="center" valign="top">
-				<script type="text/javascript">
-				// <![CDATA[
-					colorPalette('v', 7, 6)
-				// ]]>
-				</script>
-			</td>
-			<!-- ENDIF -->
+<!-- // MOD : MSSTI ABBC3 (V1.0.10) - End -->
 
-		<!-- ENDIF -->
-		<!-- // MOD : ABBC3 (V1.0.9) - End -->
-		
+			<td width="80" align="center" valign="top">
+				<script type="text/javascript">
+				// <![CDATA[
+					colorPalette('v', 7, 6)
+				// ]]>
+				</script>
+			</td>
+			<!-- ENDIF -->
 	 	</tr>
 		</table>
 	</td>

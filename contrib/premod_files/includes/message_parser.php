@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB3
-* @version $Id: message_parser.php 8479 2008-03-29 00:22:48Z naderman $
+* @version $Id: message_parser.php 8665 2008-06-21 15:09:44Z acydburn $
 * @copyright (c) 2005 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -138,13 +138,14 @@ class bbcode_firstpass extends bbcode
 			global $db;
 			$rowset = array();
 
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 			$sql = 'SELECT *
 				FROM ' . BBCODES_TABLE . '
 				WHERE bbcode_id > 0';
 //			$sql = 'SELECT *
 //				FROM ' . BBCODES_TABLE;
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 			$result = $db->sql_query($sql);
 
 			while ($row = $db->sql_fetchrow($result))
@@ -158,7 +159,12 @@ class bbcode_firstpass extends bbcode
 		{
 			$this->bbcodes[$row['bbcode_tag']] = array(
 				'bbcode_id'	=> (int) $row['bbcode_id'],
-				'regexp'	=> array($row['first_pass_match'] => str_replace('$uid', $this->bbcode_uid, $row['first_pass_replace']))
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
+//				'regexp'	=> array($row['first_pass_match'] => str_replace('$uid', $this->bbcode_uid, $row['first_pass_replace']))
+				'regexp'	=> array($row['first_pass_match'] => str_replace('$uid', $this->bbcode_uid, $row['first_pass_replace'])),
+				'bbcode_group'	=> $row['bbcode_group'],
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 			);
 		}
 	}
@@ -351,6 +357,12 @@ class bbcode_firstpass extends bbcode
 		$in = trim($in);
 		$error = false;
 
+		// Do not allow 0-sizes generally being entered
+		if ($width <= 0 || $height <= 0)
+		{
+			return '[flash=' . $width . ',' . $height . ']' . $in . '[/flash]';
+		}
+
 		// Apply the same size checks on flash files as on images
 		if ($config['max_' . $this->mode . '_img_height'] || $config['max_' . $this->mode . '_img_width'])
 		{
@@ -399,7 +411,10 @@ class bbcode_firstpass extends bbcode
 			case 'php':
 
 				$remove_tags = false;
-				$code = str_replace(array('&lt;', '&gt;'), array('<', '>'), $code);
+
+				$str_from = array('&lt;', '&gt;', '&#91;', '&#93;', '&#46;', '&#58;', '&#058;');
+				$str_to = array('<', '>', '[', ']', '.', ':', ':');
+				$code = str_replace($str_from, $str_to, $code);
 
 				if (!preg_match('/\<\?.*?\?\>/is', $code))
 				{
@@ -1121,7 +1136,19 @@ class parse_message extends bbcode_firstpass
 			$this->prepare_bbcodes();
 		}
 
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
+		// Check for groups memberships and permission
+		foreach ($this->bbcodes as $bbcode_name => $bbcode_data)
+		{
+			if ( isset($bbcode_data['bbcode_group']) && $bbcode_data['bbcode_group'] != 0 && !in_array( $user->data['group_id'], split(',', $bbcode_data['bbcode_group']) ))
+			{
+				$this->bbcodes[$bbcode_name]['disabled'] = true;
+			}
+		}
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 		// Parse smilies
+
 		if ($allow_smilies)
 		{
 			$this->smilies($config['max_' . $mode . '_smilies']);

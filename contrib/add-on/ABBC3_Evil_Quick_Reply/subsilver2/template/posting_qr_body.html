@@ -55,13 +55,13 @@ if (<!-- IF S_QR_HIDE_BOX -->1<!-- ELSE -->0<!-- ENDIF -->)
 </script>
 
 <div id="quick_reply">
-<!-- // MOD : ABBC3 (V1.0.8) - START -->
+<!-- // MOD : MSSTI ABBC3 - START -->
 <!-- IF S_ABBC3_MOD -->
 	<form action="{S_QR_POST_ACTION}" method="post" id="postform">
 <!-- ELSE -->
 	<form action="{S_QR_POST_ACTION}" method="post">
 <!-- ENDIF -->
- <!-- // MOD : ABBC3 (V1.0.8) - END -->
+ <!-- // MOD : MSSTI ABBC3 - END -->
 		<table class="tablebg" width="100%" cellspacing="1">
 		<tr>
 			<th colspan="2">{L_QUICK_REPLY}</th>
@@ -72,7 +72,7 @@ if (<!-- IF S_QR_HIDE_BOX -->1<!-- ELSE -->0<!-- ENDIF -->)
 		</tr>
 		<!-- ENDIF -->
 		
-<!-- // MOD : ABBC3 (V1.0.8) - START -->
+<!-- // MOD : MSSTI ABBC3 - START -->
 	<!-- IF S_ABBC3_MOD -->
 		<tr>
 			<td class="row1" width="22%">
@@ -108,7 +108,7 @@ if (<!-- IF S_QR_HIDE_BOX -->1<!-- ELSE -->0<!-- ENDIF -->)
 				<!-- INCLUDE posting_buttons.html -->
 					<tr>
 
-					<!-- // MOD : ABBC3 (V1.0.8) - START -->
+					<!-- // MOD : ABBC3 - START -->
 					<!-- IF S_ABBC3_COLOR -->
 						<td valign="top" colspan="2"><textarea id="message" name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 99%;">{MESSAGE}</textarea></td>		
 					<!-- ELSE -->
@@ -124,7 +124,7 @@ if (<!-- IF S_QR_HIDE_BOX -->1<!-- ELSE -->0<!-- ENDIF -->)
 						<!-- ENDIF -->
 
 					<!-- ENDIF -->
-					<!-- // MOD : ABBC3 (V1.0.8) - END -->
+					<!-- // MOD : ABBC3 - END -->
 
 					</tr>
 				</table>
@@ -145,7 +145,7 @@ if (<!-- IF S_QR_HIDE_BOX -->1<!-- ELSE -->0<!-- ENDIF -->)
 		<!-- ENDIF -->
 		
 	<!-- ENDIF -->	
-<!-- // MOD : ABBC3 (V1.0.8) - END -->
+<!-- // MOD : MSSTI ABBC3 - END -->
 
 		<!-- IF not S_USER_LOGGED_IN -->
 		<tr>

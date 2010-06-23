@@ -156,37 +156,6 @@ function switch_menu()
 
 // ]]>
 </script>
-
-<!-- // MOD : ABBC3 (V1.0.9) - Start -->
-<!-- IF S_ABBC3_MOD -->
-
-<script type="text/javascript" src="{S_ABBC3_PATH}/abbcode.js" charset="{S_CONTENT_ENCODING}"></script>
-
-<script type="text/javascript">
-// <![CDATA[
-	var GB_ROOT_DIR                       = "{S_ABBC3_PATH}/greybox/";
-<!-- IF S_ABBC3_RESIZE -->	
-	NcodeImageResizer.MODE                = '{S_ABBC3_RESIZE_METHOD}'; // 'greybox' 'enlarge' 'samewindow' 'newwindow'
-	NcodeImageResizer.IMAGE               = '{S_ABBC3_PATH}/images/errormt0.gif';
-	NcodeImageResizer.MAXWIDTH            = '{S_ABBC3_MAX_IMG_WIDTH}' ;
-	NcodeImageResizer.MAXHEIGHT           = '{S_ABBC3_MAX_IMG_HEIGHT}' ;
-	NcodeImageResizer.warning_small       = '{L_ABBC3_RESIZE_SMALL}';
-	NcodeImageResizer.warning_filesize    = '{L_ABBC3_RESIZE_FILESIZE}';
-	NcodeImageResizer.warning_no_filesize = '{L_ABBC3_RESIZE_NOFILESIZE}';
-	NcodeImageResizer.warning_fullsize    = '{L_ABBC3_RESIZE_FULLSIZE}';
-<!-- ENDIF -->
-// ]]>
-</script>
-<!-- IF (S_ABBC3_GREYBOX or S_BBCODE_ALLOWED) -->
-<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS.js"></script>
-<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS_fx.js"></script>
-<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/gb_scripts.js"></script>
-<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/greybox/gb_styles.css" />
-<!-- ENDIF -->
-<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
-<!-- ENDIF -->
-<!-- // MOD : ABBC3 (V1.0.9) - End -->
-
 </head>
 
 <body class="{S_CONTENT_DIRECTION}">
@@ -212,11 +181,11 @@ function switch_menu()
 			<span class="corners-top"><span></span></span>
 				<div id="content">
 					<!-- IF not S_USER_NOTICE --> 
-					<div id="toggle">						
+					<div id="toggle">
 						<a id="toggle-handle" accesskey="m" title="{L_MENU_TOGGLE}" onclick="switch_menu(); return false;" href="#"></a></div>
 					<!-- ENDIF -->
 					<div id="menu">
-						<p>{L_LOGGED_IN_AS}<br /><strong>{USERNAME}</strong> [&nbsp;<a href="{U_LOGOUT}">{L_LOGOUT}</a>&nbsp;]</p>
+						<p>{L_LOGGED_IN_AS}<br /><strong>{USERNAME}</strong> [&nbsp;<a href="{U_LOGOUT}">{L_LOGOUT}</a>&nbsp;][&nbsp;<a href="{U_ADM_LOGOUT}">{L_ADM_LOGOUT}</a>&nbsp;]</p>
 						<ul>
 						<!-- BEGIN l_block1 -->
 							<!-- IF l_block1.S_SELECTED -->

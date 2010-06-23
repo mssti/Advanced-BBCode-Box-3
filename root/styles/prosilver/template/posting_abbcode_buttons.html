@@ -1,7 +1,13 @@
-<!-- // MOD : ABBC3 (V1.0.9b) - START -->
+<!-- // MOD : MSSTI ABBC3 (v1.0.10) - START -->
 
 <script type="text/javascript">
 // <![CDATA[
+
+/**
+* Default values for width and height values for the wizard pop-up window
+**/
+var popup_width = 700;
+var popup_height = 300;
 
 /**
 * Help line tips values
@@ -9,7 +15,7 @@
 var help_line2 = {
 
 <!-- BEGIN abbc3_tags -->
-	'{abbc3_tags.TAG_NAME}'	: "{abbc3_tags.TAG_MOVER}" + " : {abbc3_tags.TAG_TIP}" + '\n' + "{abbc3_tags.TAG_NOTE}" + ( ("{abbc3_tags.TAG_EXAMPLE}") ? "{L_ABBC3_EXAMPLE} : {abbc3_tags.TAG_EXAMPLE}" : "" ),
+	'{abbc3_tags.TAG_NAME}'	: "{abbc3_tags.TAG_MOVER}" + " : {abbc3_tags.TAG_TIP}" + " {abbc3_tags.TAG_NOTE}" + ( ("{abbc3_tags.TAG_EXAMPLE}") ? "\n{L_ABBC3_EXAMPLE} : {abbc3_tags.TAG_EXAMPLE}" : "" ),
 <!-- END abbc3_tags -->
 	
 	'abbc3_font'			: "{L_ABBC3_FONT_MOVER}" + "{L_ABBC3_FONT_TIP}" + '\n' + "{L_ABBC3_FONT_NOTE}",
@@ -39,7 +45,7 @@ function helpline2( help )
 * Main function Apply bbcodes
 * based-of editor.js on function bbfontstyle(bbopen, bbclose)
 **/
-function bbstyle2( bbcode, description )
+function bbstyle2( bbcode )
 {
 	theSelection = false;
 
@@ -131,6 +137,9 @@ function bbstyle2( bbcode, description )
 			break;
 		case "abbc3_marqright" :
 			bbfontstyle( "[marq=right]", "[/marq]" );
+			break;
+		case "abbc3_html" :
+			bbfontstyle( "[html]", "[/html]" );
 			break;
 		case "abbc3_code" :
 			bbfontstyle( "[code]", "[/code]" );
@@ -269,7 +278,11 @@ function bbstyle2( bbcode, description )
 								  || bbcode == 'abbc3_ram'
 								  )	? ' {S_ABBC3_VIDEO_width},{S_ABBC3_VIDEO_height}' : ( bbcode == 'abbc3_web') ? ' 100%,100' : '';
 					
-					
+					if ( bbcode == "abbc3_ed2k" )
+					{
+						bbcode = "abbc3_url";
+					}
+
 					bbcode = bbcode.replace( "abbc3_" , "");
 					bbfontstyle( '[' + bbcode + bbcode_extra + ']', '[/' + bbcode + ']', '');
 					return ;
@@ -277,7 +290,7 @@ function bbstyle2( bbcode, description )
 			}
 
 			var popup_url = '{S_ABBC3_WIZARD_PAGE}' + '&amp;abbc3=' + bbcode + '&amp;form_name=' + form_name + '&amp;text_name=' + text_name;
-			popup( popup_url, 700, 400 );
+			popup( popup_url, popup_width, popup_height );
 			break;
 /** This bbcodes needs wizard - End **/
 
@@ -390,6 +403,47 @@ function ABBCcolorPalette( bbcode )
 	}
 }
 
+/**
+* Resize a textbox - START
+* Original function by Disturbed One (http://www.hvmdesign.com/)
+**/
+function textbox_resize( pix )
+{
+	var cookie		= document.forms[form_name].elements['{S_ABBC3_COOKIE_NAME}'];
+	var box			= document.forms[form_name].elements[text_name];
+	var new_height	= (parseInt(box.style.height) ? parseInt(box.style.height) : 300) + pix;
+
+	if ( parseInt(cookie.value) != 0 && (typeof pix != 'number' || parseInt(pix) == 0 ) )
+	{
+		new_height = parseInt(cookie.value) + 'px';
+	}
+	
+	if (parseInt(new_height) > 0)
+	{
+		box.style.height = parseInt(new_height) + 'px';
+		cookie.value	 = parseInt(new_height);
+	}
+	return false;
+}
+/** Resize a textbox - END **/
+
+/**
+* Install the safety net  - START
+**/
+if (window.onload_functions) // prosilver
+{
+	onload_functions[onload_functions.length] = "textbox_resize();";
+}
+else if (typeof(window.addEventListener) != "undefined") // DOM
+{
+	window.addEventListener("load", textbox_resize, false);
+}
+else if (typeof(window.attachEvent) != "undefined") // MSIE
+{
+	window.attachEvent("onload", textbox_resize);
+}
+/** Install the safety net - END **/
+
 // ]]>
 </script>
 
@@ -405,7 +459,7 @@ function ABBCcolorPalette( bbcode )
 				<!-- ENDIF -->
 
 			<!-- IF S_ABBC3_BOXRESIZE -->
-				<input type="button" value=" + " class="button1" onclick="textbox_resize(10,text_name);" />&nbsp;<input type="button" value=" - " class="button1" onclick="textbox_resize(-10,text_name);" />
+				<input type="button" value=" + " class="button1" onclick="textbox_resize(10);" />&nbsp;<input type="button" value=" - " class="button1" onclick="textbox_resize(-10);" />
 				<!-- IF S_ABBC3_TAB -->
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
@@ -519,7 +573,7 @@ function ABBCcolorPalette( bbcode )
 				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 			<!-- ENDIF -->
 		<!-- ELSE -->
-			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}', '{abbc3_tags.TAG_MOVER}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
 		<!-- ENDIF -->	
 <!-- END abbc3_tags -->
 
@@ -538,7 +592,7 @@ function ABBCcolorPalette( bbcode )
 				<!-- ENDIF -->
 
 				<!-- BEGIN custom_tags -->
-				<input style="margin:4px 0 0 0;" type="button" class="button2" name="addbbcode{custom_tags.BBCODE_ID}" value="{custom_tags.BBCODE_TAG}" onclick="bbstyle({custom_tags.BBCODE_ID})" title="{custom_tags.BBCODE_TIPLINE}"<!-- IF custom_tags.BBCODE_HELPLINE !== '' --> onmouseover="helpline('cb_{custom_tags.BBCODE_ID}')" onmouseout="helpline2()"<!-- ENDIF --> />
+				<input style="margin:8px 0 4px 0;" type="button" class="button2" name="addbbcode{custom_tags.BBCODE_ID}" value="{custom_tags.BBCODE_TAG}" onclick="bbstyle({custom_tags.BBCODE_ID})" title="{custom_tags.BBCODE_TIPLINE}"<!-- IF custom_tags.BBCODE_HELPLINE !== '' --> onmouseover="helpline('cb_{custom_tags.BBCODE_ID}')" onmouseout="helpline2()"<!-- ENDIF --> />
 				<!-- END custom_tags -->
 
 				<!-- IF S_ABBC3_TAB -->
@@ -550,10 +604,10 @@ function ABBCcolorPalette( bbcode )
 
 		<tr>
 			<td colspan="2">
-				<textarea readonly="readonly" id="helpbox" name="helpbox" rows="2" cols="76" class="helpline" >{L_STYLES_TIP}</textarea><!--<span id="helpbox" class="helpline" >{L_STYLES_TIP}</span>-->
+				<textarea readonly="readonly" id="helpbox" name="helpbox" rows="3" cols="170" style="width:100%" class="helpline" >{L_STYLES_TIP}</textarea>
 			</td>
 		</tr>
 
 	</table>
-	
-<!-- // MOD : ABBC3 (V1.0.9b) - END -->
+	{S_ABBC3_HIDDEN_FIELDS}
+<!-- // MOD : MSSTI ABBC3 (v1.0.10) - END -->

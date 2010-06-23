@@ -815,7 +815,7 @@ function display_custom_bbcodes()
 	// Start counting from 22 for the bbcode ids (every bbcode takes two ids - opening/closing)
 	$num_predefined_bbcodes = 22;
 
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 	global $phpbb_root_path, $phpEx, $config, $mode;
 
 	if ( $config['ABBC3_MOD'] )
@@ -830,7 +830,7 @@ function display_custom_bbcodes()
 
 		$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_helpline
 			FROM ' . BBCODES_TABLE . '
-			WHERE display_on_posting = 1 AND abbcode = 0 AND bbcode_image = " " 
+			WHERE display_on_posting = 1 AND abbcode = 0 AND bbcode_image = "" 
 			ORDER BY bbcode_tag';
 	}
 	else
@@ -844,7 +844,8 @@ function display_custom_bbcodes()
 //		FROM ' . BBCODES_TABLE . '
 //		WHERE display_on_posting = 1
 //		ORDER BY bbcode_tag';
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 	$result = $db->sql_query($sql);
 
 	$i = 0;

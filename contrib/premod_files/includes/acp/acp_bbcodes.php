@@ -49,14 +49,15 @@ class acp_bbcodes
 			break;
 
 			case 'edit':
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 				$sql = 'SELECT bbcode_match, bbcode_tpl, display_on_posting, bbcode_helpline, abbcode
 					FROM ' . BBCODES_TABLE . '
 					WHERE bbcode_id = ' . $bbcode_id . ' and abbcode = 0';
 //				$sql = 'SELECT bbcode_match, bbcode_tpl, display_on_posting, bbcode_helpline
 //					FROM ' . BBCODES_TABLE . '
 //					WHERE bbcode_id = ' . $bbcode_id;
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 				$result = $db->sql_query($sql);
 				$row = $db->sql_fetchrow($result);
 				$db->sql_freeresult($result);
@@ -73,14 +74,15 @@ class acp_bbcodes
 			break;
 
 			case 'modify':
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 				$sql = 'SELECT bbcode_id, bbcode_tag, abbcode
 					FROM ' . BBCODES_TABLE . '
 					WHERE bbcode_id = ' . $bbcode_id . ' and abbcode = 0';
 //				$sql = 'SELECT bbcode_id, bbcode_tag
 //					FROM ' . BBCODES_TABLE . '
 //					WHERE bbcode_id = ' . $bbcode_id;
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 				$result = $db->sql_query($sql);
 				$row = $db->sql_fetchrow($result);
 				$db->sql_freeresult($result);
@@ -220,8 +222,7 @@ class acp_bbcodes
 					}
 
 					$sql_ary['bbcode_id'] = (int) $bbcode_id;
-
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 					$sql = 'SELECT MAX(bbcode_order) as max_bbcode_order
 						FROM ' . BBCODES_TABLE;
 					$result = $db->sql_query($sql);
@@ -229,8 +230,8 @@ class acp_bbcodes
 					$db->sql_freeresult($result);
 					$bbcode_order = $row['max_bbcode_order'] + 1;
 					$sql_ary['bbcode_order'] = (int) $bbcode_order;
-// MOD : ABBC3 (V1.0.9) - End
-					
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 					$db->sql_query('INSERT INTO ' . BBCODES_TABLE . $db->sql_build_array('INSERT', $sql_ary));
 					$cache->destroy('sql', BBCODES_TABLE);
 
@@ -257,14 +258,15 @@ class acp_bbcodes
 
 			case 'delete':
 			
-// MOD : ABBC3 (V1.0.9) - Start
+// MOD : MSSTI ABBC3 (V1.0.10) - Start
 				$sql = 'SELECT bbcode_tag, abbcode
 					FROM ' . BBCODES_TABLE . "
 					WHERE bbcode_id = $bbcode_id" . ' and abbcode = 0' ;
 //				$sql = 'SELECT bbcode_tag
 //					FROM ' . BBCODES_TABLE . "
 //					WHERE bbcode_id = $bbcode_id";
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 				$result = $db->sql_query($sql);
 				$row = $db->sql_fetchrow($result);
 				$db->sql_freeresult($result);
@@ -294,7 +296,8 @@ class acp_bbcodes
 		$template->assign_vars(array(
 			'U_ACTION'		=> $this->u_action . '&amp;action=add')
 		);
-// MOD : ABBC3 (V1.0.9) - Start	
+
+// MOD : MSSTI ABBC3 (V1.0.10) - Start	
 		$sql = 'SELECT *
 			FROM ' . BBCODES_TABLE . '
 			WHERE abbcode = 0  
@@ -302,7 +305,8 @@ class acp_bbcodes
 //		$sql = 'SELECT *
 //			FROM ' . BBCODES_TABLE . '
 //			ORDER BY bbcode_tag';
-// MOD : ABBC3 (V1.0.9) - End
+// MOD : MSSTI ABBC3 (V1.0.10) - End
+
 		$result = $db->sql_query($sql);
 
 		while ($row = $db->sql_fetchrow($result))

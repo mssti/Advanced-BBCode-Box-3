@@ -1,0 +1,19 @@
+[quote="CitLemBiK"]Leviathan , ist this evil quick add-on compatible with 1.0.10?
+
+I'm using COLOR from ABB3 (no color palette from default phpbb3 subsilver)
+
+My error caps ist under
+
+[url=http://img530.imageshack.us/my.php?image=msstikg6.jpg][img]http://img530.imageshack.us/img530/4421/msstikg6.th.jpg[/img][/url][url=http://g.imageshack.us/thpix.php][img]http://img530.imageshack.us/images/thpix.gif[/img][/url][/quote]
+You are right, but the problem is not in my [i]posting_qr_body.html[/i] is on [i]posting_abbcode_buttons.html[/i]
+[code]#
+# ---- [ FIND ] ----
+#
+			<td<!-- IF $S_SIGNATURE or S_EDIT_DRAFT --> colspan="2"<!-- ENDIF -->  style="width: 100%;"><textarea readonly="readonly" id="helpbox" name="helpbox" rows="4" cols="110" class="helpline">{L_STYLES_TIP}</textarea></td>
+			<!-- IF not $S_SIGNATURE and not S_EDIT_DRAFT -->
+#
+# ---- [ REPLACE WITH ] ----
+#
+			<td<!-- IF S_ABBC3_COLOR and not ($S_SIGNATURE and not S_EDIT_DRAFT) --> colspan="2"<!-- ENDIF -->  style="width: 100%;"><textarea readonly="readonly" id="helpbox" name="helpbox" rows="4" cols="110" class="helpline">{L_STYLES_TIP}</textarea></td>
+			<!-- IF not S_ABBC3_COLOR and not ($S_SIGNATURE and not S_EDIT_DRAFT) -->
+[/code]

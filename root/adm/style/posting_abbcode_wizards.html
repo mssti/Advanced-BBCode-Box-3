@@ -1,199 +1,38 @@
 <!-- INCLUDE simple_header.html -->
+<!-- // MOD : MSSTI ABBC3 (v1.0.10) - START -->
+
+<script type="text/javascript" src="{T_TEMPLATE_PATH}/editor.js"></script>
 
 <script type="text/javascript">
 // <![CDATA[
+var form_name = '{FORM_NAME}';
+var text_name = '{TEXT_NAME}';
 
-// Check for Browser & Platform for PC & IE specific bits More details from: http://www.mozilla.org/docs/web-developer/sniffer/browser_type.html
-var clientPC = navigator.userAgent.toLowerCase(); /** Get client info	**/
-var clientVer = parseInt(navigator.appVersion); /** Get browser version **/
-
-var is_ie = ((clientPC.indexOf('msie') != -1) && (clientPC.indexOf('opera') == -1));
-var is_win = ((clientPC.indexOf('win') != -1) || (clientPC.indexOf('16bit') != -1));
-
-var txtarea = top.window.document.forms['{FORM_NAME}'].elements['{TEXT_NAME}'];
-
-function win_accept( tag, atcaret_pos )
+function win_close( text )
 {
-		var FoundErrors 	= '';
-		var tag_open		= ( document.getElementById("tag_open")		) ? document.getElementById("tag_open").value	: '';
-		var tag_close		= ( document.getElementById("tag_close")	) ? document.getElementById("tag_close").value	: '';
-
-	if ( tag === 'table' )
-	{
-		var styleT			= ( document.getElementById("promptbox1")	) ? document.getElementById("promptbox1").value	: '';
-		
-		var enterR			= ( document.getElementById("promptbox2")	) ? document.getElementById("promptbox2").value	: '';
-		var enterR_error	= ( document.getElementById("errorbox2")	) ? document.getElementById("errorbox2").value	: '';
-		if ( !enterR && enterR_error )
-		{
-			FoundErrors += '\n' + enterR_error;
-		}
-
-		var styleR			= ( document.getElementById("promptbox3")	) ? document.getElementById("promptbox3").value	: '';
-
-		var enterC			= ( document.getElementById("promptbox4")	) ? document.getElementById("promptbox4").value	: '';
-		var enterC_error	= ( document.getElementById("errorbox4")	) ? document.getElementById("errorbox4").value	: '';
-		if ( !enterC && enterC_error )
-		{
-			FoundErrors += '\n' + enterC_error;
-		}
-
-		var styleC			= ( document.getElementById("promptbox5")	) ? document.getElementById("promptbox5").value	: '';
-
-		if ( FoundErrors != '' )
-		{
-			alert( "{L_ABBC3_ERROR}" + FoundErrors );
-			return;
-		}
-		
-		var Row = '';
-		for ( var R = 0; R < parseInt ( enterR ); R++ )
-		{
-			Col = '';
-			for ( var C = 0; C < parseInt ( enterC ); C++ )
-			{
-				Col += "[td=" + styleC + "]" + "[/td]";
-			}
-			Row += "[tr=" + styleR + "]" + Col + "[/tr]\n";
-		}
-		
-		bbopen = '[' + tag_open + '=' + styleT + "]\n" + Row + '[' + tag_close + ']';
-	}
-	else
-	{
-
-		var tag_url			= ( document.getElementById("promptbox1")	) ? document.getElementById("promptbox1").value			: '';
-		var tag_url_error	= ( document.getElementById("errorbox1")	) ? document.getElementById("errorbox1").value			: '';
-		if ( !tag_url && tag_url_error )
-		{
-			FoundErrors += '\n' + tag_url_error;
-		}
-
-		var tag_desc		= ( document.getElementById("promptbox2")	) ? document.getElementById("promptbox2").value			: '';
-		var tag_desc_error	= ( document.getElementById("errorbox2")	) ? document.getElementById("errorbox2").value			: '';
-/**
-		if ( !tag_desc && tag_desc_error )
-		{
-			FoundErrors += '\n' + tag_desc_error;
-		}
-**/
-		var tag_width		= ( document.getElementById("promptbox3")	) ? " " + document.getElementById("promptbox3").value	: '';
-		var tag_width_error	= ( document.getElementById("errorbox3")	) ? document.getElementById("errorbox3").value			: '';
-		if ( tag_width == " " && tag_width_error )
-		{
-			FoundErrors += '\n' + tag_width_error;
-		}
-
-		var tag_height		= ( document.getElementById("promptbox4")	) ? "," + document.getElementById("promptbox4").value	: '';
-		var tag_height_error= ( document.getElementById("errorbox4")	) ? document.getElementById("errorbox4").value			: '';
-		if ( tag_height == "," && tag_height_error )
-		{
-			FoundErrors += '\n' + tag_height_error;
-		}
-
-		if ( FoundErrors != '' )
-		{
-			alert( "{L_ABBC3_ERROR}" + FoundErrors );
-			return;
-		}
-
-		close1 = ( tag_desc || tag_desc ) ? '' : ']' ;
-		close2 = ( tag_desc || tag_desc ) ? ']' : '' ;
-		tag_open += ( tag_desc || tag_desc ) ? '=' : '' ;
-
-		bbopen = '[' + tag_open + tag_width + tag_height + close1 + tag_url + close2 + tag_desc + '[' + tag_close + ']';
-	}
-	win_close( bbopen, atcaret_pos );
-}
-
-function win_close( text, new_pos )
-{
-	initInsertions();
-	
 	if ( text )
 	{
-		if ( !isNaN( txtarea.selectionStart ) )
-		{
-			var sel_start = txtarea.selectionStart;
-			var sel_end = txtarea.selectionEnd;
-
-			mozWrap(txtarea, text, '')
-			txtarea.selectionStart = sel_start + text.length;
-			txtarea.selectionEnd = sel_end + text.length;
-		}
-		else if (txtarea.createTextRange && txtarea.caretPos)
-		{
-			if (baseHeight != txtarea.caretPos.boundingHeight) 
-			{
-				txtarea.focus();
-				storeCaret(txtarea);
-			}
-			var caret_pos = txtarea.caretPos;
-			caret_pos.text = caret_pos.text.charAt(caret_pos.text.length - 1) == ' ' ? caret_pos.text + text + ' ' : caret_pos.text + text;
-		}
-		else
-		{
-			txtarea.value = txtarea.value + text;
-		}
+		insert_text( text, false, true );
 	}
-	parent.parent.GB_hide();
-}
-
-/**
-* Fix a bug involving the TextRange object. From http://www.frostjedi.com/terra/scripts/demo/caretBug.html
-**/
-var baseHeight;
-function initInsertions() 
-{
-	if (is_ie && typeof(baseHeight) != 'number')
-	{
-		txtarea.focus();
-		baseHeight = top.window.document.selection.createRange().duplicate().boundingHeight;
-
-		top.window.document.body.focus();
-	}
-}
-
-/**
-* Insert at Caret position. Code from http://www.faqts.com/knowledge_base/view.phtml/aid/1052/fid/130
-**/
-function storeCaret(textEl)
-{
-	if (textEl.createTextRange)
-	{
-		textEl.caretPos = document.selection.createRange().duplicate();
-	}
-}
-
-/**
-* From http://www.massless.org/mozedit/
-*/
-function mozWrap(txtarea, open, close)
-{
-	var selLength = txtarea.textLength;
-	var selStart = txtarea.selectionStart;
-	var selEnd = txtarea.selectionEnd;
-	var scrollTop = txtarea.scrollTop;
-
-	if (selEnd == 1 || selEnd == 2) 
-	{
-		selEnd = selLength;
-	}
-
-	var s1 = (txtarea.value).substring(0,selStart);
-	var s2 = (txtarea.value).substring(selStart, selEnd)
-	var s3 = (txtarea.value).substring(selEnd, selLength);
-
-	txtarea.value = s1 + open + s2 + close + s3;
-	txtarea.selectionStart = selEnd + open.length + close.length;
-	txtarea.selectionEnd = txtarea.selectionStart;
-	txtarea.focus();
-	txtarea.scrollTop = scrollTop;
-
-	return;
+	window.close();
 }
 
 <!-- IF S_WIZARD_GRAD -->
+
+/** Startup variables **/
+var theSelection = false;
+
+var tohex = new Array(256);
+var hex   = "0123456789ABCDEF";
+var count = 0;
+for ( x = 0; x < 16; x++ )
+{
+	for ( y = 0; y < 16; y++ )
+	{
+		tohex[count] = hex.charAt(x) + hex.charAt(y);
+		count++;
+	}
+}
 
 var browser = "unknown";
 var version = 0;
@@ -226,111 +65,66 @@ if ((browser == "msie")&&(version == 2))
 	version = 3;
 }
 
-var tohex = new Array(256);
-var hex   = "0123456789ABCDEF";
-var count = 0;
-for ( x = 0; x < 16; x++ )
-{
-	for ( y = 0; y < 16; y++ )
-	{
-		tohex[count] = hex.charAt(x) + hex.charAt(y);
-		count++;
-	}
-}
-
-var theSelection, oSelectLength ;
-
-// Get text selection - not only the post content :(
-if (window.getSelection)
-{
-	theSelection = window.getSelection().toString();
-}
-else if (document.getSelection)
-{
-	theSelection = document.getSelection();
-}
-else if (document.selection)
-{
-	theSelection = document.selection.createRange().text;
-}
-
-if ((clientVer >= 4) && is_ie && is_win)
-{
-	// Get text selection
-	theSelection = top.window.document.selection.createRange().text;
-	oSelectLength = theSelection.length;
-}
-else if ( txtarea.selectionEnd && ( txtarea.selectionEnd - txtarea.selectionStart > 0 ) )
-{
-	var selLength = txtarea.textLength;
-	var selStart = txtarea.selectionStart;
-	var selEnd = txtarea.selectionEnd;
-	var scrollTop = txtarea.scrollTop;
-	
-	if (selEnd == 1 || selEnd == 2) 
-	{
-		selEnd = selLength;
-	}
-	
-	var s1 = (txtarea.value).substring(0,selStart);
-	var s2 = (txtarea.value).substring(selStart, selEnd);
-	var s3 = (txtarea.value).substring(selEnd, selLength);
-	
-	theSelection = s2
-	oSelectLength = selEnd - selStart;
-}
-
-function ABBCcolorPalette( bbcode )
-{
-	var r = 4, g = 4, b = 4;
-	var numberList = new Array(6);
-	var color = '';
-
-	numberList[0] = '00';
-	numberList[1] = '40';
-	numberList[2] = '80';
-	numberList[3] = 'BF';
-	numberList[4] = 'FF';
-
-	for ( r = 4; r > -1; r-- )
-	{
-		for ( g = 4; g > -1; g-- )
-		{
-			for ( b = 4; b > -1; b-- )
-			{
-				color = String(numberList[r]) + String(numberList[g]) + String(numberList[b]);
-				if ( bbcode == 'abbc3_fontcolor')
-				{
-					document.write( '<option style="color:#' + color + '" value="' + color + '" >#' + color + '</option>' );
-				}
-				else
-				{
-					document.write( '<option style="background-color:#' + color + '" value="' + color + '" >#' + color + '</option>' );
-				}
-			}
-		}
-	}
-}
-
 function gradient_template()
 {
-	var template = document.getElementById('template');
+	var template = document.getElementById("template");
 	var i, t = template.options[template.selectedIndex].value.split(",");
-	
-	document.getElementById('template').selectedIndex = 0;
-	document.getElementById('clr1').selectedIndex     = t[0];
-	document.getElementById('clr2').selectedIndex     = t[1];
-	document.getElementById('clr3').selectedIndex     = t[2];
-	document.getElementById('clr4').selectedIndex     = t[3];
-	document.getElementById('clr5').selectedIndex     = t[4];
-	
+
+	document.getElementById("template").selectedIndex = 0;
+	document.getElementById("clr1").selectedIndex     = t[0];
+	document.getElementById("clr2").selectedIndex     = t[1];
+	document.getElementById("clr3").selectedIndex     = t[2];
+	document.getElementById("clr4").selectedIndex     = t[3];
+	document.getElementById("clr5").selectedIndex     = t[4];
+
 	gradient_preview();
 }
 
-function gradient_preview()
+function gradient_preview( submit )
 {
-	priv = "priv";
-	document.getElementById('preview').innerHTML = gradient( theSelection, priv );
+	var txtarea = opener.document.forms["{FORM_NAME}"].elements["{TEXT_NAME}"];
+
+	if ((clientVer >= 4) && is_ie && is_win)
+	{
+		/** Get text selection **/
+		theSelection = opener.document.selection.createRange().text;
+		oSelectLength = theSelection.length;
+
+		if ( submit )
+		{
+			var varreturn = gradient(theSelection, "add");
+			opener.document.selection.createRange().text = varreturn;
+			win_close( );
+		}
+	}
+	else if ( txtarea.selectionEnd && ( txtarea.selectionEnd - txtarea.selectionStart > 0 ) )
+	{
+		var selLength = txtarea.textLength;
+		var selStart = txtarea.selectionStart;
+		var selEnd = txtarea.selectionEnd;
+		var scrollTop = txtarea.scrollTop;
+
+		if (selEnd == 1 || selEnd == 2) 
+		{
+			selEnd = selLength;
+		}
+
+		var s1 = (txtarea.value).substring(0,selStart);
+		var s2 = (txtarea.value).substring(selStart, selEnd);
+		var s3 = (txtarea.value).substring(selEnd, selLength);
+
+		theSelection = s2;
+		oSelectLength = selEnd - selStart;
+
+		if ( submit )
+		{
+			var varreturn = gradient(theSelection, "add"); //.replace(/<FONT /gi,"[").replace(/<\/FONT>/g,"[/COLOR]").replace(/>/g,"]","add");
+			txtarea.value = (txtarea.value).substring(0,selStart) + varreturn + (txtarea.value).substring(selEnd, selLength);
+			win_close( );
+		}
+	}
+
+	document.getElementById("preview").innerHTML = gradient( theSelection, "priv" );
 }
 
 function gradient ( thetext, priv )
@@ -346,12 +140,12 @@ function gradient ( thetext, priv )
 	if ( ( (browser == "netscape") || (browser == "msie") || (browser == "opera") ) && (version>=3.0) )
 	{
 		var colors = new ColorList(thecolors);
-		
+
 		if ( colors.len < 2 )
 		{
 			return  thetext;
 		}
-		
+
 		var numcolors = colors.len;
 		var numchars = theSelection.length;
 		var rr = 0;
@@ -367,12 +161,14 @@ function gradient ( thetext, priv )
 			rr = Math.round(interpolate( lci/(numcolors-1), colors.codes[lci].r, hci/(numcolors-1), colors.codes[hci].r, i/(numchars-1)));
 			gg = Math.round(interpolate( lci/(numcolors-1), colors.codes[lci].g, hci/(numcolors-1), colors.codes[hci].g, i/(numchars-1)));
 			bb = Math.round(interpolate( lci/(numcolors-1), colors.codes[lci].b, hci/(numcolors-1), colors.codes[hci].b, i/(numchars-1)));
+
 			if ( browser == "opera" )
 			{
 				rr = 255 - rr;
 				gg = 255 - gg;
 				bb = 255 - bb;
 			}
+
 			if ( thetext.charAt(i) != ' ' )
 			{
 				if ( priv == "priv" )
@@ -400,7 +196,7 @@ function gradient ( thetext, priv )
 function getValue( clr )
 {
 	var clr = document.getElementById(clr);
-	
+
 	if ( clr.options[clr.selectedIndex].value == "" )
 	{
 		return "";
@@ -416,6 +212,7 @@ function ColorList( hexcodes )
 	var i = 0;
 	var c = 0;
 	this.codes = new Array(Math.round(hexcodes.length/7));
+
 	while (i < hexcodes.length)
 	{
 		if (isNaN(parseInt(hexcodes.substring(i,i+6),16)))
@@ -462,11 +259,11 @@ function lowcolorindex ( x, y, z )
 {
 	if ( y == 1 )
 	{
-		return 0
+		return 0;
 	}
 	else
 	{
-		return Math.floor( ( x * ( z - 1 ) ) / ( y - 1 ) )
+		return Math.floor( ( x * ( z - 1 ) ) / ( y - 1 ) );
 	}
 }
 
@@ -474,15 +271,15 @@ function hicolorindex ( x, y, z, low )
 {
 	if ( low * ( y - 1 ) == x * ( z - 1 ) )
 	{
-		return low
+		return low;
 	}
 	else if (y == 1)
 	{
-		return 0
+		return 0;
 	}
 	else
 	{
-		return Math.floor( (x*(z-1))/(y-1) + 1 )
+		return Math.floor( (x*(z-1))/(y-1) + 1 );
 	}
 }
 
@@ -490,42 +287,142 @@ function interpolate ( x1, y1, x3, y3, x2 )
 {
 	if ( x3 == x1 )
 	{
-		return y1
+		return y1;
 	}
 	else
 	{
-		return ( x2 - x1 ) * ( y3 - y1 ) / ( x3 - x1 ) + y1
+		return ( x2 - x1 ) * ( y3 - y1 ) / ( x3 - x1 ) + y1;
 	}
 }
 
-function gradient_accept()
+function ABBCcolorPalette( bbcode )
 {
-	add = "add"
-	var varreturn = gradient(theSelection).replace(/<FONT /gi,"[").replace(/<\/FONT>/g,"[/COLOR]").replace(/>/g,"]",add);
-	if ( ( clientVer >= 4 ) && is_ie && is_win )
+	var r = 4, g = 4, b = 4;
+	var numberList = new Array(6);
+	var color = '';
+
+	numberList[0] = '00';
+	numberList[1] = '40';
+	numberList[2] = '80';
+	numberList[3] = 'BF';
+	numberList[4] = 'FF';
+
+	for ( r = 4; r > -1; r-- )
 	{
-		top.window.document.selection.createRange().text = varreturn;
-	}
-	else if ( txtarea.selectionEnd && ( txtarea.selectionEnd - txtarea.selectionStart > 0 ) )
-	{
-		var selLength = txtarea.textLength;
-		var selStart = txtarea.selectionStart;
-		var selEnd = txtarea.selectionEnd;
-		var scrollTop = txtarea.scrollTop;
-		
-		if (selEnd == 1 || selEnd == 2) 
+		for ( g = 4; g > -1; g-- )
 		{
-			selEnd = selLength;
+			for ( b = 4; b > -1; b-- )
+			{
+				color = String(numberList[r]) + String(numberList[g]) + String(numberList[b]);
+				if ( bbcode == 'abbc3_fontcolor')
+				{
+					document.write( '<option style="color:#' + color + '" value="' + color + '" >#' + color + '</option>' );
+				}
+				else
+				{
+					document.write( '<option style="background-color:#' + color + '" value="' + color + '" >#' + color + '</option>' );
+				}
+			}
 		}
-		
-		var s1 = (txtarea.value).substring(0,selStart);
-		var s2 = (txtarea.value).substring(selStart, selEnd);
-		var s3 = (txtarea.value).substring(selEnd, selLength);
-		
-		txtarea.value = (txtarea.value).substring(0,selStart) + varreturn + (txtarea.value).substring(selEnd, selLength);
 	}
-	parent.parent.GB_hide();
 }
+
+<!-- ELSE -->
+
+function win_accept( tag, atcaret_pos )
+{
+		var FoundErrors 	= '';
+		var tag_open		= '{ABBC3_OPEN}';
+		var tag_close		= '{ABBC3_CLOSE}';
+
+	if ( tag === 'table' )
+	{
+		var styleT			= ( document.getElementById("promptbox1")	) ? document.getElementById("promptbox1").value	: '';
+
+		var enterR			= ( document.getElementById("promptbox2")	) ? document.getElementById("promptbox2").value	: '';
+		var enterR_error	= ( document.getElementById("errorbox2")	) ? document.getElementById("errorbox2").value	: '';
+		if ( !enterR && enterR_error )
+		{
+			FoundErrors += '\n' + enterR_error;
+		}
+
+		var styleR			= ( document.getElementById("promptbox3")	) ? document.getElementById("promptbox3").value	: '';
+
+		var enterC			= ( document.getElementById("promptbox4")	) ? document.getElementById("promptbox4").value	: '';
+		var enterC_error	= ( document.getElementById("errorbox4")	) ? document.getElementById("errorbox4").value	: '';
+		if ( !enterC && enterC_error )
+		{
+			FoundErrors += '\n' + enterC_error;
+		}
+
+		var styleC			= ( document.getElementById("promptbox5")	) ? document.getElementById("promptbox5").value	: '';
+
+		if ( FoundErrors != '' )
+		{
+			alert( "{L_ABBC3_ERROR}" + FoundErrors );
+			return;
+		}
+
+		var Row = '';
+		for ( var R = 0; R < parseInt ( enterR ); R++ )
+		{
+			Col = '';
+			for ( var C = 0; C < parseInt ( enterC ); C++ )
+			{
+				Col += "[td=" + styleC + "]" + "[/td]";
+			}
+			Row += "[tr=" + styleR + "]" + Col + "[/tr]\n";
+		}
+
+		var tag_bbcode = '[' + tag_open + '=' + styleT + "]\n" + Row + '[' + tag_close + ']';
+	}
+	else
+	{
+
+		var tag_url			= ( document.getElementById("promptbox1")	) ? document.getElementById("promptbox1").value			: '';
+		var tag_url_error	= ( document.getElementById("errorbox1")	) ? document.getElementById("errorbox1").value			: '';
+		if ( !tag_url && tag_url_error )
+		{
+			FoundErrors += '\n' + tag_url_error;
+		}
+
+		var tag_desc		= ( document.getElementById("promptbox2")	) ? document.getElementById("promptbox2").value			: '';
+		var tag_desc_error	= ( document.getElementById("errorbox2")	) ? document.getElementById("errorbox2").value			: '';
+/**
+		if ( !tag_desc && tag_desc_error )
+		{
+			FoundErrors += '\n' + tag_desc_error;
+		}
+**/
+		var tag_width		= ( document.getElementById("promptbox3")	) ? " " + document.getElementById("promptbox3").value	: '';
+		var tag_width_error	= ( document.getElementById("errorbox3")	) ? document.getElementById("errorbox3").value			: '';
+		if ( tag_width == " " && tag_width_error )
+		{
+			FoundErrors += '\n' + tag_width_error;
+		}
+
+		var tag_height		= ( document.getElementById("promptbox4")	) ? "," + document.getElementById("promptbox4").value	: '';
+		var tag_height_error= ( document.getElementById("errorbox4")	) ? document.getElementById("errorbox4").value			: '';
+		if ( tag_height == "," && tag_height_error )
+		{
+			FoundErrors += '\n' + tag_height_error;
+		}
+
+		if ( FoundErrors != '' )
+		{
+			alert( "{L_ABBC3_ERROR}" + FoundErrors );
+			return;
+		}
+
+		close1 = ( tag_desc || tag_desc ) ? '' : ']' ;
+		close2 = ( tag_desc || tag_desc ) ? ']' : '' ;
+		tag_open += ( tag_desc || tag_desc ) ? '=' : '' ;
+
+		var tag_bbcode = '[' + tag_open + tag_width + tag_height + close1 + tag_url + close2 + tag_desc + '[' + tag_close + ']';
+	}
+	win_close( tag_bbcode );
+}
+
 <!-- ENDIF -->
 
 // ]]>
@@ -563,19 +460,19 @@ function gradient_accept()
 			<span class="corners-bottom"><span></span></span>
 		</div>
 	</div>
-	
+
 	<div class="panel bg2">
 		<div class="inner">
 			<span class="corners-top"><span></span></span>
 			<fieldset class="submit-buttons">
 				<input type="submit" id="add_file"		name="add_file"		value="{L_ADD_FILE}" class="button2" onclick="upload = true;" />
-				<input type="submit" id="cancel_file"	name="cancel_file"	value="{L_CANCEL}"	 class="button2" onclick="win_close();" />
+				<input type="submit" id="cancel_file"	name="cancel_file"	value="{L_CANCEL}"	 class="button2" onclick="win_close( false );" />
 			<!-- IF ADDED_FILE -->
 				<hr/>
 				<div class="error">
 					{L_ABBC3_UPLOAD_LINK}:
 					<input type='text'   id='posttext'   name='posttext'   value="{OPEN_TAG}{ADDED_FILE_NAME}{CLOSE_TAG}" size="90" />
-					<input type="button" id="{L_SUBMIT}" name="{L_SUBMIT}" value="{L_SUBMIT}" class="button2" onclick="win_close( this.form.posttext.value, {ATCARET_POST} )" />
+				<input type="button" id="{L_SUBMIT}" name="{L_SUBMIT}" value="{L_SUBMIT}" class="button2" onclick="win_close( this.form.posttext.value )" />
 				</div>
 			<!-- ENDIF -->
 			</fieldset>
@@ -644,15 +541,13 @@ function gradient_accept()
 			<span class="corners-bottom"><span></span></span>
 		</div>
 	</div>
-	
+
 	<div class="panel bg2">
 		<div class="inner">
 			<span class="corners-top"><span></span></span>
 			<fieldset class="submit-buttons">
-				<input type="hidden" id="tag_open"   name="tag_open"   value="{ABBC3_OPEN}"  />
-				<input type="hidden" id="tag_close"  name="tag_close"  value="{ABBC3_CLOSE}" />
-				<input type="button" id="{L_SUBMIT}" name="{L_SUBMIT}" value="{L_SUBMIT}" class="button2" onclick="win_accept('table',{ATCARET_POST} )" /> &nbsp; 
-				<input type="button" id="{L_CANCEL}" name="{L_CANCEL}" value="{L_CANCEL}" class="button2" onclick="win_close();" />
+				<input type="button" id="{L_SUBMIT}" name="{L_SUBMIT}" value="{L_SUBMIT}" class="button2" onclick="win_accept('table')" /> &nbsp; 
+				<input type="button" id="{L_CANCEL}" name="{L_CANCEL}" value="{L_CANCEL}" class="button2" onclick="win_close( false );" />
 			</fieldset>
 			<span class="corners-bottom"><span></span></span>
 		</div>
@@ -723,7 +618,7 @@ function gradient_accept()
 			<span class="corners-bottom"><span></span></span>
 		</div>
 	</div>
-	
+
 	<div class="panel bg1">
 		<div class="inner">
 			<span class="corners-top"><span></span></span>
@@ -738,13 +633,13 @@ function gradient_accept()
 		<div class="inner">
 			<span class="corners-top"><span></span></span>
 			<fieldset class="submit-buttons">
-				<input type="button" id="{L_SUBMIT}" name="{L_SUBMIT}" value="{L_SUBMIT}" class="button2" onclick="gradient_accept()" />&nbsp;
-				<input type="button" id="{L_CANCEL}" name="{L_CANCEL}" value="{L_CANCEL}" class="button2" onclick="win_close();" />
+				<input type="button" id="{L_SUBMIT}" name="{L_SUBMIT}" value="{L_SUBMIT}" class="button2" onclick="gradient_preview( true )" />&nbsp;
+				<input type="button" id="{L_CANCEL}" name="{L_CANCEL}" value="{L_CANCEL}" class="button2" onclick="win_close( false );" />
 			</fieldset>
 			<span class="corners-bottom"><span></span></span>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript">
 		// <![CDATA[
 		gradient_template();
@@ -778,7 +673,7 @@ function gradient_accept()
 								{S_BBVIDEO_OPTIONS}
 							</select>
 						</dd>
-					</dl>				
+					</dl>
 					<!-- ENDIF -->
 
 					<!-- IF ABBC3_EXAMPLE -->
@@ -790,7 +685,7 @@ function gradient_accept()
 					</dl>
 					<hr/>
 					<!-- ENDIF -->
-					
+
 					<!-- IF ABBC3_NOTE -->
 					<dl>
 						<dt><label>{L_ABBC3_NOTE}:</label></dt>
@@ -843,10 +738,8 @@ function gradient_accept()
 		<div class="inner">
 			<span class="corners-top"><span></span></span>
 			<fieldset class="submit-buttons">
-				<input type="hidden" id="tag_open"   name="tag_open"   value="{ABBC3_OPEN}"  />
-				<input type="hidden" id="tag_close"  name="tag_close"  value="{ABBC3_CLOSE}" />
-				<input type="button" id="{L_SUBMIT}" name="{L_SUBMIT}" value="{L_SUBMIT}" class="button2" onclick="win_accept(false,{ATCARET_POST} )" /> &nbsp; 
-				<input type="button" id="{L_CANCEL}" name="{L_CANCEL}" value="{L_CANCEL}" class="button2" onclick="win_close();" />
+				<input type="button" id="{L_SUBMIT}" name="{L_SUBMIT}" value="{L_SUBMIT}" class="button2" onclick="win_accept(false)" /> &nbsp; 
+				<input type="button" id="{L_CANCEL}" name="{L_CANCEL}" value="{L_CANCEL}" class="button2" onclick="win_close( false );" />
 			</fieldset>
 			<span class="corners-bottom"><span></span></span>
 		</div>
@@ -855,19 +748,13 @@ function gradient_accept()
 <!-- ENDIF -->
 
 </form>
-<!--
-	<script type="text/javascript">
-		// <![CDATA[
-		window.onload = function() { document.forms[0].promptbox1.focus(); };
-		// ]]>
-	</script>
--->
+
 </div>
 </div>
 
 <div id="page-footer">
 	<div class="copyright">{L_ABBC3_HELP_ABOUT}</div>
 </div>
-
+<!-- // MOD : MSSTI ABBC3 (v1.0.10) - END -->
 </body>
 </html>

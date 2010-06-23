@@ -1,0 +1,64 @@
+#####################################################################
+## MOD Title: ABBC3 - Add-on : ed2k feature 
+##
+## MOD Author: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb2/
+##
+## MOD Description: This mod add-on added a new feature for ed2k post in your forum.
+##
+## MOD Version: 0.0.4
+##
+## Installation Level: Easy
+## Installation Time: ~1 Minutes
+##
+## Files To Edit: 1
+##	viewtopic.php
+##
+## Included Files: 0
+##
+## License: http://opensource.org/licenses/gpl-license.php GNU General Public License v2 
+#####################################################################
+## For security purposes, please check: http://www.phpbb.com/mods/
+## for the latest version of this MOD. Although MODs are checked
+## before being allowed in the MODs Database there is no guarantee
+## that there are no security problems within the MOD. No support
+## will be given for MODs not found within the MODs Database which
+## can be found at http://www.phpbb.com/mods/
+#####################################################################
+## Author Notes:
+##	Thanks to ??? ( I cant remember who, sorry :( ), this add-on is for you ;)
+##
+#####################################################################
+## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD
+#####################################################################
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+viewtopic.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	$message = smiley_text($message);
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find. 
+#
+// MOD : add-on MSSTI ABBC3 eD2k Add all links feature - START
+	if (!class_exists('abbcode'))
+	{
+		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+	}
+	$message = make_addalled2k_link_abbc3($message, $row['post_id']);
+// MOD : add-on MSSTI ABBC3 eD2k Add all links feature - End
+
+#
+#-----[DIY]----------------------------------------------------------
+#
+After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+#
+# EoM
