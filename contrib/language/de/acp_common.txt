@@ -8,7 +8,7 @@
 ##
 ## MOD Description: This will add an ACP option to manage ABBC3
 ##
-## MOD Version: 1.0.8
+## MOD Version: 1.0.9
 ##
 ## Installation Level: Easy
 ## Installation Time: ~1 Minute
@@ -43,9 +43,9 @@ language/de/acp/common.php
 # NOTE: Add these lines on a new blank line before the preceding line(s) to find.
 #
 
-// MOD : ABBC3 (V1.0.8) - START
+// MOD : ABBC3 (V1.0.9) - START
 $lang = array_merge($lang, array(
-	'ACP_CAT_ABBCODES'			=> 'Advanced BBcodes Box 3',
+	'ACP_ABBCODES'				=> 'Advanced BBcodes Box 3',
 	'LOG_CONFIG_ABBCODES'		=> '<strong>Ändere ABBC3 Einstellungen</strong>',
 	'LOG_CONFIG_ABBCODES_ERROR'	=> '<strong>Fehler beim speichern der ABBC3 Einstellungen</strong>',
 	'LOG_RESET_ABBCODES'		=> '<strong>Zurücksetzen der ABBC3 Einstellungen</strong>',
@@ -53,9 +53,9 @@ $lang = array_merge($lang, array(
 	'RESET_ABBCODES_EXPLAIN'	=> 'Bist Du sicher das <em>alle bbcodes</em> auf Ihre Standard Einstellungen zurückgesetzt werden sollen?',
 	'RESET_CONFIG_EXPLAIN'		=> 'Bist Du sicher das <strong>ABBC3</strong> auf die Standard Einstellungen zurückgesetzt werden soll?',
 	'ACP_ABBC3_SETTINGS'		=> 'ABBC3 Einstellungen',
-	'ACP_ABBC3_COMPONENTS'		=> 'ABBC3 Componenten',
+	'ACP_ABBC3_BBCODES'			=> 'ABBC3 Componenten',
 ));
-// MOD : ABBC3 (V1.0.8) - END
+// MOD : ABBC3 (V1.0.9) - END
 
 #
 #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------

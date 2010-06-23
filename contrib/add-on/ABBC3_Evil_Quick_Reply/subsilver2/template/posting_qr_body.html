@@ -109,10 +109,10 @@ if (<!-- IF S_QR_HIDE_BOX -->1<!-- ELSE -->0<!-- ENDIF -->)
 					<tr>
 
 					<!-- // MOD : ABBC3 (V1.0.8) - START -->
-					<!-- IF S_ABBC3_FONTCOLOR -->
+					<!-- IF S_ABBC3_COLOR -->
 						<td valign="top" colspan="2"><textarea id="message" name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 99%;">{MESSAGE}</textarea></td>		
 					<!-- ELSE -->
-						<td valign="top" style="width: 100%;"><textarea name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 98%;">{MESSAGE}</textarea></td>
+						<td valign="top" style="width: 100%;"><textarea id="message" name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 98%;">{MESSAGE}</textarea></td>
 						<!-- IF S_BBCODE_ALLOWED -->
 						<td width="80" align="center" valign="top">
 							<script type="text/javascript">
@@ -147,7 +147,7 @@ if (<!-- IF S_QR_HIDE_BOX -->1<!-- ELSE -->0<!-- ENDIF -->)
 	<!-- ENDIF -->	
 <!-- // MOD : ABBC3 (V1.0.8) - END -->
 
-<!-- IF not S_USER_LOGGED_IN -->
+		<!-- IF not S_USER_LOGGED_IN -->
 		<tr>
 			<td class="row1" width="15%"><label for="username"><b class="genmed">{L_USERNAME}: </b></label></td>
 			<td class="row2" valign="middle"><input type="text" style="width: 300px" class="post" name="username" id="username" size="30" tabindex="3" /></td>

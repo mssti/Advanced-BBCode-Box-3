@@ -1,0 +1,244 @@
+IF YOU ALREADY APPLY THIS FIX, PLEASE APPLY FIX 1.0.9 #006C
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/abbcode.php
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			if ( $abbcode_image )
+			{
+				$template->assign_block_vars('abbc3_tags', array(
+					'S_ABBC3_BREAK'		=> (substr($abbcode_name,0,11)=='ABBC3_BREAK') ? true : false,
+					'S_ABBC3_DIVISION'	=> (substr($abbcode_name,0,14)=='ABBC3_DIVISION') ? true : false,
+					'TAG_SRC'			=> $abbcode_image,
+					'TAG_NAME'			=> strtolower($abbcode_name),
+					'TAG_MOVER'			=> ( @$user->lang[$abbcode_name . '_MOVER'] ) ? $user->lang[$abbcode_name . '_MOVER']	: $abbcode_name,
+					'TAG_TIP'			=> ( $abbcode 	) ? @$user->lang[$abbcode_name . '_TIP']		: $row['bbcode_helpline'],
+					'TAG_NOTE'			=> @$user->lang[$abbcode_name . '_NOTE'],
+					'TAG_EXAMPLE'		=> @$user->lang[$abbcode_name . '_EXAMPLE'],
+				));
+			}
+			else
+			{
+				if ( $row['abbcode'] )
+				{
+					$template->assign_vars(array(
+						'S_' . $abbcode_name	=> true,
+						$abbcode_name . '_NAME'	=> strtolower($abbcode_name),
+						$abbcode_name . '_MOVER'=> @$user->lang[$abbcode_name . '_MOVER'],
+						$abbcode_name . '_TIP'	=> @$user->lang[$abbcode_name . '_TIP'],
+						$abbcode_name . '_NOTE'	=> @$user->lang[$abbcode_name . '_NOTE'],
+					));
+				}
+			}
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+			// Haven't image ? Should be a dropdown...
+			if ( !$abbcode_image )
+			{
+				if ( $row['abbcode'] )
+				{
+					$template->assign_vars(array(
+						'S_' . $abbcode_name	=> true,
+						$abbcode_name . '_NAME'	=> strtolower($abbcode_name),
+						$abbcode_name . '_MOVER'=> @$user->lang[$abbcode_name . '_MOVER'],
+						$abbcode_name . '_TIP'	=> @$user->lang[$abbcode_name . '_TIP'],
+						$abbcode_name . '_NOTE'	=> @$user->lang[$abbcode_name . '_NOTE'],
+					));
+				}
+			}
+			else
+			{
+				switch ($abbcode_name)
+				{
+					// Is a breack line ?
+					case ( substr($abbcode_name,0,11)=='ABBC3_BREAK' ) :
+						$template->assign_block_vars('abbc3_tags', array(
+							'S_ABBC3_BREAK'      => true,
+						));
+						break;
+					// Is a division line ?
+					case ( substr($abbcode_name,0,14)=='ABBC3_DIVISION' ) :
+						$template->assign_block_vars('abbc3_tags', array(
+							'S_ABBC3_DIVISION'   => true,
+						));
+						break;
+					default:
+						$template->assign_block_vars('abbc3_tags', array(
+							'TAG_SRC'		=> $abbcode_image,
+							'TAG_NAME'		=> strtolower($abbcode_name),
+							'TAG_MOVER'		=> ( @$user->lang[$abbcode_name . '_MOVER'] ) ? $user->lang[$abbcode_name . '_MOVER']	: $abbcode_name,
+							'TAG_TIP'		=> ( $abbcode 	) ? @$user->lang[$abbcode_name . '_TIP']		: $row['bbcode_helpline'],
+							'TAG_NOTE'		=> @$user->lang[$abbcode_name . '_NOTE'],
+							'TAG_EXAMPLE'	=> @$user->lang[$abbcode_name . '_EXAMPLE'],
+						));
+				}
+			}
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+adm/style/posting_abbcode_buttons.html
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	<!-- BEGIN abbc3_tags -->
+
+		<!-- IF abbc3_tags.S_ABBC3_BREAK -->
+			<!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW-->
+			<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+
+		</td>
+	</tr>
+
+	<tr align="{S_CONTENT_FLOW_BEGIN}">
+		<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<!-- IF S_ABBC3_TAB -->
+			<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSE -->
+
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+
+		<!-- ENDIF -->
+
+	<!-- END abbc3_tags -->
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+<!-- BEGIN abbc3_tags -->
+		<!-- IF abbc3_tags.S_ABBC3_BREAK -->
+			<!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+			</td>
+		</tr>
+		<tr align="{S_CONTENT_FLOW_BEGIN}">
+			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSEIF abbc3_tags.S_ABBC3_DIVISION-->
+			<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSE -->
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+		<!-- ENDIF -->	
+<!-- END abbc3_tags -->
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+styles/prosilver/template/posting_abbcode_buttons.html
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	<!-- BEGIN abbc3_tags -->
+
+		<!-- IF abbc3_tags.S_ABBC3_BREAK -->
+			<!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW-->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+
+		</td>
+	</tr>
+
+	<tr align="{S_CONTENT_FLOW_BEGIN}">
+		<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<!-- IF S_ABBC3_TAB -->
+			<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSE -->
+
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+
+		<!-- ENDIF -->
+
+	<!-- END abbc3_tags -->
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+<!-- BEGIN abbc3_tags -->
+		<!-- IF abbc3_tags.S_ABBC3_BREAK -->
+			<!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+			</td>
+		</tr>
+		<tr align="{S_CONTENT_FLOW_BEGIN}">
+			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSEIF abbc3_tags.S_ABBC3_DIVISION-->
+			<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSE -->
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+		<!-- ENDIF -->	
+<!-- END abbc3_tags -->
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+styles/subsilver2/template/posting_abbcode_buttons.html
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	<!-- BEGIN abbc3_tags -->
+
+		<!-- IF abbc3_tags.S_ABBC3_BREAK -->
+			<!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW-->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+
+		</td>
+	</tr>
+
+	<tr align="{S_CONTENT_FLOW_BEGIN}">
+		<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<!-- IF S_ABBC3_TAB -->
+			<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSE -->
+
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+
+		<!-- ENDIF -->
+
+	<!-- END abbc3_tags -->
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+<!-- BEGIN abbc3_tags -->
+		<!-- IF abbc3_tags.S_ABBC3_BREAK -->
+			<!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+			</td>
+		</tr>
+		<tr align="{S_CONTENT_FLOW_BEGIN}">
+			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat<!-- ENDIF --> valign="middle" colspan="2">
+			<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSEIF abbc3_tags.S_ABBC3_DIVISION-->
+			<!-- IF S_ABBC3_TAB -->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+			<!-- ENDIF -->
+		<!-- ELSE -->
+			<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+		<!-- ENDIF -->	
+<!-- END abbc3_tags -->
+#
+#-----[DIY]----------------------------------------------------------
+#
+After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+#
+# EoM

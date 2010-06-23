@@ -1,7 +1,7 @@
 <?php
 /**
 * @package: phpBB3 :: Advanced BBCode box 3
-* @version: $Id: functions_abbcode.php, v 1.0.8 2008/03/31 03:01:00 leviatan21 Exp $
+* @version: $Id: functions_abbcode.php, v 1.0.9 2008/05/01 05:01:00 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
@@ -53,53 +53,47 @@ switch ($mode)
 }
 
 /**
-* ABBC3 help page...
+* 109 ABBC3 help page...
 **/
 function abbcode_show_help()
 {
-	global $template, $user, $config, $phpbb_root_path, $phpEx;
-	
+	global $template, $db, $user, $config, $phpbb_root_path, $phpEx;
+
 	if (!class_exists('abbcode'))
 	{
 		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
 	}
 	$abbcode = new abbcode();
 	$abbcode->abbcode_init();
-	$abbcode->abbcode_display();
-	
-	$user->add_lang(array('viewtopic', 'mods/abbcode', 'mods/abbcode_custom'));
 
-	// Pull the array data from the lang pack
-	$help_blocks = array();
+	$user->add_lang(array('viewtopic', 'mods/abbcode'));
 
-	/**
-	* Display ABBC3 ?
-	**/
-	if ( $abbcode->abbcode_config['ABBC3_MOD'] )
+	$sql = "SELECT abbcode, bbcode_order, bbcode_id, bbcode_tag, bbcode_helpline, bbcode_image, display_on_posting 
+			FROM " . BBCODES_TABLE . "
+			ORDER BY bbcode_order";
+	$result = $db->sql_query($sql);
+		
+	while ($row = $db->sql_fetchrow($result))
 	{
-		/**
-		* ABBC3 bbcodes 
-		**/
-		if ( sizeof( $abbcode->abbcode_ary ) )
+		/** Some fixes **/
+		$abbcode_name	= (($row['abbcode']) ? 'ABBC3_' : '' ) . strtoupper( str_replace('=', '', trim($row['bbcode_tag']) ) );
+		$display		= $row['display_on_posting'];
+		
+		if ( $display )
 		{
-			foreach ( $abbcode->abbcode_ary as $abbcode_name => $abbcode_data )
+			if ( substr($abbcode_name,0,11) != 'ABBC3_BREAK' && substr($abbcode_name,0,14) != 'ABBC3_DIVISION' ) // is a breck line or division ?
 			{
-				if ( $abbcode_data['display'] ) // true ?
-				{
-					if ( substr($abbcode_name,0,11) != 'ABBC3_BREAK' && substr($abbcode_name,0,14) != 'ABBC3_DIVISION' ) // is a breck line or division ?
-					{
-						$template->assign_block_vars('bbc_row', array(
-							'ABBC3_HELP_DESC'	=> &$user->lang[$abbcode_name . '_MOVER'],
-							'ABBC3_HELP_WRITE'	=> &$user->lang[$abbcode_name . '_TIP'],
-							'ABBC3_HELP_NOTE'	=> &$user->lang[$abbcode_name . '_NOTE'] ,
-							'ABBC3_HELP_EXAMPLE'=> &$user->lang[$abbcode_name . '_EXAMPLE'] ,
-							'ABBC3_HELP_VIEW'	=> &$user->lang[$abbcode_name . '_VIEW'],
-						));
-					}
-				}
+				$template->assign_block_vars('bbc_row', array(
+					'ABBC3_HELP_DESC'	=> &$user->lang[$abbcode_name . '_MOVER'],
+					'ABBC3_HELP_WRITE'	=> &$user->lang[$abbcode_name . '_TIP'],
+					'ABBC3_HELP_NOTE'	=> &$user->lang[$abbcode_name . '_NOTE'] ,
+					'ABBC3_HELP_EXAMPLE'=> &$user->lang[$abbcode_name . '_EXAMPLE'] ,
+					'ABBC3_HELP_VIEW'	=> &$user->lang[$abbcode_name . '_VIEW'],
+				));
 			}
 		}
 	}
+
 	// Output page
 	page_header($user->lang['ABBC3_HELP_TITLE']);
 	
@@ -111,7 +105,7 @@ function abbcode_show_help()
 }
 
 /**
-* Upload files - Simple way, code from //http://www.php.net/manual/es/features.file-upload.php
+* 109 Upload files - Simple way, code from //http://www.php.net/manual/es/features.file-upload.php
 * 
 * @return bbcode tag with link
 */
@@ -127,19 +121,19 @@ function abbcode_upload_file( $atcaret_pos, $form_name, $text_name )
 		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
 	}
 	$abbcode = new abbcode();
-	$abbcode->abbcode_init( 'config' );
+	$abbcode->abbcode_init();
 	
 	$add_file   = (isset($_POST['add_file'])) ? true : false;
 	$upload_dir = $config['upload_path'] . '/';
 	
-	$aveilable_types = $abbcode->abbcode_config['ABBC3_UPLOAD_EXTENSION'];
+	$aveilable_types = $config['ABBC3_UPLOAD_EXTENSION'];
 	$types_ary  = preg_split("/[\s,]+/",$aveilable_types);
 	
-	$max_size   = (int) $abbcode->abbcode_config['ABBC3_UPLOAD_MAX_SIZE'];
+	$max_size   = (int) $config['ABBC3_UPLOAD_MAX_SIZE'];
 	
 	$size_format = ($max_size >= 1048576) ? 'mb' : (($max_size >= 1024) ? 'kb' : 'b');
 	
-	$user->add_lang(array('posting', 'mods/abbcode', 'mods/abbcode_custom', 'acp/attachments'));
+	$user->add_lang(array('posting', 'mods/abbcode', 'acp/attachments'));
 	
 	$template->assign_vars(array(
 		'S_UPLOAD'					=> true,
@@ -336,24 +330,22 @@ function abbcode_click_file()
 */
 function abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name )
 {
-	global $template, $config, $phpbb_root_path, $phpEx, $user, $user_cache, $poster_id;
+	global $template, $config, $phpbb_root_path, $phpEx, $user, $user_cache, $poster_id, $mode;
 
 	if (!class_exists('abbcode'))
 	{
 		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
 	}
 	$abbcode = new abbcode();
-	$abbcode->abbcode_init( 'config' );
-	$abbcode->abbcode_init( 'bbvideo' );
+	$abbcode->abbcode_init( );
 
-	$user->add_lang(array('posting', 'mods/abbcode', 'mods/abbcode_custom'));
+	$user->add_lang(array('posting', 'mods/abbcode'));
 
 	$abbcode_name = strtoupper($abbcode_bbcode);
-	$abbc3_video_width  = &$abbcode->abbcode_config['ABBC3_VIDEO_width'];
-	$abbc3_video_height = &$abbcode->abbcode_config['ABBC3_VIDEO_height'];
 	
 	if ( $abbcode_bbcode == 'abbc3_bbvideo' )
 	{
+		$abbcode->video_init();
 		if ( sizeof( $abbcode->abbcode_video_ary ) )
 		{
 			$video_options = '';
@@ -362,13 +354,15 @@ function abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name 
 				if ( $video_data['display'] )
 				{
 					$example = &$video_data['example'];
-					$video_options .= '<option value="' . ( ( $example ) ? $example : 'No data example' ) . '" >' . $video_name . '</option>';
+					$video_options .= '<option value="' . ( ( $example ) ? $example : @$user->lang['ABBC3_NO_EXAMPLE'] ) . '" >' . $video_name . '</option>';
 				}
 			}
 		}
 	}
 
-	list( $garbage, $tag ) = split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
+	$temparray  = @split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
+	$tag = $temparray[sizeof($temparray)-1]; //list( $garbage, $tag ) = @split( '_', ( $abbcode_bbcode == 'abbc3_ed2k' ) ? 'abbc3_url' : $abbcode_bbcode );
+	
 	$need_description  = array( 'url', 'email', 'click' );
 	$need_width_height = array( 'web', 'flash', 'flv', 'video', 'quicktime', 'ram', 'bbvideo' );
 	
@@ -394,8 +388,8 @@ function abbcode_wizards( $abbcode_bbcode, $atcaret_pos, $form_name, $text_name 
 		'ABBC3_EXAMPLE'		=> &$user->lang[$abbcode_name . '_EXAMPLE'],
 		'ABBC3_DESC'		=> ( in_array( $tag, $need_description  ) ) ? true : false,
 		'ABBC3_W_H'			=> ( in_array( $tag, $need_width_height ) ) ? true : false,
-		'ABBC3_WIDTH'		=> &$abbc3_video_width,
-		'ABBC3_HEIGHT'		=> &$abbc3_video_height,
+		'ABBC3_WIDTH'		=> $config['ABBC3_VIDEO_width'],
+		'ABBC3_HEIGHT'		=> $config['ABBC3_VIDEO_height'],
 
 	));
 

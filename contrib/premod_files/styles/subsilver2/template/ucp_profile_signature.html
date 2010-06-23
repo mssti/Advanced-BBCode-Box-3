@@ -28,15 +28,17 @@
 		<!-- INCLUDE posting_buttons.html -->
 		<tr>
 
-		<!-- // MOD : ABBC3 (V1.0.8) - START -->
-		<!-- IF S_ABBC3_MOD and S_ABBC3_FONTCOLOR -->
+		<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+		<!-- IF S_ABBC3_MOD -->
 			<td colspan="2"><textarea class="post" id="signature" name="signature" rows="10" cols="76" style="width: 99%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></td>
 		</tr>
 		<!-- ELSE -->
 		
 			<td colspan="2"><textarea class="post" name="signature" rows="10" cols="76" style="width: 90%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></td>
 		</tr>
-		<!-- IF S_BBCODE_ALLOWED -->
+		<!-- ENDIF -->
+		<!-- IF S_BBCODE_ALLOWED and not S_ABBC3_COLOR -->
+		<!-- // MOD : ABBC3 (V1.0.9) - End -->
 		<tr>
 			<td colspan="2">
 				<table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -53,10 +55,6 @@
 			</td>
 		</tr>
 		<!-- ENDIF -->
-
-		<!-- ENDIF -->
-		<!-- // MOD : ABBC3 (V1.0.8) - END -->
-
 		</table>
 	</td>
 </tr>

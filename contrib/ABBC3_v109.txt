@@ -1,0 +1,1272 @@
+#####################################################################
+## MOD Title: Advanced BBCode Box 3 with ACP ( aka ABBC3 )
+##
+## MOD Author: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
+##
+## MOD Description: ABBC3 MOD adds lots of useful BBCode features and makes the bbcode buttons
+##		look just like Microsoft Office. It also improves the functions of
+##		phpBB's BBCode function. It adds the bbcode exactly where the cursor is,
+##		inserts smilies where the cursor is, and adds more ways to customize posts.
+##		The MOD is very fast loading, and is a sleek addition to your phpBB bulletin board.
+##		You must have javascript enabled to use this MOD.
+##
+## MOD Version: 1.0.9
+##
+## Installation Level: Easy
+## Installation Time: ~10 Minutes
+##
+## Files To Edit:
+##	adm/style/acp_users_signature.html
+##	adm/style/overall_header.html
+##
+##	includes/bbcode.php
+##	includes/constants.php
+##	includes/functions.php
+##	includes/functions_display.php
+##	includes/message_parser.php
+##	includes/acp/acp_bbcodes.php
+##	includes/acp/acp_styles.php
+##
+##	language/en/acp/common.php
+##
+##	styles/prosilver/template/overall_header.html
+##	styles/prosilver/template/simple_header.html
+##	styles/prosilver/template/posting_buttons.html
+##
+##	styles/subsilver2/template/overall_header.html
+##	styles/subsilver2/template/simple_header.html
+##	styles/subsilver2/template/posting_buttons.html
+##	styles/subsilver2/template/posting_body.html
+##	styles/subsilver2/template/ucp_profile_signature.html
+##
+## Included Files:
+##	install_abbc3.php
+##	adm/style/*.*
+##	files/*.*
+##	images/*.*
+##	includes/*.*
+##	language/en/mods/*.*
+##	styles/*.*
+##
+## License: http://opensource.org/licenses/gpl-license.php GNU General Public License v2 
+#####################################################################
+## For security purposes, please check: http://www.phpbb.com/mods/
+## for the latest version of this MOD. Although MODs are checked
+## before being allowed in the MODs Database there is no guarantee
+## that there are no security problems within the MOD. No support
+## will be given for MODs not found within the MODs Database which
+## can be found at http://www.phpbb.com/mods/
+#####################################################################
+## Author Notes:
+##
+##	I contacted "Disturbed One" the original developer of this mod 
+##	 and "freddie" the last developer of this mod, 
+##	 and ask for upgrade the Advanced BBcode Box for phpbb2.x to phpbb3.0.0, 
+##	 Both say that they will not do the job, and are agree that I do it, 
+##	 so here I am ;)
+##
+##	Phpbb3 posting page use javascript, basically to add tags to the textarea, 
+##	 when you click on a button javascript insert the code into the post text.
+##	 ABBC works in the same way, and add more javascript funtions to the wizards...
+##	 Apart from that the only function that need extra javascript is the fade tag.
+##
+##	Please do not remove the copyright notices without my permission.
+##
+##	Tested on Windows Browsers:
+##	- Internet Explorer 7.0
+##	- Mozilla Firefox 2.0
+##	- Opera 9.1
+##	- Safari 3.0
+##	- Netscape 8.1
+##
+##-------------------------------------------------------------------
+##	Once you finish the install, please take your time to read the the contrib folder content.
+##	You will find instructions for :
+##	- How to personalize & setup ABBC3
+##	- How to add a new icon & bbcode to ABBC3
+##	- How to use ABBC3 with other's mod
+##	- Pre modified files
+##-------------------------------------------------------------------
+##
+##	List of all included : ( In default order ) :
+##
+##	 + ( Posting box Resizer : larger )
+##	 - ( Posting box Resizer : shorter )
+##	 Font Type Dropdown
+##	 Font Size Dropdown
+##	 Highlight Font Color Dropdown
+##	 Font Color Dropdown ( Disable by default )
+##	--------------------
+##	 Cut selected text
+##	 Copy selected text
+##	 Paste previously copy text
+##	 Remove BBCode (Removes all BBCode tags from selected text)
+##	--------------------
+##	 Unordered List
+##	 Ordered List
+##	 List item
+##	 Header line
+##	 Bold
+##	 Italic
+##	 Underline
+##	 Strike through
+##	 Superscript
+##	 Subscript
+##	 Glow text ( Only Internet explorer )
+##	 Shadow text ( Only Internet explorer )
+##	 Dropshadow text ( Only Internet explorer )
+##	 Blur text ( Only Internet explorer )
+##	 Wave text ( Only Internet explorer )
+##	 Text Fade
+##	 Text Gradient
+##	 Justify Align
+##	 Right Align
+##	 Center Align
+##	 Left Align
+##	 Preformat text
+##	--------------------
+##	 Tab
+##	 Message Box text direction Left to Light (Traditional)
+##	 Message Box text direction right to Left (Arabic, etc)
+##	 Marquee Up
+##	 Marquee Down
+##	 Marquee Right
+##	 Marquee Left
+##	 Code
+##	 Quote
+##	 Spoiler (User must click on link to review text within tags)
+##	 Moderator ( Use restricted to moderators and / or administrators )
+##	 Off topic
+##	 NFO ( better on Internet explorer )
+##	 Table row cell wizard
+##	--------------------
+##	 Simple upload files ( Use restricted to moderators and / or administrators )
+##	 Hyperlink Wizard
+##	 Email Wizard
+##	 Web included by iframe ( Disable by default ) ( Note : it's use activex so its not safe for forums or other websites.. with this way hacker can get in site and hack them... )
+##	 Ed2k link Wizard
+##	 Image Wizard
+##	 Thumbnail Wizard
+##	 Imgshack Wizard
+##	 Link checker ( It requires that you have curl installed )
+##	 Rapid share checker ( Disable by default )
+##	 Click counter ( Disable by default ) ( Need database update ! )
+##	 Search tag
+##	--------------------
+##	 BBvideo Wizard ( 33 video sites and 7 files types )
+##	 Flash (swf)
+##	 Flash (flv)
+##	 Video
+##	 Stream
+##	 Quick time
+##	 Real media
+##	 Google video
+##	 Youtube video
+##	 Veoh video
+##	 CollegeHumor video
+##	 DailyMotion video
+##	 Gamespot video
+##	 GameTrailers video
+##	 IGN video
+##	 LiveLeak video
+##	--------------------
+##	 Custom BBcodes
+##	
+##-------------------------------------------------------------------
+##	EasyMOD
+##	-----------
+##	This MOD is NOT Tested with EasyMod
+##
+##-------------------------------------------------------------------
+##	SQL commands
+##	-----------
+##	This MOD needs a database update
+##
+##-------------------------------------------------------------------
+##	Translation : See contrib/language folder
+##	-----------
+##	bg [Bulgarian]
+##	de [German]
+##	en [English]
+##	es_ar [Spanish Argentina]
+##	fr [Francais]
+##	nl [Dutch]
+##	pt [Português Português]
+##	pt_br [Português Brasil]
+##	tr [Turkish]
+##
+##-------------------------------------------------------------------
+##	Official last version
+##	-----------
+##	Meanwhile the phpBB group validation and as the MOD is not yet
+##	in the phpBB MOD database, check this official link for updates...
+##	http://www.mssti.com/phpbb3/index.php
+##	If you want to test this board, you can use a demo acount :
+##	Please visit : http://www.mssti.com/phpbb3/viewtopic.php?f=2&t=1
+##
+#####################################################################
+## MOD History:
+##
+##	2008-05-01 - Version 1.0.9
+##	- New installation method.
+##	- Change ABBC3 files, folder and var names.
+##	- Added ABBC3 bbodes to phpbb3 custom bbcodes table :
+##		Now phpbb3 takes care about parsing all bbcodes.
+##		This improve speed and security.
+##	- Renew ACP module for customize and setting ABBC3.
+##	- Fixed insert bbcodes with wizards on IE ( Thanks phptr )
+##
+##	2008-03-31 - Version 1.0.8
+##	- New installation method, Now ABBC3 is more effective, only loaded if necessary, improved speed and security.
+##	- Change ABBC3 files, folder and var names.
+##	- Added ACP module for customize and setting ABBC3. ( Special thanks to joebart72 )
+##	- Added new bbcode : tab ( Thanks calproye )
+##	- Added new bbcode testlink : This tag is used to check the validity of file host links (also called one-click hosts).
+##	- Added new bbcode list item [*]. ( Thanks CharlesT )
+##	- Added Posting box Resizer. ( Thanks to CrossoverX )
+##	- Added Image Resizer on post : This fix for bug of [img] bbcode when someone add 
+##		a huge image has width larger than the width of post content.
+##		you have 4 options to display image in full size ( greybox, enlarge, same window, new window).
+##	- Added new bbcode BBvideo ( with width and height up to 999px ): now you have 1 bbcode for all (34) video sites :
+##		1.uncutvideo.aol.com, 2.clipfish.(de|co), 3.collegehumor.com, 4.crackle.com, 5.dailymotion.com, 6.gamespot.com
+##		7.gametrailers.com, 8.gamevideos.com, 9.godtube.com, 10.ign.com, 11.liveleak.com, 12.livevideo.com, 13.megavideo.com
+##		14.metacafe.com, 15.myspacetv.com, 16.vids.myspace.com, 17.myvideo.(de|be|nl), 18.photobucket.com, 19.sevenload.com
+##		20.spike.com, 21.stage6.com, 22.starsclips.net, 23.tu.tv, 24.vbox7.com, 25.veoh.com, 26.videu.de, 27.vidiac.com
+##		28.vidilife.com, 29.vimeo.com, 30.video.google, 31.video.yahoo, 32.vsocial.com, 33.wat.tv, 34.youtube.com
+##	  Also work with (7) files types:
+##		35.Flash .swf, 36.Flash .flv, 37.Windows Media Video .wmv, 38.Moving Pictures Expert Group .mpg, 
+##		39.Quick Time .mp3, 40.Quick Time .qt, 41.Real Audio .ram
+##	- Join ABBC3 bbcodes and Ex custom bbcodes, and now they are all mixed together
+##		by default bbcodes are grouped by type. But you can distribute to your liking.
+##	- Fixed MCP (Moderator Control Panel ) with ABBC3.
+##	- Change Litebox with Graybox used in wizards, thumbnails and image resizer. ( Thanks WillSWC )
+##	- Renew wizards, regarding with styles templates and phpbb3.
+##	- Check permissions status for tags : Links, BBCode, Images, Flash, Quote and Moderator. ( Thanks to muiketi )
+##	- New and renewed images. ( Thamks SinDramas )
+##	- Fixed align tag
+##	- Fixed others minor bugs. ( Thamks SinDramas )
+##
+##	2008-02-21 - Version 1.0.7b
+##	- Fixed the problem when DEBUG is set to true. ( Thanks to muiketi )
+##	- Fixed the problem when Quoting or PM's a message. ( Thanks to Anabella! )
+##	- Fixed mouseover help for phpbb custom bbcodes, in subsilver2 ( Thanks SinDramas )
+##	- Fixed add-on upload.
+##	- Fixed others minor bugs.
+##	- Re-write, updated and added text to all documents ( add-on, how-to-add, ...) and languages files
+##
+##	2008-02-18 - Version 1.0.7
+##	- New installation method
+##	- Re-write all code, now ABBC3 is a class.
+##	- Dinamic display page for posting.
+##	- Added help page ! ( Thanks muiketi )
+##	- Added font colour dropdown & remove phpbb3 color selector ( Suggested by riehn )
+##	- Improve cosmetic issue.
+##	- Added severals background images. For set it, please read the contrib folder content.
+##	- Fixed PM's with ABBC3. ( Thanks mej284 )
+##	- Fixed insert bbcodes with wizards on IE ( Thanks phptr )
+##	- Fixed show custom bbcodes from a how-to-add in 'posting_abbcodes_buttons.html' files ( Thanks joebart72 )
+##	- Added image left|center|right ( Thanks BizimPencere ). For set it, please read the contrib folder content.
+##	- Fixed web, now you can use http://www. | https://www. | www.
+##	- Fixed Youtube link, now you can use with or without www, also work with international links.
+##
+##	- Added severals pre installed custom bbcodes, all are disabled by default. For set it, please read the contrib folder content.
+##	  icon for Simple Hide BBcode MOD by ycl6. ( not the full mod )
+##	  Moderator ( Thanks pavabe )
+##	  Offtopic ( Thanks tupeu )
+##	  Dailymotion video ( Thanks joebart72 )
+##	  Gamespot video ( Thanks naushadhassam )
+##	  Gametrailers video ( Thanks naushadhassam )
+##	  IGN video ( Thanks naushadhassam )
+##	  Liveleak video ( Thanks [alfa] )
+##	  Veoh video ( Thanks turkanime )
+##	  NFO ( Thanks TigerCrow ) (better on Internet explorer)
+##	  Glow text ( Thanks muiketi ) (Only Internet explorer)
+##	  Shadow text ( Thanks muiketi ) (Only Internet explorer)
+##	  Dropshadow text ( Thanks muiketi ) (Only Internet explorer)
+##	  Blur text ( Thanks muiketi ) (Only Internet explorer)
+##	  Wave text ( Thanks muiketi ) (Only Internet explorer)
+##	  Search tag ( Thanks muiketi )
+##	  Simple upload files ( Thanks naushadhassam )
+##
+##	2008-02-03 - Version 1.0.6b
+##	- New installation method
+##	- Fixed PM's with ABBC3. ( Thanks mej284 )
+##	- Fixed show custom bbcodes from a how-to-add in 'posting_abbcodes_buttons.html' files ( Thanks joebart72 )
+##	- Added 2 pre installed custom bbcodes : Dailymotion and Moderator, both are disabled by default.
+##
+##	2008-01-31 - Version 1.0.6
+##	- New installation method
+##	- New config, you can enable/disable each one tags, regardless. By default all are enables
+##	   please open includes/abbcode.php and look at $abbcode_config = array()
+##	- Fixed if text is selected and clik on a tag, the wizard is not displayed 
+##	   and instead add the selected bbcode. ( excepted table bbcode ) 
+##	- Parsing abbcodes improved, now it's more fast
+##	- Fixed bug table parsing.
+##	- Added wizard examples, please open language/en/mods/abbcode.php
+##	   and look at all 'ABBCODE_?????_NOTE'				=> and add/change to your own examples ;)
+##	- Fixed wizards no description imput. ( Thanks pavabe )
+##	- Fixed wizard email ( Thanks pavabe )
+##	- Fixed style/subsilver2/posting_button.html ( Thanks mej284 )
+##	- Fixed video + Real Player + stream tags.
+##	- Added new typo thumbnail
+##	- Added new typo quick time
+##	- Fixed the copyright link ( Thanks joebart72 )
+##	- Fixed a misspell in language/en/mods/abbcode.php ( Thanks pavabe ) 
+##
+##	2008-01-25 - Version 1.0.5  ( Thanks mej284 )
+##	- Fixed overall_header.html javascript call.
+##	- Fixed grad color bug for IE ( Thanks ThunderCrew )
+##	- Fixed bug install.txt file
+##
+##	2008-01-18 - Version 1.0.4
+##	- Added security on laguages files.
+##	- Renewed wizards.
+##	- Added/renewed font styles.
+##	- Added imageshack upload.
+##	- Fixed video + Real Player + stream tags.
+##	- Fixed grad color. ( Thanks ThunderCrew )
+##	- Fixed table.
+##	- Improve cosmetic issue.
+##
+##	2008-01-15 - Version 1.0.3
+##	- Fix in subsilver posting_abbcodes_buttons.html.
+##	- Added contrib/add-on folder with Quick reply info.
+##	- Fixed private message bugs. ( Thanks El_Vindicador )
+##	- Fixed others minor bugs.
+##
+##	2008-01-14 - Version 1.0.2
+##	- Change folder placement ( Suggested by MrC ).
+##	- Added languaje file.
+##	- Changed highlight dropdown colors with phpbb colors.
+##	- Change the copyright link to image link.
+##	- Added Giant font size (you must go ACP -> General Tab -> Board configuration -> Post settings
+##		look at 
+##		"Maximum font size per post:
+##		 Maximum font size allowed in a post. Set to 0 for unlimited font size."
+##		and change 200 value with 300)
+##
+##	2008-01-11 - Version 1.0.1
+##	- Added typo Pre.
+##	- Adder table wizard ( Suggested by ahmedgroup ).
+##	- Fixed Gradient.
+##	- Fixed added codes buttons from phpbb3 ACP.
+##
+##	2008-01-10 - Version 1.0.0
+##	- Upgrade from phpbb2.x to phpbb3.0.0 (Gold)
+##
+#####################################################################
+## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD
+#####################################################################
+
+#
+#-----[ SQL ]--------------------------------------------------------
+# NOTE : If you will not use bbcode "click", ignore this step.
+# NOTE : Change the table prefix to adjust to your install. I use "phpbb_" as example.
+#
+
+CREATE TABLE `phpbb_clicks` (
+  `id` mediumint(6) unsigned NOT NULL auto_increment,
+  `url` varchar(255) NOT NULL default '',
+  `clicks` decimal(6,0) unsigned NOT NULL default '0',
+  UNIQUE KEY `id` (`id`),
+  KEY `md5` (`url`)
+) TYPE=MyISAM ;
+
+#
+#-----[ COPY ]-------------------------------------------------------
+#
+
+copy root/install_abbc3.php    to install_abbc3.php
+copy root/adm/style/*.*        to adm/style/*.*
+copy root/files/*.*            to files/*.*
+copy root/images/*.*           to images/*.*
+copy root/includes/*.*         to includes/*.*
+copy root/language/en/mods/*.* to language/en/mods/*.*
+copy root/styles/*.*           to styles/*.*
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+adm/style/acp_users_signature.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+		<div id="format-buttons">
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+
+		<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+		<!-- IF S_ABBC3_MOD -->
+			<!-- INCLUDE posting_abbcode_buttons.html -->
+		</div>
+		<!-- ELSE -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+				<p><input type="text" class="text full" style="border: 0; background: none;" name="helpbox" value="{L_STYLES_TIP}" /></p>
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+
+		<!-- ENDIF -->
+		<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			<dt style="width: 90px;">
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+		<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+			<!-- IF not S_ABBC3_COLOR -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+				// ]]>
+				</script>
+			</dt>
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+
+			<!-- ENDIF -->
+		<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+# NOTE : This may be a partial find and not the whole line.
+#
+			<dd style="margin-left: 90px;"><textarea name="signature" 
+
+#
+#-----[ IN-LINE FIND ]-----------------------------------------------
+#
+ name="signature" 
+
+#
+#-----[ IN-LINE BEFORE, ADD ]----------------------------------------
+#
+ id="signature" 
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+adm/style/overall_header.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+</head>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<!-- IF S_ABBC3_MOD -->
+
+<script type="text/javascript" src="{S_ABBC3_PATH}/abbcode.js" charset="{S_CONTENT_ENCODING}"></script>
+
+<script type="text/javascript">
+// <![CDATA[
+	var GB_ROOT_DIR                       = "{S_ABBC3_PATH}/greybox/";
+<!-- IF S_ABBC3_RESIZE -->	
+	NcodeImageResizer.MODE                = '{S_ABBC3_RESIZE_METHOD}'; // 'greybox' 'enlarge' 'samewindow' 'newwindow'
+	NcodeImageResizer.IMAGE               = '{S_ABBC3_PATH}/images/errormt0.gif';
+	NcodeImageResizer.MAXWIDTH            = '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	NcodeImageResizer.MAXHEIGHT           = '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	NcodeImageResizer.warning_small       = '{L_ABBC3_RESIZE_SMALL}';
+	NcodeImageResizer.warning_filesize    = '{L_ABBC3_RESIZE_FILESIZE}';
+	NcodeImageResizer.warning_no_filesize = '{L_ABBC3_RESIZE_NOFILESIZE}';
+	NcodeImageResizer.warning_fullsize    = '{L_ABBC3_RESIZE_FULLSIZE}';
+<!-- ENDIF -->
+// ]]>
+</script>
+<!-- IF (S_ABBC3_GREYBOX or S_BBCODE_ALLOWED) -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS_fx.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/gb_scripts.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/greybox/gb_styles.css" />
+<!-- ENDIF -->
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
+<!-- ENDIF -->
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+adm/style/simple_header.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+</head>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/bbcode.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+/**
+* BBCode class
+* @package phpBB3
+*/
+class bbcode
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+if (!class_exists('abbcode'))
+{
+	include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+}
+/**
+* BBCode class
+* @package phpBB3
+*/
+class bbcode extends abbcode
+// MOD : ABBC3 (V1.0.9) - end
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+							'#\[url:$uid\]((.*?))\[/url:$uid\]#s'			=> $this->bbcode_tpl('url', $bbcode_id),
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+							'#\[url:$uid\](ed2k://\|(file|server|serverlist|friend)(|\|[^\\/\|:<>\*\?\"]+?)\|(.*?)\|/?)\[/url:$uid\]#sie'		=> "\$this->ed2k_pass( \$bbcode_id, '\$1', '' )",
+							'#\[url=(ed2k://\|(file|server|serverlist|friend)(|\|[^\\/\|:<>\*\?\"]+?)\|(.*?)\|/?):$uid\](.*?)\[/url:$uid\]#sie'	=> "\$this->ed2k_pass( \$bbcode_id, '\$1', '\$5' )",
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+		if (empty($bbcode_hardtpl))
+		{
+			global $user;
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+			global $config;
+// MOD : ABBC3 (V1.0.9) - End
+			
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '" />',
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '"' . ( ( $config['ABBC3_RESIZE'] ) ? ' onload="NcodeImageResizer.createOn(this);"' : '') . ' />',
+//				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '" />',
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE : If you will not use bbcode "click", ignore this step.
+#
+includes/constants.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+// Additional tables
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find. 
+#
+
+// MOD : ABBC3 (V1.0.9) Clicks Counter feature - Start
+define('CLICKS_TABLE',				$table_prefix . 'clicks');
+// MOD : ABBC3 (V1.0.9) Clicks Counter feature - End
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/functions.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+// The following assigns all _common_ variables that may be used at any point in a template.
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+	if ( @$config['ABBC3_MOD'] )
+	{
+		if (!class_exists('abbcode'))
+		{
+			include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+		}
+		$abbcode = new abbcode();
+		$abbcode->abbcode_init();
+	}
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/functions_display.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+	$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_helpline
+		FROM ' . BBCODES_TABLE . '
+		WHERE display_on_posting = 1
+		ORDER BY bbcode_tag';
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+	global $phpbb_root_path, $phpEx, $config, $mode;
+
+	if ( $config['ABBC3_MOD'] )
+	{
+		if (!class_exists('abbcode'))
+		{
+			include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+		}
+		$abbcode = new abbcode();
+		$abbcode->abbcode_init();
+		$abbcode->abbcode_display( $mode );
+
+		$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_helpline
+			FROM ' . BBCODES_TABLE . '
+			WHERE display_on_posting = 1 AND abbcode = 0 AND bbcode_image = " " 
+			ORDER BY bbcode_tag';
+	}
+	else
+	{
+		$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_helpline
+			FROM ' . BBCODES_TABLE . '
+			WHERE display_on_posting = 1 AND abbcode = 0 
+			ORDER BY bbcode_tag';		
+	}
+//	$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_helpline
+//		FROM ' . BBCODES_TABLE . '
+//		WHERE display_on_posting = 1
+//		ORDER BY bbcode_tag';
+// MOD : ABBC3 (V1.0.9) - End
+	
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/message_parser.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			$sql = 'SELECT *
+				FROM ' . BBCODES_TABLE;
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+			$sql = 'SELECT *
+				FROM ' . BBCODES_TABLE . '
+				WHERE bbcode_id > 0';
+//			$sql = 'SELECT *
+//				FROM ' . BBCODES_TABLE;
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/acp/acp_bbcodes.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			case 'edit':
+				$sql = 'SELECT bbcode_match, bbcode_tpl, display_on_posting, bbcode_helpline
+					FROM ' . BBCODES_TABLE . '
+					WHERE bbcode_id = ' . $bbcode_id;
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+			case 'edit':
+// MOD : ABBC3 (V1.0.9) - Start
+				$sql = 'SELECT bbcode_match, bbcode_tpl, display_on_posting, bbcode_helpline, abbcode
+					FROM ' . BBCODES_TABLE . '
+					WHERE bbcode_id = ' . $bbcode_id . ' and abbcode = 0';
+//				$sql = 'SELECT bbcode_match, bbcode_tpl, display_on_posting, bbcode_helpline
+//					FROM ' . BBCODES_TABLE . '
+//					WHERE bbcode_id = ' . $bbcode_id;
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			case 'modify':
+				$sql = 'SELECT bbcode_id, bbcode_tag
+					FROM ' . BBCODES_TABLE . '
+					WHERE bbcode_id = ' . $bbcode_id;
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+			case 'modify':
+// MOD : ABBC3 (V1.0.9) - Start
+				$sql = 'SELECT bbcode_id, bbcode_tag, abbcode
+					FROM ' . BBCODES_TABLE . '
+					WHERE bbcode_id = ' . $bbcode_id . ' and abbcode = 0';
+//				$sql = 'SELECT bbcode_id, bbcode_tag
+//					FROM ' . BBCODES_TABLE . '
+//					WHERE bbcode_id = ' . $bbcode_id;
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+					$sql_ary['bbcode_id'] = (int) $bbcode_id;
+
+#
+#-----[ AFTER, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+					$sql = 'SELECT MAX(bbcode_order) as max_bbcode_order
+						FROM ' . BBCODES_TABLE;
+					$result = $db->sql_query($sql);
+					$row = $db->sql_fetchrow($result);
+					$db->sql_freeresult($result);
+					$bbcode_order = $row['max_bbcode_order'] + 1;
+					$sql_ary['bbcode_order'] = (int) $bbcode_order;
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			case 'delete':
+
+				$sql = 'SELECT bbcode_tag
+					FROM ' . BBCODES_TABLE . "
+					WHERE bbcode_id = $bbcode_id";
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+			case 'delete':
+			
+// MOD : ABBC3 (V1.0.9) - Start
+				$sql = 'SELECT bbcode_tag, abbcode
+					FROM ' . BBCODES_TABLE . "
+					WHERE bbcode_id = $bbcode_id" . ' and abbcode = 0' ;
+//				$sql = 'SELECT bbcode_tag
+//					FROM ' . BBCODES_TABLE . "
+//					WHERE bbcode_id = $bbcode_id";
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+		$template->assign_vars(array(
+			'U_ACTION'		=> $this->u_action . '&amp;action=add')
+		);
+
+		$sql = 'SELECT *
+			FROM ' . BBCODES_TABLE . '
+			ORDER BY bbcode_tag';
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+		$template->assign_vars(array(
+			'U_ACTION'		=> $this->u_action . '&amp;action=add')
+		);
+// MOD : ABBC3 (V1.0.9) - Start	
+		$sql = 'SELECT *
+			FROM ' . BBCODES_TABLE . '
+			WHERE abbcode = 0  
+			ORDER BY bbcode_tag';
+//		$sql = 'SELECT *
+//			FROM ' . BBCODES_TABLE . '
+//			ORDER BY bbcode_tag';
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+includes/acp/acp_styles.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+				if ($file[0] != '.' && strtoupper($file) != 'CVS' && !is_file($dir . '/' . $file) && !is_link($dir . '/' . $file))
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+			// MOD : ABBC3 (V1.0.9) - Start
+			//	if ($file[0] != '.' && strtoupper($file) != 'CVS' && !is_file($dir . '/' . $file) && !is_link($dir . '/' . $file))
+				if ($file[0] != '.' && strtoupper($file) != 'CVS' && !is_file($dir . '/' . $file) && !is_link($dir . '/' . $file) && $file != 'abbcode')
+			// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+#
+language/en/acp/common.php
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+?>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+# NOTE: See contrib/language folder for availables transtations
+#
+
+// MOD : ABBC3 (V1.0.9) - Start
+$lang = array_merge($lang, array(
+	'ACP_ABBCODES'				=> 'Advanced BBcodes Box 3',
+	'LOG_CONFIG_ABBCODES'		=> '<strong>Altered ABBC3 settings</strong>',
+	'LOG_CONFIG_ABBCODES_ERROR'	=> '<strong>Error while save ABBC3 settings</strong>',
+	'LOG_RESET_ABBCODES'		=> '<strong>Reset ABBC3 settings</strong>',
+	'LOG_RESET_ABBCODES_ERROR'	=> '<strong>Error while reset ABBC3 settings</strong>',
+	'RESET_ABBCODES_EXPLAIN'	=> 'Are you sure you wish to reset <em>all bbcodes</em> to default settings?',
+	'RESET_CONFIG_EXPLAIN'		=> 'Are you sure you wish to reset <strong>ABBC3</strong> to default settings?',
+	'ACP_ABBC3_SETTINGS'		=> 'ABBC3 Settings',
+	'ACP_ABBC3_BBCODES'			=> 'ABBC3 BBCodes',
+));
+// MOD : ABBC3 (V1.0.9) - End
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed, based on prosilver. I use "prosilver" as an example.
+#
+styles/prosilver/template/overall_header.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+</head>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<!-- IF S_ABBC3_MOD and (S_NEW_MESSAGE or S_EDIT_POST or S_VIEWTOPIC or S_DISPLAY_PREVIEW or S_PRIVMSGS or S_POST_REVIEW or S_DISPLAY_REVIEW or S_BBCODE_ALLOWED or mcp) -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/abbcode.js" charset="{S_CONTENT_ENCODING}"></script>
+
+<script type="text/javascript">
+// <![CDATA[
+	var GB_ROOT_DIR                       = "{S_ABBC3_PATH}/greybox/";
+<!-- IF S_ABBC3_RESIZE -->	
+	NcodeImageResizer.MODE                = '{S_ABBC3_RESIZE_METHOD}'; // 'greybox' 'enlarge' 'samewindow' 'newwindow'
+	NcodeImageResizer.IMAGE               = '{S_ABBC3_PATH}/images/errormt0.gif';
+	NcodeImageResizer.MAXWIDTH            = '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	NcodeImageResizer.MAXHEIGHT           = '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	NcodeImageResizer.warning_small       = '{L_ABBC3_RESIZE_SMALL}';
+	NcodeImageResizer.warning_filesize    = '{L_ABBC3_RESIZE_FILESIZE}';
+	NcodeImageResizer.warning_no_filesize = '{L_ABBC3_RESIZE_NOFILESIZE}';
+	NcodeImageResizer.warning_fullsize    = '{L_ABBC3_RESIZE_FULLSIZE}';
+<!-- ENDIF -->
+// ]]>
+</script>
+<!-- IF (S_ABBC3_GREYBOX or S_BBCODE_ALLOWED) -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS_fx.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/gb_scripts.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/greybox/gb_styles.css" />
+<!-- ENDIF -->
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
+<!-- ENDIF -->
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed, based on prosilver. I use "prosilver" as an example.
+#
+styles/prosilver/template/simple_header.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+</head>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed, based on prosilver. I use "prosilver" as an example.
+#
+styles/prosilver/template/posting_buttons.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+<div id="format-buttons">
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<!-- IF S_ABBC3_MOD -->
+	<!-- INCLUDE posting_abbcode_buttons.html -->
+<!-- ELSE -->
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+</div>
+<!-- ENDIF -->
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<!-- ENDIF -->
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed, based on subsilver2. I use "subsilver2" as an example.
+#
+styles/subsilver2/template/overall_header.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+</head>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<!-- IF S_ABBC3_MOD and (S_NEW_MESSAGE or S_EDIT_POST or S_VIEWTOPIC or S_DISPLAY_PREVIEW or S_PRIVMSGS or S_POST_REVIEW or S_DISPLAY_REVIEW or S_BBCODE_ALLOWED or mcp) -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/abbcode.js" charset="{S_CONTENT_ENCODING}"></script>
+
+<script type="text/javascript">
+// <![CDATA[
+	var GB_ROOT_DIR                       = "{S_ABBC3_PATH}/greybox/";
+<!-- IF S_ABBC3_RESIZE -->	
+	NcodeImageResizer.MODE                = '{S_ABBC3_RESIZE_METHOD}'; // 'greybox' 'enlarge' 'samewindow' 'newwindow'
+	NcodeImageResizer.IMAGE               = '{S_ABBC3_PATH}/images/errormt0.gif';
+	NcodeImageResizer.MAXWIDTH            = '{S_ABBC3_MAX_IMG_WIDTH}' ;
+	NcodeImageResizer.MAXHEIGHT           = '{S_ABBC3_MAX_IMG_HEIGHT}' ;
+	NcodeImageResizer.warning_small       = '{L_ABBC3_RESIZE_SMALL}';
+	NcodeImageResizer.warning_filesize    = '{L_ABBC3_RESIZE_FILESIZE}';
+	NcodeImageResizer.warning_no_filesize = '{L_ABBC3_RESIZE_NOFILESIZE}';
+	NcodeImageResizer.warning_fullsize    = '{L_ABBC3_RESIZE_FULLSIZE}';
+<!-- ENDIF -->
+// ]]>
+</script>
+<!-- IF (S_ABBC3_GREYBOX or S_BBCODE_ALLOWED) -->
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/AJS_fx.js"></script>
+<script type="text/javascript" src="{S_ABBC3_PATH}/greybox/gb_scripts.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/greybox/gb_styles.css" />
+<!-- ENDIF -->
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
+<!-- ENDIF -->
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed, based on prosilver. I use "subsilver2" as an example.
+#
+styles/subsilver2/template/simple_header.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+</head>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed, based on subsilver2. I use "subsilver2" as an example.
+#
+styles/subsilver2/template/posting_buttons.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+# NOTE: This line appears twice, but we will use only the first match.
+<!-- IF S_BBCODE_ALLOWED -->
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+	<!-- IF S_ABBC3_MOD -->
+		<!-- INCLUDE posting_abbcode_buttons.html -->
+	<!-- ELSE -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+<!-- ENDIF -->
+	</td>
+</tr>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+	<!-- ENDIF -->
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+<!-- IF S_BBCODE_ALLOWED and .custom_tags -->
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+
+<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+<!-- IF not S_ABBC3_MOD -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+		<td class="genmed" align="center">{L_FONT_COLOR}</td>
+	<!-- ENDIF -->
+</tr>
+<!-- ENDIF -->
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+
+<!-- ENDIF -->
+<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed, based on subsilver2. I use "subsilver2" as an example.
+#
+styles/subsilver2/template/posting_body.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			<td valign="top" style="width: 100%;"><textarea name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 98%;">{MESSAGE}</textarea></td>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+# NOTE: Add these lines on a new blank line before the preceding line(s) to find.
+#
+		
+		<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+		<!-- IF S_ABBC3_MOD -->
+			<td valign="top" style="width: 100%;"><textarea id="message" name="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" style="width: 99%;">{MESSAGE}</textarea></td>		
+			<!-- IF S_BBCODE_ALLOWED and not S_ABBC3_COLOR -->
+			<td width="80" align="center" valign="top">
+				<script type="text/javascript">
+				// <![CDATA[
+					colorPalette('v', 7, 6)
+				// ]]>
+				</script>
+			</td>
+			<!-- ENDIF -->
+		<!-- ELSE -->
+
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+				</script>
+			</td>
+			<!-- ENDIF -->
+
+#
+#-----[ AFTER, ADD ]-------------------------------------------------
+# NOTE: Add these lines on a new blank line after the preceding line(s) to find.
+#
+			
+		<!-- ENDIF -->
+		<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[ OPEN ]-------------------------------------------------------
+# NOTE: You will have to make this change to ALL themes you have installed, based on subsilver2. I use "subsilver2" as an example.
+#
+styles/subsilver2/template/ucp_profile_signature.html
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+			<td colspan="2"><textarea class="post" name="signature" rows="10" cols="76" style="width: 90%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></td>
+
+#
+#-----[ BEFORE, ADD ]------------------------------------------------
+#
+
+		<!-- // MOD : ABBC3 (V1.0.9) - Start -->
+		<!-- IF S_ABBC3_MOD -->
+			<td colspan="2"><textarea class="post" id="signature" name="signature" rows="10" cols="76" style="width: 99%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></td>
+		</tr>
+		<!-- ELSE -->
+
+#
+#-----[ FIND ]-------------------------------------------------------
+#
+		<!-- IF S_BBCODE_ALLOWED -->
+
+#
+#-----[ REPLACE WITH ]-----------------------------------------------
+#
+
+		<!-- ENDIF -->
+		<!-- IF S_BBCODE_ALLOWED and not S_ABBC3_COLOR -->
+		<!-- // MOD : ABBC3 (V1.0.9) - End -->
+
+#
+#-----[DIY]----------------------------------------------------------
+#
+IMPORTANT !
+	
+Log on to Administration Control Panel
+
+#####################################################################
+A) Disable your board :
+
+	A.1) Navigate to General Tab -> Board settings 
+	A.2) look at "Disable board: This will make the board unavailable to users. You can also enter a short (255 character) message to display if you wish." 
+	A.3) Change to "yes"
+	A.4) Submit to save setting.
+
+#####################################################################
+B) Database update :
+	
+	B.1) Once all the files have been modified and uploaded to your site you should point your browser at this location with the addition of install_abbc3.php
+	For example if your domain name is www.mydomain.tld and you placed phpBB3 in a directory /phpBB3 off your web root you would enter http://www.mydomain.tld/phpBB3/install_abbc3.php into your browser.
+
+	B.2) When you have done this you should see the phpBB3 ABBC3 Installation screen appear, follow the instructions.
+		 If the installation was successful, you can now use your forum.
+		 Congratulations, you have installed phpBB3 ABBC3 successfully. But there is still work ahead!
+	
+	B.3) You should remove the install file (install_abbc3.php) from your server.
+
+#####################################################################
+C) Add Giant font size :
+
+	C.1) Navigate to General Tab -> Board configuration -> Post settings 
+	C.2) look at "Maximum font size per post: Maximum font size allowed in a post. Set to 0 for unlimited font size." 
+	C.3) change "200" value with "300"
+
+#####################################################################
+D) Add ABBC3 module :
+
+	C.1) Navigate to "System" tab
+	C.2) Under "Module management" click on "Administration Control Panel" and "Posting" ( or If you prefer you can do it in ".mod" )
+	C.3) Under "Create new module", enter : ACP_ABBCODES and click "Create new module"
+	C.4) in the next screen, click on "Module enabled:", and Sumbit
+	C.5) afert refresh screen click on "Advanced BBcodes Box 3"
+	C.6) in "add module" select "ABBC3 settings" and click on "add module", them click on "yes"
+	C.7) afert refresh screen click "enable" "Advanced BBcodes Box 3"
+	C.8) in "add module" select "ABBC3 BBcodes" and click on "add module", them click on "yes"
+	C.9) afert refresh screen click "enable" "Advanced BBcodes Box 3"
+	C.10) Them navigate to "Posting" tab and under "Advanced BBcodes Box 3" you will see "ABBC3 Settings" and "ABBC3 BBCodes"
+
+#####################################################################
+E) Purge the cache :
+
+	E.1) Navigate to General Tab
+	E.2) look at Purge the cache
+	E.3) Click on "Run Now" button at right
+	E.4) in the next screen, click on "Yes"
+	
+#####################################################################
+F) Enable your board :
+	
+	F.1) Navigate to General Tab -> Board settings 
+	F.2) look at "Disable board: This will make the board unavailable to users. You can also enter a short (255 character) message to display if you wish." 
+	F.3) Change to "NO"
+	F.4) Submit to save setting.
+
+#####################################################################
+G) Enjoy it !.
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+#
+# EoM

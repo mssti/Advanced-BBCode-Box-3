@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB3
-* @version $Id: bbcode.php,v 1.114 2007/10/07 10:34:45 naderman Exp $
+* @version $Id: bbcode.php 8479 2008-03-29 00:22:48Z naderman $
 * @copyright (c) 2005 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -16,11 +16,17 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
+// MOD : ABBC3 (V1.0.9) - Start
+if (!class_exists('abbcode'))
+{
+	include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
+}
 /**
 * BBCode class
 * @package phpBB3
 */
-class bbcode
+class bbcode extends abbcode
+// MOD : ABBC3 (V1.0.9) - end
 {
 	var $bbcode_uid = '';
 	var $bbcode_bitfield = '';
@@ -48,10 +54,7 @@ class bbcode
 	/**
 	* Second pass bbcodes
 	*/
-// MOD : ABBC3 (V1.0.8) - START
-//	function bbcode_second_pass(&$message, $bbcode_uid = '', $bbcode_bitfield = false)
-	function bbcode_second_pass(&$message, $bbcode_uid = '', $bbcode_bitfield = false, $abbc3 = true)
-// MOD : ABBC3 (V1.0.8) - end
+	function bbcode_second_pass(&$message, $bbcode_uid = '', $bbcode_bitfield = false)
 	{
 		if ($bbcode_uid)
 		{
@@ -65,20 +68,6 @@ class bbcode
 			// Init those added with a new bbcode_bitfield (already stored codes will not get parsed again)
 			$this->bbcode_cache_init();
 		}
-
-		// MOD : ABBC3 (V1.0.8) - START
-		if ( $abbc3 )
-		{
-			if (!class_exists('abbcode'))
-			{
-				global $phpbb_root_path, $phpEx;
-				include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
-			}
-			$abbcode3 = new abbcode();
-			$abbcode3->abbcode_init();
-			$message = $abbcode3->abbcode_process( $message );
-		}
-		// MOD : ABBC3 (V1.0.8) - END
 
 		if (!$this->bbcode_bitfield)
 		{
@@ -182,9 +171,15 @@ class bbcode
 		{
 			global $db;
 
+// MOD : ABBC3 (V1.0.9) - Start
 			$sql = 'SELECT *
 				FROM ' . BBCODES_TABLE . '
-				WHERE ' . $db->sql_in_set('bbcode_id', $sql);
+				WHERE ' . $db->sql_in_set('bbcode_id', $sql) . '
+				AND bbcode_match <> "." ';
+//			$sql = 'SELECT *
+//				FROM ' . BBCODES_TABLE . '
+//				WHERE ' . $db->sql_in_set('bbcode_id', $sql);
+// MOD : ABBC3 (V1.0.9) - End
 			$result = $db->sql_query($sql, 3600);
 
 			while ($row = $db->sql_fetchrow($result))
@@ -235,6 +230,10 @@ class bbcode
 				case 3:
 					$this->bbcode_cache[$bbcode_id] = array(
 						'preg' => array(
+// MOD : ABBC3 (V1.0.9) - Start
+							'#\[url:$uid\](ed2k://\|(file|server|serverlist|friend)(|\|[^\\/\|:<>\*\?\"]+?)\|(.*?)\|/?)\[/url:$uid\]#sie'		=> "\$this->ed2k_pass( \$bbcode_id, '\$1', '' )",
+							'#\[url=(ed2k://\|(file|server|serverlist|friend)(|\|[^\\/\|:<>\*\?\"]+?)\|(.*?)\|/?):$uid\](.*?)\[/url:$uid\]#sie'	=> "\$this->ed2k_pass( \$bbcode_id, '\$1', '\$5' )",
+// MOD : ABBC3 (V1.0.9) - End
 							'#\[url:$uid\]((.*?))\[/url:$uid\]#s'			=> $this->bbcode_tpl('url', $bbcode_id),
 							'#\[url=([^\[]+?):$uid\](.*?)\[/url:$uid\]#s'	=> $this->bbcode_tpl('url', $bbcode_id),
 						)
@@ -416,17 +415,10 @@ class bbcode
 		if (empty($bbcode_hardtpl))
 		{
 			global $user;
+// MOD : ABBC3 (V1.0.9) - Start
+			global $config;
+// MOD : ABBC3 (V1.0.9) - End
 			
-			// MOD : ABBC3 (V1.0.8) - START
-			if (!class_exists('abbcode'))
-			{
-				global $phpbb_root_path, $phpEx;
-				include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
-			}
-			$abbcode3 = new abbcode();
-			$abbcode3->abbcode_init( 'config' );
-			// MOD : ABBC3 (V1.0.8) - END
-
 			$bbcode_hardtpl = array(
 				'b_open'	=> '<span style="font-weight: bold">',
 				'b_close'	=> '</span>',
@@ -434,10 +426,10 @@ class bbcode
 				'i_close'	=> '</span>',
 				'u_open'	=> '<span style="text-decoration: underline">',
 				'u_close'	=> '</span>',
-			// MOD : ABBC3 (V1.0.8) - START
-			//	'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '" />',
-				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '"' . ( ( $abbcode3->abbcode_config['ABBC3_RESIZE'] ) ? ' onload="NcodeImageResizer.createOn(this);"' : '') . ' />',
-			// MOD : ABBC3 (V1.0.8) - END
+// MOD : ABBC3 (V1.0.9) - Start
+				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '"' . ( ( $config['ABBC3_RESIZE'] ) ? ' onload="NcodeImageResizer.createOn(this);"' : '') . ' />',
+//				'img'		=> '<img src="$1" alt="' . $user->lang['IMAGE'] . '" />',
+// MOD : ABBC3 (V1.0.9) - End
 				'size'		=> '<span style="font-size: $1%; line-height: normal">$2</span>',
 				'color'		=> '<span style="color: $1">$2</span>',
 				'email'		=> '<a href="mailto:$1">$2</a>'

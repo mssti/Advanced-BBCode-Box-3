@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB3
-* @version $Id: constants.php,v 1.86 2007/11/19 17:00:13 acydburn Exp $
+* @version $Id: constants.php 8479 2008-03-29 00:22:48Z naderman $
 * @copyright (c) 2005 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -173,7 +173,7 @@ define('FIELD_DATE', 6);
 
 
 // Additional constants
-define('VOTE_CONVERTED', 9999);
+define('VOTE_CONVERTED', 127);
 
 // Table names
 define('ACL_GROUPS_TABLE',			$table_prefix . 'acl_groups');
@@ -241,8 +241,8 @@ define('ZEBRA_TABLE',				$table_prefix . 'zebra');
 
 // Additional tables
 
-// MOD : ABBC3 (V1.0.8) Clicks Counter feature - START
+// MOD : ABBC3 (V1.0.9) Clicks Counter feature - Start
 define('CLICKS_TABLE',				$table_prefix . 'clicks');
-// MOD : ABBC3 (V1.0.8) Clicks Counter feature - END
+// MOD : ABBC3 (V1.0.9) Clicks Counter feature - End
 
 ?>

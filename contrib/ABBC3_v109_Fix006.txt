@@ -1,0 +1,229 @@
+I MADE A MISTAKE WITH FIX 1.0.9 #006
+
+	#
+    #-----[ OPEN ]-------------------------------------------------------
+    #
+    includes/abbcode.php
+    #
+    #-----[ FIND ]-------------------------------------------------------
+    #
+                // is a breack line or division ?
+                if ( substr($abbcode_name,0,11)=='ABBC3_BREAK' || substr($abbcode_name,0,14)=='ABBC3_DIVISION' )
+                {
+                   $template->assign_block_vars('abbc3_tags.linebreak', array(
+                      'S_ABBC3_BREAK'      => (substr($abbcode_name,0,11)=='ABBC3_BREAK') ? true : false,
+                      'S_ABBC3_DIVISION'   => (substr($abbcode_name,0,14)=='ABBC3_DIVISION') ? true : false,
+                   ));
+                }
+                else
+                {
+                   $template->assign_block_vars('abbc3_tags', array(
+    #
+    #-----[ REPLACE WITH ]-----------------------------------------------
+    #
+                $template->assign_block_vars('abbc3_tags', array(
+                   'S_ABBC3_BREAK'      => (substr($abbcode_name,0,11)=='ABBC3_BREAK') ? true : false,
+                   'S_ABBC3_DIVISION'   => (substr($abbcode_name,0,14)=='ABBC3_DIVISION') ? true : false,
+    #
+    #-----[ FIND ]-------------------------------------------------------
+    #
+                }
+             }
+             else
+    #
+    #-----[ REPLACE WITH ]-----------------------------------------------
+    #
+             }
+             else
+    #
+    #-----[ OPEN ]-------------------------------------------------------
+    #
+    adm/style/posting_abbcode_buttons.html
+    #
+    #-----[ FIND ]-------------------------------------------------------
+    #
+       <!-- BEGIN abbc3_tags -->
+                <img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+                
+          <!-- BEGIN linebreak -->
+             <!-- IF linebreak.S_ABBC3_DIVISION -->
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+             <!-- ENDIF -->
+             
+             <!-- IF linebreak.S_ABBC3_BREAK -->
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             </td>
+          </tr>
+       
+          <tr align="{S_CONTENT_FLOW_BEGIN}">
+             <td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             <!-- ENDIF -->
+             
+          <!-- END linebreak -->
+
+          <!-- END abbc3_tags -->
+    #
+    #-----[ REPLACE WITH ]-----------------------------------------------
+    #
+       <!-- BEGIN abbc3_tags -->
+                
+             <!-- IF abbc3_tags.S_ABBC3_BREAK -->
+                <!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW-->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             </td>
+          </tr>
+       
+          <tr align="{S_CONTENT_FLOW_BEGIN}">
+             <td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+             <!-- ELSE -->
+
+                <img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+
+             <!-- ENDIF -->
+
+       <!-- END abbc3_tags -->
+    #
+    #-----[ OPEN ]-------------------------------------------------------
+    #
+    styles/prosilver/template/posting_abbcode_buttons.html
+    #
+    #-----[ FIND ]-------------------------------------------------------
+    #
+       <!-- BEGIN abbc3_tags -->
+                <img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+                
+          <!-- BEGIN linebreak -->
+             <!-- IF linebreak.S_ABBC3_DIVISION -->
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+             <!-- ENDIF -->
+             
+             <!-- IF linebreak.S_ABBC3_BREAK -->
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             </td>
+          </tr>
+       
+          <tr align="{S_CONTENT_FLOW_BEGIN}">
+             <td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             <!-- ENDIF -->
+             
+          <!-- END linebreak -->
+
+          <!-- END abbc3_tags -->
+    #
+    #-----[ REPLACE WITH ]-----------------------------------------------
+    #
+       <!-- BEGIN abbc3_tags -->
+                
+             <!-- IF abbc3_tags.S_ABBC3_BREAK -->
+                <!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW-->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             </td>
+          </tr>
+       
+          <tr align="{S_CONTENT_FLOW_BEGIN}">
+             <td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+             <!-- ELSE -->
+
+                <img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+
+             <!-- ENDIF -->
+
+       <!-- END abbc3_tags -->
+    #
+    #-----[ OPEN ]-------------------------------------------------------
+    #
+    styles/subsilver2/template/posting_abbcode_buttons.html
+    #
+    #-----[ FIND ]-------------------------------------------------------
+    #
+       <!-- BEGIN abbc3_tags -->
+                <img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+                
+          <!-- BEGIN linebreak -->
+             <!-- IF linebreak.S_ABBC3_DIVISION -->
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+             <!-- ENDIF -->
+             
+             <!-- IF linebreak.S_ABBC3_BREAK -->
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             </td>
+          </tr>
+       
+          <tr align="{S_CONTENT_FLOW_BEGIN}">
+             <td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             <!-- ENDIF -->
+             
+          <!-- END linebreak -->
+
+          <!-- END abbc3_tags -->
+    #
+    #-----[ REPLACE WITH ]-----------------------------------------------
+    #
+       <!-- BEGIN abbc3_tags -->
+                
+             <!-- IF abbc3_tags.S_ABBC3_BREAK -->
+                <!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW-->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+                
+             </td>
+          </tr>
+       
+          <tr align="{S_CONTENT_FLOW_BEGIN}">
+             <td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+                <!-- IF S_ABBC3_TAB -->
+                <img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
+                <!-- ENDIF -->
+             <!-- ELSE -->
+
+                <img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"   class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+
+             <!-- ENDIF -->
+
+       <!-- END abbc3_tags -->
+    #
+    #-----[DIY]----------------------------------------------------------
+    #
+    After installation, make sure you purge the cache and refresh all the styles through the ACP to get everything to show up correctly.
+
+    #
+    #-----[ SAVE/CLOSE ALL FILES ]---------------------------------------
+    #
+    # EoM

@@ -1,66 +1,53 @@
 <?php
 /**
+* 
 * @package: phpBB3 :: Advanced BBCode box 3 -> acp
-* @version: $Id: acp_abbcode.php, v 1.0.8 2008/03/31 03:01:00 leviatan21 Exp $
+* @version: $Id: acp_abbcode.php, v 1.0.9 2008/05/01 05:01:00 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
-* @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
+* @license: http://opensource.org/licenses/gpl-license.php GNU Public License
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
-*
 **/
 
 /**
 * @ignore
 **/
-
 if (!defined('IN_PHPBB'))
 {
 	exit;
 }
 
-if (!class_exists('abbcode'))
-{
-	include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
-}
-
 /**
 * @package acp
 **/
-class acp_abbcodes extends abbcode
+class acp_abbcodes
 {
 	var $u_action;
 	var $u_back;
+	var $new_config;
 	var $submit;
+	var $dir;
 	
 	function main($id, $mode)
 	{
-		global $user, $db, $phpbb_root_path;
+		global $db, $user, $auth, $template, $cache;
+		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
 		
 		$user->add_lang(array('acp/styles', 'mods/acp_abbcodes', 'mods/abbcode'));
 		
+		// Set up general vars
+		$action				= request_var('action', '');
+		$bbcode_id			= request_var('bbcode_id', '');
+		
 		$this->tpl_name		= 'acp_abbcodes';
 		$this->page_title	= 'ACP_ABBCODES';
+		$form_key			= 'acp_abbcodes';
 		
-		$action				= request_var('action', '');
-		$style_id			= request_var('id', 0);
-		$bbcode				= request_var('bbcode', '');
+		add_form_key($form_key);
 		
 		$this->u_back 		= $this->u_action;
 		$this->submit		= (isset($_POST['submit'])) ? true : false;
-		
-		// Chech if ABBC3 is enabled or disabled in each styles
-		$sql = 'SELECT s.style_id, c.theme_data, c.theme_path, c.theme_name, c.theme_mtime, i.*, t.template_path
-			FROM ' . STYLES_TABLE . ' s, ' . STYLES_TEMPLATE_TABLE . ' t, ' . STYLES_THEME_TABLE . ' c, ' . STYLES_IMAGESET_TABLE . ' i
-			WHERE s.style_id = ' . $style_id . '
-				AND t.template_id = s.template_id
-				AND c.theme_id = s.theme_id
-				AND i.imageset_id = s.imageset_id';
-		$result = $db->sql_query($sql);
-		$template_row = $db->sql_fetchrow($result);
-		$db->sql_freeresult($result);
-		
-		$this->abbcode_init();
-		$this->abbcode_dir = "{$phpbb_root_path}styles/" . $template_row['template_path'] . "/imageset/abbcode";
-		$this->obtain_abbcodes_config();
+		$abbc3_root_path	= ( $phpbb_admin_path ) ? $phpbb_admin_path : $phpbb_root_path ;
+		$this->dir 			= $phpbb_root_path . $config['ABBC3_PATH'] ;
 		
 		// Execute overall actions
 		switch ($mode)
@@ -69,210 +56,237 @@ class acp_abbcodes extends abbcode
 				
 				switch ($action)
 				{
-					case 'details':
-						$this->template_details($id, $mode, $action, $style_id);
-						break;
-					
-					case 'refresh':
-						$this->template_refresh($id, $mode, $action, $style_id);
-						break;
-					
 					case 'purge_cache':
-						$this->purge_cache($id, $mode, $action, $style_id);
+						$this->purge_cache($id, $mode, $action);
 						break;
-					
-					case 'reset_config':
-						$this->bbcodes_reset($id, $mode, $action, $style_id);
-						break;
-					
-		// EX case 'bbcodes' :
-					case 'reset_abbcodes':
-						$this->bbcodes_reset($id, $mode, $action, $style_id);
-					// no break;
+				}
+				$this->abbc3_details( );
+				break;
+				
+			case 'bbcodes'	:
+				switch ($action)
+				{
 					case 'move_up':
 					case 'move_down':
+						
+						// Get current order id...
+						$sql = "SELECT bbcode_order as current_order
+							FROM " . BBCODES_TABLE . "
+							WHERE bbcode_id = $bbcode_id";
+						$result = $db->sql_query($sql);
+						
+						$current_order = (int) $db->sql_fetchfield('current_order');
+						$db->sql_freeresult($result);
+						
+						if ($current_order == 0 && $action == 'move_up')
+						{
+							break;
+						}
+						
+						// on move_down, switch position with next order_id...
+						// on move_up, switch position with previous order_id...
+						$switch_order_id = ($action == 'move_down') ? $current_order + 1 : $current_order - 1;
+						
+						$sql = "UPDATE " . BBCODES_TABLE . "
+							SET bbcode_order = $current_order
+							WHERE bbcode_order = $switch_order_id
+								AND bbcode_id <> $bbcode_id";
+						$db->sql_query($sql);
+						
+						// Only update the other entry too if the previous entry got updated
+						if ($db->sql_affectedrows())
+						{
+							$sql = "UPDATE " . BBCODES_TABLE . "
+								SET bbcode_order = $switch_order_id
+								WHERE bbcode_order = $current_order
+									AND bbcode_id = $bbcode_id";
+							$db->sql_query($sql);
+						}
+						$bbcode_id = null;
 					// no break;
-					case 'edit':
-						$this->bbcodes_edit($id, $mode, $action, $style_id, $bbcode);
-						break;
-					
 				}
-			$this->frontend('settings', array('details','edit'), array('refresh'));
-			break;
+				$this->bbcodes_edit($id, $mode, $action, $bbcode_id);
+				break;
 		}
 	}
 
 	/**
 	* Build Frontend with supplied options
 	**/
-	function frontend($mode, $options = '', $actions = '')
+	function abbc3_details( )
 	{
-		global $user, $template, $db, $config, $phpbb_root_path, $phpEx;
+		global $db, $user, $template, $phpbb_root_path, $config;
 		
-		$style_count = array();
+		$this->page_title = 'ABBCODES_SETINGS';
 		
-		// Count used style
-		$sql = 'SELECT user_style, COUNT(user_style) AS style_count
-				FROM ' . USERS_TABLE . '
-				GROUP BY user_style';
-		$result = $db->sql_query($sql);
+		$display_vars = array(
+			'title'	=> 'ABBCODES_SETINGS',
+			'lang'	=> array('mods/abbcode', 'mods/acp_abbcodes', 'acp/attachments'),
+			'vars'	=> array(
+				'legend1'				=> 'GENERAL_OPTIONS',
+				'ABBC3_MOD'				=> array('lang' => 'ABBCODES_DISABLE',			'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true),
+				'ABBC3_BG'				=> array('lang' => 'ABBCODES_BG',				'validate' => 'string',	'type' => 'custom',			'function' => 'image_select', 'params' => array($this->dir . '/images/bg', '{CONFIG_VALUE}', 'config[ABBC3_BG]', true, $this->u_action), 'explain' => true),
+				'ABBC3_TAB'				=> array('lang' => 'ABBCODES_TAB',				'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true, 'append' => '&nbsp;&nbsp;<span>[ <img src="' . $this->dir . '/images/dots.gif" alt="" /> ]</span>'),
+				'ABBC3_BOXRESIZE'		=> array('lang' => 'ABBCODES_BOXRESIZE',		'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true),
+				
+				'legend2'				=> 'CAT_IMAGES',
+				'ABBC3_RESIZE'			=> array('lang' => 'ABBCODES_RESIZE',			'validate' => 'bool', 	'type' => 'radio:yes_no',	'explain' => true),
+				'ABBC3_RESIZE_METHOD'	=> array('lang' => 'ABBCODES_RESIZE_METHOD',	'validate' => 'string',	'type' => 'custom',			'function' => 'method_select', 'params' => array('{CONFIG_VALUE}', 'config[ABBC3_RESIZE_METHOD]'), 'explain' => true),
+				'ABBC3_GREYBOX'			=> array('lang' => 'ABBCODES_GREYBOX',			'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true, 'append' => '&nbsp;&nbsp;<span>[ <a href="http://www.orangoo.com/labs/GreyBox/" target="_blank">GreyBox</a> ]</span>'),
+				
+				'ABBC3_MAX_IMG_WIDTH'	=> array('lang' => 'ABBCODES_MAX_IMAGE_SIZE',	'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' px'),
+				'ABBC3_MAX_THUM_WIDTH'	=> array('lang' => 'ABBCODES_MAX_THUMB_WIDTH',	'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' px'),
+				
+				'legend3'				=> 'ABBC3_BBVIDEO_TAG',
+				'ABBC3_VIDEO'			=> array('lang' => 'ABBCODES_VIDEO_SIZE',		'validate' => 'int',	'type' => 'dimension:3:4',	'explain' => true, 'append' => ' px'),
+				'ABBC3_VIDEO_width'		=> false,
+				'ABBC3_VIDEO_height'	=> false,
+				
+				'legend4'				=> 'ABBC3_UPLOAD_MOVER',
+				'upload_path'			=> array('lang'	=> 'UPLOAD_DIR',										'type' => 'string',			'explain' => true, 'append' => ' ' . $config['upload_path'] . '/'),
+				'ABBC3_UPLOAD_MAX_SIZE'	=> array('lang'	=> 'ATTACH_MAX_FILESIZE',		'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' ' . $user->lang['BYTES']),
+				'ABBC3_UPLOAD_EXTENSION'=> array('lang'	=> 'ABBC3_UPLOAD_EXTENSION',	'validate' => 'string',	'type' => 'textarea:5:40',	'explain' => true),
+			)
+		);
 		
-		while ($row = $db->sql_fetchrow($result))
+		if (isset($display_vars['lang']))
 		{
-			$style_count[$row['user_style']] = $row['style_count'];
+			$user->add_lang($display_vars['lang']);
 		}
-		$db->sql_freeresult($result);
 		
-		$l_prefix = strtoupper($mode);
+		$this->new_config = $config;
+		$cfg_array = (isset($_REQUEST['config'])) ? request_var('config', array('' => '')) : $this->new_config;
+		$error = array();
+		
+		// We validate the complete config if whished
+		validate_config_vars($display_vars['vars'], $cfg_array, $error);
+		
+		// Do not write values if there is an error
+		if (sizeof($error))
+		{
+			$this->submit = false;
+		}
+		
+		// We go through the display_vars to make sure no one is trying to set variables he/she is not allowed to...
+		foreach ($display_vars['vars'] as $config_name => $null)
+		{
+			if (!isset($cfg_array[$config_name]) || strpos($config_name, 'legend') !== false)
+			{
+				continue;
+			}
+			
+			$this->new_config[$config_name] = $config_value = $cfg_array[$config_name];
+			
+			if ($this->submit)
+			{
+				$this->set_config($config_name, $config_value);
+			}
+		}
+		
+		if ($this->submit)
+		{
+			add_log('admin', 'LOG_CONFIG_ABBCODES');
+			
+			if (!sizeof($error))
+			{
+				trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
+			}
+			else
+			{
+				trigger_error($user->lang['LOG_CONFIG_ABBCODES_ERROR'] . adm_back_link($this->u_action), E_USER_WARNING);
+			}
+		}
 		
 		$template->assign_vars(array(
-			'S_FRONTEND'		=> true,
-			'L_TITLE'			=> $user->lang['ACP_ABBCODES'],
-			'L_EXPLAIN'			=> $user->lang['ACP_ABBCODES_EXPLAIN'],
-			'L_NAME'			=> $user->lang['STYLE_NAME'],
-			'U_ACTION'			=> $this->u_action,
+			'S_EDIT'			=> true,
+			
+			'L_TITLE_EDIT'		=> $user->lang['ABBCODES_SETINGS'],
+			'L_TITLE_EXPLAIN'	=> $user->lang['ABBCODES_SETINGS_EXPLAIN'],
+			'ICON_BASEDIR'		=> $this->dir,
+			
+			'S_ERROR'			=> (sizeof($error)) ? true : false,
+			'ERROR_MSG'			=> implode('<br />', $error),
+			
 			'S_FOUNDER'			=> ($user->data['user_type'] == USER_FOUNDER) ? true : false,
-			'NO_FOUNDER'		=> $user->lang['NO_AUTH_OPERATION']
+			'NO_FOUNDER'		=> $user->lang['NO_AUTH_OPERATION'],
+			
+			'U_ABBC3'			=> $user->lang['ABBC3_HELP_ABOUT'],
+			'U_ACTION'			=> $this->u_action,
 		));
 		
-		$sql = 'SELECT *
-				FROM ' .STYLES_TABLE ;
-		$result = $db->sql_query($sql);
-		
-		while ($row = $db->sql_fetchrow($result))
+		// Output relevant page
+		foreach ($display_vars['vars'] as $config_key => $vars)
 		{
-			// Chech if ABBC3 is enabled or disabled in each styles
-			$oridir = $this->abbcode_dir;
-			$this->abbcode_dir = "{$phpbb_root_path}styles/" . $row['style_name'] . "/imageset/abbcode";
-			$this->obtain_abbcodes_config();
-			$stylevis = ($this->abbcode_config['ABBC3_MOD']) ? 'activated' : 'deactivated';
-			$this->abbcode_dir = $oridir;
-			
-			$s_options = array();
-			foreach ($options as $option)
+			if (!is_array($vars) && strpos($config_key, 'legend') === false)
 			{
-				$s_options[] = '<a href="' . $this->u_action . "&amp;action=$option&amp;id=" . $row['style_id'] . '">' . $user->lang[strtoupper($option)] . '</a>';
+				continue;
 			}
 			
-			$s_actions = array();
-			foreach ($actions as $option)
+			if (strpos($config_key, 'legend') !== false)
 			{
-				// get the template ID for refresh
-				if ( $option == 'refresh')
-				{
-					$sql2 = 'SELECT *
-							FROM ' . STYLES_TEMPLATE_TABLE . "
-							WHERE template_name = '" . $row['style_name'] . "'";
-					$result2 = $db->sql_query($sql2);
-					$templaterow = $db->sql_fetchrow($result2);
-					
-					$s_actions[] = '<a href="' . $this->u_action . "&amp;action=$option&amp;id=" . $templaterow['template_id'] . '">' . $user->lang[strtoupper($option)] . '</a>';
-				}
-				else
-				{
-					$s_actions[] = '<a href="' . $this->u_action . "&amp;action=$option&amp;id=" . $row['style_id'] . '">' . $user->lang[strtoupper($option)] . '</a>';					
-				}
+				$template->assign_block_vars('options', array(
+					'S_LEGEND'		=> true,
+					'LEGEND'		=> ((isset($user->lang[$vars])) ? $user->lang[$vars] : $vars ),
+				));
+				continue;
 			}
 			
-			$template->assign_block_vars('installed', array(
-				'STYLE_NAME'			=> $row['style_name'],
-				'S_DEFAULT_STYLE'		=> ($row['style_id'] == $config['default_style']) ? true : false,
-				'STYLE_COUNT'			=> (isset($style_count[$row['style_id']])) ? $style_count[$row['style_id']] : 0,
-				'L_STYLE_ACT_DEACT'		=> $user->lang['ABBCODES_' . strtoupper($stylevis)],
-				
-				'S_OPTIONS'				=> implode(' | ', $s_options),
-				'S_ACTIONS'				=> implode(' | ', $s_actions),
-				'U_PREVIEW'				=> append_sid("{$phpbb_root_path}posting.$phpEx", "style=" . $row['style_id'] . "&mode=post&f=2" ),
-			));
+			$type = explode(':', $vars['type']);
+			
+			$l_explain = '';
+			if ($vars['explain'] && isset($vars['lang_explain']))
+			{
+				$l_explain = (isset($user->lang[$vars['lang_explain']])) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
+			}
+			else if ($vars['explain'])
+			{
+				$l_explain = (isset($user->lang[$vars['lang'] . '_EXPLAIN'])) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
+			}
+			$template->assign_block_vars('options', array(
+				'KEY'			=> $config_key,
+				'TITLE'			=> (isset($user->lang[$vars['lang']])) ? $user->lang[$vars['lang']] : $vars['lang'],
+				'S_EXPLAIN'		=> $vars['explain'],
+				'TITLE_EXPLAIN'	=> $l_explain,
+				'CONTENT'		=> build_cfg_template($type, $config_key, $this->new_config, $config_key, $vars),
+				)
+			);
+			unset($display_vars['vars'][$config_key]);
 		}
-		$db->sql_freeresult($result);
 	}
 
 	/**
-	* Enter description here...
+	* Set config value. Creates missing config entry.
 	**/
-	function template_refresh($id, $mode, $action, $style_id)
+	function set_config($config_name, $config_value, $is_dynamic = true)
 	{
-		global $db, $user, $template, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+		global $db, $cache, $config;
 		
-		include('acp_styles.' . $phpEx);
+		$sql = 'UPDATE ' . CONFIG_TABLE . "
+				SET config_value = '" . $db->sql_escape($config_value) . "'
+				WHERE config_name = '" . $db->sql_escape($config_name) . "'";
+		$db->sql_query($sql);
 		
-		$user->add_lang('acp/styles');
-		
-		$acp_styles = new acp_styles('styles', 'template', 'refresh', $style_id );
-		
-		$sql = 'SELECT *
-				FROM ' . STYLES_TEMPLATE_TABLE . "
-				WHERE template_id = $style_id";
-		$result = $db->sql_query($sql);
-		$template_row = $db->sql_fetchrow($result);
-		$db->sql_freeresult($result);
-		
-		if (!$template_row)
+		if (!$db->sql_affectedrows() && !isset($config[$config_name]))
 		{
-			trigger_error($user->lang['NO_TEMPLATE'] . adm_back_link($this->u_action), E_USER_WARNING);
-		}
-		//	http://ultimarena.net/adm/index.php?i=styles&mode=template&action=refresh&id=20
-
-		if (confirm_box(true))
-		{
-			$template_refreshed = '';
-			
-			// Only refresh database if the template is stored in the database
-			if ($template_row['template_storedb'] && file_exists("{$phpbb_root_path}styles/{$template_row['template_path']}/template/"))
-			{
-				$filelist = array('' => array());
-				
-				$sql = 'SELECT template_filename, template_mtime
-						FROM ' . STYLES_TEMPLATE_DATA_TABLE . "
-						WHERE template_id = $style_id";
-				$result = $db->sql_query($sql);
-				
-				while ($row = $db->sql_fetchrow($result))
-				{
-//					if (@filemtime("{$phpbb_root_path}styles/{$template_row['template_path']}/template/" . $row['template_filename']) > $row['template_mtime'])
-//					{
-						// get folder info from the filename
-						if (($slash_pos = strrpos($row['template_filename'], '/')) === false)
-						{
-							$filelist[''][] = $row['template_filename'];
-						}
-						else
-						{
-							$filelist[substr($row['template_filename'], 0, $slash_pos + 1)][] = substr($row['template_filename'], $slash_pos + 1, strlen($row['template_filename']) - $slash_pos - 1);
-						}
-//					}
-				}
-				$db->sql_freeresult($result);
-				
-				$acp_styles->store_templates('update', $style_id, $template_row['template_path'], $filelist);
-				unset($filelist);
-				
-				$template_refreshed = $user->lang['TEMPLATE_REFRESHED'] . '<br />';
-				add_log('admin', 'LOG_TEMPLATE_REFRESHED', $template_row['template_name']);
-			}
-			
-			$acp_styles->clear_template_cache($template_row);
-			
-			trigger_error($template_refreshed . $user->lang['TEMPLATE_CACHE_CLEARED'] . adm_back_link($this->u_action));
-		}
-		else
-		{
-			confirm_box(false, ($template_row['template_storedb']) ? $user->lang['CONFIRM_TEMPLATE_REFRESH'] : $user->lang['CONFIRM_TEMPLATE_CLEAR_CACHE'], build_hidden_fields(array(
-				'i'			=> $id,
-				'mode'		=> $mode,
-				'action'	=> $action,
-				'id'		=> $style_id
-			)),'confirm_body.html', "{$phpbb_admin_path}adm/index.$phpEx?i=$id&mode=$mode" );
+			$sql = 'INSERT INTO ' . CONFIG_TABLE . ' ' . $db->sql_build_array('INSERT', array(
+					'config_name'	=> $config_name,
+					'config_value'	=> $config_value,
+					'is_dynamic'	=> ($is_dynamic) ? 1 : 0));
+			$db->sql_query($sql);
 		}
 		
-		return;
+		$config[$config_name] = $config_value;
+		
+		if (!$is_dynamic)
+		{
+			$cache->destroy('config');
+		}
 	}
 
 	/**
 	* Enter description here...
 	**/
-	function purge_cache($id, $mode, $action, $style_id)
+	function purge_cache($id, $mode, $action)
 	{
 		global $user, $auth, $phpbb_admin_path, $phpEx;
 		
@@ -300,462 +314,156 @@ class acp_abbcodes extends abbcode
 				'i'			=> $id,
 				'mode'		=> $mode,
 				'action'	=> $action,
-				'id'		=> $style_id
 			)),'confirm_body.html', "{$phpbb_admin_path}adm/index.$phpEx?i=$id&mode=$mode" );
 		}
 	}
 
 	/**
-	* Enter description here...
-	* http://www.famfamfam.com/lab/icons/silk/
+	* Show/edit bbcodes
 	**/
-	function template_details($id, $mode, $action, $style_id)
+	function bbcodes_edit($id, $mode, $action, $bbcode = '')
 	{
-		global $db, $user, $template, $phpbb_root_path, $config;
+		global $user, $db, $template, $config;
 		
-		$this->page_title = 'ABBCODES_SETINGS';
+		$user->add_lang(array('acp/posting', 'mods/acp_abbcodes', 'mods/abbcode'));
 		
-		if (!$style_id)
+		// Is this ABBC3 is disables on this style
+		if ( !$config['ABBC3_MOD'] )
 		{
-			trigger_error($user->lang['NO_IMAGESET'] . adm_back_link($this->u_action), E_USER_WARNING);
-		}
-		$sql = 'SELECT style_name, style_id
-				FROM ' . STYLES_TABLE . '
-				WHERE style_id = ' . $style_id;
-		$result = $db->sql_query($sql);
-		$template_row = $db->sql_fetchrow($result);
-		$style_name = $template_row['style_name'];
-		$db->sql_freeresult($result);
-		
-		$form_key = 'acp_abbcodes';
-		add_form_key($form_key);
-		
-		$display_vars = array(
-			'title'	=> 'ABBCODES_SETINGS',
-			'lang'	=> array('mods/acp_abbcodes', 'acp/attachments'),
-			'vars'	=> array(
-				'legend1'				=> 'GENERAL_OPTIONS',
-				'ABBC3_MOD'				=> array('lang' => 'ABBCODES_DISABLE',			'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true),
-				'ABBC3_BG'				=> array('lang' => 'ABBCODES_BG',				'validate' => 'string',	'type' => 'custom',			'function' => 'image_select', 'params' => array($this->abbcode_dir . '/images/bg', '{CONFIG_VALUE}', 'config_abbc3_bg', true, $this->u_action), 'explain' => true),
-				'config_abbc3_bg'		=> false,
-				'ABBC3_TAB'				=> array('lang' => 'ABBCODES_TAB',				'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true, 'append' => '&nbsp;&nbsp;<span>[ <img src="' . $this->abbcode_dir . '/images/dots.gif" alt="" /> ]</span>'),
-				'ABBC3_BOXRESIZE'		=> array('lang' => 'ABBCODES_BOXRESIZE',		'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true),
-				
-				'legend2'				=> 'CAT_IMAGES',
-				'ABBC3_RESIZE'			=> array('lang' => 'ABBCODES_RESIZE',			'validate' => 'bool', 	'type' => 'radio:yes_no',	'explain' => true),
-				'ABBC3_RESIZE_METHOD'	=> array('lang' => 'ABBCODES_RESIZE_METHOD',	'validate' => 'string',	'type' => 'custom',			'function' => 'method_select', 'params' => array('{CONFIG_VALUE}', 'config_abbc3_method'), 'explain' => true),
-				'ABBC3_GREYBOX'			=> array('lang' => 'ABBCODES_GREYBOX',			'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true, 'append' => '&nbsp;&nbsp;<span>[ <a href="http://www.orangoo.com/labs/GreyBox/" target="_blank">GreyBox</a> ]</span>'),
-				
-				'ABBC3_MAX_IMG_WIDTH'	=> array('lang' => 'ABBCODES_MAX_IMAGE_SIZE',	'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' px'),
-				'ABBC3_MAX_THUM_WIDTH'	=> array('lang' => 'ABBCODES_MAX_THUMB_WIDTH',	'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' px'),
-				
-				'legend3'				=> 'ABBCODES_CUSTOM_BBCODES',
-				'ABBC3_CUSTOM_BBCODES'	=> array('lang' => 'ABBCODES_CUSTOM_BBCODES',	'validate' => 'bool',	'type' => 'radio:yes_no',	'explain' => true),
-				
-				'legend4'				=> 'ABBC3_BBVIDEO_TAG',
-				'ABBC3_VIDEO'			=> array('lang' => 'ABBCODES_VIDEO_SIZE',		'validate' => 'int',	'type' => 'dimension:3:4',	'explain' => true, 'append' => ' px'),
-				'ABBC3_VIDEO_width'		=> false,
-				'ABBC3_VIDEO_height'	=> false,
-				
-				'legend5'				=> 'ABBC3_UPLOAD_MOVER',
-				'UPLOAD_DIR'			=> array('lang'	=> 'UPLOAD_DIR',										'type' => 'string',			'explain' => true, 'append' => ' ' . $config['upload_path'] . '/'),
-				'ABBC3_UPLOAD_MAX_SIZE'	=> array('lang'	=> 'ATTACH_MAX_FILESIZE',		'validate' => 'int',	'type' => 'text:7:15',		'explain' => true, 'append' => ' ' . $user->lang['BYTES']),
-				'ABBC3_UPLOAD_EXTENSION'=> array('lang'	=> 'ABBC3_UPLOAD_EXTENSION',	'validate' => 'string',	'type' => 'textarea:5:40',	'explain' => true),
-			)
-		);
-
-		if (isset($display_vars['lang']))
-		{
-			$user->add_lang($display_vars['lang']);
-		}
-
-		$this->new_config = $this->abbcode_config;
-		
-		$cfg_array = (isset($_REQUEST['config'])) ? utf8_normalize_nfc(request_var('config', array('' => ''), true)) : $this->new_config;
-		$error = array();
-		
-		// We validate the complete config if whished
-		validate_config_vars($display_vars['vars'], $cfg_array, $error);
-		
-		// Check the config path permissions
-		$this->check_permissions( $this->abbcode_dir . '/config', $this->abbcode_dir . '/config/abbc3config.txt', $error );
-		$this->check_permissions( $phpbb_root_path . $config['upload_path'], false, $error );
-				
-		if ($this->submit && !check_form_key($form_key))
-		{
-			$error[] = $user->lang['FORM_INVALID'];
-		}
-		// Do not write values if there is an error
-		if (sizeof($error))
-		{
-			$this->submit = false;
+			trigger_error($user->lang['ABBCODES_MOD_DISABLE'] . adm_back_link($this->u_action), E_USER_WARNING);
 		}
 		
-		// We go through the display_vars to make sure no one is trying to set variables he/she is not allowed to...
-		foreach ($display_vars['vars'] as $config_name => $null)
+		$img_spacer = 'spacer.gif';
+		$img_noimg  = 'no_image.png';
+		
+		if ( $this->submit && $bbcode )
 		{
-			if (!isset($cfg_array[$config_name]) || strpos($config_name, 'legend') !== false)
+			// Get items to create/modify
+			$abbcode_name		= (isset($_POST['name']))				? request_var('name', array('' => '')) : array();
+			$display_on_posting = (isset($_POST['display_on_posting']))	? request_var('display_on_posting', array('' => 0)) : array();
+			$display_on_pm		= (isset($_POST['display_on_pm']))		? request_var('display_on_pm', array('' => 0)) : array();
+			$display_on_sig		= (isset($_POST['display_on_sig']))		? request_var('display_on_sig', array('' => 0)) : array();
+			$bbcode_image		= utf8_normalize_nfc(request_var('image', array('' => ''), true));
+			
+			$bbcode_sql = array(
+				'display_on_posting'	=> (isset( $display_on_posting[$bbcode])) ? 1 : 0,
+				'display_on_pm'			=> (isset( $display_on_pm[$bbcode])) ? 1 : 0,
+				'display_on_sig'		=> (isset( $display_on_sig[$bbcode])) ? 1 : 0,
+				'bbcode_image'			=> (isset( $bbcode_image[$bbcode])) ? $bbcode_image[$bbcode] : '',
+			);
+			
+			// Fix for breack line?
+			if ( substr($abbcode_name[$bbcode],0,5) == 'break')
 			{
-				continue;
+				$bbcode_sql['bbcode_image'] = $img_spacer;
 			}
 			
-			if ($config_name == 'auth_method')
-			{
-				continue;
-			}
+			$sql = "UPDATE " . BBCODES_TABLE . "
+				SET " . $db->sql_build_array('UPDATE', $bbcode_sql) . "
+				WHERE bbcode_id = " . $bbcode;
+			$result = $db->sql_query($sql);
 			
-			if ($this->submit)
+			if ($result )
 			{
-				$abbcode_config_name[]  = $config_name;
-				$abbcode_config_value[] = $cfg_array[$config_name];
-			}
-			
-			$this->new_config[$config_name] = $config_value = $cfg_array[$config_name];
-		}
-		
-		if ($this->submit)
-		{
-			$abbcode_config_name[] = 'ABBC3_BG'				; $abbcode_config_value[] = request_var('config_abbc3_bg','');
-			$abbcode_config_name[] = 'ABBC3_RESIZE_METHOD'	; $abbcode_config_value[] = request_var('config_abbc3_method','');
-			
-			if ( $this->config_submit($abbcode_config_name, $abbcode_config_value) )
-			{
-				add_log('admin', 'LOG_CONFIG_ABBCODES');
-				
 				trigger_error($user->lang['CONFIG_UPDATED'] . adm_back_link($this->u_action));
 			}
 			else
 			{
 				trigger_error($user->lang['LOG_CONFIG_ABBCODES_ERROR'] . adm_back_link($this->u_action), E_USER_WARNING);
 			}
+			$bbcode = '';
 		}
 		
-		$this->u_action = $this->u_back . "&amp;action=$action&amp;id=$style_id";
+		$error = array();
+		
+		$sql = "SELECT abbcode, bbcode_order, bbcode_id, bbcode_tag, bbcode_helpline, bbcode_image, display_on_posting, display_on_pm, display_on_sig 
+				FROM " . BBCODES_TABLE . " 
+				ORDER BY bbcode_order";
+		$result = $db->sql_query($sql);
 		
 		$template->assign_vars(array(
-			'S_EDIT'			=> true,
+			'S_BBCODES'			=> true,
 			
-			'L_TITLE_EDIT'		=> $user->lang['ABBCODES_SETINGS'],
-			'L_TITLE_EXPLAIN'	=> $user->lang['ABBCODES_SETINGS_EXPLAIN'],
-			'ICON_BASEDIR'		=> $this->abbcode_dir,
+			'L_TITLE_BBCODES'	=> $user->lang['ABBCODES_CONFIG'],
+			'L_EXPLAIN_BBCODES'	=> $user->lang['ABBCODES_CONFIG_EXPLAIN'],
+			
+			'S_BBCODE_EDIT'		=> ( $bbcode ) ? true :false,
+			
+			'ICON_BASEDIR'		=> $this->dir,
 			
 			'S_ERROR'			=> (sizeof($error)) ? true : false,
 			'ERROR_MSG'			=> implode('<br />', $error),
 			
-			'U_RESET'			=> $this->u_action . "&amp;action=reset_config&amp;id=$style_id",
-			'U_BACK'			=> $this->u_back,
+			'U_ABBC3'			=> $user->lang['ABBC3_HELP_ABOUT'],
 			'U_ACTION'			=> $this->u_action,
+			'F_ACTION'			=> ( $bbcode ) ? $this->u_action . '&amp;mode=bbcodes&amp;action=edit&amp;bbcode_id=' . $bbcode : null,
+			'U_BACK'			=> ( $bbcode ) ? $this->u_back : null,
 		));
 		
-		// Output relevant page
-		foreach ($display_vars['vars'] as $config_key => $vars)
+		while ($row = $db->sql_fetchrow($result))
 		{
-			if (!is_array($vars) && strpos($config_key, 'legend') === false)
+			/** Some fixes **/
+			$abbcode		= $row['abbcode'];
+			$abbcode_name	= ( ($row['abbcode']) ? 'ABBC3_' : '' ) . strtoupper( str_replace('=', '', trim($row['bbcode_tag']) ) );
+			$abbcode_image	= trim($row['bbcode_image']);
+			$bbcode_id		= $row['bbcode_id'];
+			
+			// is a breack line or division ?
+			if ( ( substr($abbcode_name,0,11) == 'ABBC3_BREAK') || ( substr($abbcode_name,0,14) == 'ABBC3_DIVISION' ) )
 			{
-				continue;
-			}
-			
-			if (strpos($config_key, 'legend') !== false)
-			{
-				$template->assign_block_vars('options', array(
-					'S_LEGEND'		=> true,
-					'LEGEND'		=> ((isset($user->lang[$vars])) ? $user->lang[$vars] : $vars ) . ' [' . $style_name  .']',
-				));
-				continue;
-			}
-			
-			$type = explode(':', $vars['type']);
-			
-			$l_explain = '';
-			if ($vars['explain'] && isset($vars['lang_explain']))
-			{
-				$l_explain = (isset($user->lang[$vars['lang_explain']])) ? $user->lang[$vars['lang_explain']] : $vars['lang_explain'];
-			}
-			else if ($vars['explain'])
-			{
-				$l_explain = (isset($user->lang[$vars['lang'] . '_EXPLAIN'])) ? $user->lang[$vars['lang'] . '_EXPLAIN'] : '';
-			}
-			
-			$template->assign_block_vars('options', array(
-				'KEY'			=> $config_key,
-				'TITLE'			=> (isset($user->lang[$vars['lang']])) ? $user->lang[$vars['lang']] : $vars['lang'],
-				'S_EXPLAIN'		=> $vars['explain'],
-				'TITLE_EXPLAIN'	=> $l_explain,
-				'CONTENT'		=> build_cfg_template($type, $config_key, $this->new_config, $config_key, $vars),
-				)
-			);
-			
-			unset($display_vars['vars'][$config_key]);
-		}
-	}
-
-	/**
-	* Save ABBC3 settings
-	**/
-	function config_submit($config_name, $config_value, $is_dynamic = false)
-	{
-		if ( sizeof( $config_name ) )
-		{
-			$config_file = $this->abbcode_dir . '/config/abbc3config.txt';
-			
-			$new_line = '';
-			$error = true;
-			
-			for ($i = 0; $i < sizeof( $config_name ); $i++)
-			{
-				$new_line .= $config_name[$i] . ':' . $config_value[$i] . "\r\n";
-			}
-			
-			if ($fp = @fopen($config_file, 'w+'))
-			{
-				@flock($fp, LOCK_EX);
-				$error = fwrite($fp, $new_line);
-				@flock($fp, LOCK_UN);
-				fclose($fp);
-				@chmod($config_file, 0777);
-			}
-		}
-		return $error;
-	}
-
-	/**
-	* Show/edit bbcodes
-	**/
-	function bbcodes_edit($id, $mode, $action, $style_id, $bbcode = '')
-	{
-		global $user, $db, $template;
-		
-		$user->add_lang(array('acp/posting', 'mods/acp_abbcodes', 'mods/abbcode'));
-		
-		// Is this ABBC3 is disables on this style
-		if ( !$this->abbcode_config['ABBC3_MOD'] )
-		{
-			trigger_error($user->lang['ABBCODES_MOD_DISABLE'] . adm_back_link($this->u_action), E_USER_WARNING);
-		}
-		
-		$error = array();
-		// Check if the path is writable
-		$this->check_permissions( $this->abbcode_dir . '/config', $this->abbcode_dir . '/config/abbc3config.txt', $error );
-		
-		$sql = 'SELECT style_name, style_id
-				FROM ' . STYLES_TABLE . '
-				WHERE style_id = ' . $style_id;
-		$result = $db->sql_query($sql);
-		$template_row = $db->sql_fetchrow($result);
-		$style_name = $template_row['style_name'];
-		$db->sql_freeresult($result);
-
-		
-		if ( sizeof( $this->abbcode_ary ) )
-		{
-			// Make sure the list of bbcodes is sorted by order
-			$this->abbcode_ary = $this->sortmddata( $this->abbcode_ary, 'id', 'ASC', 'num');
-			
-			// If submit changes 
-			if ( $this->submit || ( $action == 'move_up' || $action == 'move_down' ) )
-			{
-				$this->abbcode_ary = $this->bbcodes_submit($this->abbcode_ary, $bbcode, $action);
-				$bbcode = '';
-			}
-			
-			$template->assign_vars(array(
-				'S_BBCODES'			=> true,
-				
-				'L_TITLE_BBCODES'	=> $user->lang['ABBCODES_CONFIG'],
-				'STYLE_NAME'		=> $style_name,
-				'L_EXPLAIN_BBCODES'	=> $user->lang['ABBCODES_CONFIG_EXPLAIN'],
-				
-				'S_BBCODE_EDIT'		=> ( $bbcode ) ? true :false,
-				'ICON_BASEDIR'		=> $this->abbcode_dir,
-				
-				'S_ERROR'			=> (sizeof($error)) ? true : false,
-				'ERROR_MSG'			=> implode('<br />', $error),
-
-				'U_BACK'			=> (( $bbcode ) ? $this->u_back . "&amp;action=$action&amp;id=$style_id" : $this->u_back),
-				'F_ACTION'			=> $this->u_action . "&amp;mode=$mode&amp;action=$action&amp;id=$style_id",
-				'U_RESET'			=> $this->u_action . "&amp;action=reset_abbcodes&amp;id=$style_id" ,
-			));
-			
-			$display_count = 0;
-			foreach ( $this->abbcode_ary as $abbcode_name => $abbcode_data )
-			{
-				if ( $abbcode_data['display'])
+				if ( substr($abbcode_name,0,14) == 'ABBC3_DIVISION' )
 				{
-					$display_count++;
-				}
-				$abbcode_tag_name = $abbcode_name;
-				
-				// is a breck line or division ?
-				if ( ( substr($abbcode_name,0,11) == 'ABBC3_BREAK') || ( substr($abbcode_name,0,14) == 'ABBC3_DIVISION' ) )
-				{	#	continue;
-					if ( substr($abbcode_name,0,14) == 'ABBC3_DIVISION' )
+					if ( $config['ABBC3_TAB'] )
 					{
-						if ( $this->abbcode_config['ABBC3_TAB'] )
-						{
-							$abbcode_tag_name = 'ABBCODES_DIVISION';
-						}
-						else
-						{
-							continue;
-						}
+						$abbcode_name = 'ABBCODES_DIVISION';
 					}
 					else
 					{
-							$abbcode_tag_name = 'ABBCODES_BREAK';
+						continue;
 					}
 				}
-				
-				if ( ( $bbcode && ( $abbcode_name != $bbcode) ) || ( !@$this->abbcode_ary[$abbcode_name]['id'] ) )
+				else
 				{
-					continue;
+						$abbcode_name = 'ABBCODES_BREAK';
 				}
-				
+			}
+			$no_move = array('ABBC3_FONT', 'ABBC3_SIZE', 'ABBC3_HIGHLIGHT', 'ABBC3_COLOR' );
+			
+			if ( $action != 'edit' )
+			{
 				$template->assign_block_vars('items', array(
-					'TAG_NAME'				=> &$user->lang[$abbcode_tag_name . '_MOVER'],
-					'IMG_SRC'				=> ( $bbcode ) ? (($abbcode_data['image']) ? ($abbcode_data['image'] != 'spacer.gif') ? $this->abbcode_dir . '/images/'. $abbcode_data['image'] : '' : '') : '',
-					'NAME'					=> $abbcode_name,
-					'S_NEW_IMG'				=> ( $bbcode ) ? (image_select($this->abbcode_dir . '/images', $abbcode_data['image'], 'image', false, $this->u_action)) : '',
-					'POSTING_CHECKED'		=> ( $bbcode ) ? (($abbcode_data['display']) ? ' checked="checked"' : '') : '',
-					'ID'					=> $abbcode_data['id'],
-					'L_STYLE_ACT_DEACT'		=> ($abbcode_data['display']) ? $user->lang['ENABLED'] : $user->lang['DISABLED'],
-					'U_EDIT'				=> $this->u_action . "&amp;mode=$mode&amp;action=edit&amp;id=$style_id&amp;bbcode=$abbcode_name",
-					'U_MOVE_UP'				=> $this->u_action . "&amp;mode=$mode&amp;action=move_up&amp;id=$style_id'&amp;bbcode=$abbcode_name",
-					'U_MOVE_DOWN'			=> $this->u_action . "&amp;mode=$mode&amp;action=move_down&amp;id=$style_id&amp;bbcode=$abbcode_name",
+					'ID'					=> $bbcode_id,
+					'TAG_NAME'				=> ( $abbcode ) ? '' : str_replace( '=', '', trim($row['bbcode_tag']) ),
+					'TAG_EXPLAIN'			=> @$user->lang[$abbcode_name . '_MOVER'],
+				
+					'ON_POST'				=> ($row['display_on_posting']) ? $user->lang['ENABLED'] : $user->lang['DISABLED'],
+					'ON_PM'					=> ($row['display_on_pm']) ? $user->lang['ENABLED'] : $user->lang['DISABLED'],
+					'ON_SIG'				=> ($row['display_on_sig']) ? $user->lang['ENABLED'] : $user->lang['DISABLED'],
+					
+					'S_NOMOVE'				=> ( $abbcode && $row['bbcode_order'] <  5 ) ? true : null,
+					'S_FIRST_ROW'			=> ( $abbcode && $row['bbcode_order'] <= 5 ) ? true : false,
+					
+					'U_EDIT'				=> $this->u_action . '&amp;mode=bbcodes&amp;action=edit&amp;bbcode_id=' . $row['bbcode_id'],
+					'U_MOVE_UP'				=> $this->u_action . '&amp;mode=bbcodes&amp;action=move_up&amp;bbcode_id=' . $row['bbcode_id'],
+					'U_MOVE_DOWN'			=> $this->u_action . '&amp;mode=bbcodes&amp;action=move_down&amp;bbcode_id=' . $row['bbcode_id'],
+				));
+			}
+			elseif ( $action == 'edit' && $row['bbcode_id'] == $bbcode )
+			{
+				$template->assign_block_vars('items', array(
+					'ID'					=> $bbcode_id,
+					'NAME'					=> str_replace( '=', '', trim($row['bbcode_tag']) ),
+					'TAG_NAME'				=> ( $abbcode ) ? '' : str_replace( '=', '', trim($row['bbcode_tag']) ),
+					'TAG_EXPLAIN'			=> @$user->lang[$abbcode_name . '_MOVER'],
+					
+					'IMG_SRC'				=> ($abbcode_image) ? ($abbcode_image != $img_spacer) ? $this->dir . '/images/' . $abbcode_image : '' : $this->dir . '/images/' . $img_noimg,
+					'S_NEW_IMG'				=> image_select($this->dir . '/images', $abbcode_image, 'image[' . $bbcode_id . ']', false, $this->u_action),
+					'POSTING_CHECKED'		=> ( $row['display_on_posting'] ) ? ' checked="checked"' : '',
+					'PM_CHECKED'			=> ( $row['display_on_pm'] ) ? ' checked="checked"' : '',
+					'SIG_CHECKED'			=> ( $row['display_on_sig'] ) ? ' checked="checked"' : '',
 				));
 			}
 		}
-		else
-		{
-			trigger_error($user->lang['NO_IMAGESET'] . adm_back_link($this->u_action), E_USER_WARNING);
-		}
-	}
-
-	/**
-	* Save ABBC3 bbcodes settings
-	**/
-	function bbcodes_submit( $array, $bbcode = '', $action= '' )
-	{
-		// Edit tag
-		$abbcode_name						 = ( isset($_POST['name'])				) ? request_var('name', '') : '';
-		if ( $abbcode_name )
-		{
-			$array[$abbcode_name]['image'] 	 = ( isset($_POST['image'])				) ? request_var('image', '') : '';
-			$array[$abbcode_name]['display'] = ( isset($_POST['display_on_posting'])) ? request_var('display_on_posting', '') : '';
-		}
-		
-		// on move_down, switch position with next order_id...
-		// on move_up, switch position with previous order_id...
-		if ( $bbcode && $action != '')
-		{
-			$array[$bbcode]['id']			= ( ($action == 'move_down') ? $array[$bbcode]['id'] +1 : $array[$bbcode]['id'] -1 );
-			
-			// Get current order id...
-			$current_order = $array[$bbcode]['id'];
-			
-			// Only update the other entry too if the previous entry got updated
-			foreach ( $array as $abbcode_name => $abbcode_data )
-			{
-				if( (@$abbcode_data['id'] == $current_order) && ($abbcode_name != $bbcode) )
-				{
-					$this->abbcode_ary[$abbcode_name]['id']	= ( ($action == 'move_down') ? $this->abbcode_ary[$abbcode_name]['id'] -1 : $this->abbcode_ary[$abbcode_name]['id'] +1 );
-				}
-			}
-		}
-		
-		// Save 
-		$new_line = '';
-		foreach ( $array as $name => $data )
-		{
-			if ( !@$data['id'] ) { continue; }
-			
-			$new_line .= $name . ':' . $array[$name]['id'] . ':' . (($array[$name]['display']) ? '1' : '0') . ':' . $array[$name]['image'] . ':' . ((@$array[$name]['custom']) ? '1' : '') . "\r\n";
-		}
-		
-		$abbcodes_file = $this->abbcode_dir . '/config/abbc3bbcodes.txt';
-		
-		if ($fp = @fopen($abbcodes_file, 'w+'))
-		{
-			@flock($fp, LOCK_EX);
-			fwrite($fp, $new_line);
-			@flock($fp, LOCK_UN);
-			fclose($fp);
-			@chmod($abbcodes_file, 0777);
-		}
-		return $array ;
-	}
-	
-	/**
-	* Delete ABBC3 user config
-	**/
-	function bbcodes_reset($id, $mode, $action, $style_id)
-	{
-		global $phpbb_admin_path, $phpEx, $user;
-		
-		$abbcodes_file = ( $action == 'reset_abbcodes' ) ? $this->abbcode_dir . '/config/abbc3bbcodes.txt' : $this->abbcode_dir . '/config/abbc3config.txt' ;
-		
-		if (confirm_box(true))
-		{
-			if ($fp = @unlink($abbcodes_file))
-			{
-				add_log('admin', 'LOG_RESET_ABBCODES');
-				
-				trigger_error( $user->lang['LOG_RESET_ABBCODES'] . adm_back_link($this->u_action));
-			}
-			else
-			{
-				trigger_error( $user->lang['LOG_RESET_ABBCODES_ERROR'] . adm_back_link($this->u_action), E_USER_WARNING);
-			}
-		}
-		else
-		{
-			confirm_box(false, $user->lang[strtoupper($action) . '_EXPLAIN'], build_hidden_fields(array(
-				'i'			=> $id,
-				'mode'		=> $mode,
-				'action'	=> $action,
-				'id'		=> $style_id
-			)),'confirm_body.html',  "{$phpbb_admin_path}adm/index.$phpEx?i=$id&mode=settings" );
-		}
-	}
-	
-	/**
-	* Check permissions...
-	**/
-	function check_permissions( $dir, $file, &$error )
-	{
-		global $user;
-		
-		if ( $dir )
-		{
-			// Check if the $dir exist
-			if ( !@file_exists( $dir ) )
-			{
-				$error[] = sprintf($user->lang['DIRECTORY_DOES_NOT_EXIST'], $dir );
-				return false;
-			}
-			// Check if the $dir is a dir
-			if ( file_exists( $dir ) && !@is_dir( $dir ) )
-			{
-				$error[] = sprintf($user->lang['DIRECTORY_NOT_DIR'], $dir );
-				return false;
-			}
-			// Check if the $dir is writable
-			if ( !@is_writable( $dir ) )
-			{
-				$error[] = sprintf($user->lang['DIRECTORY_NOT_WRITABLE'], $dir);
-				return false;
-			}
-		}
-		
-		if ( $file )
-		{
-			// Check if the $file is writable
-			if ( @file_exists( $file ) && !@is_writable( $file ) )
-			{
-				$error[] = sprintf($user->lang['DIRECTORY_NOT_WRITABLE'], $file);
-				return false;
-			}
-		}
-		return true;
 	}
 }
 
@@ -764,7 +472,7 @@ class acp_abbcodes extends abbcode
 	**/
 	function image_select($dir, $current, $name, $show = false, $u_action)
 	{
-		global $user;
+		global $user, $config, $phpbb_admin_path, $phpbb_root_path, $phpEx;
 		
 		// Read the folder and get images
 		$dp = @opendir($dir);
@@ -786,7 +494,7 @@ class acp_abbcodes extends abbcode
 		{
 			trigger_error($user->lang['NO_IMAGESET'] . adm_back_link($u_action), E_USER_WARNING);
 		}
-
+		
 		if (sizeof( $imagesetlist ))
 		{
 			// Make sure the list of possible images is sorted alphabetically

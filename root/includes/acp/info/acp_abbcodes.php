@@ -17,11 +17,11 @@ class acp_abbcodes_info
 	{
 		return array(
 			'filename'	=> 'acp_abbcodes',
-			'title'		=> 'ACP_CAT_ABBCODES',
+			'title'		=> 'ACP_ABBCODES',
 			'version'	=> '1.0.8',
 			'modes'		=> array(
-				'settings'	=> array('title' => 'ACP_ABBC3_SETTINGS',	'auth' => 'acl_a_styles', 'cat' => array('ACP_CAT_ABBCODES')),
-			#	'bbcodes'	=> array('title' => 'ACP_ABBC3_COMPONENTS', 'auth' => 'acl_a_bbcode', 'cat' => array('ACP_CAT_ABBCODES')),
+				'settings'	=> array('title' => 'ACP_ABBC3_SETTINGS', 'auth' => 'acl_a_styles', 'cat' => array('ACP_ABBCODES')),
+				'bbcodes'	=> array('title' => 'ACP_ABBC3_BBCODES' , 'auth' => 'acl_a_bbcode', 'cat' => array('ACP_ABBCODES')),
 			),
 		);
 	}

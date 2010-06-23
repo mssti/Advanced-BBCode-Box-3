@@ -1,4 +1,4 @@
-<!-- // MOD : ABBC3 (V1.0.8) - START -->
+<!-- // MOD : ABBC3 (V1.0.9) - START -->
 
 <script type="text/javascript">
 // <![CDATA[
@@ -9,13 +9,13 @@
 var help_line2 = {
 
 <!-- BEGIN abbc3_tags -->
-	{abbc3_tags.TAG_NAME} : "{abbc3_tags.TAG_MOVER}" + " : {abbc3_tags.TAG_TIP}" + '\n' + "{abbc3_tags.TAG_NOTE}" + ( ("{abbc3_tags.TAG_EXAMPLE}") ? "{L_ABBC3_EXAMPLE}:{abbc3_tags.TAG_EXAMPLE}" :"" ),
+	{abbc3_tags.TAG_NAME} : "{abbc3_tags.TAG_MOVER}" + " : {abbc3_tags.TAG_TIP}" + '\n' + "{abbc3_tags.TAG_NOTE}" + ( ("{abbc3_tags.TAG_EXAMPLE}") ? "{L_ABBC3_EXAMPLE} : {abbc3_tags.TAG_EXAMPLE}" :"" ),
 <!-- END abbc3_tags -->
 	
-	abbc3_fonttype  : "{L_ABBC3_FONTTYPE_MOVER}"  + "{L_ABBC3_FONTTYPE_TIP}"  + '\n' + "{L_ABBC3_FONTTYPE_NOTE}" ,
-	abbc3_fontsize  : "{L_ABBC3_FONTSIZE_MOVER}"  + "{L_ABBC3_FONTSIZE_TIP}"  + '\n' + "{L_ABBC3_FONTSIZE_NOTE}" ,
-	abbc3_fonthili  : "{L_ABBC3_FONTHILI_MOVER}"  + "{L_ABBC3_FONTHILI_TIP}"  + '\n' + "{L_ABBC3_FONTHILI_NOTE}" ,
-	abbc3_fontcolor : "{L_ABBC3_FONTCOLOR_MOVER}" + "{L_ABBC3_FONTCOLOR_TIP}" + '\n' + "{L_ABBC3_FONTCOLOR_NOTE}" ,
+	abbc3_font  : "{L_ABBC3_FONT_MOVER}"  + "{L_ABBC3_FONT_TIP}"  + '\n' + "{L_ABBC3_FONT_NOTE}" ,
+	abbc3_size  : "{L_ABBC3_SIZE_MOVER}"  + "{L_ABBC3_SIZE_TIP}"  + '\n' + "{L_ABBC3_SIZE_NOTE}" ,
+	abbc3_highlight : "{L_ABBC3_HIGHLIGHT_MOVER}"  + "{L_ABBC3_HIGHLIGHT_TIP}"  + '\n' + "{L_ABBC3_HIGHLIGHT_NOTE}" ,
+	abbc3_color : "{L_ABBC3_COLOR_MOVER}" + "{L_ABBC3_COLOR_TIP}" + '\n' + "{L_ABBC3_COLOR_NOTE}" ,
 
 	abbc3_tip		:	"{L_BBCODE_STYLES_TIP}"
 }
@@ -39,7 +39,7 @@ function helpline2( help )
 * Main function
 **/
 
-/** Get client info	**/
+/** Get client info **/
 var clientPC = navigator.userAgent.toLowerCase();
 
 /** Get browser version	**/
@@ -108,16 +108,16 @@ function bbstyle2( bbcode, ftvalue )
 
 	switch ( bbcode )
 	{
-		case "abbc3_justify" :
+		case "abbc3_alignjustify" :
 			bbfontstyle( "[align=justify]", "[/align]" );
 			break;
-		case "abbc3_right":
+		case "abbc3_alignright":
 			bbfontstyle( "[align=right]", "[/align]" );
 			break;
-		case "abbc3_center" :
+		case "abbc3_aligncenter" :
 			bbfontstyle( "[align=center]", "[/align]" );
 			break;
-		case "abbc3_left" :
+		case "abbc3_alignleft" :
 			bbfontstyle( "[align=left]", "[/align]" );
 			break;
 		case "abbc3_sup" :
@@ -126,16 +126,16 @@ function bbstyle2( bbcode, ftvalue )
 		case "abbc3_sub" :
 			bbfontstyle( "[sub]", "[/sub]" );
 			break;
-		case "abbc3_bold" :
+		case "abbc3_b" :
 			bbfontstyle( "[b]", "[/b]" );
 			break;
-		case "abbc3_italic" :
+		case "abbc3_i" :
 			bbfontstyle( "[i]", "[/i]" );
 			break;
-		case "abbc3_underline" :
+		case "abbc3_u" :
 			bbfontstyle( "[u]", "[/u]" );
 			break;
-		case "abbc3_strike" :
+		case "abbc3_s" :
 			bbfontstyle( "[s]", "[/s]" );
 			break;
 		case "abbc3_pre" :
@@ -147,22 +147,22 @@ function bbstyle2( bbcode, ftvalue )
 		case "abbc3_fade" :
 			bbfontstyle( "[fade]", "[/fade]" );
 			break;
-		case "abbc3_rtl" :
+		case "abbc3_dirrtl" :
 			bbfontstyle( "[dir=rtl]", "[/dir]" );
 			break;
-		case "abbc3_ltr" :
+		case "abbc3_dirltr" :
 			bbfontstyle( "[dir=ltr]", "[/dir]" );
 			break;
-		case "abbc3_marqd" :
+		case "abbc3_marqdown" :
 			bbfontstyle( "[marq=down]", "[/marq]" );
 			break;
-		case "abbc3_marqu" :
+		case "abbc3_marqup" :
 			bbfontstyle( "[marq=up]", "[/marq]" );
 			break;
-		case "abbc3_marql" :
+		case "abbc3_marqleft" :
 			bbfontstyle( "[marq=left]", "[/marq]" );
 			break;
-		case "abbc3_marqr" :
+		case "abbc3_marqright" :
 			bbfontstyle( "[marq=right]", "[/marq]" );
 			break;
 		case "abbc3_code" :
@@ -190,7 +190,60 @@ function bbstyle2( bbcode, ftvalue )
 			GB_myShow ( bbcode, 'http://imageshack.us/', 300, 650, true )
 			break;
 
-/** This bbcodes needs wizard - START **/	
+/** Custom bbcodes - Start **/
+
+		case "abbc3_hide" :
+			bbfontstyle( "[hide]", "[/hide]" );
+			break;
+		case "abbc3_mod" :
+			bbfontstyle( "[mod=\"{S_POST_AUTHOR}\"]", "[/mod]" );
+			break;
+		case "abbc3_offtopic" :
+			bbfontstyle( "[offtopic]", "[/offtopic]" );
+			break;
+		case "abbc3_dmotion" :
+			bbfontstyle( "[dm]", "[/dm]" );
+			break;
+		case "abbc3_gamespot" :
+			bbfontstyle( "[gamespot]", "[/gamespot]" );
+			break;
+		case "abbc3_gametrailers" :
+			bbfontstyle( "[gametrailers]", "[/gametrailers]" );
+			break;
+		case "abbc3_ignvideo" :
+			bbfontstyle( "[ignvideo]", "[/ignvideo]" );
+			break;
+		case "abbc3_putfile" :
+			bbfontstyle( "[Putfile]", "[/Putfile]" );
+			break;
+		case "abbc3_liveleak" :
+			bbfontstyle( "[liveleak]", "[/liveleak]" );
+			break;
+		case "abbc3_nfo" :
+			bbfontstyle( "[nfo]", "[/nfo]" );
+			break;
+		case "abbc3_glow" :
+			bbfontstyle( "[glow=red]", "[/glow]" );
+			break;
+		case "abbc3_shadow" :
+			bbfontstyle( "[shadow=blue]", "[/shadow]" );
+			break;
+		case "abbc3_dropshadow" :
+			bbfontstyle( "[dropshadow=blue]", "[/dropshadow]" );
+			break;
+		case "abbc3_blur" :
+			bbfontstyle( "[blur=blue]", "[/blur]" );
+			break;
+		case "abbc3_wave" :
+			bbfontstyle( "[wave=blue]", "[/wave]" );
+			break;
+		case "abbc3_search" :
+			bbfontstyle( "[search]", "[/search]" );
+			break;
+			
+/** Custom bbcodes - End **/
+		
+/** This bbcodes needs wizard - Start **/
 		case "abbc3_url" :
 		case "abbc3_ed2k" :
 		case "abbc3_email" :
@@ -201,24 +254,29 @@ function bbstyle2( bbcode, ftvalue )
 		case "abbc3_rapidshare" :
 		case "abbc3_testlink" :
 		case "abbc3_click" :
-		case "abbc3_bbvideo" :
 		case "abbc3_table" :
-		
+		case "deezer" :
+		/** This bbcodes needs extra data **/
+		case "abbc3_bbvideo" :
 		case "abbc3_flash" :
 		case "abbc3_flv" :
-		case "abbc3_veoh" :
-		case "abbc3_college" :
 		case "abbc3_video" :
-		case "abbc3_stream" :
 		case "abbc3_quicktime" :
 		case "abbc3_ram" :
+		/** Web videos bbcodes **/
+		case "abbc3_stream" :
 		case "abbc3_stage6" :
+		case "abbc3_veoh" :
+		case "abbc3_college" :
 		case "abbc3_gvideo" :
 		case "abbc3_youtube" :
-
-		/** Extra Custom bbcodes **/
-
+		/** Gradient needs his own function **/
 		case "abbc3_grad" :
+		
+		/** Extra Custom bbcodes - Start **/
+
+		/** Extra Custom bbcodes - End **/
+		
 			if ( bbcode == "abbc3_grad")
 			{
 				if ( !oSelectLength )
@@ -237,14 +295,23 @@ function bbstyle2( bbcode, ftvalue )
 			{
 				if ( oSelectLength )
 				{
+					bbcode_extra = ( bbcode == 'abbc3_bbvideo' 
+								  || bbcode == 'abbc3_flash' 
+								  || bbcode == 'abbc3_flv'
+								  || bbcode == 'abbc3_video'
+								  || bbcode == 'abbc3_quicktime'
+								  || bbcode == 'abbc3_ram'
+								  )	? ' {S_ABBC3_VIDEO_width},{S_ABBC3_VIDEO_height}' : ( bbcode == 'abbc3_web') ? ' 100%,100' : '';
+					
+					
 					bbcode = bbcode.replace( "abbc3_" , "");
-					bbfontstyle( '[' + bbcode + ']', '[/' + bbcode + ']', '');
+					bbfontstyle( '[' + bbcode + bbcode_extra + ']', '[/' + bbcode + ']', '');
 					return ;
 				}
 			}
-			GB_myShow ( bbcode, '../../../../.{S_ABBC3_WIZARD_PAGE}&abbc3=' + bbcode + '&caret=' + atcaret_pos + '&form_name=' + form_name + '&text_name=' + text_name, 300, 680, true )
+			GB_myShow ( bbcode, '../../../{S_ABBC3_WIZARD_PAGE}&abbc3=' + bbcode + '&caret=' + atcaret_pos + '&form_name=' + form_name + '&text_name=' + text_name, 300, 680, true )
 			break;
-/** This bbcodes needs wizard - END **/
+/** This bbcodes needs wizard - End **/
 
 		case "abbc3_plain" :
 			if ( oSelectLength )
@@ -309,60 +376,10 @@ function bbstyle2( bbcode, ftvalue )
 				alert ( "{L_ABBC3_PASTE_ERROR}" );
 			}
 			break;
-					
-		/** Custom bbcodes **/
-		
-		case "abbc3_hide" :
-			bbfontstyle( "[hide]", "[/hide]" );
-			break;
-		case "abbc3_moderator" :
-			bbfontstyle( "[mod=\"{S_POST_AUTHOR}\"]", "[/mod]" );
-			break;
-		case "abbc3_offtopic" :
-			bbfontstyle( "[offtopic]", "[/offtopic]" );
-			break;
-		case "abbc3_dmotion" :
-			bbfontstyle( "[dm]", "[/dm]" );
-			break;
-		case "abbc3_gamespot" :
-			bbfontstyle( "[gamespot]", "[/gamespot]" );
-			break;
-		case "abbc3_gametrailers" :
-			bbfontstyle( "[gametrailers]", "[/gametrailers]" );
-			break;
-		case "abbc3_ignvideo" :
-			bbfontstyle( "[ignvideo]", "[/ignvideo]" );
-			break;
-		case "abbc3_putfile" :
-			bbfontstyle( "[Putfile]", "[/Putfile]" );
-			break;
-		case "abbc3_liveleak" :
-			bbfontstyle( "[liveleak]", "[/liveleak]" );
-			break;
-		case "abbc3_nfo" :
-			bbfontstyle( "[nfo]", "[/nfo]" );
-			break;
-		case "abbc3_glow" :
-			bbfontstyle( "[glow=red]", "[/glow]" );
-			break;
-		case "abbc3_shadow" :
-			bbfontstyle( "[shadow=blue]", "[/shadow]" );
-			break;
-		case "abbc3_dropshadow" :
-			bbfontstyle( "[dropshadow=blue]", "[/dropshadow]" );
-			break;
-		case "abbc3_blur" :
-			bbfontstyle( "[blur=blue]", "[/blur]" );
-			break;
-		case "abbc3_wave" :
-			bbfontstyle( "[wave=blue]", "[/wave]" );
-			break;
-		case "abbc3_search" :
-			bbfontstyle( "[search]", "[/search]" );
-			break;
 
+/** Else should be a phpbb3 custom bbcode from ACP, so let´s phpbb3 take care of it **/
 		default :
-			alert ("{L_ABBC3_ERROR_TAG}"+bbcode);
+			bbfontstyle( "["+bbcode+"]", "[/"+bbcode+"]" );
 			break;
 	}
 	oSelectRange = false;
@@ -372,7 +389,7 @@ function bbstyle2( bbcode, ftvalue )
 
 /**
 * Dropdown Color pallette for highlight text & font text
-*/
+**/
 function ABBCcolorPalette( bbcode )
 {
 	var r = 4, g = 4, b = 4;
@@ -392,7 +409,7 @@ function ABBCcolorPalette( bbcode )
 			for ( b = 4; b > -1; b-- )
 			{
 				color = String(numberList[r]) + String(numberList[g]) + String(numberList[b]);
-				if ( bbcode == 'abbc3_fontcolor')
+				if ( bbcode == 'abbc3_color')
 				{
 					document.write( '<option style="color:#' + color + '" value="' + color + '" >#' + color + '</option>' );
 				}
@@ -410,25 +427,25 @@ function ABBCcolorPalette( bbcode )
 
 	<table id="abbc3posttable" width="100%" border="1" cellspacing="0" cellpadding="0">
 		<tr align="{S_CONTENT_FLOW_BEGIN}">
-			<td <!-- IF S_ABBC3_BG -->style='background: url("{T_IMAGESET_PATH}/abbcode/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
 				<span class="abbc3_link">
-					<a href="{S_ABBC3_HELP_PAGE}"          rel="external" onclick="externalLinks(this);" title="{L_ABBC3_HELP_TITLE}" ><img src="{T_IMAGESET_PATH}/abbcode/images/help.gif" alt="{L_ABBC3_HELP_TITLE}" title="{L_ABBC3_HELP_TITLE}" /></a>
-					<a href="http://www.mssti.com/phpbb3/" rel="external" onclick="externalLinks(this);" title="{L_ABBC3_HELP_ALT}"   ><img src="{T_IMAGESET_PATH}/abbcode/images/info.gif" alt="{L_ABBC3_HELP_ALT}"   title="{L_ABBC3_HELP_ALT}"   /></a>
+					<a href="{S_ABBC3_HELP_PAGE}"          rel="external" onclick="externalLinks(this);" title="{L_ABBC3_HELP_TITLE}" ><img src="{S_ABBC3_PATH}/images/help.gif" alt="{L_ABBC3_HELP_TITLE}" title="{L_ABBC3_HELP_TITLE}" /></a>
+					<a href="http://www.mssti.com/phpbb3/" rel="external" onclick="externalLinks(this);" title="{L_ABBC3_HELP_ALT}"   ><img src="{S_ABBC3_PATH}/images/info.gif" alt="{L_ABBC3_HELP_ALT}"   title="{L_ABBC3_HELP_ALT}"   /></a>
 				</span>
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 
 			<!-- IF S_ABBC3_BOXRESIZE -->
 				<input type="button" value=" + " class="button1" onclick="textbox_resize(10,text_name);" />&nbsp;<input type="button" value=" - " class="button1" onclick="textbox_resize(-10,text_name);" />
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 			<!-- ENDIF -->
 			
-			<!-- IF S_ABBC3_FONTTYPE -->
-				<select id="abbc3_fonttype" name="abbc3_fonttype" onchange="bbfontstyle('[font=' + this.form.abbc3_fonttype.options[this.form.abbc3_fonttype.selectedIndex].value + ']', '[/font]'); this.form.abbc3_fonttype.selectedIndex = 0" onmouseover="helpline2('abbc3_fonttype')" onmouseout="helpline2()" title="{L_ABBC3_FONTTYPE_MOVER}">
-					<option selected="selected" >- {L_ABBC3_FONTTYPE_MOVER} -</option>
+			<!-- IF S_ABBC3_FONT -->
+				<select id="abbc3_font" name="abbc3_font" onchange="bbfontstyle('[font=' + this.form.abbc3_font.options[this.form.abbc3_font.selectedIndex].value + ']', '[/font]'); this.form.abbc3_font.selectedIndex = 0" onmouseover="helpline2('abbc3_font')" onmouseout="helpline2()" title="{L_ABBC3_FONT_MOVER}">
+					<option selected="selected" >- {L_ABBC3_FONT_MOVER} -</option>
 					<optgroup label="- ABBC Box 3 -">
 						<option style="font-family: Bradley Hand ITC;"		value="Bradley Hand ITC" >Bradley Hand ITC</option>
 						<option style="font-family: Century Gothic;"		value="Century Gothic" >Century Gothic</option>
@@ -467,13 +484,13 @@ function ABBCcolorPalette( bbcode )
 					</optgroup>
 				</select>
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 			<!-- ENDIF -->
 
-			<!-- IF S_ABBC3_FONTSIZE -->
-				<select id="abbc3_fontsize" name="abbc3_fontsize" style="width:100px;" onchange="bbfontstyle('[size=' + this.form.abbc3_fontsize.options[this.form.abbc3_fontsize.selectedIndex].value + ']', '[/size]'); this.form.abbc3_fontsize.selectedIndex = 0;" onmouseover="helpline2('abbc3_fontsize')" onmouseout="helpline2()" title="{L_ABBC3_FONTSIZE_MOVER}">
-					<option selected="selected" >- {L_ABBC3_FONTSIZE_MOVER} -</option>
+			<!-- IF S_ABBC3_SIZE -->
+				<select id="abbc3_size" name="abbc3_size" onchange="bbfontstyle('[size=' + this.form.abbc3_size.options[this.form.abbc3_size.selectedIndex].value + ']', '[/size]'); this.form.abbc3_size.selectedIndex = 0;" onmouseover="helpline2('abbc3_size')" onmouseout="helpline2()" title="{L_ABBC3_SIZE_MOVER}">
+					<option selected="selected" >- {L_ABBC3_SIZE_MOVER} -</option>
 					<option style="font-size:50%"	value="50">{L_FONT_TINY}</option>
 					<option style="font-size:85%"	value="85">{L_FONT_SMALL}</option>
 					<option style="font-size:100%"	value="100">{L_FONT_NORMAL}</option>
@@ -482,30 +499,30 @@ function ABBCcolorPalette( bbcode )
 					<option style="font-size:300%"	value="300">{L_ABBC3_FONT_GIANT}</option>
 				</select>
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 			<!-- ENDIF -->
 
-			<!-- IF S_ABBC3_FONTHILI -->
-				<select id="abbc3_fonthili" name="abbc3_fonthili" onchange="bbfontstyle('[highlight=#' + this.form.abbc3_fonthili.options[this.form.abbc3_fonthili.selectedIndex].value + ']', '[/highlight]'); this.form.abbc3_fonthili.selectedIndex = 0;" onmouseover="helpline2('abbc3_fonthili')" onmouseout="helpline2()" title="{L_ABBC3_FONTHILI_MOVER}">
-					<option selected="selected" >- {L_ABBC3_FONTHILI_MOVER}- </option>
+			<!-- IF S_ABBC3_HIGHLIGHT -->
+				<select id="abbc3_highlight" name="abbc3_highlight" onchange="bbfontstyle('[highlight=#' + this.form.abbc3_highlight.options[this.form.abbc3_highlight.selectedIndex].value + ']', '[/highlight]'); this.form.abbc3_highlight.selectedIndex = 0;" onmouseover="helpline2('abbc3_highlight')" onmouseout="helpline2()" title="{L_ABBC3_HIGHLIGHT_MOVER}">
+					<option selected="selected" >- {L_ABBC3_HIGHLIGHT_MOVER}- </option>
 					<script type="text/javascript">
 					// <![CDATA[
-						ABBCcolorPalette('abbc3_fonthili');
+						ABBCcolorPalette('abbc3_highlight');
 					// ]]>
 					</script>
 				</select>
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 			<!-- ENDIF -->
 			
-			<!-- IF S_ABBC3_FONTCOLOR -->
-				<select id="abbc3_fontcolor" name="abbc3_fontcolor" onchange="bbfontstyle('[color=#' + this.form.abbc3_fontcolor.options[this.form.abbc3_fontcolor.selectedIndex].value + ']', '[/color]'); this.form.abbc3_fontcolor.selectedIndex = 0;" onmouseover="helpline2('abbc3_fontcolor')" onmouseout="helpline2()" title="{L_ABBC3_FONTCOLOR_MOVER}">
-					<option selected="selected" >- {L_ABBC3_FONTCOLOR_MOVER}- </option>
+			<!-- IF S_ABBC3_COLOR -->
+				<select id="abbc3_color" name="abbc3_color" onchange="bbfontstyle('[color=#' + this.form.abbc3_color.options[this.form.abbc3_color.selectedIndex].value + ']', '[/color]'); this.form.abbc3_color.selectedIndex = 0;" onmouseover="helpline2('abbc3_color')" onmouseout="helpline2()" title="{L_ABBC3_COLOR_MOVER}">
+					<option selected="selected" >- {L_ABBC3_COLOR_MOVER}- </option>
 					<script type="text/javascript">
 					// <![CDATA[
-						ABBCcolorPalette('abbc3_fontcolor');
+						ABBCcolorPalette('abbc3_color');
 					// ]]>
 					</script>
 				</select>
@@ -514,41 +531,35 @@ function ABBCcolorPalette( bbcode )
 			<!-- ENDIF -->
 			
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 
-	<!-- BEGIN abbc3_tags -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/{abbc3_tags.TAG_SRC}"	class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
 				
-		<!-- BEGIN linebreak -->
-			<!-- IF linebreak.S_ABBC3_DIVISION -->
-				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
-				<!-- ENDIF -->
-			<!-- ENDIF -->
-			
-			<!-- IF linebreak.S_ABBC3_BREAK -->
-				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+	<!-- BEGIN abbc3_tags -->
+				
+			<!-- IF abbc3_tags.S_ABBC3_BREAK -->
+				<!-- IF S_ABBC3_TAB and not abbc3_tags.S_FIRST_ROW-->
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 				
 			</td>
 		</tr>
 	
 		<tr align="{S_CONTENT_FLOW_BEGIN}">
-			<td <!-- IF S_ABBC3_BG -->style='background: url("{T_IMAGESET_PATH}/abbcode/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
-				
-			<!-- ENDIF -->
-			
-		<!-- END linebreak -->
+			<!-- ELSE -->
 
-		<!-- END abbc3_tags -->
-		
+				<img src="{S_ABBC3_PATH}/images/{abbc3_tags.TAG_SRC}"	class="btnbbcode3 editor_Button" onclick="bbstyle2('{abbc3_tags.TAG_NAME}')" onmouseover="helpline2('{abbc3_tags.TAG_NAME}')" onmouseout="helpline2()" alt="{abbc3_tags.TAG_MOVER}" title="{abbc3_tags.TAG_MOVER}" id="{abbc3_tags.TAG_NAME}" />
+
+			<!-- ENDIF -->
+
+	<!-- END abbc3_tags -->
+
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 		
 			</td>
@@ -556,9 +567,9 @@ function ABBCcolorPalette( bbcode )
 					
 		<!-- IF .custom_tags -->		
 		<tr align="{S_CONTENT_FLOW_BEGIN}">
-			<td <!-- IF S_ABBC3_BG -->style='background: url("{T_IMAGESET_PATH}/abbcode/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
+			<td <!-- IF S_ABBC3_BG -->style='background: url("{S_ABBC3_PATH}/images/bg/{S_ABBC3_BG}");'<!-- ELSE -->class="cat bg3<!-- ENDIF --> valign="middle" colspan="2">
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 				
 				<!-- BEGIN custom_tags -->
@@ -566,7 +577,7 @@ function ABBCcolorPalette( bbcode )
 				<!-- END custom_tags -->
 				
 				<!-- IF S_ABBC3_TAB -->
-				<img src="{T_IMAGESET_PATH}/abbcode/images/dots.gif" alt="" class="btnbbcode3 dot" />
+				<img src="{S_ABBC3_PATH}/images/dots.gif" alt="" class="btnbbcode3 dot" />
 				<!-- ENDIF -->
 			</td>
 		</tr>
@@ -580,4 +591,4 @@ function ABBCcolorPalette( bbcode )
 		
 	</table>
 
-<!-- // MOD : ABBC3 (V1.0.8) - END -->
+<!-- // MOD : ABBC3 (V1.0.9) - END -->

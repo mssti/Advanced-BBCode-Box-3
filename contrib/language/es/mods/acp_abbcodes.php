@@ -1,7 +1,7 @@
 <?php
 /**
 * @package: phpBB3 :: Advanced BBCode box 3 -> language [sp][Spanish]
-* @version: $Id: acp_abbcode.php, v 1.0.8 2008/03/31 03:01:00 leviatan21 Exp $
+* @version: $Id: acp_abbcode.php, v 1.0.8 2008/05/01 05:01:00 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
@@ -78,10 +78,10 @@ $lang = array_merge($lang, array(
 	'ABBCODES_TAG'						=> 'Imagen de etiqueta',
 	'ABBCODES_ORDER'					=> 'Orden de etiqueta',
 	'RESET_TO_DEFAULT'					=> 'Restablecer configuración básica',
-	'ABBCODES_BREAK_MOVER'				=> '<strong>Salto de línea</strong>',
-	'ABBCODES_DIVISION_MOVER'			=> '<strong>División</strong>',
+	'ABBCODES_BREAK_MOVER'				=> '<strong><i>Salto de línea</i></strong>',
+	'ABBCODES_DIVISION_MOVER'			=> '<strong><i>División</i></strong>',
 	
-	'ABBCODES_MOD_DISABLE'				=> '<strong>ABBC3</strong> está desabilitado para este estilo.<br/>',
+	'ABBCODES_MOD_DISABLE'				=> '<strong>Advanced BBcodes Box 3</strong> está desabilitado para este estilo.<br/>',
 	'ABBCODES_STATUS'					=> 'estado',
 	'ABBCODES_ACTIVATED'				=> 'activado',
 	'ABBCODES_DEACTIVATED'				=> 'deactivado',

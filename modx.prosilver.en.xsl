@@ -437,7 +437,7 @@ div.codebox pre {
 	overflow: auto;
 	display: block;
 	height: auto;
-	max-height: 200px;
+	max-height: 400px;
 	/*white-space: normal;*/
 	padding-top: 5px;
 	font: 0.9em Monaco, "Andale Mono","Courier New", Courier, mono;
@@ -1198,7 +1198,7 @@ function mod_doKeyPress(e)
 						</xsl:for-each>
 					</dl>
 				</xsl:if>
-				<xsl:if test="count(mod:title) = 1"><p lang="{@lang}" style='white-space:pre;'><xsl:value-of select="mod:title" /></p></xsl:if>
+				<xsl:if test="count(mod:title) = 1"><p lang="{@lang}" style='white-space:pre;color:#ff0000;font-size: 1.85em;'><xsl:value-of select="mod:title" /></p></xsl:if>
           <span class="corners-bottom"><span></span></span>
         </div>
       </dd>

@@ -1,7 +1,7 @@
 <?php
 /**
 * @package: phpBB3 :: Advanced BBCode box 3 -> language [de][German]
-* @version: $Id: acp_abbcode.php, v 1.0.8 2008/03/31 03:01:00 leviatan21 Exp $
+* @version: $Id: acp_abbcode.php, v 1.0.9 2008/05/01 05:01:00 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
@@ -78,10 +78,10 @@ $lang = array_merge($lang, array(
 	'ABBCODES_TAG'						=> 'Tag Bild icon',
 	'ABBCODES_ORDER'					=> 'Tag Reihenfolge',
 	'RESET_TO_DEFAULT'					=> 'Zurücksetzen',
-	'ABBCODES_BREAK_MOVER'				=> '<strong>Zeilenumbruch</strong>',
-	'ABBCODES_DIVISION_MOVER'			=> '<strong>Teilung</strong>',
+	'ABBCODES_BREAK_MOVER'				=> '<strong><i>Zeilenumbruch</i></strong>',
+	'ABBCODES_DIVISION_MOVER'			=> '<strong><i>Teilung</i></strong>',
 	
-	'ABBCODES_MOD_DISABLE'				=> '<strong>ABBC3</strong> ist ausgeschaltet bei diesem Stil.<br/>',
+	'ABBCODES_MOD_DISABLE'				=> '<strong>Advanced BBcodes Box 3</strong> ist ausgeschaltet bei diesem Stil.<br/>',
 	'ABBCODES_STATUS'					=> 'Status',
 	'ABBCODES_ACTIVATED'				=> 'Eingeschaltet',
 	'ABBCODES_DEACTIVATED'				=> 'Ausgeschaltet',
