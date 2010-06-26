@@ -5,7 +5,7 @@
 	<header>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 
-		<title lang="en"><![CDATA[Advanced BBCode Box 3 (aka ABBC3) - Add-on : Compact View.]]></title>
+		<title lang="en"><![CDATA[Advanced BBCode Box 3 (aka ABBC3) Add-on : Compact View.]]></title>
 
 		<description lang="en"><![CDATA[This file provides instructions to switch ABBC3 from it's default icon-based toolbar to ABBC3's Compact View. All ABBC3 BBcodes will be moved in to a neat drop-down menu for a much cleaner and compact appearance in the post editor. ABBC3's icons are still shown next to each BBcode in the menu, and BBcode helpful hints will be displayed in a compact tooltip when the mouse hovers over a BBcode.
 

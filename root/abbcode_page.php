@@ -1,11 +1,11 @@
 <?php
 /**
-* @package: phpBB 3.0.8 :: Advanced BBCode box 3 -> root
-* @version: $Id: abbcode_page.php, v 3.0.8 2010/05/18 10:05:18 leviatan21 Exp $
+* @package: phpBB 3.0.7-PL1 :: Advanced BBCode box 3 -> root
+* @version: $Id: abbcode_page.php, v 3.0.7-PL1 2010/05/02 10:05:02 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
-* @co-author: VSE - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=868795
+*
 **/
 
 /**
@@ -25,9 +25,8 @@ $mode           = request_var('mode', 'help');
 $abbcode_bbcode = request_var('abbc3', '');
 $form_name	    = request_var('form_name', '');
 $text_name	    = request_var('text_name', '');
-$in_admin		= request_var('admin', '');
 
-// Load the appropriate function
+// Load the appropriate file
 switch ($mode)
 {
 	case 'wizards':
@@ -38,13 +37,9 @@ switch ($mode)
 			break;
 
 			default:
-				abbcode_wizards($abbcode_bbcode, $form_name, $text_name, $in_admin);
+				abbcode_wizards($abbcode_bbcode, $form_name, $text_name);
 			break;
 		}
-
-	case 'tigra':
-		abbcode_tigra_color_picker();
-	break;
 
 	case 'click':
 		abbcode_click_file();
@@ -126,7 +121,6 @@ function abbcode_show_help()
 
 	page_footer();
 }
-
 /**
  * For display of custom parsed text on user-facing pages
  *
@@ -217,12 +211,14 @@ function abbcode_click_file()
 }
 
 /**
-* Display the Tigra Colour picker popup window
-* @version 3.0.8
+* Some bbcodes have help wizards :)
+* 
+* @return bbcode tag with link
+* @version 3.0.7-PL1
 **/
-function abbcode_tigra_color_picker()
+function abbcode_wizards($abbcode_bbcode, $form_name, $text_name)
 {
-	global $template, $user, $abbcode, $phpbb_root_path, $phpEx;
+	global $template, $phpbb_root_path, $phpEx, $user, $abbcode;
 
 	if (!class_exists('abbcode'))
 	{
@@ -231,56 +227,6 @@ function abbcode_tigra_color_picker()
 	$abbcode->abbcode_init();
 
 	$user->add_lang(array('posting', 'mods/abbcode'));
-
-	$tigra_mode = request_var('field', '');
-
-	if (!$tigra_mode && ($abbcode->abbcode_config['ABBC3_COLOR_MODE'] != 'tigra' || $abbcode->abbcode_config['ABBC3_HIGHLIGHT_MODE'] != 'tigra'))
-	{
-		trigger_error('ABBC3_FUNCTION_DISABLED');
-	}
-
-	// Output page ...
-	page_header('Tigra Color Picker');
-
-	$template->set_custom_template($abbcode->abbcode_config['S_ABBC3_PATH'], 'abbcode_picker');
-
-	$template->set_filenames(array(
-		'body' => 'posting_abbcode_picker.html')
-	);
-
-	page_footer();
-}
-
-/**
-* Some bbcodes have help wizards :)
-* 
-* @return bbcode tag with link
-* @version 3.0.8
-**/
-function abbcode_wizards($abbcode_bbcode, $form_name, $text_name, $in_admin)
-{
-	global $template, $user, $abbcode, $phpbb_admin_path, $phpbb_root_path, $phpEx;
-
-	if (!class_exists('abbcode'))
-	{
-		include($phpbb_root_path . 'includes/abbcode.' . $phpEx);
-	}
-
-	// $phpbb_admin_path need to be defined previously initialize abbcode
-	if ($in_admin)
-	{
-		$phpbb_admin_path = "{$phpbb_root_path}adm/";
-		$template->set_custom_template($phpbb_admin_path . 'style', 'admin');
-	}
-
-	$abbcode->abbcode_init();
-
-	$user->add_lang(array('posting', 'mods/abbcode', 'mods/acp_abbcodes'));
-
-	if (!$abbcode->abbcode_config['ABBC3_WIZARD_MODE'])
-	{
-		trigger_error('ABBC3_FUNCTION_DISABLED');
-	}
 
 	$abbcode_name = strtoupper($abbcode_bbcode);
 
@@ -315,42 +261,45 @@ function abbcode_wizards($abbcode_bbcode, $form_name, $text_name, $in_admin)
 
 	$need_description		= array('url', 'email', 'click');
 	$need_width_height		= array('web', 'flash', 'flv', 'video', 'quicktime', 'ram', 'bbvideo');
-
-	// Output page ...
-	page_header($user->lang[$abbcode_name . '_MOVER']);
+	$abbc3_width			= ($abbcode_bbcode == 'abbc3_web') ? '100%' : $abbcode->abbcode_config['ABBC3_VIDEO_WIDTH'];
+	$abbc3_height			= ($abbcode_bbcode == 'abbc3_web') ? '100'  : $abbcode->abbcode_config['ABBC3_VIDEO_HEIGHT'];
+	$abbc3_align_ary		= array(
+		'none'			=> 'ABBC3_ALIGN_NONE',
+		'left'			=> 'ABBC3_ALIGN_LEFT',
+		'center'		=> 'ABBC3_ALIGN_CENTER',
+		'right'			=> 'ABBC3_ALIGN_RIGHT',
+		'float-left'	=> 'ABBC3_FLOAT_LEFT',
+		'float-right'	=> 'ABBC3_FLOAT_RIGHT',
+	);
 
 	// General setings
 	$template->assign_vars(array(
-		'S_ABBC3_IN_WIZARD'			=> true,
-		// path from the very forum root
-		'S_ABBC3_POSTING_JAVASCRIPT'=> $abbcode->abbcode_config['S_ABBC3_POSTING_JAVASCRIPT'],
-		'S_ABBC3_WIZARD_JAVASCRIPT'	=> $abbcode->abbcode_config['S_ABBC3_WIZARD_JAVASCRIPT'],
-		// 0=Disable wizards | 1=Pop Up window | 2=In post (Ajax)
-		'S_ABBC3_WIZARD_MODE'		=> $abbcode->abbcode_config['ABBC3_WIZARD_MODE'],
+		'S_ABBC3_PATH'		=> $phpbb_root_path . $abbcode->abbcode_config['ABBC3_PATH'],
+		'S_WIZARD_GENERAL'	=> ($abbcode_bbcode == 'abbc3_table') ? false : ($abbcode_bbcode == 'abbc3_grad') ? false : true ,
+		'S_WIZARD_TABLE'	=> ($abbcode_bbcode == 'abbc3_table') ? true  : false,
+		'S_WIZARD_GRAD'		=> ($abbcode_bbcode == 'abbc3_grad') ? true  : false,
+		'L_GRAD_ERROR'		=> $user->lang['ABBC3_GRAD_ERROR'],
+		'S_BBVIDEO_OPTIONS'	=> ($abbcode_bbcode == 'abbc3_bbvideo') ? $video_options : '',
+		'S_ABBC3_ALIGN'		=> ($abbcode_bbcode == 'abbc3_img' || $abbcode_bbcode == 'abbc3_thumbnail') ? radio_select('image_align', $abbc3_align_ary, 'none', 'image_align') : '',
 
 		'FORM_NAME'			=> $form_name,
 		'TEXT_NAME'			=> $text_name,
+
 		'ABBC3_OPEN'		=> $tag,
-		'ABBC3_CLOSE'		=> "/$tag",
+		'ABBC3_CLOSE'		=> '/' . $tag,
+
 		'ABBC3_TAG'			=> (isset($user->lang[$abbcode_name . '_TAG']   )) ? $user->lang[$abbcode_name . '_TAG'] : '',
 		'ABBC3_MOVER'		=> (isset($user->lang[$abbcode_name . '_MOVER'] )) ? $user->lang[$abbcode_name . '_MOVER'] : '',
 		'ABBC3_NOTE'		=> (isset($user->lang[$abbcode_name . '_NOTE']  )) ? $user->lang[$abbcode_name . '_NOTE'] : '',
 		'ABBC3_EXAMPLE'		=> (isset($user->lang[$abbcode_name . '_EXAMPLE'])) ? $user->lang[$abbcode_name . '_EXAMPLE'] : '',
 		'ABBC3_DESC'		=> (in_array($tag, $need_description )) ? true : false,
 		'ABBC3_W_H'			=> (in_array($tag, $need_width_height)) ? true : false,
-		'ABBC3_WIDTH'		=> ($abbcode_bbcode == 'abbc3_web') ? '100%' : $abbcode->abbcode_config['ABBC3_VIDEO_WIDTH'],
-		'ABBC3_HEIGHT'		=> ($abbcode_bbcode == 'abbc3_web') ? '100'  : $abbcode->abbcode_config['ABBC3_VIDEO_HEIGHT'],
-		'S_WIZARD_GENERAL'	=> ($abbcode_bbcode == 'abbc3_table') ? false : ($abbcode_bbcode == 'abbc3_grad') ? false : true,
-		'S_WIZARD_TABLE'	=> ($abbcode_bbcode == 'abbc3_table') ? true  : false,
-		'S_WIZARD_GRAD'		=> ($abbcode_bbcode == 'abbc3_grad') ? true  : false,
-		'S_BBVIDEO_OPTIONS'	=> ($abbcode_bbcode == 'abbc3_bbvideo') ? $video_options : '',
-		'S_ABBC3_ALIGN'		=> ($abbcode_bbcode == 'abbc3_img' || $abbcode_bbcode == 'abbc3_thumbnail') ? radio_select('image_align', $user->lang['ABBC3_ALIGN_SELECTOR'], 'none', 'image_align') : '',
+		'ABBC3_WIDTH'		=> $abbc3_width,
+		'ABBC3_HEIGHT'		=> $abbc3_height,
 	));
 
-	if ($in_admin)
-	{
-		$template->assign_var('T_TEMPLATE_PATH', $phpbb_admin_path . 'style');
-	}
+	// Output page ...
+	page_header($user->lang[$abbcode_name . '_MOVER']);
 
 	$template->set_filenames(array(
 		'body' => 'posting_abbcode_wizards.html')
@@ -363,7 +312,7 @@ function abbcode_wizards($abbcode_bbcode, $form_name, $text_name, $in_admin)
 * Build radio fields
 * @version 3.0.7-PL1
 */
-function radio_select($name, $input_ary, $input_default = false, $id = false, $key = false)
+function radio_select($name, &$input_ary, $input_default = false, $id = false, $key = false)
 {
 	global $user;
 
@@ -372,7 +321,7 @@ function radio_select($name, $input_ary, $input_default = false, $id = false, $k
 	foreach ($input_ary as $value => $title)
 	{
 		$selected = ($input_default !== false && $value == $input_default) ? ' checked="checked"' : '';
-		$html .= ' <label><input type="radio" name="' . $name . '"' . (($id && !$id_assigned) ? ' id="' . $id . '"' : '') . ' value="' . $value . '"' . $selected . (($key) ? ' accesskey="' . $key . '"' : '') . ' class="radio" />&nbsp;' . $title . '&nbsp;</label>';
+		$html .= '<label><input type="radio" name="' . $name . '"' . (($id && !$id_assigned) ? ' id="' . $id . '"' : '') . ' value="' . $value . '"' . $selected . (($key) ? ' accesskey="' . $key . '"' : '') . ' class="radio" /> ' . $user->lang[$title] . '</label>&nbsp;';
 		$id_assigned = true;
 	}
 

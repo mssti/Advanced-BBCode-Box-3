@@ -158,19 +158,17 @@ DELETE ME 2 */
 }
 
 /* abbcode_compact - Start */
-._selector {
+#_selector {
 	list-style : none;
 	display : inline-table !important;
 	margin : 6px 0 6px 0;
 	padding : 0;
 	vertical-align : middle;
 }
-/** IE7 & IE8 with "Compatibility Mode" turned off **/
-*:first-child + html ._selector { display : inline; }
+/** IE7 && IE8 with "Compatibility Mode" turned off **/
+*:first-child + html #_selector { display : inline; }
 
-#button_selector.button2, 
-#button_highlight.button2, 
-#button_colour.button2 {
+#button_selector.button2 {
 	padding : 2px;
 	text-align : center;
 	text-decoration : none;
@@ -178,32 +176,28 @@ DELETE ME 2 */
 	background-image : url("images/bg/bg_tabs.gif");
 	border : 1px solid #666666;
 }
-#button_selector.button2:hover, 
-#button_highlight.button2:hover, 
-#button_colour.button2:hover {
+#button_selector.button2:hover {
 	background-position : 0 100%;
 	border-color : #BC2A4D;
 	color : #BC2A4D;
 }
-#button_selector.btnlite, 
-#button_highlight.btnlite, 
-#button_colour.btnlite {
+#button_selector.btnlite {
 	padding : 4px 2px 2px 2px;
 }
-/** IE7 & IE8 with "Compatibility Mode" turned off **/
-*:first-child + html .li_selector { display : inline; }
+/** IE7 && IE8 with "Compatibility Mode" turned off **/
+*:first-child + html #li_selector { display : inline; }
 
-._selector:hover .ul_selector {
+#_selector:hover #ul_selector {
 	display : list-item;
 	left : auto;
 }
 
-.rtl ._selector:hover .ul_selector {
+.rtl #_selector:hover #ul_selector {
 	display : list-item;
 	right : auto;
 }
 
-.ul_selector {
+#ul_selector {
 	display : none;
 	list-style : none;
 	line-height : 120%;
@@ -218,40 +212,36 @@ DELETE ME 2 */
 	left : -999em;
 	z-index : 1000;
 }
-/** IE7 & IE8 with "Compatibility Mode" turned off **/
-*:first-child + html .ul_selector { margin : 27px 0 0 -100px; }
+/** IE7 && IE8 with "Compatibility Mode" turned off **/
+*:first-child + html #ul_selector { margin : 27px 0 0 -100px; }
 
-.rtl .ul_selector {
+.rtl #ul_selector {
 	right : -999em;
 }
 
-/** IE7 & IE8 with "Compatibility Mode" turned off **/
-*:first-child + html .rtl .ul_selector { margin : 27px -100px 0 0; }
+/** IE7 && IE8 with "Compatibility Mode" turned off **/
+*:first-child + html .rtl #ul_selector { margin : 27px -100px 0 0; }
 
 .ABBC3Help .gotimage, .ABBC3Help2 .gotimage, 
-.ul_selector li {
+#ul_selector li {
 	background-image : none;
 	background-position : 0 0;
 	background-repeat : no-repeat;
 }
-#ul_highlight_selector li, 
-#ul_color_selector li {
-	margin : 2px 0;
-	cursor : pointer;
-}
+
 .rtl .ABBC3Help .gotimage,
 .rtl .ABBC3Help2 .gotimage, 
-.rtl .ul_selector li {
+.rtl #ul_selector li {
 	background-position : 100% 0;
 }
 
-.ul_selector li:hover {
+#ul_selector li:hover {
 	background-color : #ffffff;
 }
 
 .ABBC3Help .gotimage,
 .ABBC3Help2 .gotimage, 
-.ul_selector li a {
+#ul_selector li a {
 	line-height : 25px;
 	vertical-align : middle;
 	padding : 0 0 0 25px;
@@ -259,17 +249,10 @@ DELETE ME 2 */
 
 .rtl .ABBC3Help .gotimage,
 .rtl .ABBC3Help2 .gotimage, 
-.rtl .ul_selector li a {
+.rtl #ul_selector li a {
 	padding : 0 25px 0 0;
 }
 /* abbcode_compact - End */
-
-/* in-post Wizards - Start */
-#ABBC3_Ajax_indicator {
-	margin : 0;
-	padding : 0;
-}
-/* in-post Wizards - Start */
 
 /* Tooltip - Start */
 #_tooltip_container {
@@ -299,10 +282,10 @@ DELETE ME 2 */
 
 /* wizards - Start */
 #abbcode_wizards {
-	font-size: inherit;
+	font-size : 1em;
 }
 
-#abbcode_wizards #grad_preview {
+#abbcode_wizards #preview {
 	text-align : center;
 	height : 100%;
 	padding : 0;
@@ -311,13 +294,19 @@ DELETE ME 2 */
 	font-family : Arial, Helvetica, sans-serif;
 	font-weight : bold;
 }
+
+#abbcode_wizards select,
+#abbcode_wizards input,
+#abbcode_wizards label {
+	font-size : 1em;
+}
 /* wizards - End */
 
 .fade_link {
 	display : inline-table !important;
 }
 
-/** Testlink Start **/
+/** testlink Start **/
 dl.testlink {
 	margin : 0 1px;
 	padding : 5px;
@@ -339,7 +328,7 @@ dl.testlink {
 	color : #2E8B57; 
 	font-size : 1em;
 }
-/** Testlink End **/
+/** testlink Start **/
 
 /** Spoiler - START **/
 .spoilwrapper {
@@ -432,20 +421,17 @@ div.Rainbow {
 /** NFO bbcode - END **/
 
 /** ed2k bbcode - START **/
-.ed2k_img {
-	vertical-align: text-bottom; 
-	border: 0;
-}
 .ed2k_div1 {
 	margin : 5px 0 0 0;
 	padding :5px 0;
 	color : #ffffff;
-	border : 1px solid #999999;
+	border : 1px solid #dbdbdb;
 	text-align : center;
-	background-color : #dbdbdb;
+	background-color : #999999;
 	font-size : 0.9em;
 	font-weight : bold;
 }
+
 .ed2k_div2 {
 	margin : 0;
 	padding : 0;
@@ -454,24 +440,26 @@ div.Rainbow {
 	display : none;
 	background-color : #E4F9DB;
 }
+
 .ed2k_table {
 	margin : 0;
 	padding : 5px;
 	border-collapse : collapse;
-	width : 100%;
 }
+
 .ed2k_col1 {
 	width : 5%;
 	border : 1px solid #999999;
 	text-align : center;
 }
+
 .ed2k_col2 {
+	margin : 0;
 	padding : 0 5px;
-	width : 94%;
+	width : 95%;
 	border : 1px solid #999999;
 	text-align : left;
 }
-.ed2k_col1.ed2k_end { padding : 5px 0; }
 /** ed2k bbcode - END **/
 
 /** Moderator bbcode - START **/

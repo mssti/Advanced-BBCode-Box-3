@@ -309,27 +309,27 @@ $lang = array_merge($lang, array(
 	'ABBC3_GRAD_ERROR'			=> 'Error: falla en el contrutor ColorCode()',
 
 	// Glow text
-	'ABBC3_GLOW_MOVER'			=> 'Texto Resplandor',
+	'ABBC3_GLOW_MOVER'			=> 'Texto Resplandor (Sólo en Internet explorer)',
 	'ABBC3_GLOW_TIP'			=> '[glow=(color)]texto[/glow]',
 	'ABBC3_GLOW_VIEW'			=> '[glow=red]' . $lang['SAMPLE_TEXT'] . '[/glow]',
 
 	// Shadow text
-	'ABBC3_SHADOW_MOVER'		=> 'Texto doble',
+	'ABBC3_SHADOW_MOVER'		=> 'Texto doble (Sólo en Internet explorer)',
 	'ABBC3_SHADOW_TIP'			=> '[shadow=(color)]texto[/shadow]',
 	'ABBC3_SHADOW_VIEW'			=> '[shadow=blue]' . $lang['SAMPLE_TEXT'] . '[/shadow]',
 
 	// Dropshadow text
-	'ABBC3_DROPSHADOW_MOVER'	=> 'Texto con sombra',
+	'ABBC3_DROPSHADOW_MOVER'	=> 'Texto con sombra (Sólo en Internet explorer)',
 	'ABBC3_DROPSHADOW_TIP'		=> '[dropshadow=(color)]texto[/dropshadow]',
 	'ABBC3_DROPSHADOW_VIEW'		=> '[dropshadow=blue]' . $lang['SAMPLE_TEXT'] . '[/dropshadow]',
 
 	// Blur text
-	'ABBC3_BLUR_MOVER'			=> 'Texto esfumado',
+	'ABBC3_BLUR_MOVER'			=> 'Texto esfumado (Sólo en Internet explorer)',
 	'ABBC3_BLUR_TIP'			=> '[blur=(color)]texto[/blur]',
 	'ABBC3_BLUR_VIEW'			=> '[blur=blue]' . $lang['SAMPLE_TEXT'] . '[/blur]',
 
 	// Wave text
-	'ABBC3_WAVE_MOVER'			=> 'Text ondeado',
+	'ABBC3_WAVE_MOVER'			=> 'Text ondeado(Sólo en Internet explorer)',
 	'ABBC3_WAVE_TIP'			=> '[wave=(color)]texto[/wave]',
 	'ABBC3_WAVE_VIEW'			=> '[wave=blue]' . $lang['SAMPLE_TEXT'] . '[/wave]',
 
@@ -444,7 +444,6 @@ $lang = array_merge($lang, array(
 	'ABBC3_WEB_TIP'				=> '[web width=200 height=100]URL página[/web]',
 	'ABBC3_WEB_EXAMPLE'			=> 'http://www.mssti.com',
 	'ABBC3_WEB_VIEW'			=> '[web width=99% height=140]http://www.mssti.com[/web]',
-	'ABBC3_WEB_EXPLAIN'			=> '<strong class="error">Nota:</strong> permitir que otros sitios web se incluyan en los mensajes, puede suponer un riesgo de seguridad. Utilícelo bajo su propio riesgo, o asignelo a grupos de confianza.',
 
 	// Image & Thumbnail Wizard
 	'ABBC3_ALIGN_LABEL'			=> 'Alinear Imagen',

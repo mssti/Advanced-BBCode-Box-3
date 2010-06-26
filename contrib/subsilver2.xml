@@ -87,46 +87,44 @@
 		<open src="styles/subsilver2/template/overall_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
-<!-- INCLUDE {S_ABBC3_OVERALL_HEADER} -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
-]]></action>
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
+<!-- INCLUDE abbcode_header.html -->
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
 		<open src="styles/subsilver2/template/simple_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 <link rel="stylesheet" type="text/css" media="all" href="{T_IMAGESET_PATH}/abbcode/abbcode.css" />
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
-]]></action>
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
 		<open src="styles/subsilver2/template/posting_buttons.html">
 			<edit>
 				<find><![CDATA[<!-- IF S_BBCODE_ALLOWED -->]]></find>
-				<action type="after-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+				<action type="after-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 	<!-- IF S_ABBC3_MOD and not S_ABBC3_DISABLED -->
 		<!-- INCLUDE posting_abbcode_buttons.html -->
 	<!-- ELSE -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->]]></action>
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 
 			<edit>
 				<find><![CDATA[<!-- ENDIF -->
 	</td>
 </tr>]]></find>
-				<action type="replace-with"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+				<action type="replace-with"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 	<!-- ENDIF -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->
 
 <!-- ENDIF -->
 	</td>
 </tr>
 
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 <!-- IF not S_ABBC3_MOD or S_ABBC3_DISABLED -->]]></action>
 			</edit>
 
@@ -136,7 +134,7 @@
 </tr>
 <!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[<!-- ENDIF -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->]]></action>
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
@@ -154,7 +152,7 @@
 				<find><![CDATA[<!-- IF S_BBCODE_ALLOWED -->]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[S_BBCODE_ALLOWED]]></inline-find>
-					<inline-action type="after-add"><![CDATA[ and (not S_ABBC3_COLOR or S_ABBC3_COLOR_MODE eq 'phpbb')]]></inline-action>
+					<inline-action type="after-add"><![CDATA[ and not S_ABBC3_COLOR]]></inline-action>
 				</inline-edit>				
 			</edit>
 		</open>
@@ -181,35 +179,6 @@
 			</edit>
 		</open>
 
-		<open src="styles/subsilver2/template/ucp_prefs_post.html">
-			<edit>
-				<find><![CDATA[<tr>
-	<td class="cat" colspan="2" align="center">{S_HIDDEN_FIELDS}<input class="btnmain" type="submit" name="submit" value="{L_SUBMIT}" />&nbsp;&nbsp;<input class="btnlite" type="reset" value="{L_RESET}" name="reset" /></td>]]></find>
-				<action type="before-add"><![CDATA[
-
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
-<!-- IF S_ABBC3_MOD -->
-<tr>
-	<th colspan="2">{L_UCP_ABBCODES}</th>
-
-</tr>
-<tr>
-	<td class="row1" width="35%"><b class="genmed">{L_UCP_ABBC3_SETTINGS}:</b><br /><span class="gensmall">{L_UCP_ABBC3_SETTINGS_EXPLAIN}</span></td>
-	<td class="row2"><input type="radio" class="radio" name="abbcode_mod" id="abbcode_mod1" value="1"<!-- IF S_ABBCODE_MOD --> checked="checked"<!-- ENDIF --> /><span class="gen">{L_YES}</span>&nbsp; &nbsp;<input type="radio" class="radio" name="abbcode_mod" id="abbcode_mod0" value="0"<!-- IF not S_ABBCODE_MOD --> checked="checked"<!-- ENDIF --> /><span class="gen">{L_NO}</span></td>
-</tr>
-<!-- IF S_ABBC3_UCP_MODE -->
-<tr>
-	<td class="row1" width="35%"><b class="genmed">{L_UCP_ABBC3_BBCODES}:</b><br /><span class="gensmall">{L_UCP_ABBC3_BBCODES_EXPLAIN}</span></td>
-	<td class="row2"><input type="radio" class="radio" name="abbcode_compact" id="abbcode_compact1" value="1"<!-- IF S_ABBCODE_COMPACT --> checked="checked"<!-- ENDIF --> /><span class="gen">{L_YES}</span>&nbsp; &nbsp;<input type="radio" class="radio" name="abbcode_compact" id="abbcode_compact0" value="0"<!-- IF not S_ABBCODE_COMPACT --> checked="checked"<!-- ENDIF --> /><span class="gen">{L_NO}</span></td>
-</tr>
-<!-- ENDIF -->
-<!-- ENDIF -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
-]]></action>
-			</edit>
-
-		</open>
-
 		<open src="styles/subsilver2/template/ucp_profile_signature.html">
 			<edit>
 				<find><![CDATA[<textarea class="post" name="signature" ]]></find>
@@ -228,7 +197,7 @@
 				<find><![CDATA[<!-- IF S_BBCODE_ALLOWED -->]]></find>
 				<inline-edit>
 					<inline-find><![CDATA[S_BBCODE_ALLOWED]]></inline-find>
-					<inline-action type="after-add"><![CDATA[ and (not S_ABBC3_COLOR or S_ABBC3_COLOR_MODE eq 'phpbb')]]></inline-action>
+					<inline-action type="after-add"><![CDATA[ and not S_ABBC3_COLOR]]></inline-action>
 				</inline-edit>
 			</edit>
 

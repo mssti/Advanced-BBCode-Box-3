@@ -1,7 +1,7 @@
 <?php
 /**
-* @package: phpBB 3.0.8 :: Advanced BBCode box 3 -> root/language/en/mods :: [en][English]
-* @version: $Id: acp_abbcode.php, v 3.0.8 2010/05/18 10:05:18 leviatan21 Exp $
+* @package: phpBB 3.0.7-PL1 :: Advanced BBCode box 3 -> root/language/en/mods :: [en][English]
+* @version: $Id: acp_abbcode.php, v 3.0.7-PL1 2010/05/02 10:05:02 leviatan21 Exp $
 * @copyright: leviatan21 < info@mssti.com > (Gabriel) http://www.mssti.com/phpbb3/
 * @license: http://opensource.org/licenses/gpl-license.php GNU Public License 
 * @author: leviatan21 - http://www.phpbb.com/community/memberlist.php?mode=viewprofile&u=345763
@@ -112,24 +112,6 @@ $lang = array_merge($lang, array(
 
 	'ABBCODES_VIDEO_SIZE'				=> 'Video dimensions',
 	'ABBCODES_VIDEO_SIZE_EXPLAIN'		=> 'Default width and height for posted video.',
-
-	'ABBCODES_COLOUR_MODE'				=> 'Choose the colour picker mode',
-##	For translate :                                	 Don't			Yes
-	'ABBCODES_COLOUR_SELECTOR'			=> array(	'phpbb'		=> 'phpBB style Default',
-													'dropdown'	=> 'Drop Down Menu',
-													'fancy'		=> '“fancy” selector',
-													'tigra'		=> 'Tigra color picker'),
-	'ABBCODES_WIZARD_MODE'				=> 'Choose the wizards mode',
-##	For translate :                                	Don't			Yes
-	'ABBCODES_WIZARD_SELECTOR'			=> array(	'0'			=> 'Disable wizards',
-													'1'			=> 'Pop Up window',
-													'2'			=> 'In post'),
-	'ABBCODES_UCP_MODE'					=> 'UCP Control options',
-	'ABBCODES_UCP_MODE_EXPLAIN'			=> 'Allow users to select their owm ABBC3 view modes?',
-
-	'ABBCODES_WIZARD'					=> 'Wizard',
-	'ABBCODES_WIZARD_SIZE'				=> 'Wizard dimensions',
-	'ABBCODES_WIZARD_SIZE_EXPLAIN'		=> 'Default width and height for pop-up wizard window.',
 ));
 
 // bbcodes_edit
@@ -145,7 +127,7 @@ $lang = array_merge($lang, array(
 	'ABBCODES_GROUPS_EXPLAIN'			=> '<strong>Manage groups : </strong>If there are no selected groups then all users can use this BBcode.<br />In order to select (or un-select) multiple groups, you must use Ctrl-Click (or Cmd-Click on Mac) items to add them. If you forget to hold down Ctrl/Cmd when clicking an item, then all the previously selected items will be deselected.',
 
 	'ABBCODES_TIP'						=> 'Tag tip',
-	'ABBCODES_NAME'						=> 'BBcode tag',
+	'ABBCODES_NAME'						=> 'Tag name',
 	'ABBCODES_TAG'						=> 'Tag image icon',
 	'ABBCODES_ORDER'					=> 'Tag order',
 

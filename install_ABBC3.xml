@@ -28,17 +28,12 @@
 		3.0.7-PL1
 	-------------------------------------------------------------------
 	Tested on Windows Browsers:
-		- Internet Explorer 7.0 & 8.0
+		- Internet Explorer 7.0
 		- Mozilla Firefox 2.0 & 3.0
-		- Opera 10.53
-		- Safari 4.0.5
+		- Opera 9.60
+		- Safari 3.0
 		- Netscape 8.1
-		- Chrome 4.1
-		- Flock 2.5.6
-
-	Tested on Macintosh Browsers:
-		- Safari 4
-		- Firefox 3.6
+		- Chrome 1.0
 
 	-------------------------------------------------------------------
 
@@ -63,35 +58,34 @@
 			</author>
 		</author-group>
 
-		<mod-version>3.0.8</mod-version>
+		<mod-version>3.0.7-PL1</mod-version>
 
 		<installation>
 			<level>intermediate</level>
 			<time>1200</time>
-			<target-version>3.0.8</target-version>
+			<target-version>3.0.7-PL1</target-version>
 		</installation>
 
 		<history>
 			<entry>
-				<date>2010-05-20</date>
-				<rev-version>3.0.8</rev-version>
-				<changelog lang="en">
-					<change> [Feature] Color bbcode : Colour picker : Now we have 4 options:
-								* phpBB style Default
-								* Drop Down Menu
-								* “fancy” selector
-								* Tigra color picker</change>
-					<change> [Feature] Highlight bbcode : Colour picker : Now we have 3 options:
-								* Drop Down Menu
-								* “fancy” selector
-								* Tigra color picker</change>
-					<change> [Feature] Wizards can be disabled, use pop up window, or in-post</change>
-					<change> [Change] BBcode : glow, shadow, dropshadow, blur, wave : Now works on modern browsers too, not exclusively in IE.</change>
-				</changelog>
-			</entry>
-			<entry>
 				<date>2010-04-19</date>
 				<rev-version>3.0.7-PL1</rev-version>
+				<changelog lang="en">
+					<change> [Feature] Added alignment for image and thumbnail in the wizard </change>
+					<change> [Feature] Do not display images and flash content, if the user do not want it </change>
+
+					<change> [Change] The old "Add-On : Custom User Profile Options" now is "Add-on : User Control Panel" </change>
+					<change> [Change] Improve bbcode permission and status </change>
+
+					<change> [Fix] Prevent language error in session.php </change>
+					<change> [Fix] Compact view </change>
+					<change> [Fix] BBvideo from kyte.tv, gametrailers.com</change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2010-04-19</date>
+				<rev-version>3.0.7</rev-version>
 				<changelog lang="en">
 					<change> See full history in contrib/docs/README.HTML file</change>
 				</changelog>
@@ -99,17 +93,17 @@
 		</history>
 
 		<link-group>
-			<link type="template" href="contrib/subsilver2.xml" lang="en">Template : Changes for Subsilver2 based style</link>
-			<link type="contrib" href="contrib/update_v307PL1_to_v308.xml" lang="en">Update : ABBC3 MOD from 3.0.7-PL1 to 3.0.8</link>
-			<link type="contrib" href="contrib/update_v307PL1_with_UCPaddon_to_v308.xml" lang="en">Update : ABBC3 MOD from 3.0.7-PL1 with UCP add-on to 3.0.8 (Only for users who have installed the User Control Panel Add-On)</link>
-			<link type="contrib" href="contrib/update_MSSTI_ABBC3_language_v307PL1_to_v308.xml" lang="en">Update : Language Changes from 3.0.7-PL1 to 3.0.8</link>
+			<link type="template" href="contrib/subsilver2.xml" lang="en">Template : Changes for Subsilver2 based off style</link>
+			<link type="contrib" href="contrib/update_MSSTI_ABBC3_v307_to_v307PL1.xml" lang="en">Update : This file provides instructions for upgrading the MOD from version 3.0.7 to 3.0.7-PL1</link>
+			<link type="contrib" href="contrib/update_MSSTI_ABBC3_language_v307_to_v307PL1.xml" lang="en">Update : Changes in language files from version 3.0.7 to 3.0.7-PL1</link>
 			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_Compact_View.xml" lang="en">Add-on : Compact View.</link>
+			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_User_Control_Panel.xml" lang="en">Add-on : User Control Panel.</link>
 			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_hide_image_when_resize.xml" lang="en">Add-on : Hide image when resize.</link>
 			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_quote_behaviour.xml" lang="en">Add-on : quote behaviour.</link>
-			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_with_Evil_Quick_Replyv101.xml" lang="en">Add-on : ABBC3 with Evil Quick Reply v1.0.1</link>
+			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_with_Evil_Quick_Replyv101.xml" lang="en">Add-on : This file provides instructions for use Evil Quick Reply v1.0.1 with ABBC3</link>
 			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_embossed_button_effect.xml" lang="en">Add-on : This file provides instructions on how to change ABBC3's icons to look like embossed buttons</link>
-			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_ED2K.xml" lang="en">Add-on : ED2K links in post.</link>
-			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_how-to-add-a-new-bbcode-icon.xml" lang="en">How to add : ABBC3 and Custom bbcodes with icon</link>
+			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_ED2K_add-on.xml" lang="en">Add-on : This file provides instructions for install 2 add-on for ed2k in your forum.</link>
+			<link type="contrib" href="contrib/add-on_MSSTI_ABBC3_how-to-add-a-new-bbcode-icon.xml" lang="en">How to add : This tutorial is for explain how to add a new icon and bbcode to ABBC3</link>
 		</link-group>
 	</header>
 
@@ -131,13 +125,13 @@
 
 		<open src="adm/style/acp_users_signature.html">
 			<edit>
-				<find><![CDATA[			<p>{SIGNATURE_PREVIEW}</p>]]></find>
-				<action type="replace-with"><![CDATA[			<div id="sig" class="signature"><p>{SIGNATURE_PREVIEW}</p></div>]]></action>
+				<find><![CDATA[<p>{SIGNATURE_PREVIEW}</p>]]></find>
+				<action type="replace-with"><![CDATA[<div id="sig" class="signature"><p>{SIGNATURE_PREVIEW}</p></div>]]></action>
 			</edit>
 
 			<edit>
 				<find><![CDATA[		<div id="format-buttons">]]></find>
-				<action type="after-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+				<action type="after-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 		<!-- IF S_ABBC3_MOD -->
 			<!-- INCLUDE posting_abbcode_buttons.html -->
 		</div>
@@ -147,10 +141,12 @@
 			<edit>
 				<find><![CDATA[		<dl>]]></find>
 				<action type="replace-with"><![CDATA[		<!-- ENDIF -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->
+
 		<dl>
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
-			<!-- IF S_ABBC3_COLOR_MODE eq 'phpbb' -->]]></action>
+
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
+			<!-- IF not S_ABBC3_COLOR -->]]></action>
 			</edit>
 
 			<edit>
@@ -164,29 +160,27 @@
 			<edit>
 				<find><![CDATA[			<dd style="margin-left: 90px; margin-top: 5px;">]]></find>
 				<action type="before-add"><![CDATA[			<!-- ELSE -->
-			<dt style="width: 100%; margin-bottom: 5px;"><textarea name="signature" id="signature" rows="10" cols="60" style="width: 99%;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onfocus="initInsertions();">{SIGNATURE}</textarea></dt>
+			<dt style="width: 100%;"><textarea name="signature" id="signature" rows="10" cols="60" style="width: 99%; height: 300px;" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);">{SIGNATURE}</textarea></dt>
 			<!-- ENDIF -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->]]></action>
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
 		<open src="adm/style/overall_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
-<!-- INCLUDE {S_ABBC3_OVERALL_HEADER} -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
-]]></action>
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
+<!-- INCLUDE abbcode_header.html -->
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
 		<open src="adm/style/simple_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 <link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
-]]></action>
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
@@ -214,13 +208,13 @@ class bbcode extends abbcode
 			<edit>
 				<find><![CDATA[		$undid_bbcode_specialchars = false;]]></find>
 				<action type="before-add"><![CDATA[// MOD : MSSTI ABBC3 - Start
+
 		// Try to avoid duplicates anchor ID's inside quotes
 		if (preg_match('#\[quote(?:=&quot;(.*?)&quot;)?:' . $this->bbcode_uid . '\](.*?)?\[anchor(=(.*?)([\s]?))?#is', $message))
 		{
 			$message = preg_replace('#(\[quote(?:=&quot;(.*?)&quot;)?:' . $this->bbcode_uid . '\](.*?))?\[anchor((=|)(.*?)([\s]))?#is',"$1[anchor$5quoted$6$7", $message);
 		}
-// MOD : MSSTI ABBC3 - End
-]]></action>
+// MOD : MSSTI ABBC3 - End]]></action>
 			</edit>
 
 			<edit>
@@ -245,8 +239,7 @@ class bbcode extends abbcode
 					trigger_error('The file ' . $this->template_filename2 . ' is missing.', E_USER_ERROR);
 				}
 			}
-// MOD : MSSTI ABBC3 - End
-]]></action>
+// MOD : MSSTI ABBC3 - End]]></action>
 			</edit>
 
 			<edit>
@@ -282,8 +275,7 @@ class bbcode extends abbcode
 				<action type="after-add"><![CDATA[
 // MOD : MSSTI ABBC3 - Start
 						$user->add_lang('mods/abbcode');
-// MOD : MSSTI ABBC3 - End
-]]></action>
+// MOD : MSSTI ABBC3 - End]]></action>
 			</edit>
 
 			<edit>
@@ -299,8 +291,7 @@ class bbcode extends abbcode
 			{
 				trigger_error('Could not load bbcode template', E_USER_ERROR);
 			}]]></find>
-				<action type="after-add"><![CDATA[
-// MOD : MSSTI ABBC3 - Start
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 - Start
 			if (($tpl2 = file_get_contents($this->template_filename2)) === false)
 			{
 				trigger_error('Could not load abbcode template', E_USER_ERROR);
@@ -316,9 +307,9 @@ class bbcode extends abbcode
 		<open src="includes/constants.php">
 			<edit>
 				<find><![CDATA[// Additional tables]]></find>
-				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 Clicks Counter - Start
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 Clicks Counter feature - Start
 define('CLICKS_TABLE',				$table_prefix . 'clicks');
-// MOD : MSSTI ABBC3 Clicks Counter - End]]></action>
+// MOD : MSSTI ABBC3 Clicks Counter feature - End]]></action>
 			</edit>
 		</open>
 
@@ -330,8 +321,7 @@ define('CLICKS_TABLE',				$table_prefix . 'clicks');
 	{
 		$user->add_lang('mods/abbcode');
 	}
-// MOD : MSSTI ABBC3 - End
-]]></action>
+// MOD : MSSTI ABBC3 - End]]></action>
 			</edit>
 		</open>
 
@@ -346,11 +336,8 @@ define('CLICKS_TABLE',				$table_prefix . 'clicks');
 
 			<edit>
 				<find><![CDATA[$num_predefined_bbcodes = 22;]]></find>
-				<action type="after-add"><![CDATA[
-// MOD : MSSTI ABBC3 - Start
+				<action type="after-add"><![CDATA[// MOD : MSSTI ABBC3 - Start
 	global $config, $mode, $abbcode;
-
-	$abbc3 = (isset($user->data['user_abbcode_mod'])) ? $user->data['user_abbcode_mod'] : $abbc3;
 
 	if ($abbc3 && @$config['ABBC3_MOD'])
 	{
@@ -365,10 +352,15 @@ define('CLICKS_TABLE',				$table_prefix . 'clicks');
 		$abbcode->abbcode_init();
 		$abbcode->abbcode_display($mode);
 
-		return;
+		$sql = 'SELECT bbcode_id, bbcode_tag, bbcode_helpline
+			FROM ' . BBCODES_TABLE . '
+			WHERE display_on_posting = 1 AND abbcode = 0 AND bbcode_image = "" 
+			ORDER BY bbcode_tag';
 	}
-	$template->assign_vars(array('S_ABBC3_DISABLED' => true));
-// MOD : MSSTI ABBC3 - End
+	else
+	{
+		$template->assign_vars(array('S_ABBC3_DISABLED' => true));
+
 ]]></action>
 			</edit>
 
@@ -378,6 +370,13 @@ define('CLICKS_TABLE',				$table_prefix . 'clicks');
 					<inline-find><![CDATA[display_on_posting = 1]]></inline-find>
 					<inline-action type="after-add"><![CDATA[ AND abbcode = 0 ]]></inline-action>
 				</inline-edit>
+			</edit>
+
+			<edit>
+				<find><![CDATA[	$result = $db->sql_query($sql);]]></find>
+				<action type="before-add"><![CDATA[
+	}
+// MOD : MSSTI ABBC3 - End]]></action>
 			</edit>
 		</open>
 
@@ -414,8 +413,7 @@ define('CLICKS_TABLE',				$table_prefix . 'clicks');
 				}
 			}
 		}
-// MOD : MSSTI ABBC3 - End
-]]></action>
+// MOD : MSSTI ABBC3 - End]]></action>
 			</edit>
 		</open>
 
@@ -500,52 +498,6 @@ define('CLICKS_TABLE',				$table_prefix . 'clicks');
 			</edit>
 		</open>
 
-		<open src="includes/ucp/ucp_prefs.php">
-			<edit>
-				<find><![CDATA['notify'	=> request_var('notify', (bool) $user->data['user_notify']),]]></find>
-				<action type="after-add"><![CDATA[
-// MOD : MSSTI ABBC3 - Start
-					'abbcode_mod'		=> request_var('abbcode_mod', (bool) (isset($user->data['user_abbcode_mod'])) ? $user->data['user_abbcode_mod'] : true),
-					'abbcode_compact'	=> request_var('abbcode_compact', (bool) (isset($user->data['user_abbcode_compact'])) ? $user->data['user_abbcode_compact'] : false),
-// MOD : MSSTI ABBC3 - End
-]]></action>
-			</edit>
-
-			<edit>
-				<find><![CDATA['user_notify'	=> $data['notify'],]]></find>
-				<action type="after-add"><![CDATA[
-// MOD : MSSTI ABBC3 - Start
-							'user_abbcode_mod'		=> $data['abbcode_mod'],
-							'user_abbcode_compact'	=> $data['abbcode_compact'],
-// MOD : MSSTI ABBC3 - End
-]]></action>
-			</edit>
-
-			<edit>
-				<find><![CDATA[				$template->assign_vars(array(
-					'S_BBCODE'	=> $data['bbcode'],]]></find>
-				<action type="before-add"><![CDATA[
-// MOD : MSSTI ABBC3 - Start
-				$user->add_lang('mods/acp_abbcodes');
-// MOD : MSSTI ABBC3 - End
-]]></action>
-			</edit>
-
-			<edit>
-				<find><![CDATA[					'S_SMILIES'	=> $data['smilies'],]]></find>
-				<action type="before-add"><![CDATA[
-// MOD : MSSTI ABBC3 - Start
-					'S_ABBC3_VERSION'	=> @$config['ABBC3_VERSION'],
-					'S_ABBC3_MOD'		=> @$config['ABBC3_MOD'],
-					'S_ABBCODE_MOD'		=> $data['abbcode_mod'],
-					'S_ABBC3_UCP_MODE'	=> @$config['ABBC3_UCP_MODE'],
-					'S_ABBCODE_COMPACT'	=> $data['abbcode_compact'],
-// MOD : MSSTI ABBC3 - End
-]]></action>
-			</edit>
-
-		</open>
-
 		<open src="language/en/acp/common.php">
 			<edit>
 				<find><![CDATA[?>]]></find>
@@ -605,38 +557,37 @@ $lang = array_merge($lang, array(
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
-<!-- INCLUDE {S_ABBC3_OVERALL_HEADER} -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
-]]></action>
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
+<!-- INCLUDE abbcode_header.html -->
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
 		<open src="styles/prosilver/template/simple_header.html">
 			<edit>
 				<find><![CDATA[</head>]]></find>
-				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 <link rel="stylesheet" type="text/css" media="all" href="{S_ABBC3_PATH}/abbcode.css" />
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->]]></action>
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
 		<open src="styles/prosilver/template/posting_buttons.html">
 			<edit>
 				<find><![CDATA[<div id="format-buttons">]]></find>
-				<action type="after-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+				<action type="after-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 <!-- IF S_ABBC3_MOD and not S_ABBC3_DISABLED -->
 	<!-- INCLUDE posting_abbcode_buttons.html -->
 <!-- ELSE -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->]]></action>
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 
 			<edit>
 				<find><![CDATA[</div>
 <!-- ENDIF -->]]></find>
-				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
+				<action type="before-add"><![CDATA[<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - Start //-->
 <!-- ENDIF -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->]]></action>
+<!-- MOD : MSSTI ABBC3 {S_ABBC3_VERSION} - End //-->]]></action>
 			</edit>
 		</open>
 
@@ -648,45 +599,6 @@ $lang = array_merge($lang, array(
 					<inline-action type="before-add"><![CDATA[ id="sig"]]></inline-action>
 				</inline-edit>
 			</edit>
-		</open>
-
-		<open src="styles/prosilver/template/ucp_prefs_post.html">
-			<edit>
-				<find><![CDATA[<fieldset class="submit-buttons">]]></find>
-				<action type="before-add"><![CDATA[
-
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - Start //-->
-<!-- IF S_ABBC3_MOD -->
-<h2>{L_UCP_ABBCODES}</h2>
-<div class="panel">
-	<div class="inner"><span class="corners-top"><span></span></span>
-
-	<fieldset>
-	<dl>
-		<dt><label for="abbcode_mod1">{L_UCP_ABBC3_SETTINGS}:</label><br /><span>{L_UCP_ABBC3_SETTINGS_EXPLAIN}</span></dt>
-		<dd>
-			<label for="abbcode_mod1"><input type="radio" name="abbcode_mod" id="abbcode_mod1" value="1"<!-- IF S_ABBCODE_MOD --> checked="checked"<!-- ENDIF --> /> {L_YES}</label> 
-			<label for="abbcode_mod0"><input type="radio" name="abbcode_mod" id="abbcode_mod0" value="0"<!-- IF not S_ABBCODE_MOD --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
-		</dd>
-	</dl>
-	<!-- IF S_ABBC3_UCP_MODE -->
-	<dl>
-		<dt><label for="abbcode_compact0">{L_UCP_ABBC3_BBCODES}:</label><br /><span>{L_UCP_ABBC3_BBCODES_EXPLAIN}</span></dt>
-		<dd>
-			<label for="abbcode_compact1"><input type="radio" name="abbcode_compact" id="abbcode_compact1" value="1"<!-- IF S_ABBCODE_COMPACT --> checked="checked"<!-- ENDIF --> /> {L_YES}</label> 
-			<label for="abbcode_compact0"><input type="radio" name="abbcode_compact" id="abbcode_compact0" value="0"<!-- IF not S_ABBCODE_COMPACT --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
-		</dd>
-	</dl>
-	<!-- ENDIF -->
-	</fieldset>
-	
-	<span class="corners-bottom"><span></span></span></div>
-</div>
-<!-- ENDIF -->
-<!-- MOD : MSSTI ABBC3 (v{S_ABBC3_VERSION}) - End //-->
-]]></action>
-			</edit>
-
 		</open>
 
 		<open src="styles/prosilver/template/ucp_profile_signature.html">

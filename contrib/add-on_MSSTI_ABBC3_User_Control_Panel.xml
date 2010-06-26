@@ -5,7 +5,7 @@
 	<header>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 
-		<title lang="en"><![CDATA[Advanced BBCode Box 3 (aka ABBC3) - Add-on : User Control Panel.]]></title>
+		<title lang="en"><![CDATA[Advanced BBCode Box 3 (aka ABBC3) Add-on : User Control Panel.]]></title>
 
 		<description lang="en"><![CDATA[This file provides instructions to add options to the UCP so your users can change two of the ABBC3 settings. Users will have the option to turn the ABBC3 toolbar on/off and you can also give your users the option to use ABBC3's Compact view or Default view.
 

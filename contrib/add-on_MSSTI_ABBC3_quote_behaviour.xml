@@ -5,7 +5,7 @@
 	<header>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 
-		<title lang="en"><![CDATA[Advanced BBCode Box 3 (aka ABBC3) - Add-on : Quote behaviour.]]></title>
+		<title lang="en"><![CDATA[Advanced BBCode Box 3 (aka ABBC3) Add-on : Quote behaviour.]]></title>
 
 		<description lang="en"><![CDATA[This file provides instructions to change the appearance of a quoted post so that it works more like the "code" BBcode. It displays the user name at the top of the quote-block and has a fixed height.
 
